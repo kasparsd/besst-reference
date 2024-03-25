@@ -1,6 +1,6 @@
 # BESST Reference
 
-Bafang creates amazing electric bike systems. The [BESST software](https://bafang-e.com/en/oem-area/service/besst/) is used to configure their controllers, displays and sensors over the CAN-bus and their CAN-over-UART tool. Since it is an [Electron app](https://www.electronjs.org) (a web application behind the scenes), we have access to the main components of the codebase.
+Bafang creates amazing electric bike systems. The [BESST software](https://bafang-e.com/en/oem-area/service/besst/) is used to configure their controllers, displays and sensors over the CAN-bus and their CAN-over-UART tool (BESST Box). Since it is an [Electron app](https://www.electronjs.org) (a web application behind the scenes), we have access to the main components of the codebase.
 
 Follow the instructions below to re-create this:
 
