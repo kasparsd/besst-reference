@@ -10,6 +10,13 @@ Follow the instructions below to re-create this:
 4. Uncompress the [electron app](https://www.electronjs.org) `resources/app.asar` archive in the `app-32` directory using `npx @electron/asar extract resources/app.asar app` to the `app` directory.
 5. Re-create the original source code using the source maps (`.js.map` files) included in the `app/static/js` directory using `npx reverse-sourcemap app/static/js` to the `app/static/js/webpack` directory.
 
+## Research Questions
+
+The following questions are of interest:
+
+- What is the CAN protocol?
+- Is it possible to use generic USB-to-CAN adapters for communication?
+
 ## Related Projects
 
 - https://github.com/OpenSourceEBike/Bafang_M500_M600
