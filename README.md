@@ -31,5 +31,6 @@ The application also includes the source code for the [`besst-usb-sdk` JS librar
 
 ## Related Projects
 
-- https://github.com/OpenSourceEBike/Bafang_M500_M600
+- https://github.com/OpenSourceEBike/Bafang_M500_M600 includes [a python script](https://github.com/OpenSourceEBike/Bafang_M500_M600/blob/ae6bbd3bfd952c83c41babda039225bd655c0e82/BESST/loginbypass.py) for proxying network requests to Bafang servers for client authentication.
+
 - https://github.com/lijon/BafangWebConfig
