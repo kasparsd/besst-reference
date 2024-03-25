@@ -1,0 +1,16 @@
+exports = module.exports = require("../../../../node_modules/css-loader/lib/css-base.js")(true);
+// imports
+
+
+// module
+exports.push([module.id, ".title-content[data-v-2ac92126]{border-bottom:1px solid #de5d25;margin-bottom:15px;padding-bottom:15px;display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-align:center;-ms-flex-align:center;align-items:center;-webkit-box-pack:justify;-ms-flex-pack:justify;justify-content:space-between;height:38px}", "", {"version":3,"sources":["/Users/bys/工作/Bafang/BESST/besst-client/src/views/firmware/components/Title.vue"],"names":[],"mappings":"AACA,gCACE,gCAAiC,AACjC,mBAAoB,AACpB,oBAAqB,AACrB,oBAAqB,AACrB,oBAAqB,AACrB,aAAc,AACd,yBAA0B,AACtB,sBAAuB,AACnB,mBAAoB,AAC5B,yBAA0B,AACtB,sBAAuB,AACnB,8BAA+B,AACvC,WAAa,CACd","file":"Title.vue","sourcesContent":["\n.title-content[data-v-2ac92126] {\n  border-bottom: 1px solid #de5d25;\n  margin-bottom: 15px;\n  padding-bottom: 15px;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n  height: 38px;\n}\n"],"sourceRoot":""}]);
+
+// exports
+
+
+
+//////////////////
+// WEBPACK FOOTER
+// ./node_modules/css-loader?{"minimize":true,"sourceMap":true}!./node_modules/vue-loader/lib/style-compiler?{"vue":true,"id":"data-v-2ac92126","scoped":true,"hasInlineConfig":false}!./node_modules/sass-loader/lib/loader.js?{"sourceMap":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./src/views/firmware/components/Title.vue
+// module id = 2747
+// module chunks = 0

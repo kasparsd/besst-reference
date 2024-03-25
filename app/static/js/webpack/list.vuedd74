@@ -1,0 +1,286 @@
+<template>
+  <div class="security-list">
+    <div class="header">
+      <el-form :inline="true" class="demo-form-inline">
+        <el-form-item label="Security">
+          <el-input v-model="sourceId"></el-input>
+        </el-form-item>
+        <el-form-item label="开始时间">
+          <el-date-picker v-model="startDate" type="date"> </el-date-picker>
+        </el-form-item>
+        <el-form-item label="结束日期">
+          <el-date-picker v-model="endDate" type="date"> </el-date-picker>
+        </el-form-item>
+        <div class="btn-group-inline">
+          <div class="icons">
+            <div
+              class="icon-item search"
+              @click="getSecurityList"
+              :title="$t('search.searchBtn')"
+            ></div>
+            <!--<div class="icon-item add" @click="bind" :title="$t('add')"></div>-->
+            <div
+              class="icon-item upload"
+              @click="dialogSecurityVisible = true"
+              title="Upload Security"
+            ></div>
+          </div>
+        </div>
+      </el-form>
+    </div>
+    <div class="table-wrap">
+      <div class="table-content-holder">
+        <table class="table-content" border="0" cellspacing="0" cellpadding="0">
+          <thead>
+            <td v-for="(item, index) in headData">{{ item }}</td>
+          </thead>
+          <tbody v-if="!loading">
+            <tr v-for="item in tableData">
+              <td>
+                {{ item.security_code }}
+              </td>
+              <td>
+                {{ item.num }}
+              </td>
+              <td>
+                {{ item.time | timeFormat }}
+              </td>
+              <td>
+                {{ item.create_time | timeFormat }}
+              </td>
+              <td>
+                {{ item.update_time | timeFormat }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="no-data-content" v-show="tableData.length <= 0 && !loading">
+          {{ $t("noResult") }}
+        </div>
+        <div class="loading" v-if="loading">
+          <img src="../../../assets/images/icon/loading-bars.svg" alt="Loading icon" />
+        </div>
+      </div>
+      <div class="table-footer">
+        <el-pagination
+          @current-change="handleCurrentChange"
+          :current-page.sync="currentPage"
+          :page-size="10"
+          layout="prev, pager, next, jumper"
+          :total="total"
+        >
+        </el-pagination>
+        <p class="total">{{ $t("total") }}: {{ total }}</p>
+      </div>
+    </div>
+
+    <!--防伪码dialog-->
+    <el-dialog
+      title="Upload Security"
+      :visible.sync="dialogSecurityVisible"
+      class="dialog"
+    >
+      <el-upload
+        :action="upload.url"
+        :on-change="handleChangeFile"
+        :data="upload.params"
+        :file-list="fileList"
+      >
+        <el-button size="small" type="primary">上传</el-button>
+      </el-upload>
+      <vue-loading
+        class="loading"
+        type="spin"
+        color="#E26829"
+        v-if="loading"
+      ></vue-loading>
+    </el-dialog>
+  </div>
+</template>
+
+<script>
+import Core from "core/core";
+import ZH from "src/assets/lang/zh";
+import EN from "src/assets/lang/en";
+import DE from "src/assets/lang/de";
+import NL from "src/assets/lang/nl";
+import FR from "src/assets/lang/fr";
+import ElInput from "../../../../node_modules/element-ui/packages/input/src/input";
+import vueLoading from "vue-loading-template";
+
+export default {
+  components: { ElInput, vueLoading },
+  name: "orderList",
+  data() {
+    return {
+      Core: Core,
+      headData: ["防伪码", "访问次数", "当前访问时间", "创建时间", "上次访问时间"],
+      tableData: [],
+      currentPage: Core.Data.get(Core.Const.DATA.KEY_COMPONENT_ORDER_LIST_PAGE)
+        ? Core.Data.get(Core.Const.DATA.KEY_COMPONENT_ORDER_LIST_PAGE)
+        : 1,
+      total: 0,
+      loading: false,
+      localPage: 0,
+
+      dialogDeleteVisible: false,
+      selectItem: "",
+      sourceId: "",
+
+      authList: [],
+
+      customerName: "",
+      modelSearch: "",
+      status: 0,
+      statusList: [
+        { id: -1, value: "All" },
+        { id: 1, value: "Finish" },
+        { id: 0, value: "In Process" },
+      ],
+      reasonDelete: "重复",
+
+      dialogSecurityVisible: false,
+      upload: {
+        url: Core.Const.NET.END_POINT + "/security/uploadExcel",
+        paramName: "file",
+        params: {
+          token: Core.Data.getToken(),
+        },
+      },
+      fileList: [],
+      isUpload: false,
+
+      startDate: "",
+      endDate: "",
+    };
+  },
+  i18n: {
+    messages: {
+      fr: FR.Component.Order.List,
+      en: EN.Component.Order.List,
+      zh: ZH.Component.Order.List,
+      de: DE.Component.Order.List,
+      nl: NL.Component.Order.List,
+    },
+  },
+  mounted: function () {
+    // 国际化
+    this.initData();
+    this.$root.eventHub.$on(Core.Const.DATA.KEY_I18N_UPDATE, () => {
+      setTimeout(() => {
+        this.initData();
+      }, 100);
+    });
+
+    // 获取权限
+    this.authList = this.$store.state.userAuth;
+
+    this.getSecurityList();
+  },
+  methods: {
+    initData() {
+      // this.headData = [this.$t('headData.date'), this.$t('headData.poNo'), this.$t('headData.customerName'), this.$t('headData.model'), this.$t('headData.pQ'), this.$t('headData.status'), this.$t('headData.operation')];
+    },
+    handleCurrentChange(val) {
+      this.currentPage = val;
+      Core.Data.set(Core.Const.DATA.KEY_COMPONENT_ORDER_LIST_PAGE, this.currentPage);
+      this.getSecurityList();
+    },
+
+    getSecurityList() {
+      if (this.loading) {
+        return;
+      }
+      this.loading = true;
+      this.sourceId = this.sourceId.trim();
+      let code = "";
+      if (this.sourceId) {
+        code = this.sourceId;
+      }
+
+      let startDate = Core.Util.parseDate(this.startDate) || 0;
+      let endDate = Core.Util.parseDate(this.endDate) || 0;
+
+      //                Core.Data.set(Core.Const.DATA.KEY_COMPONENT_ORDER_LIST_CONDITION, this.sourceId);
+      Core.Api.Security.findSecurityList(code, this.currentPage, 10, startDate, endDate)
+        .then((res) => {
+          //                    console.log(res);
+          this.loading = false;
+          this.tableData = res.list;
+          this.total = res.count;
+        })
+        .catch((err) => {
+          console.log(err);
+          this.loading = false;
+        });
+    },
+
+    handleChangeFile(file) {
+      this.fileList = [file];
+      let vm = this;
+      //                console.log(file);
+      if (!this.isUpload && file.response) {
+        if (file.response.code === 0) {
+          this.$message({
+            type: "success",
+            message: "success",
+          });
+          this.getSecurityList();
+          this.dialogSecurityVisible = false;
+        } else {
+          this.$message({
+            type: "error",
+            message: "error",
+          });
+        }
+        this.isUpload = true;
+        setTimeout(() => {
+          vm.isUpload = false;
+        }, 50);
+      }
+    },
+
+    log() {
+      //                console.log( this.status );
+      this.getSecurityList();
+    },
+  },
+};
+</script>
+
+<style lang="scss" rel="stylesheet/scss">
+.security-list {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  .table-wrap {
+    flex: 1;
+  }
+  .header {
+    height: auto;
+    .el-form-item {
+      margin-bottom: 0;
+    }
+  }
+  /*.loading {*/
+  /*width: 100%;*/
+  /*display: flex;*/
+  /*align-items: center;*/
+  /*justify-content: center;*/
+  /*}*/
+  .table-wrap {
+    .long-td {
+      max-width: 270px;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      text-align: left;
+    }
+  }
+}
+</style>
+
+
+
+// WEBPACK FOOTER //
+// list.vue?3a958f36

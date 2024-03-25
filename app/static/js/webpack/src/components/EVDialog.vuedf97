@@ -1,0 +1,44 @@
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('el-dialog', {
+    staticClass: "ev-dialog",
+    attrs: {
+      "append-to-body": true,
+      "close-on-click-modal": _vm.clickModal,
+      "close-on-press-escape": false,
+      "show-close": false,
+      "top": _vm.top,
+      "visible": _vm.visible,
+      "width": _vm.width
+    },
+    on: {
+      "close": function($event) {
+        return _vm.$emit('close')
+      }
+    }
+  }, [_c('div', {
+    staticClass: "title",
+    attrs: {
+      "slot": "title"
+    },
+    slot: "title"
+  }, [_c('div', {
+    staticClass: "h-12 bg-base-color pl-5 flex items-center"
+  }, [_c('h3', {
+    staticClass: "text-white"
+  }, [_vm._v(_vm._s(_vm.title))])])]), _vm._v(" "), _c('div', {
+    staticClass: "content py-0 px-3"
+  }, [_vm._t("content")], 2), _vm._v(" "), _c('div', {
+    staticClass: "dialog-footer",
+    attrs: {
+      "slot": "footer"
+    },
+    slot: "footer"
+  }, [_vm._t("btn")], 2)])
+},staticRenderFns: []}
+
+
+//////////////////
+// WEBPACK FOOTER
+// ./node_modules/vue-loader/lib/template-compiler?{"id":"data-v-018c16a6","hasScoped":true}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./src/components/EVDialog.vue
+// module id = 2277
+// module chunks = 76

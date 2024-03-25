@@ -1,0 +1,38 @@
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "m-steps-area"
+  }, [_c('div', {
+    staticClass: "m-steps"
+  }, _vm._l((_vm.totalSteps), function(n) {
+    return _c('div', {
+      key: n,
+      class: [
+        'm-steps-item',
+        {
+          finished: _vm.current > n,
+          process: _vm.current === n && n !== _vm.totalSteps,
+          'last-process': _vm.current === _vm.totalSteps && n === _vm.totalSteps,
+          'middle-wait': _vm.current < n && n !== _vm.totalSteps,
+          'last-wait': _vm.current < n && n === _vm.totalSteps
+        }
+      ]
+    }, [_c('div', {
+      staticClass: "m-steps-icon"
+    }, [(_vm.current <= n) ? _c('span', {
+      staticClass: "u-icon"
+    }, [_vm._v(_vm._s(n))]) : _c('span', {
+      staticClass: "u-icon"
+    }, [_vm._v("✓")])]), _vm._v(" "), _c('div', {
+      staticClass: "m-steps-content"
+    }, [_c('div', {
+      staticClass: "u-steps-title"
+    }, [_vm._v(_vm._s((_vm.stepsLabel[n - 1] && _vm.stepsLabel[n - 1].name) || 'S ' + n))])])])
+  }), 0)])
+},staticRenderFns: []}
+
+
+//////////////////
+// WEBPACK FOOTER
+// ./node_modules/vue-loader/lib/template-compiler?{"id":"data-v-89c1be88","hasScoped":true}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./src/views/firmware/components/Steps.vue
+// module id = 2741
+// module chunks = 0

@@ -1,0 +1,100 @@
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('el-dialog', {
+    staticClass: "dialog",
+    attrs: {
+      "title": _vm.dialogTitle,
+      "visible": _vm.visible,
+      "custom-class": "edit-dialog",
+      "close-on-click-modal": false,
+      "close-on-press-escape": false,
+      "show-close": false
+    },
+    on: {
+      "update:title": function($event) {
+        _vm.dialogTitle = $event
+      },
+      "update:visible": function($event) {
+        _vm.visible = $event
+      }
+    }
+  }, [_c('div', {
+    staticClass: "item"
+  }, [_c('div', {
+    staticClass: "item-box"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v("\n        物料号\n        "), _c('span', {
+    staticClass: "required"
+  }, [_vm._v("*")])]), _vm._v(" "), _c('el-input', {
+    staticClass: "input",
+    model: {
+      value: (_vm.formData.extPartNo),
+      callback: function($$v) {
+        _vm.$set(_vm.formData, "extPartNo", $$v)
+      },
+      expression: "formData.extPartNo"
+    }
+  })], 1)]), _vm._v(" "), _c('div', {
+    staticClass: "item"
+  }, [_c('div', {
+    staticClass: "item-box"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v("\n        硬件版本号\n        "), _c('span', {
+    staticClass: "required"
+  }, [_vm._v("*")])]), _vm._v(" "), _c('el-input', {
+    staticClass: "input",
+    model: {
+      value: (_vm.formData.hardwareVersion),
+      callback: function($$v) {
+        _vm.$set(_vm.formData, "hardwareVersion", (typeof $$v === 'string' ? $$v.trim() : $$v))
+      },
+      expression: "formData.hardwareVersion"
+    }
+  })], 1)]), _vm._v(" "), _c('div', {
+    staticClass: "item"
+  }, [_c('div', {
+    staticClass: "item-box"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v("\n        软件版本号\n        "), _c('span', {
+    staticClass: "required"
+  }, [_vm._v("*")])]), _vm._v(" "), _c('el-input', {
+    staticClass: "input",
+    model: {
+      value: (_vm.formData.softwareVersion),
+      callback: function($$v) {
+        _vm.$set(_vm.formData, "softwareVersion", (typeof $$v === 'string' ? $$v.trim() : $$v))
+      },
+      expression: "formData.softwareVersion"
+    }
+  })], 1)]), _vm._v(" "), _c('div', {
+    staticClass: "dialog-footer",
+    attrs: {
+      "slot": "footer"
+    },
+    slot: "footer"
+  }, [_c('el-button', {
+    attrs: {
+      "loading": _vm.loading,
+      "type": "preview"
+    },
+    on: {
+      "click": _vm.onConfirm
+    }
+  }, [_vm._v("提交")]), _vm._v(" "), _c('el-button', {
+    attrs: {
+      "type": "primary"
+    },
+    on: {
+      "click": _vm.onClose
+    }
+  }, [_vm._v("取消")])], 1)])
+},staticRenderFns: []}
+
+
+//////////////////
+// WEBPACK FOOTER
+// ./node_modules/vue-loader/lib/template-compiler?{"id":"data-v-44487750","hasScoped":true}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./src/views/firmware/components/SHDialog.vue
+// module id = 2758
+// module chunks = 0

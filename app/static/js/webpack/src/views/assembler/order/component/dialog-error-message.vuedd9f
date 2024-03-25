@@ -1,0 +1,37 @@
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('el-dialog', {
+    staticClass: "dialog",
+    attrs: {
+      "title": _vm.$t('errorLog'),
+      "visible": _vm.isVisible,
+      "size": "large"
+    },
+    on: {
+      "update:visible": function($event) {
+        _vm.isVisible = $event
+      }
+    }
+  }, [_c('el-table', {
+    attrs: {
+      "highlight-current-row": true,
+      "max-height": 540,
+      "data": _vm.tableData
+    }
+  }, _vm._l((_vm.HeadData), function(item, index) {
+    return _c('el-table-column', {
+      key: index,
+      attrs: {
+        "width": item.width,
+        "prop": item.name,
+        "label": item.label
+      }
+    })
+  }), 1)], 1)
+},staticRenderFns: []}
+
+
+//////////////////
+// WEBPACK FOOTER
+// ./node_modules/vue-loader/lib/template-compiler?{"id":"data-v-7e8dc3d5","hasScoped":true}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./src/views/assembler/order/component/dialog-error-message.vue
+// module id = 1899
+// module chunks = 76

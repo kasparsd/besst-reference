@@ -1,0 +1,783 @@
+<template>
+  <div class="component-detail-container">
+    <div class="header">
+      <div class="btn-group-inline">
+        <div class="icons">
+          <div class="icon-item back" @click="goBack()" :title="$t('back')"></div>
+        </div>
+      </div>
+    </div>
+    <div class="content-holder">
+      <div class="content-item">
+        <label class="title">{{ $t('sn') }}</label>
+        <div class="desc">
+          <span>{{ component.sn }}</span>
+        </div>
+      </div>
+      <div class="content-item" v-if="component.customer_sn">
+        <label class="title">Customer SN</label>
+        <div class="desc">
+          <span>{{ component.customer_sn }}</span>
+        </div>
+      </div>
+      <div class="content-item">
+        <label class="title">{{ $t('category') }}</label>
+        <div class="desc">
+          <span>{{ component.category_root_id | categoryRoot }}</span>
+        </div>
+      </div>
+      <div class="content-item">
+        <label class="title">{{ $t('modelName') }}</label>
+        <div class="desc">
+          <span>{{ component.item.name }}</span>
+        </div>
+      </div>
+      <div class="content-item">
+        <label class="title">{{ $t('partNo') }}</label>
+        <div class="desc">
+          <span>{{ component.item ? component.item.ext_part_no : '' }}</span>
+        </div>
+      </div>
+      <div class="content-item">
+        <label class="title">{{ $t('orderNo') }}</label>
+        <div class="desc">
+          <span>{{ component.order ? component.order.source_id : '' }}</span>
+        </div>
+      </div>
+      <div class="content-item">
+        <label class="title">{{ $t('customerName') }}</label>
+        <div class="desc">
+          <span>{{ component.order ? component.order.customer_id : '' }}</span>
+        </div>
+      </div>
+      <div class="content-item">
+        <label class="title">{{ $t('customerPartNo') }}</label>
+        <div class="desc">
+          <span>{{ customerPartNo }}</span>
+        </div>
+      </div>
+      <div class="content-item">
+        <label class="title">{{ $t('customerPoNo') }}</label>
+        <div class="desc">
+          <span>{{ component.order ? component.order.customer_po_no : '' }}</span>
+        </div>
+      </div>
+      <div class="content-item">
+        <label class="title">{{ $t('produceTime') }}</label>
+        <div class="desc">
+          <span>{{ component.produce_time | timeFormat }}</span>
+        </div>
+      </div>
+      <div class="content-item" v-if="component.sale_time == 0">
+        <label class="title">{{ $t('saleTime') }}</label>
+        <div class="desc">
+          <span>/</span>
+        </div>
+      </div>
+      <div class="content-item" v-else>
+        <label class="title">{{ $t('saleTime') }}</label>
+        <div class="desc">
+          <span>{{ component.sale_time | timeFormat('Y-m-d') }} </span>
+        </div>
+      </div>
+      <div class="content-item">
+        <label class="title">Test Data</label>
+        <div class="desc">
+          <span>{{ component.test_data }} </span>
+        </div>
+      </div>
+    </div>
+
+    <div class="content-holder">
+      <div style="width: 800px">
+        <div class="item">
+          <label>Component SN</label>
+          <el-input v-model="component.sn"></el-input>
+          <el-button @click="clearData">清除</el-button>
+          <el-button @click="getVehicleBySn">查找车辆</el-button>
+        </div>
+        <div class="item">
+          <label>Ebike SN</label>
+          <el-input v-model="vehicleSn"></el-input>
+        </div>
+        <div class="item">
+          <label>Bike of SN you want to replace</label>
+          <el-input v-model="vehicleSnReplace"></el-input>
+          <el-button @click="replaceVehicleComponent">替换车辆零部件</el-button>
+          <span>支持仪表，控制器，电池的替换</span>
+        </div>
+        <!--<div class="item">-->
+        <!--<el-button @click="batchAdd">批量增加</el-button>-->
+        <!--</div>-->
+      </div>
+    </div>
+
+    <div class="content-holder" v-show="org.id == 25">
+      <el-collapse accordion>
+        <el-collapse-item>
+          <template slot="title">
+            <label>部件追踪</label>
+          </template>
+          <!-- 1 -->
+          <div class="btn-row">
+            <el-button type="preview" @click="getVehicleList">获取绑定车辆信息</el-button>
+            <el-button type="preview" @click="emptyVehicleList">清除车辆信息列表</el-button>
+          </div>
+          <div class="table-wrap">
+            <div class="table-content-holder">
+              <table class="table-content" border="0" cellspacing="0" cellpadding="0">
+                <thead>
+                  <td v-for="item in tableHeadV">{{ item }}</td>
+                </thead>
+                <tbody>
+                  <tr v-for="item in vehicleList">
+                    <td>{{ item.sn }}</td>
+                    <td><img :src="item.brand && item.brand.img | getImgUrl" /></td>
+                    <td>{{ (item.brand && item.brand.name) || '-' }}</td>
+                    <td>{{ (item.item && item.item.name) || '-' }}</td>
+                    <td>{{ item.order && item.order.source_id ? item.order.source_id : '-' }}</td>
+                    <td>{{ item.produce_time | timeFormat('Y-m-d') }}</td>
+                    <td>{{ item.status }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="table-content-holder">
+              <table class="table-content" border="0" cellspacing="0" cellpadding="0">
+                <thead>
+                  <td v-for="item in tableHeadD">{{ item }}</td>
+                </thead>
+                <tbody>
+                  <tr v-for="item in vehicleDetail">
+                    <td>{{ item.hmi || '-' }}</td>
+                    <td>{{ item.ctr || '-' }}</td>
+                    <td>{{ item.bat || '-' }}</td>
+                    <td>{{ item.motor || '-' }}</td>
+                    <td>{{ item.sensor || '-' }}</td>
+                    <td>{{ item.key || '-' }}</td>
+                    <td>{{ item.charger || '-' }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="clear-10"></div>
+
+          <!-- 2 -->
+          <div class="btn-row">
+            <el-button type="preview" @click="getVehicleOrderList()">获取车辆替换信息</el-button>
+          </div>
+          <div class="table-wrap">
+            <div class="table-content-holder">
+              <table class="table-content" border="0" cellspacing="0" cellpadding="0">
+                <thead>
+                  <td v-for="item in tableHeadRp">{{ item }}</td>
+                </thead>
+                <tbody>
+                  <tr v-for="item in replaceReportList">
+                    <td>{{ item.category.name }}</td>
+                    <td>{{ item.old_component.sn }}</td>
+                    <td>{{ item.new_component.sn }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="">
+              <el-pagination
+                @current-change="handleCurrentChange"
+                :current-page.sync="currentPage"
+                :page-size="10"
+                layout="prev, pager, next"
+                :total="total"
+              >
+              </el-pagination>
+              <p class="total">total: {{ total }}</p>
+            </div>
+          </div>
+          <div class="clear-10"></div>
+
+          <!-- 3 -->
+          <div class="btn-row">
+            <el-button type="preview" @click="getDealerList()">获取销售信息</el-button>
+          </div>
+          <div class="table-wrap">
+            <div class="table-content-holder">
+              <table class="table-content" border="0" cellspacing="0" cellpadding="0">
+                <thead>
+                  <td v-for="item in tableHeadS">{{ item }}</td>
+                </thead>
+                <tbody>
+                  <tr v-for="item in saleOrderList" @click="goDetailView(item.id)">
+                    <td>{{ item.sn }}</td>
+                    <td>{{ item.object_sn }}</td>
+                    <td>{{ item.customer_name }}</td>
+                    <td>{{ item.invoice_no || '-' }}</td>
+                    <td>{{ item.warranty || '-' }}</td>
+                    <td>{{ item.sale_time | timeFormat('Y-m-d') }}</td>
+                    <td>{{ item.remark || '-' }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="clear-10"></div>
+
+          <!-- 4 -->
+          <div class="btn-row">
+            <el-button type="preview" @click="getOperationInfo()">获取操作信息</el-button>
+          </div>
+          <div class="table-wrap">
+            <div class="table-content-holder">
+              <table class="table-content" border="0" cellspacing="0" cellpadding="0">
+                <thead>
+                  <td v-for="item in tableHeadR">{{ item }}</td>
+                </thead>
+                <tbody>
+                  <tr class="large" v-for="item in recordList">
+                    <td>{{ item.sn }}</td>
+                    <td>{{ item.vehicle_sn }}</td>
+                    <td>{{ item.org_type == 3 ? 'ASSEMBLER' : item.org_type == 2 ? 'DEALER' : item.org_type == 4 ? 'COMPONENT' : 'BRAND' }}</td>
+                    <td>{{ item.user_email }}</td>
+                    <td>{{ item.time | timeFormat }}</td>
+                    <td>{{ item.type | operationType }}</td>
+                    <td>
+                      <span v-if="item.type === 1">
+                        Old:{{ item.data.old }} <br />
+                        New: {{ item.data.new }}
+                      </span>
+                      <span v-else>
+                        {{ item.data }}
+                      </span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </el-collapse-item>
+      </el-collapse>
+    </div>
+    <!--查询品牌商所有车子，只能在本地使用。需要配置索引-->
+    <div class="content-holder">
+      <div style="width: 800px">
+        <div class="item">
+          <label>品牌商ID</label>
+          <el-input v-model="brandId"></el-input>
+        </div>
+        <div class="item">
+          <label>开始时间</label>
+          <el-date-picker v-model="startDate" type="date"> </el-date-picker>
+        </div>
+        <div class="item">
+          <label>结束日期</label>
+          <el-date-picker v-model="endDate" type="date"> </el-date-picker>
+        </div>
+        <div class="item">
+          <el-button @click="getBrandBikeRecordList">查询</el-button>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+import Core from 'core/core'
+import ZH from 'src/assets/lang/zh'
+import EN from 'src/assets/lang/en'
+import DE from 'src/assets/lang/de'
+import NL from 'src/assets/lang/nl'
+import FR from 'src/assets/lang/fr'
+import XLSX from 'xlsx'
+
+export default {
+  data() {
+    return {
+      Core: Core,
+      component: {
+        brand: {},
+        item: {}
+      },
+      org: Core.Data.getOrg() || '',
+
+      page: 1,
+      currentPage: 1,
+      total: 0,
+      customerPartNo: '',
+      loading: true,
+
+      replaceReportList: [],
+
+      detailOrder: {},
+      customer: {},
+
+      // 查询到的记录列表
+      tableHeadV: ['Vehicle SN', 'Brand Logo', 'Brand Name', 'Model Name', 'Po No.', 'Produce Date', 'Status'],
+      vehicleList: [],
+      tableHeadD: ['HMI', 'Controller', 'Battery', 'Motor', 'Sensor', 'Key', 'Charger'],
+      vehicleDetail: [],
+      tableHeadRp: ['Category', 'Old Component SN', 'New Component SN'],
+      vehicleComReplace: [],
+      tableHeadS: ['Order NO.', 'Bike ID', 'Customer Name', 'Invoice', 'Warranty', 'Sale Date', 'Remark'],
+      saleOrderList: [],
+      tableHeadR: ['SN', 'Vehicle', 'Operator', 'Account', 'Time', 'Type', 'Data'],
+      recordList: [],
+
+      vehicleSn: '',
+      vehicleId: '',
+      selectId: '',
+      vehicleSnReplace: '',
+      batteryList: [{ vehicele: 'X19F0426', bat: 'G2019330099' }],
+
+      brandId: '',
+      startDate: '',
+      endDate: ''
+    }
+  },
+  i18n: {
+    messages: {
+      fr: FR.Component.Component.Detail,
+      en: EN.Component.Component.Detail,
+      zh: ZH.Component.Component.Detail,
+      de: DE.Component.Component.Detail,
+      nl: NL.Component.Component.Detail
+    }
+  },
+  filters: {
+    operationType: function (type) {
+      switch (type) {
+        case 1:
+          return 'Edit'
+        case 2:
+          return 'Update'
+        case 3:
+          return 'Replace'
+        default:
+          return '--'
+      }
+    }
+  },
+  mounted: function () {
+    let componentId = this.$route.query.componentId
+    this.page = this.$route.query.page || 1
+    if (componentId) {
+      this.getComponentDetail(componentId)
+    }
+
+    console.log(Core.Util.date('Y-m-d', 1610967710))
+  },
+  methods: {
+    getComponentDetail(id) {
+      Core.Api.Component.componentDetail(id).then((res) => {
+        this.component = res.component
+        console.log(this.component)
+      })
+    },
+    clearData() {
+      this.component.sn = ''
+      this.vehicleSn = ''
+      this.vehicleSnReplace = ''
+    },
+    getVehicleBySn() {
+      //根据sn查询车辆信息
+      this.component.sn = this.component.sn.replace(/\s/g, '')
+      if (this.component.sn) {
+        Core.Api.Vehicle.getVehicleByBomSn(this.component.sn).then((res) => {
+          // 该部件存在车辆
+          if (res.vehicle && res.vehicle.sn) {
+            console.log(res, '=------------vehicle----------=')
+            this.vehicleSn = res.vehicle.sn
+            this.vehicleId = res.vehicle.id
+
+            res.vehicle.bom.forEach((item) => {
+              if (item.sn === this.component.sn) {
+                this.selectId = item.id
+              }
+            })
+          } else {
+            this.vehicleSn = 'Bike is empty'
+            this.selectId = ''
+          }
+        })
+      } else {
+        this.$message('SN 为空。请输入数据SN。')
+        return
+      }
+    },
+    emptyVehicleList() {
+      this.vehicleList = []
+      this.vehicleDetail = []
+    },
+
+    goBack() {
+      this.$router.push({ name: 'componentComponentList', query: { from: 'detail' } })
+    },
+    getCustomerPartNo() {
+      let list = this.component.order.item_list
+
+      let itemId = this.component.item_id
+      if (list === null || !list) {
+        return
+      }
+      list.forEach((item, index) => {
+        if (item.item_id === itemId) {
+          this.customerPartNo = item.part_no
+        }
+      })
+    },
+
+    // 替换已经绑定车辆上的部件
+    replaceVehicleComponent() {
+      if (this.vehicleSnReplace.indexOf('DP') > -1 || this.vehicleSnReplace.indexOf('CR') > -1 || this.vehicleSnReplace.indexOf('BT') > -1) {
+        if (this.vehicleSn && this.vehicleSnReplace && this.selectId) {
+          //                        Core.Api.Object.objectReplace(this.vehicleSn.replace(/\s/g, ""),this.vehicleSnReplace.replace(/\s/g, "")).then(res => {
+          //                            let status = res.status;
+          //                            switch(status){
+          //                                case 1:
+          //                                    this.$message('vehicle not exist traced by vehicle SN');
+          //                                    break;
+          //                                case 2:
+          //                                    this.$message('component not exist traced by component SN');
+          //                                    break;
+          //                                case 3:
+          //                                    this.$message('component not bound to any vehicle bom');
+          //                                    break;
+          //                                case 4:
+          //                                    this.$message('vehicle traced by component SN is not exist or deleted');
+          //                                    break;
+          //                                case 5:
+          //                                    this.$message({
+          //                                        message: 'replace success',
+          //                                        type: 'success'
+          //                                    });
+          //                                    break;
+          //                                case 6:
+          //                                    this.$message('bom of vehicle do not have this kind of component');
+          //                                    break;
+          //                            }
+          //                        });
+          Core.Api.Vehicle.bomChange(this.vehicleId, this.selectId, this.vehicleSnReplace.replace(/\s+/g, '')).then((res) => {
+            this.selectId = ''
+            this.vehicleSnReplace = ''
+            this.$message({
+              message: 'replace success',
+              type: 'success'
+            })
+          })
+        } else {
+          this.$message('车辆号不能为空')
+        }
+      } else {
+        this.$message('SN 不合法 ')
+        return
+      }
+    },
+
+    //  批量增加零部件SN
+    batchAdd() {
+      let snList = this.batteryList.splice(0, 4)
+      let count = 0
+
+      let batchInterval = setInterval(() => {
+        Core.Api.Vehicle.vehicleDetailBySn(snList[count].vehicele.replace(/\s/g, ''), '')
+          .then((res) => {
+            if (res) {
+              let hasBattery = false
+              if (res.vehicle.bom_list && res.vehicle.bom_list.length > 0) {
+                res.vehicle.bom_list.forEach((item) => {
+                  if (item.category_root_id == 5) {
+                    hasBattery = true
+                    console.log('已存在')
+                    console.log('vehicleId:', res.vehicle.id)
+                    console.log('batteryId:', item.id)
+                    count++
+                    if (count > snList.length - 1) {
+                      clearInterval(batchInterval)
+                    }
+                  } else {
+                    hasBattery = false
+                  }
+                })
+              }
+              if (!hasBattery) {
+                console.log('没有发现')
+                Core.Api.Vehicle.bomChange(res.vehicle.id, 0, ('IES-IP1101' + snList[count].bat).replace(/\s+/g, ''))
+                  .then((res1) => {
+                    if (res1) {
+                      console.log('add', count, snList[count].vehicele, snList[count].bat)
+                      count++
+                      if (count > snList.length - 1) {
+                        clearInterval(batchInterval)
+                      }
+                    }
+                  })
+                  .catch((err) => {
+                    console.log(err, snList[count].vehicele, 'IES-IP1101' + snList[count].bat)
+                    count++
+                    if (count > snList.length - 1) {
+                      clearInterval(batchInterval)
+                    }
+                  })
+              }
+            }
+          })
+          .catch((err) => {
+            console.log(err)
+          })
+      }, 4000)
+    },
+
+    //获取绑定车辆信息
+    getVehicleList() {
+      if (this.vehicleSn) {
+        Core.Api.Vehicle.vehicleDetailBySn(this.vehicleSn.replace(/\s/g, ''), '').then((res) => {
+          //                        console.log(res);
+          let bike = res.vehicle
+          //                        bike.forEach( (item) =>{
+          //                            this.vehicleList.push(item);
+          //                        })
+          this.vehicleList.push(bike)
+          console.log(res.vehicle_list)
+          this.vehicleList.forEach((item) => {
+            let bom = item.bom_list
+            let bomobject = {}
+            bomobject['key'] = item.secret_key
+            bom.forEach((i) => {
+              if (i.category_root_id == '4') {
+                bomobject['hmi'] = i.sn
+              }
+              if (i.category_root_id == '3') {
+                bomobject['motor'] = i.sn
+              }
+              if (i.category_root_id == '7') {
+                bomobject['ctr'] = i.sn
+              }
+              if (i.category_root_id == '6') {
+                bomobject['sensor'] = i.sn
+              }
+              if (i.category_root_id == '5') {
+                bomobject['bat'] = i.sn
+              }
+              if (i.category_root_id == '9') {
+                bomobject['charger'] = i.sn
+              }
+            })
+            this.vehicleDetail.push(bomobject)
+          })
+        })
+      } else {
+        this.$message('车辆号不能为空')
+      }
+    },
+
+    //获取车辆替换信息
+    getVehicleOrderList() {
+      Core.Api.Vehicle.getReplaceReportList(this.vehicleId, this.currentPage).then((res) => {
+        this.replaceReportList = res.list
+        this.total = res.count
+        console.log(this.replaceReportList, '===========this.replaceReportList===========')
+      })
+    },
+    // 车辆替换信息翻页
+    handleCurrentChange() {
+      this.currentPage = val
+      this.getReplaceReportList()
+    },
+    //获取销售信息
+    getDealerList() {
+      Core.Api.Order.traceSaleOrderDetail(this.vehicleSn.replace(/\s/g, '')).then((res) => {
+        console.log(res)
+        this.saleOrderList.push(res.order)
+      })
+      console.log(this.saleOrderList, '===========this.saleOrderList===========')
+    },
+
+    //获取操作数据信息 tool 记录
+    getOperationInfo() {
+      Core.Api.ObjectRecord.getListBySn(this.component.sn).then((res) => {
+        let list = res.record_list
+        list.forEach((item) => {
+          if (item.data && item.type == 1) {
+            // type = 1，是edit
+            if (item.data.match('{')) {
+              item.data = JSON.parse(item.data)
+            } else {
+              item.data = {
+                old: item.data,
+                new: 'wrong type'
+              }
+            }
+          }
+        })
+        this.recordList = list
+        //                    console.log( this.recordList , "===========this.recordList ===========");
+      })
+    },
+
+    //查询绑定数据
+    getObjectBinding() {
+      let value = this.component.sn.replace(/\s+/g, '') // 去空格
+      // 如果序列号中匹配到特定字符，自动显示在对应的输入框中
+      if (value.indexOf('MM') > -1) {
+        console.log('22222222222222222222222' + vm.isMotorConnected)
+        Core.Api.Binding.findBySpecialSn('', '', val).then((res) => {
+          let models = res.object_binding
+          if (models.controller_sn == undefined && models.sensor_sn == undefined && models.motor_sn == undefined) {
+          } else {
+          }
+        })
+      } else if (value.indexOf('CR') > -1) {
+        console.log('111111111111111111111111')
+        Core.Api.Binding.findBySpecialSn(val, '', '').then((res) => {
+          let models = res.object_binding
+          if (models.controller_sn == undefined && models.sensor_sn == undefined && models.motor_sn == undefined) {
+          } else {
+          }
+        })
+      } else if (value.indexOf('SR') > -1) {
+        console.log('33333333333333333333333')
+        Core.Api.Binding.findBySpecialSn('', val, '').then((res) => {
+          let models = res.object_binding
+          if (models.controller_sn == undefined && models.sensor_sn == undefined && models.motor_sn == undefined) {
+          } else {
+          }
+        })
+      }
+    },
+
+    //查询品牌商车辆数据
+    getBrandBikeRecordList() {
+      let startDate = Core.Util.parseDate(this.startDate) || 0
+      let endDate = Core.Util.parseDate(this.endDate) || 0
+
+      if (startDate > 0 && endDate > 0 && startDate < endDate) {
+        Core.Api.Vehicle.exportBikeList(parseInt(this.brandId), startDate, endDate).then((res) => {
+          //                        let list = res.record_list;
+          //                    console.log( res , "===========this.recordList ===========");
+          let exSheet = XLSX.utils.json_to_sheet(res.list)
+          let blob = this.sheet2blob(exSheet, 'sheet1')
+          let name = 'Kruitbosch-' + Core.Util.date('Y-m-d', this.startDate) + '-' + Core.Util.date('Y-m-d', this.endDate) + '.xlsx'
+          this.openDownloadDialog(blob, name)
+        })
+      }
+    },
+    sheet2blob(sheet, sheetName) {
+      sheetName = sheetName || 'sheet1'
+      var workbook = {
+        SheetNames: [sheetName],
+        Sheets: {}
+      }
+      workbook.Sheets[sheetName] = sheet
+      // 生成excel的配置项
+      var wopts = {
+        bookType: 'xlsx', // 要生成的文件类型
+        bookSST: false, // 是否生成Shared String Table，官方解释是，如果开启生成速度会下降，但在低版本IOS设备上有更好的兼容性
+        type: 'binary'
+      }
+      var wbout = XLSX.write(workbook, wopts)
+      var blob = new Blob([s2ab(wbout)], { type: 'application/octet-stream' })
+      // 字符串转ArrayBuffer
+      function s2ab(s) {
+        var buf = new ArrayBuffer(s.length)
+        var view = new Uint8Array(buf)
+        for (var i = 0; i != s.length; ++i) view[i] = s.charCodeAt(i) & 0xff
+        return buf
+      }
+      return blob
+    },
+    openDownloadDialog(url, saveName) {
+      if (typeof url == 'object' && url instanceof Blob) {
+        url = URL.createObjectURL(url) // 创建blob地址
+      }
+      var aLink = document.createElement('a')
+      aLink.href = url
+      aLink.download = saveName || '' // HTML5新增的属性，指定保存文件名，可以不要后缀，注意，file:///模式下不会生效
+      var event
+      if (window.MouseEvent) {
+        event = new MouseEvent('click')
+      } else {
+        event = document.createEvent('MouseEvents')
+        event.initMouseEvent('click', true, false, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null)
+      }
+      aLink.dispatchEvent(event)
+    }
+  }
+}
+</script>
+
+<style lang="scss" rel="stylesheet/scss" scoped>
+.component-detail-container {
+  height: 100%;
+  overflow-y: scroll;
+  .header {
+    height: 60px;
+    line-height: 60px;
+    padding: 0 30px;
+    overflow: hidden;
+    .name {
+      font-size: 16px;
+      color: #ffffff;
+      font-weight: bold;
+      margin-left: 30px;
+    }
+  }
+  .content-holder {
+    padding: 26px 60px;
+    overflow: hidden;
+    .content-item {
+      width: 50%;
+      float: left;
+      padding: 16px 0;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      font-size: 0;
+      .title {
+        display: inline-block;
+        vertical-align: top;
+        width: 140px;
+        font-size: 14px;
+        color: rgba(255, 255, 255, 0.6);
+        padding: 0 5px;
+      }
+      .desc {
+        display: inline-block;
+        vertical-align: top;
+        width: calc(100% - 140px);
+        span {
+          font-size: 14px;
+          color: #ffffff;
+          &.strong {
+            font-weight: bold;
+          }
+        }
+      }
+    }
+    .btn-row {
+      height: 40px;
+      line-height: 40px;
+    }
+    .item {
+      width: 800px;
+      height: 40px;
+      line-height: 40px;
+      .label {
+        width: 110px;
+        display: inline-block;
+        line-height: 20px;
+        vertical-align: middle;
+        word-wrap: break-word;
+      }
+    }
+    .el-input {
+      width: 210px;
+    }
+  }
+
+  .table-content {
+    border-top: 1px solid #2a2e3a;
+  }
+}
+</style>
+
+
+
+// WEBPACK FOOTER //
+// detail.vue?431143b2

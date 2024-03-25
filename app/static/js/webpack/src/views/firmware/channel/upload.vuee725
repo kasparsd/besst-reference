@@ -1,0 +1,220 @@
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "content-wrap"
+  }, [_vm._m(0), _vm._v(" "), _c('div', {
+    directives: [{
+      name: "loading",
+      rawName: "v-loading.body",
+      value: (_vm.loading),
+      expression: "loading",
+      modifiers: {
+        "body": true
+      }
+    }],
+    staticClass: "form-content"
+  }, [_c('div', {
+    staticClass: "order-info"
+  }, [_c('div', {
+    staticClass: "item"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v("上传软件版本号")]), _vm._v(" "), _c('el-input', {
+    staticClass: "input",
+    model: {
+      value: (_vm.formData.version),
+      callback: function($$v) {
+        _vm.$set(_vm.formData, "version", $$v)
+      },
+      expression: "formData.version"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "item"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v("标签1")]), _vm._v(" "), _c('el-input', {
+    staticClass: "input",
+    attrs: {
+      "placeholder": "控制器：轮径 仪表：总档位"
+    },
+    model: {
+      value: (_vm.formData.tagOne),
+      callback: function($$v) {
+        _vm.$set(_vm.formData, "tagOne", (typeof $$v === 'string' ? $$v.trim() : $$v))
+      },
+      expression: "formData.tagOne"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "item"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v("标签2")]), _vm._v(" "), _c('el-input', {
+    staticClass: "input",
+    attrs: {
+      "placeholder": "控制器：周长 仪表：开机挡位"
+    },
+    model: {
+      value: (_vm.formData.tagTwo),
+      callback: function($$v) {
+        _vm.$set(_vm.formData, "tagTwo", (typeof $$v === 'string' ? $$v.trim() : $$v))
+      },
+      expression: "formData.tagTwo"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "item"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v("标签3")]), _vm._v(" "), _c('el-input', {
+    staticClass: "input",
+    attrs: {
+      "placeholder": "控制器：限速 仪表：背光亮度"
+    },
+    model: {
+      value: (_vm.formData.tagThree),
+      callback: function($$v) {
+        _vm.$set(_vm.formData, "tagThree", (typeof $$v === 'string' ? $$v.trim() : $$v))
+      },
+      expression: "formData.tagThree"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "item"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v("标签4")]), _vm._v(" "), _c('el-input', {
+    staticClass: "input",
+    attrs: {
+      "placeholder": "仪表：ECO/SPORT模式"
+    },
+    model: {
+      value: (_vm.formData.tagFour),
+      callback: function($$v) {
+        _vm.$set(_vm.formData, "tagFour", (typeof $$v === 'string' ? $$v.trim() : $$v))
+      },
+      expression: "formData.tagFour"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "item"
+  }, [_vm._m(1), _vm._v(" "), _c('el-upload', {
+    staticClass: "upload-contact",
+    attrs: {
+      "show-file-list": false,
+      "action": _vm.upload.url,
+      "data": _vm.upload.params,
+      "multiple": false,
+      "on-change": _vm.file_change,
+      "on-success": _vm.file_success
+    }
+  }, [_c('el-button', {
+    attrs: {
+      "type": "primary"
+    }
+  }, [_vm._v(" 上传 ")])], 1)], 1), _vm._v(" "), _c('div', {
+    staticClass: "item"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v("文件名称")]), _vm._v(" "), _c('el-input', {
+    staticClass: "input",
+    attrs: {
+      "disabled": true
+    },
+    model: {
+      value: (_vm.upload.fileName),
+      callback: function($$v) {
+        _vm.$set(_vm.upload, "fileName", $$v)
+      },
+      expression: "upload.fileName"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "item"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v("CRC校验码")]), _vm._v(" "), _c('el-input', {
+    staticClass: "input",
+    attrs: {
+      "disabled": true
+    },
+    model: {
+      value: (_vm.formData.checkSum),
+      callback: function($$v) {
+        _vm.$set(_vm.formData, "checkSum", $$v)
+      },
+      expression: "formData.checkSum"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "item"
+  }, [_vm._m(2), _vm._v(" "), _c('el-input', {
+    staticClass: "input",
+    attrs: {
+      "resize": "none",
+      "type": "textarea",
+      "rows": 8,
+      "placeholder": ""
+    },
+    model: {
+      value: (_vm.formData.note),
+      callback: function($$v) {
+        _vm.$set(_vm.formData, "note", $$v)
+      },
+      expression: "formData.note"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "item"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v("备注")]), _vm._v(" "), _c('el-input', {
+    staticClass: "input",
+    attrs: {
+      "resize": "none",
+      "type": "textarea",
+      "rows": 5,
+      "placeholder": ""
+    },
+    model: {
+      value: (_vm.formData.remark),
+      callback: function($$v) {
+        _vm.$set(_vm.formData, "remark", $$v)
+      },
+      expression: "formData.remark"
+    }
+  })], 1)]), _vm._v(" "), _c('div', {
+    staticClass: "parts-list"
+  }, [_c('el-button', {
+    attrs: {
+      "type": "button",
+      "size": "default",
+      "disabled": _vm.loading
+    },
+    on: {
+      "click": _vm.prev
+    }
+  }, [_vm._v("上一步")]), _vm._v(" "), _c('el-button', {
+    attrs: {
+      "type": "primary"
+    },
+    on: {
+      "click": _vm.save
+    }
+  }, [_vm._v("提交")])], 1)])])
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "title-content"
+  }, [_c('h3', [_vm._v("固件上传")])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('label', {
+    staticClass: "label"
+  }, [_vm._v("\n          固件文件上传\n          "), _c('span', {
+    staticClass: "required"
+  }, [_vm._v("*")])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('label', {
+    staticClass: "label"
+  }, [_vm._v("日志 "), _c('span', {
+    staticClass: "required"
+  }, [_vm._v("*")])])
+}]}
+
+
+//////////////////
+// WEBPACK FOOTER
+// ./node_modules/vue-loader/lib/template-compiler?{"id":"data-v-4c781c7b","hasScoped":true}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./src/views/firmware/channel/upload.vue
+// module id = 2779
+// module chunks = 0

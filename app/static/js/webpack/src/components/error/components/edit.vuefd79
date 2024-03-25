@@ -1,0 +1,157 @@
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('el-dialog', {
+    staticClass: "edit-error-dialog",
+    attrs: {
+      "show-close": true,
+      "close-on-click-modal": false,
+      "visible": _vm.visible,
+      "width": "50%"
+    },
+    on: {
+      "update:visible": function($event) {
+        _vm.visible = $event
+      },
+      "close": _vm.close
+    }
+  }, [_c('p', {
+    staticClass: "dialog-title"
+  }, [_vm._v(_vm._s(_vm.title))]), _vm._v(" "), _c('el-form', {
+    ref: "form",
+    attrs: {
+      "model": _vm.form,
+      "rules": _vm.rules,
+      "label-width": "100px"
+    }
+  }, [_c('el-form-item', {
+    attrs: {
+      "label": "Language",
+      "prop": "language"
+    }
+  }, [_c('el-select', {
+    staticClass: "select",
+    attrs: {
+      "disabled": !_vm.isCreate
+    },
+    model: {
+      value: (_vm.form.language),
+      callback: function($$v) {
+        _vm.$set(_vm.form, "language", $$v)
+      },
+      expression: "form.language"
+    }
+  }, _vm._l((_vm.languages), function(item) {
+    return _c('el-option', {
+      key: item.value,
+      attrs: {
+        "label": item.label,
+        "value": item.value
+      }
+    })
+  }), 1)], 1), _vm._v(" "), _c('el-form-item', {
+    attrs: {
+      "label": "Code",
+      "prop": "code"
+    }
+  }, [_c('el-input', {
+    model: {
+      value: (_vm.form.code),
+      callback: function($$v) {
+        _vm.$set(_vm.form, "code", $$v)
+      },
+      expression: "form.code"
+    }
+  })], 1), _vm._v(" "), _c('el-form-item', {
+    attrs: {
+      "label": "Name"
+    }
+  }, [_c('el-input', {
+    model: {
+      value: (_vm.form.name),
+      callback: function($$v) {
+        _vm.$set(_vm.form, "name", $$v)
+      },
+      expression: "form.name"
+    }
+  })], 1), _vm._v(" "), _c('el-form-item', {
+    attrs: {
+      "label": "Remark"
+    }
+  }, [_c('el-input', {
+    model: {
+      value: (_vm.form.remark),
+      callback: function($$v) {
+        _vm.$set(_vm.form, "remark", $$v)
+      },
+      expression: "form.remark"
+    }
+  })], 1), _vm._v(" "), _c('el-form-item', {
+    attrs: {
+      "label": "Description"
+    }
+  }, [_c('el-input', {
+    model: {
+      value: (_vm.form.desc),
+      callback: function($$v) {
+        _vm.$set(_vm.form, "desc", $$v)
+      },
+      expression: "form.desc"
+    }
+  })], 1), _vm._v(" "), _c('el-form-item', {
+    attrs: {
+      "label": "Target"
+    }
+  }, [_c('el-input', {
+    model: {
+      value: (_vm.form.target),
+      callback: function($$v) {
+        _vm.$set(_vm.form, "target", $$v)
+      },
+      expression: "form.target"
+    }
+  })], 1), _vm._v(" "), _c('el-form-item', {
+    attrs: {
+      "label": "Solution"
+    }
+  }, [_c('el-input', {
+    attrs: {
+      "type": "textarea",
+      "autosize": {
+        minRows: 3
+      }
+    },
+    model: {
+      value: (_vm.form.solution),
+      callback: function($$v) {
+        _vm.$set(_vm.form, "solution", $$v)
+      },
+      expression: "form.solution"
+    }
+  })], 1)], 1), _vm._v(" "), _c('span', {
+    staticClass: "dialog-footer",
+    attrs: {
+      "slot": "footer"
+    },
+    slot: "footer"
+  }, [_c('el-button', {
+    attrs: {
+      "type": "primary"
+    },
+    on: {
+      "click": _vm.close
+    }
+  }, [_vm._v("cancel")]), _vm._v(" "), _c('el-button', {
+    attrs: {
+      "type": "success"
+    },
+    on: {
+      "click": _vm.save
+    }
+  }, [_vm._v("confirm")])], 1)], 1)
+},staticRenderFns: []}
+
+
+//////////////////
+// WEBPACK FOOTER
+// ./node_modules/vue-loader/lib/template-compiler?{"id":"data-v-c2e8df90","hasScoped":true}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./src/components/error/components/edit.vue
+// module id = 1359
+// module chunks = 76

@@ -1,0 +1,448 @@
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    attrs: {
+      "id": "firmware"
+    }
+  }, [_vm._m(0), _vm._v(" "), _c('div', {
+    staticClass: "content-wrap"
+  }, [_c('div', {
+    staticClass: "table-box"
+  }, [_c('div', {
+    staticClass: "table-start"
+  }, [_c('el-form', {
+    attrs: {
+      "inline": true,
+      "model": _vm.formSearch
+    }
+  }, [_c('el-form-item', [_c('el-input', {
+    attrs: {
+      "placeholder": "物料编号"
+    },
+    model: {
+      value: (_vm.formSearch.partNo),
+      callback: function($$v) {
+        _vm.$set(_vm.formSearch, "partNo", (typeof $$v === 'string' ? $$v.trim() : $$v))
+      },
+      expression: "formSearch.partNo"
+    }
+  })], 1), _vm._v(" "), _c('el-form-item', [_c('el-input', {
+    attrs: {
+      "placeholder": "SN"
+    },
+    model: {
+      value: (_vm.formSearch.sn),
+      callback: function($$v) {
+        _vm.$set(_vm.formSearch, "sn", (typeof $$v === 'string' ? $$v.trim() : $$v))
+      },
+      expression: "formSearch.sn"
+    }
+  })], 1), _vm._v(" "), _c('el-form-item', [_c('el-input', {
+    attrs: {
+      "placeholder": "软件版本号"
+    },
+    model: {
+      value: (_vm.formSearch.softVersion),
+      callback: function($$v) {
+        _vm.$set(_vm.formSearch, "softVersion", (typeof $$v === 'string' ? $$v.trim() : $$v))
+      },
+      expression: "formSearch.softVersion"
+    }
+  })], 1), _vm._v(" "), _c('el-form-item', [_c('el-input', {
+    attrs: {
+      "placeholder": "硬件版本号"
+    },
+    model: {
+      value: (_vm.formSearch.hardVersion),
+      callback: function($$v) {
+        _vm.$set(_vm.formSearch, "hardVersion", (typeof $$v === 'string' ? $$v.trim() : $$v))
+      },
+      expression: "formSearch.hardVersion"
+    }
+  })], 1), _vm._v(" "), _c('el-form-item', [_c('el-input', {
+    attrs: {
+      "placeholder": "当前软件版本号"
+    },
+    model: {
+      value: (_vm.formSearch.version),
+      callback: function($$v) {
+        _vm.$set(_vm.formSearch, "version", (typeof $$v === 'string' ? $$v.trim() : $$v))
+      },
+      expression: "formSearch.version"
+    }
+  })], 1), _vm._v(" "), _c('el-form-item', [_c('el-input', {
+    attrs: {
+      "placeholder": "标签一"
+    },
+    model: {
+      value: (_vm.formSearch.tagOne),
+      callback: function($$v) {
+        _vm.$set(_vm.formSearch, "tagOne", (typeof $$v === 'string' ? $$v.trim() : $$v))
+      },
+      expression: "formSearch.tagOne"
+    }
+  })], 1), _vm._v(" "), _c('el-form-item', [_c('el-input', {
+    attrs: {
+      "placeholder": "标签二"
+    },
+    model: {
+      value: (_vm.formSearch.tagTwo),
+      callback: function($$v) {
+        _vm.$set(_vm.formSearch, "tagTwo", (typeof $$v === 'string' ? $$v.trim() : $$v))
+      },
+      expression: "formSearch.tagTwo"
+    }
+  })], 1), _vm._v(" "), _c('el-form-item', [_c('el-input', {
+    attrs: {
+      "placeholder": "标签三"
+    },
+    model: {
+      value: (_vm.formSearch.tagThree),
+      callback: function($$v) {
+        _vm.$set(_vm.formSearch, "tagThree", (typeof $$v === 'string' ? $$v.trim() : $$v))
+      },
+      expression: "formSearch.tagThree"
+    }
+  })], 1), _vm._v(" "), _c('el-form-item', [_c('el-input', {
+    attrs: {
+      "placeholder": "标签四"
+    },
+    model: {
+      value: (_vm.formSearch.tagFour),
+      callback: function($$v) {
+        _vm.$set(_vm.formSearch, "tagFour", (typeof $$v === 'string' ? $$v.trim() : $$v))
+      },
+      expression: "formSearch.tagFour"
+    }
+  })], 1), _vm._v(" "), _c('el-form-item', [_c('div', {
+    staticClass: "btn-group-inline-icon"
+  }, [_c('div', {
+    staticClass: "icons"
+  }, [_c('div', {
+    staticClass: "icon-item search",
+    attrs: {
+      "title": "search"
+    },
+    on: {
+      "click": _vm.onSearch
+    }
+  }), _vm._v(" "), _c('div', {
+    staticClass: "icon-item clear",
+    attrs: {
+      "title": "clear"
+    },
+    on: {
+      "click": _vm.onClean
+    }
+  })])])])], 1)], 1), _vm._v(" "), _c('div', {
+    staticClass: "table-main"
+  }, [_c('el-table', {
+    directives: [{
+      name: "loading",
+      rawName: "v-loading.body",
+      value: (_vm.loading),
+      expression: "loading",
+      modifiers: {
+        "body": true
+      }
+    }],
+    attrs: {
+      "data": _vm.tableData,
+      "row-key": "id",
+      "expand-row-keys": _vm.expands
+    },
+    on: {
+      "row-click": _vm.clickRowHandle
+    }
+  }, [_c('el-table-column', {
+    attrs: {
+      "type": "expand"
+    },
+    scopedSlots: _vm._u([{
+      key: "default",
+      fn: function(scope) {
+        return [_c('el-form', {
+          staticClass: "table-expand",
+          attrs: {
+            "label-position": "left",
+            "inline": ""
+          }
+        }, [_c('el-form-item', {
+          attrs: {
+            "label": "SN"
+          }
+        }, [_c('span', [_vm._v(_vm._s(scope.row.sn || '-'))])]), _vm._v(" "), _c('el-form-item', {
+          attrs: {
+            "label": "标签一"
+          }
+        }, [_c('span', [_vm._v(_vm._s(scope.row.tagOne || '-'))])]), _vm._v(" "), _c('el-form-item', {
+          attrs: {
+            "label": "标签二"
+          }
+        }, [_c('span', [_vm._v(_vm._s(scope.row.tagTwo || '-'))])]), _vm._v(" "), _c('el-form-item', {
+          attrs: {
+            "label": "标签三"
+          }
+        }, [_c('span', [_vm._v(_vm._s(scope.row.tagThree || '-'))])]), _vm._v(" "), _c('el-form-item', {
+          attrs: {
+            "label": "标签四"
+          }
+        }, [_c('span', [_vm._v(_vm._s(scope.row.tagFour || '-'))])]), _vm._v(" "), _c('el-form-item', {
+          attrs: {
+            "label": "日志"
+          }
+        }, [_c('span', [_vm._v(_vm._s(scope.row.note || '-'))])]), _vm._v(" "), _c('el-form-item', {
+          attrs: {
+            "label": "备注"
+          }
+        }, [_c('span', [_vm._v(_vm._s(scope.row.remark || '-'))])])], 1)]
+      }
+    }])
+  }), _vm._v(" "), _c('el-table-column', {
+    attrs: {
+      "type": "index",
+      "width": "55"
+    }
+  }), _vm._v(" "), _c('el-table-column', {
+    key: "23",
+    attrs: {
+      "label": "操作",
+      "width": "160"
+    },
+    scopedSlots: _vm._u([{
+      key: "default",
+      fn: function(scope) {
+        return [_c('el-button', {
+          attrs: {
+            "type": "text",
+            "size": "small"
+          },
+          on: {
+            "click": function($event) {
+              $event.stopPropagation();
+              return _vm.onEdit(scope.row)
+            }
+          }
+        }, [_vm._v(" 编辑 ")]), _vm._v(" "), (_vm.Core.Data.getUser().id == '24') ? _c('el-button', {
+          attrs: {
+            "type": "text",
+            "size": "small"
+          },
+          on: {
+            "click": function($event) {
+              $event.stopPropagation();
+              return _vm.onDelete(scope.row)
+            }
+          }
+        }, [_vm._v(" 删除 ")]) : _vm._e(), _vm._v(" "), _c('el-button', {
+          attrs: {
+            "type": "text",
+            "size": "small"
+          },
+          on: {
+            "click": function($event) {
+              $event.stopPropagation();
+              return _vm.onDownLoad(scope.row.downloadUrl, scope.row.fileName)
+            }
+          }
+        }, [_vm._v(" 下载 ")])]
+      }
+    }])
+  }), _vm._v(" "), (_vm.formSearch.sn) ? _c('el-table-column', {
+    attrs: {
+      "prop": "sn",
+      "label": "SN",
+      "width": "200"
+    },
+    scopedSlots: _vm._u([{
+      key: "default",
+      fn: function(scope) {
+        return [_c('span', [_vm._v(_vm._s(scope.row.sn || '-'))])]
+      }
+    }], null, false, 2276064630)
+  }) : _vm._e(), _vm._v(" "), _c('el-table-column', {
+    attrs: {
+      "prop": "partNo",
+      "label": "物料编号",
+      "width": "150"
+    },
+    scopedSlots: _vm._u([{
+      key: "default",
+      fn: function(scope) {
+        return [_c('span', [_vm._v(_vm._s(scope.row.partNo || '-'))])]
+      }
+    }])
+  }), _vm._v(" "), _c('el-table-column', {
+    attrs: {
+      "label": "订单号",
+      "width": "200"
+    },
+    scopedSlots: _vm._u([{
+      key: "default",
+      fn: function(scope) {
+        return [_c('span', [_vm._v(_vm._s(scope.row.orderNo || '-'))])]
+      }
+    }])
+  }), _vm._v(" "), _c('el-table-column', {
+    attrs: {
+      "prop": "itemName",
+      "label": "产品型号",
+      "width": "250"
+    }
+  }), _vm._v(" "), _c('el-table-column', {
+    attrs: {
+      "prop": "itemCategoryName",
+      "label": "产品类别",
+      "width": "250"
+    }
+  }), _vm._v(" "), _c('el-table-column', {
+    attrs: {
+      "prop": "software",
+      "label": "软件版本号",
+      "width": "250"
+    }
+  }), _vm._v(" "), _c('el-table-column', {
+    attrs: {
+      "prop": "hardware",
+      "label": "硬件版本号",
+      "width": "250"
+    }
+  }), _vm._v(" "), _c('el-table-column', {
+    attrs: {
+      "prop": "fileName",
+      "label": "文件名称",
+      "width": "250"
+    }
+  }), _vm._v(" "), _c('el-table-column', {
+    attrs: {
+      "prop": "version",
+      "label": "当前软件版本号",
+      "width": "250"
+    }
+  }), _vm._v(" "), _c('el-table-column', {
+    attrs: {
+      "prop": "createdTime",
+      "label": "上传时间",
+      "width": "250"
+    },
+    scopedSlots: _vm._u([{
+      key: "default",
+      fn: function(scope) {
+        return [_c('span', [_vm._v(_vm._s(_vm._f("dateFormatOther")(scope.row.createdTime, 'Y-m-d H:i:s') || '-'))])]
+      }
+    }])
+  }), _vm._v(" "), _c('el-table-column', {
+    attrs: {
+      "prop": "createdUserName",
+      "label": "上传人",
+      "width": "250"
+    }
+  })], 1)], 1), _vm._v(" "), _c('div', {
+    staticClass: "table-end"
+  }, [_c('el-pagination', {
+    attrs: {
+      "current-page": _vm.currentPage,
+      "page-size": 10,
+      "layout": "prev, pager, next, jumper",
+      "total": _vm.total
+    },
+    on: {
+      "current-change": _vm.handleCurrentChange
+    }
+  })], 1)])]), _vm._v(" "), _c('el-dialog', {
+    staticClass: "dialog",
+    attrs: {
+      "title": _vm.dialogTitle,
+      "visible": _vm.dialogVisible,
+      "custom-class": "edit-dialog"
+    },
+    on: {
+      "update:title": function($event) {
+        _vm.dialogTitle = $event
+      },
+      "update:visible": function($event) {
+        _vm.dialogVisible = $event
+      }
+    }
+  }, [_c('div', {
+    staticClass: "item"
+  }, [_c('label', {
+    staticClass: "title"
+  }, [_vm._v("\n        日志\n        "), _c('span', {
+    staticClass: "required"
+  }, [_vm._v("*")])]), _vm._v(" "), _c('div', {
+    staticClass: "content"
+  }, [_c('el-input', {
+    staticClass: "input",
+    attrs: {
+      "resize": "none",
+      "type": "textarea",
+      "rows": 10,
+      "placeholder": ""
+    },
+    model: {
+      value: (_vm.formData.note),
+      callback: function($$v) {
+        _vm.$set(_vm.formData, "note", $$v)
+      },
+      expression: "formData.note"
+    }
+  })], 1)]), _vm._v(" "), _c('div', {
+    staticClass: "item"
+  }, [_c('label', {
+    staticClass: "title"
+  }, [_vm._v("\n        备注\n        "), _c('span', {
+    staticClass: "required"
+  }, [_vm._v("*")])]), _vm._v(" "), _c('div', {
+    staticClass: "content"
+  }, [_c('el-input', {
+    staticClass: "input",
+    attrs: {
+      "resize": "none",
+      "type": "textarea",
+      "rows": 5,
+      "placeholder": ""
+    },
+    model: {
+      value: (_vm.formData.remark),
+      callback: function($$v) {
+        _vm.$set(_vm.formData, "remark", $$v)
+      },
+      expression: "formData.remark"
+    }
+  })], 1)]), _vm._v(" "), _c('div', {
+    staticClass: "dialog-footer",
+    attrs: {
+      "slot": "footer"
+    },
+    slot: "footer"
+  }, [_c('el-button', {
+    attrs: {
+      "type": "preview"
+    },
+    on: {
+      "click": _vm.dialogConfirm
+    }
+  }, [_vm._v("提交")]), _vm._v(" "), _c('el-button', {
+    attrs: {
+      "type": "primary"
+    },
+    on: {
+      "click": function($event) {
+        _vm.dialogVisible = false
+      }
+    }
+  }, [_vm._v("取消")])], 1)])], 1)
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "header"
+  }, [_c('label', {
+    staticClass: "title"
+  }, [_vm._v("固件列表")])])
+}]}
+
+
+//////////////////
+// WEBPACK FOOTER
+// ./node_modules/vue-loader/lib/template-compiler?{"id":"data-v-05dbb78c","hasScoped":true}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./src/views/firmware/list.vue
+// module id = 2784
+// module chunks = 30

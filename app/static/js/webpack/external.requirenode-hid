@@ -1,0 +1,8 @@
+module.exports = require('node-hid');
+
+
+//////////////////
+// WEBPACK FOOTER
+// external "require('node-hid')"
+// module id = 474
+// module chunks = 76
