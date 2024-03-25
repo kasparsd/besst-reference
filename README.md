@@ -17,6 +17,16 @@ The following questions are of interest:
 - What is the CAN protocol?
 - Is it possible to use generic USB-to-CAN adapters for communication?
 
+## BESST Box Hardware
+
+The application includes Windows drivers for the following Silicon Labs (VID 10C4) hardware:
+
+- Silicon Labs CP210x USB to UART Bridge (PID EA60, EA63)
+- Silicon Labs Dual CP2105 USB to UART Bridge (PID EA70, EA7A)
+- Silicon Labs Quad CP2108 USB to UART Bridge (PID EA71, EA7B)
+
+so it is reasonable to assume that the BESST Box is based on one of these chips.
+
 ## Related Projects
 
 - https://github.com/OpenSourceEBike/Bafang_M500_M600
