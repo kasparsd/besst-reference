@@ -13,3 +13,4 @@ Follow the instructions below to re-create this:
 ## Related Projects
 
 - https://github.com/OpenSourceEBike/Bafang_M500_M600
+- https://github.com/lijon/BafangWebConfig
