@@ -27,6 +27,8 @@ The application includes Windows drivers for the following Silicon Labs (VID 10C
 
 so it is reasonable to assume that the BESST Box is based on one of these chips.
 
+The application also includes the source code for the [`besst-usb-sdk` JS library](https://github.com/kasparsd/besst-reference/tree/a392951eaa5adae99c5ecc07896ed83c8c04d280/app/static/js/webpack/node_modules/besst-usb-sdk/src) which is used for [all device communication](https://github.com/kasparsd/besst-reference/blob/a392951eaa5adae99c5ecc07896ed83c8c04d280/app/static/js/webpack/device/conn.js#L5). 
+
 ## Related Projects
 
 - https://github.com/OpenSourceEBike/Bafang_M500_M600
