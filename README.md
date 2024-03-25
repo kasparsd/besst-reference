@@ -4,7 +4,7 @@ Bafang creates amazing electric bike systems. The [BESST software](https://bafan
 
 Follow the instructions below to re-create this:
 
-1. Download the BESST application `.exe` from [their website](https://bafang-e.com/en/oem-area/service/besst/).
+1. Download the BESST application `.exe` from [their website](https://bafang-e.com/en/oem-area/service/besst/) (version 1.2.43 used in this repository).
 2. Rename it from `.exe` to `.zip` and uncompress the archive.
 3. Uncompress the `$PLUGINSDIR/app-32.7z` archive within in.
 4. Uncompress the [electron app](https://www.electronjs.org) `resources/app.asar` archive in the `app-32` directory using `npx @electron/asar extract resources/app.asar app` to the `app` directory.
