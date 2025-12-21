@@ -21,5 +21,5 @@ module.exports = Component.exports
 //////////////////
 // WEBPACK FOOTER
 // ./src/views/nl/sales/proforma-invoice-details.vue
-// module id = 2322
-// module chunks = 37
+// module id = 2354
+// module chunks = 36

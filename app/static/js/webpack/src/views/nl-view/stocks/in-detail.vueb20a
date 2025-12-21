@@ -12,5 +12,5 @@ exports.push([module.id, ".content[data-v-675c04b8]{width:calc(100% - 400px)!imp
 //////////////////
 // WEBPACK FOOTER
 // ./node_modules/css-loader?{"minimize":true,"sourceMap":true}!./node_modules/vue-loader/lib/style-compiler?{"vue":true,"id":"data-v-675c04b8","scoped":true,"hasInlineConfig":false}!./node_modules/sass-loader/lib/loader.js?{"sourceMap":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./src/views/nl-view/stocks/in-detail.vue
-// module id = 2723
+// module id = 2754
 // module chunks = 7

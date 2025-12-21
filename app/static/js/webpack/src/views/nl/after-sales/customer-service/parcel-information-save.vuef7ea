@@ -12,5 +12,5 @@ exports.push([module.id, ".parcel-information-add{width:100%;height:100%}.parcel
 //////////////////
 // WEBPACK FOOTER
 // ./node_modules/css-loader?{"minimize":true,"sourceMap":true}!./node_modules/vue-loader/lib/style-compiler?{"vue":true,"id":"data-v-7eec0110","scoped":false,"hasInlineConfig":false}!./node_modules/sass-loader/lib/loader.js?{"sourceMap":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./src/views/nl/after-sales/customer-service/parcel-information-save.vue
-// module id = 2661
+// module id = 2692
 // module chunks = 27

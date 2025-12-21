@@ -21,6 +21,9 @@ import OperationTraceRecordList from 'src/components/tool/operationTraceRecord'
 import BasicParams from 'src/components/tool/basicParams'
 import ToolSensor from 'src/components/tool/sensor'
 import componentSave from 'src/components/tool/componentSave'
+import ToolMotorLock from 'src/components/tool/motorLock'
+import ToolTlc from 'src/components/tool/tlc'
+import ToolWeighingSensor from 'src/components/tool/weighingSensor'
 
 // 账户
 import AccountList from 'src/components/account/account'
@@ -127,6 +130,9 @@ import ComponentOrderDetail from '../views/component/order/detail.vue'
 import ComponentOrderList from '../views/component/order/list.vue'
 import ComponentOrderProduce from '../views/component/order/produce.vue'
 import ComponentOrderTestReport from '../views/component/order/test-report.vue'
+import ComponentOrderTestReportBattery from '../views/component/order/test-report/battery.vue'
+import ComponentOrderTestReportTLC from '../views/component/order/test-report/tlc.vue'
+import ComponentOrderTestReportWeighing from '../views/component/order/test-report/weighing.vue'
 import ComponentTicketStatistics from '../views/component/service-center/statistics.vue'
 import ComponentTestFeedback from '../views/component/feedback-center/list.vue'
 import ComponentTestFeedbackSave from '../views/component/feedback-center/save.vue'
@@ -422,6 +428,9 @@ let routes = [
       { path: 'vehicle/detail', name: 'brandVehicleDetail', component: BrandVehicleDetail },
 
       { path: 'model/bom', name: 'brandModelBom', component: BrandModelBom },
+      { path: 'tool/motorLock', name: 'motorLock', component: ToolMotorLock },
+      { path: 'tool/tlc', name: 'ToolTlc', component: ToolTlc },
+      { path: 'tool/weighingSensor', name: 'ToolWeighingSensor', component: ToolWeighingSensor },
       { path: 'tool/battery', name: 'brandToolBattery', component: ToolBattery },
       { path: 'tool/controller', name: 'brandToolController', component: ToolController },
       { path: 'tool/hmi', name: 'brandToolHmi', component: ToolHmi },
@@ -471,6 +480,9 @@ let routes = [
       { path: 'account/list', name: 'dealerAccountList', component: AccountList },
       { path: 'tool/battery', name: 'dealerToolBattery', component: ToolBattery },
       { path: 'tool/controller', name: 'dealerToolController', component: ToolController },
+      { path: 'tool/motorLock', name: 'motorLock', component: ToolMotorLock },
+      { path: 'tool/tlc', name: 'ToolTlc', component: ToolTlc },
+      { path: 'tool/weighingSensor', name: 'ToolWeighingSensor', component: ToolWeighingSensor },
       { path: 'tool/hmi', name: 'dealerToolHmi', component: ToolHmi },
       { path: 'tool/update', name: 'dealerToolUpdate', component: ToolUpdate },
       { path: 'partner/list', name: 'dealerBrandList', component: DealerBrandList },
@@ -562,6 +574,9 @@ let routes = [
       { path: 'order/detail', name: 'componentOrderDetail', component: ComponentOrderDetail },
       { path: 'order/produce', name: 'componentOrderProduce', component: ComponentOrderProduce },
       { path: 'order/test-report', name: 'componentOrderTestReport', component: ComponentOrderTestReport },
+      { path: 'order/test-report/battery', name: 'componentOrderTestReportBattery', component: ComponentOrderTestReportBattery },
+      { path: 'order/test-report/tlc', name: 'componentOrderTestReportTLC', component: ComponentOrderTestReportTLC },
+      { path: 'order/test-report/weighing', name: 'componentOrderTestReportWeighing', component: ComponentOrderTestReportWeighing },
       { path: 'order/data-connect', name: 'componentOrderDataConnect', component: ComponentOrderDataConnect },
       { path: 'order/empty-list', name: 'ComponentOrderEmptyList', component: ComponentOrderEmptyList },
 
@@ -571,6 +586,9 @@ let routes = [
       { path: 'tool/update', name: 'componentToolUpdate', component: ToolUpdate },
       { path: 'tool/sensor', name: 'componentToolSensor', component: ToolSensor },
       { path: 'tool/save', name: 'componentOEMSave', component: componentSave },
+      { path: 'tool/motorLock', name: 'motorLock', component: ToolMotorLock },
+      { path: 'tool/tlc', name: 'ToolTlc', component: ToolTlc },
+      { path: 'tool/weighingSensor', name: 'ToolWeighingSensor', component: ToolWeighingSensor },
       { path: 'error/shooting', name: 'componentErrorShooting', component: ErrorShooting },
       { path: 'account/list', name: 'componentAccountList', component: AccountList },
 

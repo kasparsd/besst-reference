@@ -1457,7 +1457,7 @@ export default {
               if (res.type === 'error_usb') {
                 this.isConnected = false
               }
-              if (res.data.code === '32' && res.data.subCode === '03' && res.data.targetCode == 15) {
+              if (res.data.code === '32' && res.data.subCode === '03' && res.data.targetCode == 0x1f) {
                 let result_3 = Buffer.from(res.data.data, 'hex')
                 this.controllerInfo.speedLimit = (result_3[0] + result_3[1] * 256) / 100
                 this.wheelDiameters.find((item) => {
@@ -2053,7 +2053,9 @@ export default {
       Core.Api.Component.componentDetailBySn(sn)
         .then((res) => {
           vm.canSave = true
-          if (res.component.category_root_id !== type) {
+          var batType = [Core.Const.CATEGORY_ROOT_TYPE.BATTERY_COMM, Core.Const.CATEGORY_ROOT_TYPE.BATTERY]
+          var isbat = batType.includes(type) && batType.includes(res.component.category_root_id)
+          if (!isbat && res.component.category_root_id !== type) {
             vm.$message({
               message: msg,
               type: 'error',
@@ -2182,6 +2184,7 @@ export default {
           })
         })
         .catch((err) => {
+          debugger
           console.log(err)
 
           vm.canSave = true
@@ -2582,11 +2585,11 @@ export default {
       let crc = '--' + Update.checkCrc(data.fileBuffer)
 
       if (vm.usbHID) {
-        Update.port.usbSDK.client.events.on('firmware-update-progress', (e) => {
+        Update.port.usbSDK.client.events.on('firmware-upload-progress', (e) => {
           vm.startTip = false
-          vm.updatePercentage = Math.ceil((e.upload / e.total) * 100)
+          vm.updatePercentage = parseInt(e.progress)
           //                        console.log(e);
-          if (e.upload == e.total || vm.percentage == 100) {
+          if (vm.percentage == 100) {
             if (count == 0) {
               vm.$message({
                 message: vm.updateMsgObject.successTip,
@@ -2596,8 +2599,8 @@ export default {
             count++
           }
         })
-        Update.port.usbSDK.client.events.on('firmware-update-completed', (e) => {
-          vm.updatePercentage = 0
+        Update.port.usbSDK.client.events.on('firmware-upload-completed', (e) => {
+          vm.updatePercentage = parseInt(e.progress)
           let time = Core.Util.time()
           let filename = data.name
           if (vm.updateComponentType === 'ctrl') {
@@ -2760,23 +2763,69 @@ export default {
         if (!vm.scannerTimeout) {
           vm.scannerTimeout = setTimeout(function () {
             if (vm.isScanner) {
-              // 判断是否是客户sn规则
-              if (vm.hmiInfo.sn.indexOf('\n') > -1) {
-                let array = vm.hmiInfo.sn.split('\n')
-                if (array.length < 4 && array[1] !== '') {
-                  vm.hmiInfo.customer_sn = array[0]
-                  vm.hmiInfo.sn = array[1]
+              // 是否带有客户sn
+              if (vm.hmiInfo.sn.includes('\/')) {
+                if (vm.hmiInfo.sn.includes('\n')) {
+                  const array = vm.hmiInfo.sn.split('\n')
+                  let _sn = ''
+                  // 获取的sn数据，进行空行数据删除
+                  let _snData = array.filter((res) => res !== '')
+                  // 二维码解析 第一行数据（可能为客户sn）
+                  vm.hmiInfo.customer_sn = array[0].replace(/\s/g, '')
+                  _snData = _snData.slice(1)
+
+                  if (_snData.length > 1) {
+                    // 新
+                    _snData.forEach((item, index) => {
+                      _sn += index === 0 ? item.slice(0, item.length - 5) : item
+                    })
+                  } else {
+                    // 老
+                    _sn = _snData[0]
+                  }
+                  vm.hmiInfo.sn = _sn
+                } else {
+                  // 老
+                  if (vm.hmiInfo.sn.includes('DP')) {
+                    let array = vm.hmiInfo.sn.split('DP')
+                    if (array.length > 1) {
+                      vm.hmiInfo.sn = ('DP' + array[array.length - 1]).replace(/\s+/g, '')
+                    }
+                  }
+                }
+              } else {
+                // 非客户sn
+                if (vm.hmiInfo.sn.includes('\n')) {
+                  const array = vm.hmiInfo.sn.split('\n')
+                  let _sn = ''
+                  // 获取的sn数据，进行空行数据删除
+                  let _snData = array.filter((res) => res !== '')
+                  if (_snData.length > 3) {
+                    // 老
+                    if (vm.hmiInfo.sn.includes('DP')) {
+                      const array = vm.hmiInfo.sn.split('DP')
+                      if (array.length > 1) {
+                        vm.hmiInfo.sn = ('DP' + array[array.length - 1]).replace(/\s+/g, '')
+                      }
+                    }
+                  } else {
+                    // 新
+                    _snData.forEach((item, index) => {
+                      _sn += index === 0 ? item.slice(0, item.length - 5) : item
+                    })
+                    vm.hmiInfo.sn = _sn
+                  }
+                } else {
+                  // 老的不带换行符
+                  if (vm.hmiInfo.sn.includes('DP')) {
+                    const array = vm.hmiInfo.sn.split('DP')
+                    if (array.length > 1) {
+                      vm.hmiInfo.sn = ('DP' + array[array.length - 1]).replace(/\s+/g, '')
+                    }
+                  }
                 }
               }
-              let value = vm.hmiInfo.sn.replace(/\s+/g, '')
-              // 如果序列号中匹配到特定字符，自动显示在对应的输入框中
-              if (value.indexOf('DP') > -1) {
-                let array = value.split('DP')
-                if (array.length > 1) {
-                  value = 'DP' + array[array.length - 1]
-                }
-                vm.hmiInfo.sn = value
-              }
+              vm.hmiInfo.sn = vm.hmiInfo.sn.replace(/\s+/g, '')
             }
             clearTimeout(vm.scannerTimeout)
             vm.scannerTimeout = undefined
@@ -2789,14 +2838,42 @@ export default {
       handler: function (newValue, oldValue) {
         if (this.scannerTimeout) clearTimeout(this.scannerTimeout)
         this.scannerTimeout = setTimeout(() => {
-          if (this.controllerInfo.sn.indexOf('\n') > -1) {
-            let array = this.controllerInfo.sn.split('\n')
-            if (array.length < 4 && array[1] !== '') {
-              this.controllerInfo.customer_sn = array[0]
-              this.controllerInfo.sn = array[1]
+          // 老控制器不带换行，新控制器sn带换行
+          if (this.controllerInfo.sn.includes('\n')) {
+            const array = this.controllerInfo.sn.split('\n')
+            let _sn = ''
+            let _snData = []
+            // 客户sn
+            if (this.controllerInfo.sn.includes('\/')) {
+              // 二维码解析 第一行数据（可能为客户sn）
+              this.controllerInfo.customer_sn = array[0].replace(/\s/g, '')
+
+              // 获取的sn数据，进行空行数据删除
+              const data = array.filter((res) => res !== '')
+
+              _snData = data.slice(1, array.length)
+
+              if (data.length > 2) {
+                // 新sn
+                _snData.forEach((item, index) => {
+                  _sn += index === 0 ? item.slice(0, item.length - 5) : item
+                })
+              } else {
+                // 老sn
+                _sn = _snData[0]
+              }
+            } else {
+              _snData = array
+              _snData.forEach((item, index) => {
+                _sn += index === 0 ? item.slice(0, item.length - 5) : item
+              })
             }
+
+            this.controllerInfo.sn = _sn
           }
+
           this.controllerInfo.sn = this.controllerInfo.sn.replace(/\s+/g, '')
+
           clearTimeout(this.scannerTimeout)
           this.scannerTimeout = undefined
         }, 1000)
@@ -2826,12 +2903,36 @@ export default {
       handler: function (newValue, oldValue) {
         if (this.scannerTimeout) clearTimeout(this.scannerTimeout)
         this.scannerTimeout = setTimeout(() => {
-          if (this.motorInfo.sn.indexOf('\n') > -1) {
-            let array = this.motorInfo.sn.split('\n')
-            if (array.length < 4 && array[1] !== '') {
-              this.motorInfo.customer_sn = array[0]
-              this.motorInfo.sn = array[1]
+          // SN 开头是FM/RM的 只做清空格处理
+          if (this.motorInfo.sn.startsWith('FM') || this.motorInfo.sn.startsWith('RM')) {
+            this.motorInfo.sn = this.motorInfo.sn.replace(/\s+/g, '')
+            clearTimeout(this.scannerTimeout)
+            this.scannerTimeout = undefined
+            return
+          }
+
+          if (this.motorInfo.sn.includes('\n')) {
+            const array = this.motorInfo.sn.split('\n')
+            let _sn = ''
+            let _snData = []
+            // 客户sn
+            if (this.motorInfo.sn.includes('\/')) {
+              // 二维码解析 第一行数据（可能为客户sn）
+              this.motorInfo.customer_sn = array[0].replace(/\s/g, '')
+              // 获取的sn数据，进行空行数据删除
+              const data = array.filter((res) => res !== '')
+
+              _snData = data.slice(1, array.length)
+            } else {
+              _snData = array.filter((res) => res !== '')
             }
+
+            _snData.forEach((item, index) => {
+              if (index == 0 || index == 2) {
+                _sn += item
+              }
+            })
+            this.motorInfo.sn = _sn
           }
           this.motorInfo.sn = this.motorInfo.sn.replace(/\s+/g, '')
           clearTimeout(this.scannerTimeout)
@@ -2856,22 +2957,62 @@ export default {
         if (!vm.scannerTimeout) {
           vm.scannerTimeout = setTimeout(function () {
             if (vm.isScanner) {
-              // 判断是否是客户sn规则
-              if (vm.pedalSensorInfo.sn.indexOf('\n') > -1) {
-                let array = vm.pedalSensorInfo.sn.split('\n')
-                if (array.length < 4 && array[1] !== '') {
-                  vm.pedalSensorInfo.customer_sn = array[0]
-                  vm.pedalSensorInfo.sn = array[1]
+              // 是否带有客户sn
+              if (vm.pedalSensorInfo.sn.includes('\/')) {
+                // 带客户sn
+                // 新标带客户SN：出现三个换行符且带“/”
+                const array = vm.pedalSensorInfo.sn.split('\n')
+                let _sn = ''
+                let _snData = []
+                // 获取的sn数据，进行空行数据删除
+                _snData = array.filter((res) => res !== '')
+
+                if (vm.pedalSensorInfo.sn.includes('\n') && array.length >= 4) {
+                  // 二维码解析 第一行数据（可能为客户sn）
+                  vm.pedalSensorInfo.customer_sn = array[0].replace(/\s/g, '')
+
+                  _snData = _snData.slice(1)
+
+                  _snData.forEach((item, index) => {
+                    if (index == 1) {
+                      _sn += item.slice(0, 8)
+                    } else {
+                      _sn += item
+                    }
+                  })
+                } else if (array.length == 2) {
+                  // 老标带客户
+                  vm.pedalSensorInfo.customer_sn = array[0].replace(/\s/g, '')
+                  _sn = array[1].replace(/\s/g, '')
+                }
+                vm.pedalSensorInfo.sn = _sn
+              } else {
+                // 非客户sn
+                // 传感器SN 如果出现两个换行符,扫描二维码后文本框显示：第一行+第二行前8个字符+第三行
+                if (vm.pedalSensorInfo.sn.includes('\n') && vm.pedalSensorInfo.sn.split('\n').length >= 3) {
+                  const array = vm.pedalSensorInfo.sn.split('\n')
+                  let _sn = ''
+                  let _snData = []
+
+                  // 获取的sn数据，进行空行数据删除
+                  _snData = array.filter((res) => res !== '')
+
+                  _snData.forEach((item, index) => {
+                    if (index == 1) {
+                      _sn += item.slice(0, 8)
+                    } else {
+                      _sn += item
+                    }
+                  })
+                  vm.pedalSensorInfo.sn = _sn
+                } else if (vm.pedalSensorInfo.sn.includes('SR')) {
+                  const array = vm.pedalSensorInfo.sn.split('SR')
+                  if (array.length > 1) {
+                    vm.pedalSensorInfo.sn = ('SR' + array[array.length - 1]).replace(/\s+/g, '')
+                  }
                 }
               }
               vm.pedalSensorInfo.sn = vm.pedalSensorInfo.sn.replace(/\s+/g, '')
-              // 如果序列号中匹配到特定字符，自动显示在对应的输入框中
-              if (vm.pedalSensorInfo.sn.indexOf('SR') > -1) {
-                let array = vm.pedalSensorInfo.sn.split('SR')
-                if (array.length > 1) {
-                  vm.pedalSensorInfo.sn = 'SR' + array[array.length - 1]
-                }
-              }
             }
             clearTimeout(vm.scannerTimeout)
             vm.scannerTimeout = undefined
@@ -3316,4 +3457,4 @@ export default {
 
 
 // WEBPACK FOOTER //
-// produce.vue?4e000f72
+// produce.vue?229412b2

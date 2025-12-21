@@ -138,5 +138,5 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
 //////////////////
 // WEBPACK FOOTER
 // ./node_modules/vue-loader/lib/template-compiler?{"id":"data-v-54213537","hasScoped":false}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./src/views/nl/role/role-setting.vue
-// module id = 2561
-// module chunks = 60
+// module id = 2592
+// module chunks = 59

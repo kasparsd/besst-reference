@@ -12,5 +12,5 @@ exports.push([module.id, ".set-header{width:100%;height:100%}.set-header span.re
 //////////////////
 // WEBPACK FOOTER
 // ./node_modules/css-loader?{"minimize":true,"sourceMap":true}!./node_modules/vue-loader/lib/style-compiler?{"vue":true,"id":"data-v-5d7d1840","scoped":false,"hasInlineConfig":false}!./node_modules/sass-loader/lib/loader.js?{"sourceMap":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./src/views/nl/warehouse/warehouse-inventory-details.vue
-// module id = 2463
-// module chunks = 53
+// module id = 2494
+// module chunks = 52

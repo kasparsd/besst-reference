@@ -65,5 +65,5 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
 //////////////////
 // WEBPACK FOOTER
 // ./node_modules/vue-loader/lib/template-compiler?{"id":"data-v-1e9c88a7","hasScoped":false}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./src/views/nl/shipment-order/shipment-allocate.vue
-// module id = 2533
-// module chunks = 59
+// module id = 2564
+// module chunks = 58

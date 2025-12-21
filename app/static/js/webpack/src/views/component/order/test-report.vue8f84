@@ -43,24 +43,117 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "item"
   }, [_c('label', {
     staticClass: "label"
-  }, [_vm._v("Article No.")]), _vm._v(" "), _c('span', [_vm._v(_vm._s(_vm.itemInfo.ext_part_no || '/'))])]), _vm._v(" "), _c('div', {
-    staticClass: "item"
-  }, [_c('label', {
-    staticClass: "label"
-  }, [_vm._v("Produced/Amount")]), _vm._v(" "), _c('span', [_vm._v(_vm._s(_vm.itemOrderInfo ? _vm.itemOrderInfo.produced : 0) + "/" + _vm._s(_vm.itemOrderInfo ? _vm.itemOrderInfo.amount : 0))])]), _vm._v(" "), _vm._m(0), _vm._v(" "), _vm._l((_vm.needAttrList), function(item, index) {
+  }, [_vm._v("Article No.")]), _vm._v(" "), _c('span', [_vm._v(_vm._s(_vm.itemInfo.ext_part_no || '/'))])]), _vm._v(" "), _vm._l((_vm.needAttrList), function(item, index) {
     return _c('div', {
       key: index,
       staticClass: "item"
     }, [_c('label', {
       staticClass: "label"
     }, [_vm._v(_vm._s(item.attr_def_name))]), _vm._v(" "), _c('span', [_vm._v(_vm._s(item.value))])])
-  })], 2)]), _vm._v(" "), ([4, 6, 7, 10, 12].indexOf(_vm.itemRoot) !== -1) ? _c('div', {
+  }), _vm._v(" "), _c('div', {
+    staticClass: "item"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v("Produced/Amount")]), _vm._v(" "), _c('span', [_vm._v(_vm._s(_vm.itemOrderInfo ? _vm.itemOrderInfo.produced : 0) + "/" + _vm._s(_vm.itemOrderInfo ? _vm.itemOrderInfo.amount : 0))])])], 2)]), _vm._v(" "), ([4, 6, 7, 10, 12].indexOf(_vm.itemRoot) !== -1) ? _c('div', {
     staticClass: "content-card-item"
   }, [_c('label', {
     staticClass: "content-header"
   }, [_vm._v("Test Report")]), _vm._v(" "), _c('div', {
     staticClass: "content-body"
+  }, [(_vm.isHmiOrCtl) ? _c('div', {
+    staticClass: "hardware-item"
   }, [_c('div', {
+    staticClass: "select-holder"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v("使用二维码扫描")]), _vm._v(" "), _c('el-switch', {
+    attrs: {
+      "on-text": '开启',
+      "off-text": '关闭'
+    },
+    model: {
+      value: (_vm.useScanQR),
+      callback: function($$v) {
+        _vm.useScanQR = $$v
+      },
+      expression: "useScanQR"
+    }
+  })], 1)]) : _vm._e(), _vm._v(" "), _c('div', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: (_vm.isHmiOrCtl && _vm.useScanQR),
+      expression: "isHmiOrCtl && useScanQR"
+    }],
+    staticClass: "hardware-item"
+  }, [_c('div', {
+    staticClass: "select-holder"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v("起始SN")]), _vm._v(" "), _c('el-input', {
+    staticClass: "input",
+    model: {
+      value: (_vm.qrSN.start),
+      callback: function($$v) {
+        _vm.$set(_vm.qrSN, "start", $$v)
+      },
+      expression: "qrSN.start"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "operation-holder"
+  }, [_c('div', {
+    staticClass: "qr",
+    attrs: {
+      "id": "qrCode"
+    }
+  }), _vm._v(" "), _c('span', [_vm._v("当前二维码")]), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.qrSN.current))])]), _vm._v(" "), _c('div', {
+    staticClass: "select-holder"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v("结束SN")]), _vm._v(" "), _c('el-input', {
+    staticClass: "input",
+    attrs: {
+      "disabled": ""
+    },
+    model: {
+      value: (_vm.qrSN.end),
+      callback: function($$v) {
+        _vm.$set(_vm.qrSN, "end", $$v)
+      },
+      expression: "qrSN.end"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "select-holder"
+  }, [_c('el-button', {
+    attrs: {
+      "disabled": _vm.isStart,
+      "type": "primary"
+    },
+    on: {
+      "click": _vm.createSNStart
+    }
+  }, [_vm._v("开始")]), _vm._v(" "), _c('el-button', {
+    attrs: {
+      "type": "primary"
+    },
+    on: {
+      "click": _vm.createSNReset
+    }
+  }, [_vm._v("重置")]), _vm._v(" "), _c('el-button', {
+    attrs: {
+      "type": "primary"
+    },
+    on: {
+      "click": _vm.createSNPrev
+    }
+  }, [_vm._v("上一个")]), _vm._v(" "), _c('el-button', {
+    attrs: {
+      "type": "primary"
+    },
+    on: {
+      "click": _vm.createSNNext
+    }
+  }, [_vm._v("下一个")])], 1)]), _vm._v(" "), _c('div', {
     staticClass: "hardware-item"
   }, [_c('div', {
     directives: [{
@@ -190,7 +283,36 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "clientCodeText"
     }
-  })], 1) : _vm._e()]), _vm._v(" "), _c('div', {
+  })], 1) : _vm._e()]), _vm._v(" "), (_vm.showErrorCode) ? _c('div', {
+    staticClass: "hardware-item"
+  }, [_c('div', {
+    staticClass: "select-holder"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v(_vm._s(_vm.$t('cNam.errorCode')))]), _vm._v(" "), _c('el-input', {
+    staticClass: "input",
+    attrs: {
+      "placeholder": "6007"
+    },
+    model: {
+      value: (_vm.errorCode),
+      callback: function($$v) {
+        _vm.errorCode = $$v
+      },
+      expression: "errorCode"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "btn-row"
+  }, [_c('div', {
+    staticClass: "btn-group"
+  }, [_c('el-button', {
+    attrs: {
+      "type": "preview"
+    },
+    on: {
+      "click": _vm.readErrorCode
+    }
+  }, [_vm._v(_vm._s(_vm.$t('cNam.read')))])], 1)])]) : _vm._e(), _vm._v(" "), _c('div', {
     directives: [{
       name: "show",
       rawName: "v-show",
@@ -280,31 +402,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       expression: "itemRoot !== 12"
     }],
     staticClass: "hardware-item"
-  }, [(_vm.itemRoot === 6) ? _c('div', {
-    staticClass: "input-holder",
-    on: {
-      "keyup": function($event) {
-        if (!$event.type.indexOf('key') && $event.keyCode !== 13) { return null; }
-        return _vm.next.apply(null, arguments)
-      }
-    }
-  }, [_c('label', {
-    staticClass: "label"
-  }, [_vm._v("SN")]), _vm._v(" "), _c('el-input', {
-    staticClass: "input",
-    attrs: {
-      "type": "textarea",
-      "rows": 1,
-      "resize": "none"
-    },
-    model: {
-      value: (_vm.sn),
-      callback: function($$v) {
-        _vm.sn = $$v
-      },
-      expression: "sn"
-    }
-  })], 1) : _c('div', {
+  }, [_c('div', {
     staticClass: "input-holder"
   }, [_c('label', {
     staticClass: "label"
@@ -387,7 +485,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "customer_sn"
     }
-  })], 1) : _vm._e(), _vm._v(" "), _c('div', {
+  })], 1) : _vm._e(), _vm._v(" "), (_vm.isCustomer0049) ? _c('div', {
+    staticClass: "input-holder"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v("MAC")]), _vm._v(" "), _c('span', [_vm._v(_vm._s(_vm.macHmi))])]) : _vm._e(), _vm._v(" "), _c('div', {
     staticClass: "operation-holder"
   }, [_c('el-upload', {
     ref: "upload",
@@ -954,17 +1056,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }
   }, [_vm._v(_vm._s(_vm.$t('cNam.cancel')))])], 1)])], 1)
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "item"
-  }, [_c('label', {
-    staticClass: "label"
-  }), _vm._v(" "), _c('span')])
-}]}
+},staticRenderFns: []}
 
 
 //////////////////
 // WEBPACK FOOTER
 // ./node_modules/vue-loader/lib/template-compiler?{"id":"data-v-6b1dc0d4","hasScoped":false}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./src/views/component/order/test-report.vue
-// module id = 1997
+// module id = 2017
 // module chunks = 76

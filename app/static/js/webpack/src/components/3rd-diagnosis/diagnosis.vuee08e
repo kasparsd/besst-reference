@@ -21,5 +21,5 @@ module.exports = Component.exports
 //////////////////
 // WEBPACK FOOTER
 // ./src/components/3rd-diagnosis/diagnosis.vue
-// module id = 1395
+// module id = 1415
 // module chunks = 76

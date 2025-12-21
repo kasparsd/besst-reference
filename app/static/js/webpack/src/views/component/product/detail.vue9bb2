@@ -43,10 +43,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.changeGroupDialogVisible = true
       }
     }
-  }) : _vm._e(), _vm._v(" "), (
-    _vm.authList[_vm.Core.Const.AUTH_LIST.productProductAdd] ||
-    _vm.authList[_vm.Core.Const.AUTH_LIST.productProductEdit]
-  ) ? _c('div', {
+  }) : _vm._e(), _vm._v(" "), (_vm.authList[_vm.Core.Const.AUTH_LIST.productProductAdd] || _vm.authList[_vm.Core.Const.AUTH_LIST.productProductEdit]) ? _c('div', {
     staticClass: "icon-item copy",
     attrs: {
       "title": _vm.$t('copy')
@@ -117,7 +114,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "content-item"
   }, [_c('label', {
     staticClass: "title"
-  }, [_vm._v(_vm._s(_vm.$t("model")))]), _vm._v(" "), _c('div', {
+  }, [_vm._v(_vm._s(_vm.$t('model')))]), _vm._v(" "), _c('div', {
     staticClass: "desc"
   }, [_c('span', {
     staticClass: "strong"
@@ -125,39 +122,39 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "content-item"
   }, [_c('label', {
     staticClass: "title"
-  }, [_vm._v(_vm._s(_vm.$t("set.mechanical")))]), _vm._v(" "), _c('div', {
+  }, [_vm._v(_vm._s(_vm.$t('set.mechanical')))]), _vm._v(" "), _c('div', {
     staticClass: "desc"
   }, [_c('span', {
     staticClass: "strong"
-  }, [_vm._v(_vm._s(_vm.itemDetail.hard_param || "/"))])])]), _vm._v(" "), _c('div', {
+  }, [_vm._v(_vm._s(_vm.itemDetail.hard_param || '/'))])])]), _vm._v(" "), _c('div', {
     staticClass: "content-item"
   }, [_c('label', {
     staticClass: "title"
-  }, [_vm._v(_vm._s(_vm.$t("set.hardVer")))]), _vm._v(" "), _c('div', {
+  }, [_vm._v(_vm._s(_vm.$t('set.hardVer')))]), _vm._v(" "), _c('div', {
     staticClass: "desc"
   }, [_c('span', {
     staticClass: "strong"
-  }, [_vm._v(_vm._s(_vm.itemDetail.hard_version || "/"))])])]), _vm._v(" "), _c('div', {
+  }, [_vm._v(_vm._s(_vm.itemDetail.hard_version || '/'))])])]), _vm._v(" "), _c('div', {
     staticClass: "content-item"
   }, [_c('label', {
     staticClass: "title"
-  }, [_vm._v(_vm._s(_vm.$t("set.firmVer")))]), _vm._v(" "), _c('div', {
+  }, [_vm._v(_vm._s(_vm.$t('set.firmVer')))]), _vm._v(" "), _c('div', {
     staticClass: "desc"
   }, [_c('span', {
     staticClass: "strong"
-  }, [_vm._v(_vm._s(_vm.itemDetail.firmware_version || "/"))])])]), _vm._v(" "), _c('div', {
+  }, [_vm._v(_vm._s(_vm.itemDetail.firmware_version || '/'))])])]), _vm._v(" "), _c('div', {
     staticClass: "content-item"
   }, [_c('label', {
     staticClass: "title"
-  }, [_vm._v(_vm._s(_vm.$t("set.paramVer")))]), _vm._v(" "), _c('div', {
+  }, [_vm._v(_vm._s(_vm.$t('set.paramVer')))]), _vm._v(" "), _c('div', {
     staticClass: "desc"
   }, [_c('span', {
     staticClass: "strong"
-  }, [_vm._v(_vm._s(_vm.itemDetail.param_version || "/"))])])]), _vm._v(" "), (_vm.itemDetail.setId > 0) ? _c('div', {
+  }, [_vm._v(_vm._s(_vm.itemDetail.param_version || '/'))])])]), _vm._v(" "), (_vm.itemDetail.setId > 0) ? _c('div', {
     staticClass: "content-item"
   }, [_c('label', {
     staticClass: "title"
-  }, [_vm._v(_vm._s(_vm.$t("articleList")))]), _vm._v(" "), _c('div', {
+  }, [_vm._v(_vm._s(_vm.$t('articleList')))]), _vm._v(" "), _c('div', {
     staticClass: "desc"
   }, [_c('div', {
     staticClass: "desc h-24"
@@ -177,7 +174,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "content-item"
   }, [_c('label', {
     staticClass: "title"
-  }, [_vm._v(_vm._s(_vm.$t("partNo")))]), _vm._v(" "), _c('div', {
+  }, [_vm._v(_vm._s(_vm.$t('partNo')))]), _vm._v(" "), _c('div', {
     staticClass: "desc"
   }, [_c('span', {
     staticClass: "strong"
@@ -191,7 +188,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "content-item"
   }, [_c('label', {
     staticClass: "title"
-  }, [_vm._v(_vm._s(_vm.$t("set.firmVer")))]), _vm._v(" "), _c('div', {
+  }, [_vm._v(_vm._s(_vm.$t('set.firmVer')))]), _vm._v(" "), _c('div', {
     staticClass: "desc"
   }, [_c('a', {
     staticClass: "strong btn-underline",
@@ -201,7 +198,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         return _vm.clickFirmwareBtn()
       }
     }
-  }, [_vm._v(_vm._s(_vm.$t("view")))])])]), _vm._v(" "), _c('div', {
+  }, [_vm._v(_vm._s(_vm.$t('view')))])])]), _vm._v(" "), _c('div', {
     directives: [{
       name: "show",
       rawName: "v-show",
@@ -221,11 +218,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         return _vm.clickUpdateStatus.apply(null, arguments)
       }
     }
-  }, [_vm._v(_vm._s(_vm.$t("edit")))])])]), _vm._v(" "), _c('div', {
+  }, [_vm._v(_vm._s(_vm.$t('edit')))])])]), _vm._v(" "), _c('div', {
     staticClass: "content-item"
   }, [_c('label', {
     staticClass: "title"
-  }, [_vm._v(_vm._s(_vm.$t("desc")))]), _vm._v(" "), _c('div', {
+  }, [_vm._v(_vm._s(_vm.$t('desc')))]), _vm._v(" "), _c('div', {
     staticClass: "desc"
   }, [_c('span', [_vm._v("\n            " + _vm._s(_vm.itemDetail.desc) + "\n          ")])])]), _vm._v(" "), (_vm.item.set_id) ? _c('div', _vm._l((_vm.itemDetail.attrList), function(item) {
     return (item.fixed) ? _c('div', {
@@ -242,7 +239,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         expression: "item.value"
       }],
       staticClass: "desc text"
-    }, [_vm._v("\n              " + _vm._s(item.attr_def_key === "price" ? item.value / 100 : item.value) + "\n            ")]), _vm._v(" "), _c('div', {
+    }, [_vm._v("\n              " + _vm._s(item.attr_def_key === 'price' ? item.value / 100 : item.value) + "\n            ")]), _vm._v(" "), _c('div', {
       directives: [{
         name: "show",
         rawName: "v-show",
@@ -260,10 +257,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticClass: "desc text"
     }, [_vm._v("\n              " + _vm._s(_vm._f("packUnitType")(item.value)) + "\n            ")]) : _c('div', {
       staticClass: "desc text"
-    }, [_vm._v(_vm._s(item.value))])]) : _vm._e(), _vm._v(" "), (
-      item.attr_def_type == _vm.Core.Const.CATEGORY_ATTR_INPUT_TYPE.FILE ||
-      item.attr_def_type == _vm.Core.Const.CATEGORY_ATTR_INPUT_TYPE.FILES
-    ) ? _c('div', {
+    }, [_vm._v(_vm._s(item.value))])]) : _vm._e(), _vm._v(" "), (item.attr_def_type == _vm.Core.Const.CATEGORY_ATTR_INPUT_TYPE.FILE || item.attr_def_type == _vm.Core.Const.CATEGORY_ATTR_INPUT_TYPE.FILES) ? _c('div', {
       staticClass: "extra file"
     }, [_c('label', {
       staticClass: "title"
@@ -280,7 +274,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           "href": _vm._f("getFileUrl")(item.hash, item.ext),
           "download": item.name
         }
-      }, [_vm._v("\n                    " + _vm._s(_vm.$t("download")))]), _vm._v(" "), _c('el-button', {
+      }, [_vm._v(" " + _vm._s(_vm.$t('download')))]), _vm._v(" "), _c('el-button', {
         attrs: {
           "type": "preview"
         },
@@ -289,11 +283,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
             return _vm.preview(item)
           }
         }
-      }, [_vm._v(_vm._s(_vm.$t("preview")))])], 1)])
-    }), 0)]) : _vm._e(), _vm._v(" "), (
-      item.attr_def_type == _vm.Core.Const.CATEGORY_ATTR_INPUT_TYPE.PIC ||
-      item.attr_def_type == _vm.Core.Const.CATEGORY_ATTR_INPUT_TYPE.PICS
-    ) ? _c('div', {
+      }, [_vm._v(_vm._s(_vm.$t('preview')))])], 1)])
+    }), 0)]) : _vm._e(), _vm._v(" "), (item.attr_def_type == _vm.Core.Const.CATEGORY_ATTR_INPUT_TYPE.PIC || item.attr_def_type == _vm.Core.Const.CATEGORY_ATTR_INPUT_TYPE.PICS) ? _c('div', {
       staticClass: "extra img"
     }, [_c('label', {
       staticClass: "title"
@@ -321,7 +312,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         expression: "item.value"
       }],
       staticClass: "desc text"
-    }, [_vm._v("\n              " + _vm._s(item.attr_def_key === "price" ? item.value / 100 : item.value) + "\n            ")]), _vm._v(" "), _c('div', {
+    }, [_vm._v("\n              " + _vm._s(item.attr_def_key === 'price' ? item.value / 100 : item.value) + "\n            ")]), _vm._v(" "), _c('div', {
       directives: [{
         name: "show",
         rawName: "v-show",
@@ -339,10 +330,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticClass: "desc text"
     }, [_vm._v("\n              " + _vm._s(_vm._f("packUnitType")(item.value)) + "\n            ")]) : _c('div', {
       staticClass: "desc text"
-    }, [_vm._v(_vm._s(item.value))])]) : _vm._e(), _vm._v(" "), (
-      item.attr_def_type == _vm.Core.Const.CATEGORY_ATTR_INPUT_TYPE.FILE ||
-      item.attr_def_type == _vm.Core.Const.CATEGORY_ATTR_INPUT_TYPE.FILES
-    ) ? _c('div', {
+    }, [_vm._v(_vm._s(item.value))])]) : _vm._e(), _vm._v(" "), (item.attr_def_type == _vm.Core.Const.CATEGORY_ATTR_INPUT_TYPE.FILE || item.attr_def_type == _vm.Core.Const.CATEGORY_ATTR_INPUT_TYPE.FILES) ? _c('div', {
       staticClass: "extra file"
     }, [_c('label', {
       staticClass: "title"
@@ -359,7 +347,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           "href": _vm._f("getFileUrl")(item.hash, item.ext),
           "download": item.name
         }
-      }, [_vm._v("\n                    " + _vm._s(_vm.$t("download")))]), _vm._v(" "), _c('el-button', {
+      }, [_vm._v(" " + _vm._s(_vm.$t('download')))]), _vm._v(" "), _c('el-button', {
         attrs: {
           "type": "preview"
         },
@@ -368,11 +356,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
             return _vm.preview(item)
           }
         }
-      }, [_vm._v(_vm._s(_vm.$t("preview")))])], 1)])
-    }), 0)]) : _vm._e(), _vm._v(" "), (
-      item.attr_def_type == _vm.Core.Const.CATEGORY_ATTR_INPUT_TYPE.PIC ||
-      item.attr_def_type == _vm.Core.Const.CATEGORY_ATTR_INPUT_TYPE.PICS
-    ) ? _c('div', {
+      }, [_vm._v(_vm._s(_vm.$t('preview')))])], 1)])
+    }), 0)]) : _vm._e(), _vm._v(" "), (item.attr_def_type == _vm.Core.Const.CATEGORY_ATTR_INPUT_TYPE.PIC || item.attr_def_type == _vm.Core.Const.CATEGORY_ATTR_INPUT_TYPE.PICS) ? _c('div', {
       staticClass: "extra img"
     }, [_c('label', {
       staticClass: "title"
@@ -389,7 +374,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "content-item"
   }, [_c('label', {
     staticClass: "title"
-  }, [_vm._v(_vm._s(_vm.$t("bomList")))]), _vm._v(" "), (_vm.authList[_vm.Core.Const.AUTH_LIST.productProductBomView]) ? _c('div', {
+  }, [_vm._v(_vm._s(_vm.$t('bomList')))]), _vm._v(" "), (_vm.authList[_vm.Core.Const.AUTH_LIST.productProductBomView]) ? _c('div', {
     staticClass: "desc h-24"
   }, [_c('div', {
     staticClass: "icons jc-start"
@@ -407,7 +392,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "content-item"
   }, [_c('label', {
     staticClass: "title"
-  }, [_vm._v(_vm._s(_vm.$t("training")))]), _vm._v(" "), _c('div', {
+  }, [_vm._v(_vm._s(_vm.$t('training')))]), _vm._v(" "), _c('div', {
     staticClass: "desc h-24"
   }, [_c('div', {
     staticClass: "icons jc-start"
@@ -430,7 +415,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.deleteDialogVisible = $event
       }
     }
-  }, [_c('p', [_vm._v(_vm._s(_vm.selectItem.name || _vm.selectItem.part_no))]), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.$t("deleteProductDialog.content")))]), _vm._v(" "), _c('div', {
+  }, [_c('p', [_vm._v(_vm._s(_vm.selectItem.name || _vm.selectItem.part_no))]), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.$t('deleteProductDialog.content')))]), _vm._v(" "), _c('div', {
     staticClass: "dialog-footer",
     attrs: {
       "slot": "footer"
@@ -444,7 +429,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "click": _vm.deleteModel
     }
-  }, [_vm._v(_vm._s(_vm.$t("yes")))]) : _c('el-button', {
+  }, [_vm._v(_vm._s(_vm.$t('yes')))]) : _c('el-button', {
     attrs: {
       "type": "preview",
       "disabled": _vm.deleteOperation
@@ -452,7 +437,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "click": _vm.deleteSpec
     }
-  }, [_vm._v(_vm._s(_vm.$t("yes")))]), _vm._v(" "), _c('el-button', {
+  }, [_vm._v(_vm._s(_vm.$t('yes')))]), _vm._v(" "), _c('el-button', {
     attrs: {
       "type": "primary"
     },
@@ -461,7 +446,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.deleteDialogVisible = false
       }
     }
-  }, [_vm._v(_vm._s(_vm.$t("no")))])], 1)]), _vm._v(" "), _c('el-dialog', {
+  }, [_vm._v(_vm._s(_vm.$t('no')))])], 1)]), _vm._v(" "), _c('el-dialog', {
     attrs: {
       "title": _vm.$t('historyDialog.title'),
       "visible": _vm.historyDialogVisible,
@@ -482,9 +467,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('thead', [_c('tr', [_c('td', {
     staticClass: "history-td head"
-  }, [_vm._v("\n            " + _vm._s(_vm.$t("historyDialog.updateTime")) + "\n          ")]), _vm._v(" "), _c('td', {
+  }, [_vm._v("\n            " + _vm._s(_vm.$t('historyDialog.updateTime')) + "\n          ")]), _vm._v(" "), _c('td', {
     staticClass: "history-td head"
-  }, [_vm._v("\n            " + _vm._s(_vm.$t("historyDialog.version")) + "\n          ")]), _vm._v(" "), _c('td', {
+  }, [_vm._v("\n            " + _vm._s(_vm.$t('historyDialog.version')) + "\n          ")]), _vm._v(" "), _c('td', {
     staticClass: "history-td head"
   }, [_vm._v("文件名")]), _vm._v(" "), _c('td', {
     staticClass: "history-td head"
@@ -494,9 +479,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "history-td head"
   }, [_vm._v("显示状态")]), _vm._v(" "), _c('td', {
     staticClass: "history-td head"
-  }, [_vm._v("\n            " + _vm._s(_vm.$t("historyDialog.remark")) + "\n          ")]), _vm._v(" "), _c('td', {
+  }, [_vm._v("\n            " + _vm._s(_vm.$t('historyDialog.remark')) + "\n          ")]), _vm._v(" "), _c('td', {
     staticClass: "history-td head"
-  }, [_vm._v("\n            " + _vm._s(_vm.$t("historyDialog.operation")) + "\n          ")])])]), _vm._v(" "), _vm._l((_vm.HWRecord), function(item) {
+  }, [_vm._v("\n            " + _vm._s(_vm.$t('historyDialog.operation')) + "\n          ")])])]), _vm._v(" "), _vm._l((_vm.HWRecord), function(item) {
     return _c('tr', [_c('td', {
       staticClass: "history-td"
     }, [_vm._v(_vm._s(_vm._f("dateFormat")(item.create_time)))]), _vm._v(" "), _c('td', {
@@ -520,21 +505,21 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           return _vm.handleEditFirmwareDialog(item)
         }
       }
-    }, [_vm._v(_vm._s(_vm.$t("edit")))]), _vm._v(" "), _c('a', {
+    }, [_vm._v(_vm._s(_vm.$t('edit')))]), _vm._v(" "), _c('a', {
       staticClass: "btn-underline",
       attrs: {
         "href": _vm._f("getFileUrl")(item.file, ''),
         "download": item.file
       }
-    }, [_vm._v(_vm._s(_vm.$t("download")))]), _vm._v(" "), _c('a', {
+    }, [_vm._v(_vm._s(_vm.$t('download')))]), _vm._v(" "), _c('a', {
       staticClass: "btn-underline",
       on: {
         "click": function($event) {
           return _vm.showFirmwareDeleteDialog(item)
         }
       }
-    }, [_vm._v(_vm._s(_vm.$t("delete")))])])])
-  })], 2) : _c('p', [_vm._v(_vm._s(_vm.$t("historyDialog.noResult")))]), _vm._v(" "), _c('div', {
+    }, [_vm._v(_vm._s(_vm.$t('delete')))])])])
+  })], 2) : _c('p', [_vm._v(_vm._s(_vm.$t('historyDialog.noResult')))]), _vm._v(" "), _c('div', {
     staticClass: "clear-20"
   }), _vm._v(" "), _c('el-button', {
     staticClass: "pull-right",
@@ -544,7 +529,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "click": _vm.showUpdateHwDialog
     }
-  }, [_vm._v(_vm._s(_vm.$t("update")))]), _vm._v(" "), _c('div', {
+  }, [_vm._v(_vm._s(_vm.$t('update')))]), _vm._v(" "), _c('div', {
     staticClass: "clear-20"
   }), _vm._v(" "), _c('div', {
     directives: [{
@@ -564,7 +549,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "history-td head"
   }, [_vm._v("物料名称")]), _vm._v(" "), _c('td', {
     staticClass: "history-td head"
-  }, [_vm._v("\n              " + _vm._s(_vm.$t("historyDialog.version")) + "\n            ")]), _vm._v(" "), _c('td', {
+  }, [_vm._v("\n              " + _vm._s(_vm.$t('historyDialog.version')) + "\n            ")]), _vm._v(" "), _c('td', {
     staticClass: "history-td head"
   }, [_vm._v("文件名")]), _vm._v(" "), _c('td', {
     staticClass: "history-td head"
@@ -574,9 +559,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "history-td head"
   }, [_vm._v("显示状态")]), _vm._v(" "), _c('td', {
     staticClass: "history-td head"
-  }, [_vm._v("\n              " + _vm._s(_vm.$t("historyDialog.remark")) + "\n            ")]), _vm._v(" "), _c('td', {
+  }, [_vm._v("\n              " + _vm._s(_vm.$t('historyDialog.remark')) + "\n            ")]), _vm._v(" "), _c('td', {
     staticClass: "history-td head"
-  }, [_vm._v("\n              " + _vm._s(_vm.$t("historyDialog.operation")) + "\n            ")])])]), _vm._v(" "), _vm._l((_vm.ModelFirmwareRecord), function(item) {
+  }, [_vm._v("\n              " + _vm._s(_vm.$t('historyDialog.operation')) + "\n            ")])])]), _vm._v(" "), _vm._l((_vm.ModelFirmwareRecord), function(item) {
     return _c('tr', [_c('td', {
       staticClass: "history-td"
     }, [_vm._v(_vm._s(item.ext_part_no))]), _vm._v(" "), _c('td', {
@@ -600,7 +585,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           return _vm.copyModelFirmware(item)
         }
       }
-    }, [_vm._v(_vm._s(_vm.$t("copy")))])])])
+    }, [_vm._v(_vm._s(_vm.$t('copy')))])])])
   })], 2)])], 1), _vm._v(" "), _c('el-dialog', {
     attrs: {
       "title": _vm.$t('deleteFirmwareDialog.title'),
@@ -612,7 +597,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.deleteFirmwareDialogVisible = $event
       }
     }
-  }, [_c('p', [_vm._v(_vm._s(_vm.selectItem.version))]), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.$t("deleteFirmwareDialog.content")))]), _vm._v(" "), _c('div', {
+  }, [_c('p', [_vm._v(_vm._s(_vm.selectItem.version))]), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.$t('deleteFirmwareDialog.content')))]), _vm._v(" "), _c('div', {
     staticClass: "dialog-footer",
     attrs: {
       "slot": "footer"
@@ -625,7 +610,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "click": _vm.deleteSoft
     }
-  }, [_vm._v(_vm._s(_vm.$t("yes")))]), _vm._v(" "), _c('el-button', {
+  }, [_vm._v(_vm._s(_vm.$t('yes')))]), _vm._v(" "), _c('el-button', {
     attrs: {
       "type": "primary"
     },
@@ -634,7 +619,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.deleteFirmwareDialogVisible = false
       }
     }
-  }, [_vm._v(_vm._s(_vm.$t("no")))])], 1)]), _vm._v(" "), _c('el-dialog', {
+  }, [_vm._v(_vm._s(_vm.$t('no')))])], 1)]), _vm._v(" "), _c('el-dialog', {
     attrs: {
       "title": _vm.$t('updateFirmwareDialog.title'),
       "visible": _vm.editDialogVisible
@@ -648,7 +633,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "clear-10"
   }), _vm._v(" "), _c('div', [_c('label', {
     staticClass: "upload-label"
-  }, [_vm._v(_vm._s(_vm.$t("updateFirmwareDialog.version")))]), _vm._v(" "), _c('el-input', {
+  }, [_vm._v(_vm._s(_vm.$t('updateFirmwareDialog.version')))]), _vm._v(" "), _c('el-input', {
     staticClass: "remark",
     model: {
       value: (_vm.selectSoft.version),
@@ -679,7 +664,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "clear-10"
   }), _vm._v(" "), _c('div', [_c('label', {
     staticClass: "upload-label"
-  }, [_vm._v(_vm._s(_vm.$t("updateFirmwareDialog.remark")))]), _vm._v(" "), _c('el-input', {
+  }, [_vm._v(_vm._s(_vm.$t('updateFirmwareDialog.remark')))]), _vm._v(" "), _c('el-input', {
     staticClass: "remark",
     attrs: {
       "resize": "none",
@@ -706,24 +691,24 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "click": _vm.saveCopy
     }
-  }, [_vm._v(_vm._s(_vm.$t("confirm")))]) : _c('el-button', {
+  }, [_vm._v(_vm._s(_vm.$t('confirm')))]) : _c('el-button', {
     attrs: {
       "type": "preview"
     },
     on: {
       "click": _vm.saveEdit
     }
-  }, [_vm._v(_vm._s(_vm.$t("confirm")))]), _vm._v(" "), _c('el-button', {
+  }, [_vm._v(_vm._s(_vm.$t('confirm')))]), _vm._v(" "), _c('el-button', {
     attrs: {
       "type": "primary"
     },
     on: {
       "click": function($event) {
-        _vm.editDialogVisible = false;
-        _vm.copy = false;
+        _vm.editDialogVisible = false
+        _vm.copy = false
       }
     }
-  }, [_vm._v(_vm._s(_vm.$t("cancel")))])], 1)]), _vm._v(" "), _c('el-dialog', {
+  }, [_vm._v(_vm._s(_vm.$t('cancel')))])], 1)]), _vm._v(" "), _c('el-dialog', {
     attrs: {
       "title": _vm.$t('updateFirmwareDialog.title'),
       "visible": _vm.updateHWDialogVisible,
@@ -737,7 +722,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('div', [_c('label', {
     staticClass: "upload-label"
-  }, [_vm._v(_vm._s(_vm.$t("updateFirmwareDialog.file")))]), _vm._v(" "), _c('el-upload', {
+  }, [_vm._v(_vm._s(_vm.$t('updateFirmwareDialog.file')))]), _vm._v(" "), _c('el-upload', {
     staticClass: "HWUpload",
     attrs: {
       "action": _vm.upload.url,
@@ -750,11 +735,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "size": "small",
       "type": "primary"
     }
-  }, [_vm._v(_vm._s(_vm.$t("updateFirmwareDialog.clickToUpload")))])], 1)], 1), _vm._v(" "), _c('div', {
+  }, [_vm._v(_vm._s(_vm.$t('updateFirmwareDialog.clickToUpload')))])], 1)], 1), _vm._v(" "), _c('div', {
     staticClass: "clear-10"
   }), _vm._v(" "), _c('div', [_c('label', {
     staticClass: "upload-label"
-  }, [_vm._v(_vm._s(_vm.$t("updateFirmwareDialog.version")))]), _vm._v(" "), _c('el-input', {
+  }, [_vm._v(_vm._s(_vm.$t('updateFirmwareDialog.version')))]), _vm._v(" "), _c('el-input', {
     staticClass: "remark",
     model: {
       value: (_vm.HWVersion),
@@ -780,7 +765,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "clear-10"
   }), _vm._v(" "), _c('div', [_c('label', {
     staticClass: "upload-label"
-  }, [_vm._v(_vm._s(_vm.$t("updateFirmwareDialog.remark")))]), _vm._v(" "), _c('el-input', {
+  }, [_vm._v(_vm._s(_vm.$t('updateFirmwareDialog.remark')))]), _vm._v(" "), _c('el-input', {
     staticClass: "remark",
     attrs: {
       "resize": "none",
@@ -808,14 +793,14 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "click": _vm.updateFirmware
     }
-  }, [_vm._v(_vm._s(_vm.$t("confirm")))]), _vm._v(" "), _c('el-button', {
+  }, [_vm._v(_vm._s(_vm.$t('confirm')))]), _vm._v(" "), _c('el-button', {
     attrs: {
       "type": "primary"
     },
     on: {
       "click": _vm.handleCloseFirmwareDialog
     }
-  }, [_vm._v(_vm._s(_vm.$t("cancel")))])], 1), _vm._v(" "), _c('div', {
+  }, [_vm._v(_vm._s(_vm.$t('cancel')))])], 1), _vm._v(" "), _c('div', {
     staticClass: "clear-20"
   }), _vm._v(" "), _c('div', {
     directives: [{
@@ -835,7 +820,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "history-td head"
   }, [_vm._v("物料名称")]), _vm._v(" "), _c('td', {
     staticClass: "history-td head"
-  }, [_vm._v("\n              " + _vm._s(_vm.$t("historyDialog.version")) + "\n            ")]), _vm._v(" "), _c('td', {
+  }, [_vm._v("\n              " + _vm._s(_vm.$t('historyDialog.version')) + "\n            ")]), _vm._v(" "), _c('td', {
     staticClass: "history-td head"
   }, [_vm._v("文件名")]), _vm._v(" "), _c('td', {
     staticClass: "history-td head"
@@ -845,9 +830,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "history-td head"
   }, [_vm._v("显示状态")]), _vm._v(" "), _c('td', {
     staticClass: "history-td head"
-  }, [_vm._v("\n              " + _vm._s(_vm.$t("historyDialog.remark")) + "\n            ")]), _vm._v(" "), _c('td', {
+  }, [_vm._v("\n              " + _vm._s(_vm.$t('historyDialog.remark')) + "\n            ")]), _vm._v(" "), _c('td', {
     staticClass: "history-td head"
-  }, [_vm._v("\n              " + _vm._s(_vm.$t("historyDialog.operation")) + "\n            ")])])]), _vm._v(" "), _vm._l((_vm.ModelFirmwareRecord), function(item) {
+  }, [_vm._v("\n              " + _vm._s(_vm.$t('historyDialog.operation')) + "\n            ")])])]), _vm._v(" "), _vm._l((_vm.ModelFirmwareRecord), function(item) {
     return _c('tr', [_c('td', {
       staticClass: "history-td"
     }, [_vm._v(_vm._s(item.ext_part_no))]), _vm._v(" "), _c('td', {
@@ -871,7 +856,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           return _vm.copyModelFirmware(item)
         }
       }
-    }, [_vm._v(_vm._s(_vm.$t("copy")))])])])
+    }, [_vm._v(_vm._s(_vm.$t('copy')))])])])
   })], 2)])]), _vm._v(" "), _c('el-dialog', {
     staticClass: "preview-dialog",
     attrs: {
@@ -951,7 +936,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [_vm._v("Confirm")])], 1)
   }), 0)], 1), _vm._v(" "), _c('el-dialog', {
     attrs: {
-      "title": "Article List",
+      "title": _vm.$t('articleList'),
       "visible": _vm.articleDialogVisible,
       "size": "large"
     },
@@ -990,7 +975,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "width": "150",
       "prop": "part_no",
-      "label": "Article No."
+      "label": "Article No.",
+      "sortable": ""
     }
   }), _vm._v(" "), (
     _vm.authList[_vm.Core.Const.AUTH_LIST.productProductAdd] ||
@@ -1032,10 +1018,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
               return _vm.clickFirmwareBtn(scope.row)
             }
           }
-        }, [_vm._v("Firmware")]) : _vm._e(), _vm._v(" "), _c('br'), _vm._v(" "), (
-          scope.row.id != _vm.itemId &&
-          _vm.authList[_vm.Core.Const.AUTH_LIST.productProductDelete]
-        ) ? _c('a', {
+        }, [_vm._v("Firmware")]) : _vm._e(), _vm._v(" "), _c('br'), _vm._v(" "), (scope.row.id != _vm.itemId && _vm.authList[_vm.Core.Const.AUTH_LIST.productProductDelete]) ? _c('a', {
           staticClass: "btn-underline",
           on: {
             "click": function($event) {
@@ -1043,10 +1026,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
               return _vm.clickChangeSpec(scope.row)
             }
           }
-        }, [_vm._v("Change")]) : _vm._e(), _vm._v(" "), (
-          scope.row.id != _vm.itemId &&
-          _vm.authList[_vm.Core.Const.AUTH_LIST.productProductDelete]
-        ) ? _c('a', {
+        }, [_vm._v("Change")]) : _vm._e(), _vm._v(" "), (scope.row.id != _vm.itemId && _vm.authList[_vm.Core.Const.AUTH_LIST.productProductDelete]) ? _c('a', {
           staticClass: "btn-underline",
           on: {
             "click": function($event) {
@@ -1056,7 +1036,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           }
         }, [_vm._v("Delete")]) : _vm._e(), _vm._v(" "), _c('br')]
       }
-    }], null, false, 1948193782)
+    }], null, false, 3393461238)
   }) : _vm._e(), _vm._v(" "), _c('el-table-column', {
     attrs: {
       "width": "120",
@@ -1097,7 +1077,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       scopedSlots: _vm._u([{
         key: "default",
         fn: function(scope) {
-          return [_c('span', [_vm._v(_vm._s((scope.row.attr_list[index] && scope.row.attr_list[index].value) || "-"))])]
+          return [_c('span', [_vm._v(_vm._s((scope.row.attr_list[index] && scope.row.attr_list[index].value) || '-'))])]
         }
       }], null, true)
     })
@@ -1314,5 +1294,5 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
 //////////////////
 // WEBPACK FOOTER
 // ./node_modules/vue-loader/lib/template-compiler?{"id":"data-v-068c71ce","hasScoped":false}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./src/views/component/product/detail.vue
-// module id = 1945
+// module id = 1964
 // module chunks = 76

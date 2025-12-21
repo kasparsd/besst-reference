@@ -12,5 +12,5 @@ exports.push([module.id, ".warehouse-storage-cache{display:-webkit-box;display:-
 //////////////////
 // WEBPACK FOOTER
 // ./node_modules/css-loader?{"minimize":true,"sourceMap":true}!./node_modules/vue-loader/lib/style-compiler?{"vue":true,"id":"data-v-5d9eff1f","scoped":false,"hasInlineConfig":false}!./node_modules/sass-loader/lib/loader.js?{"sourceMap":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./src/views/nl/warehouse/warehouse-storage-cache.vue
-// module id = 2454
+// module id = 2485
 // module chunks = 23

@@ -1,0 +1,924 @@
+<!--
+ * @Author: Bai YanShuo
+ * @Date: 2025-06-19 10:12:51
+ * @LastEditors: Bai YanShuo
+ * @LastEditTime: 2025-08-20 11:34:14
+ * @FilePath: /BESST/besst-client/src/views/component/order/test-report/battery.vue
+ * @Description: 
+-->
+<template>
+  <div class="component-order-test-report">
+    <div class="header">
+      <div class="btn-group-inline">
+        <div class="icons">
+          <div class="icon-item back" @click="$router.back()" :title="$t('back')"></div>
+        </div>
+      </div>
+    </div>
+    <div class="content-wrap">
+      <div class="content">
+        <!-- 订单、物料信息 -->
+        <div class="content-card-item">
+          <label class="content-header">Setting</label>
+          <div class="content-body">
+            <div class="item">
+              <label class="label">Model</label>
+              <span>{{ itemInfo.name }}</span>
+            </div>
+            <div class="item">
+              <label class="label">Customer Name</label>
+              <span>{{ orderInfo.customer_id || '/' }}</span>
+            </div>
+            <div class="item">
+              <label class="label">Order No.</label>
+              <span>{{ orderInfo.source_id || '/' }}</span>
+            </div>
+            <div class="item">
+              <label class="label">Article No.</label>
+              <span>{{ itemInfo.ext_part_no || '/' }}</span>
+            </div>
+            <!-- 渲染动态物料字段 -->
+            <div class="item" v-for="(item, index) in needAttrList" :key="index">
+              <label class="label">{{ item.attr_def_name }}</label>
+              <span>{{ item.value }}</span>
+            </div>
+            <!-- 已生产/总数 -->
+            <div class="item">
+              <label class="label">Produced/Amount</label>
+              <span>{{ itemOrderInfo ? itemOrderInfo.produced : 0 }}/{{ itemOrderInfo ? itemOrderInfo.amount : 0 }}</span>
+            </div>
+          </div>
+        </div>
+        <!-- Test Report -->
+        <div class="content-card-item" v-if="isWithComm">
+          <label class="content-header">Test Report</label>
+          <div class="content-body">
+            <div class="hardware-item">
+              <div class="select-holder">
+                <label class="label">USB HID</label>
+                <label class="tip" :class="{ connect: isConnected }"></label>
+              </div>
+              <div class="operation-holder">
+                <el-button type="primary" @click="connect">Connect</el-button>
+                <el-button type="danger" @click="reset">Reset</el-button>
+              </div>
+            </div>
+            <!--Number of SN-->
+            <div class="hardware-item">
+              <div class="select-holder">
+                <label class="label">Number of SN</label>
+                <el-select v-model="snLength" @change="changeSnLength" placeholder="Please select">
+                  <el-option v-for="item in snLengthList" :key="item" :label="item" :value="item"> </el-option>
+                </el-select>
+              </div>
+            </div>
+            <!-- 客户号 -->
+            <div class="hardware-item">
+              <div class="select-holder">
+                <label class="label">Customer No.</label>
+                <el-input v-model="clientCode" class="input"></el-input>
+              </div>
+            </div>
+            <div class="hardware-item">
+              <div class="input-holder">
+                <label class="label">SN</label>
+                <el-input type="textarea" @input="handleSnInput" class="input input-sn" :rows="1" resize="none" v-model="sn"></el-input>
+              </div>
+              <div class="operation-holder">
+                <el-button type="primary" @click="read" :disabled="!isConnected || isRead || isReset || isWrite" class="btn-green">
+                  {{ $t('cNam.read') }}
+                </el-button>
+                <el-button type="primary" @click="writeSn" :disabled="!isConnected || isReset" class="btn-green">
+                  {{ $t('cNam.write') }}
+                </el-button>
+                <el-button type="danger" @click="clearParams">{{ $t('cNam.clear') }}</el-button>
+              </div>
+              <!-- 客户SN -->
+              <div class="input-holder" v-if="customer_sn">
+                <label class="label">Customer SN</label>
+                <el-input v-model="customer_sn" class="input" />
+              </div>
+            </div>
+            <div class="hardware-item">
+              <div class="select-holder">
+                <el-switch v-model="autoOperation" :on-text="'自动'" :off-text="'手动'"> </el-switch>
+                <el-input v-model="autoTime" type="number" class="autoTime"></el-input>
+                <el-button type="danger" @click="setAutoTime">设置读取间隔</el-button>
+              </div>
+              <div class="select-holder" v-show="isTechnicianAccount">
+                <span>只扫描SN录入功能</span>
+                <el-switch v-model="isTechnicianUse" :on-text="'开启'" :off-text="'关闭'"> </el-switch>
+              </div>
+            </div>
+            <!-- 读取数据 -->
+            <div v-if="!isTechnicianUse">
+              <div class="item">
+                <label class="label">{{ $t('cNam.softwareVersion') }}</label>
+                <span :class="{ errorTip: errorList.indexOf('soft_ver') > -1 }">{{ readInfo.softVersion || '-' }}</span>
+              </div>
+              <div class="item">
+                <label class="label">{{ $t('cNam.hardwareVersion') }}</label>
+                <span :class="{ errorTip: errorList.indexOf('hard_ver') > -1 }">{{ readInfo.hardVersion || '-' }}</span>
+              </div>
+              <div class="item">
+                <label class="label">{{ $t('cNam.model') }}</label>
+                <span>{{ readInfo.modelNumber || '-' }}</span>
+              </div>
+              <div class="item">
+                <label class="label">{{ $t('cNam.RSOC') }}</label>
+                <span>{{ readInfo.relativeCapacity || '-' }}</span>
+              </div>
+              <div class="item">
+                <label class="label">{{ $t('cNam.RSOC') }}</label>
+                <span>{{ readInfo.relativeCapacity || '-' }}</span>
+              </div>
+              <div class="item">
+                <label class="label">{{ $t('cNam.ASOC') }}</label>
+                <span>{{ readInfo.absoluteCapacity || '-' }}</span>
+              </div>
+              <div class="item">
+                <label class="label">{{ $t('cNam.fullChargeCapacity') }}</label>
+                <span>{{ readInfo.totalCapacity || '-' }}</span>
+              </div>
+              <div class="item">
+                <label class="label">{{ $t('cNam.capacityLeft') }}</label>
+                <span>{{ readInfo.remainCapacity || '-' }}</span>
+              </div>
+            </div>
+            <div v-else>
+              <div class="item">
+                <label class="label">{{ $t('cNam.softwareVersion') }}</label>
+                <el-input v-model="readInfo.softVersion" class="input"></el-input>
+              </div>
+              <div class="item">
+                <label class="label">{{ $t('cNam.hardwareVersion') }}</label>
+                <el-input v-model="readInfo.hardVersion" class="input"></el-input>
+              </div>
+              <div class="item">
+                <label class="label">{{ $t('cNam.model') }}</label>
+                <el-input v-model="readInfo.modelNumber" class="input"></el-input>
+              </div>
+            </div>
+            <!-- 继续功能 -->
+            <div class="hardware-item">
+              <div class="operation-holder" v-if="isTechnicianUse">
+                <el-button type="primary" @click="next" :disabled="autoOperation">下一个</el-button>
+              </div>
+              <div class="operation-holder" v-else>
+                <el-button type="primary" @click="next" :disabled="!canNext">下一个</el-button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="content-card-item" v-else>
+          <label class="content-header">Test Report</label>
+          <div class="content-body">
+            <div class="hardware-item">
+              <div class="input-holder">
+                <label class="label">{{ deviceLabel }} Upload</label>
+                <el-upload
+                  class="upload desc"
+                  ref="upload"
+                  :action="options.url"
+                  :on-success="onSuccess"
+                  :multiple="singleUpload"
+                  :auto-upload="autoUpload"
+                  :data="options.params"
+                >
+                  <el-button type="primary">Upload</el-button>
+                </el-upload>
+                <el-button type="primary" @click="submitUpload" class="save-btn">{{ $t('cNam.save') }}</el-button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 上传提示弹窗 -->
+    <el-dialog :title="dialogUploadText" :visible.sync="dialogUploadVisible" size="tiny">
+      <table border="1">
+        <tr>
+          <td>SN</td>
+        </tr>
+        <tr :key="index" v-for="(item, index) in showList">
+          <td>{{ item.sn }}</td>
+        </tr>
+      </table>
+    </el-dialog>
+
+    <!--提示弹窗-->
+    <el-dialog title="Tip" :visible.sync="dialogTipVisible" size="tiny">
+      <p>请检查 {{ tip }}</p>
+      <div slot="footer" class="dialog-footer">
+        <el-button type="preview" @click="saveComponent">{{ $t('cNam.save') }}</el-button>
+        <el-button type="primary" @click="clear()">{{ $t('cNam.cancel') }}</el-button>
+      </div>
+    </el-dialog>
+
+    <!-- 加载 -->
+    <div class="loading" v-if="loading">
+      <img src="../../../../assets/images/icon/loading-bars.svg" alt="Loading icon" />
+    </div>
+  </div>
+</template>
+
+<script>
+import Core from 'core/core'
+import ZH from 'src/assets/lang/zh'
+import EN from 'src/assets/lang/en'
+import DE from 'src/assets/lang/de'
+import NL from 'src/assets/lang/nl'
+import FR from 'src/assets/lang/fr'
+import usbSDK from 'besst-usb-sdk'
+
+export default {
+  name: 'test-report-battery',
+  data() {
+    return {
+      orderId: '',
+      itemOrderInfo: {},
+      itemInfo: {},
+      orderInfo: {},
+      deviceName: 'battery',
+      deviceLabel: 'Battery',
+      needAttrList: [],
+      singleUpload: false,
+      autoUpload: false,
+      options: {
+        url: Core.Const.NET.END_POINT + '/component/upload-battery',
+        paramName: 'file',
+        params: {
+          token: Core.Data.getToken(),
+          order_id: '',
+          item_id: ''
+        }
+      },
+      // 电池
+      target: 0x04,
+      // 盒子
+      source: 0x05,
+      // 物料设置
+      sn: '',
+      customer_sn: '',
+      snLengthList: [14, 15, 16, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40],
+      snLength: '',
+      clientCode: '',
+      isTechnicianUse: false,
+      autoTime: 300,
+      autoOperationNextTime: 300,
+      autoOperation: false,
+      canNext: false,
+      readInfo: {
+        sn: '',
+        hardVersion: '',
+        softVersion: '',
+        modelNumber: '',
+        totalCapacity: '',
+        remainCapacity: '',
+        relativeCapacity: '',
+        absoluteCapacity: ''
+      },
+      errorList: [],
+      //对比值
+      attrValues: {},
+      // 上传提示弹框
+      dialogCustom: 'dialog-custom',
+      showList: [],
+      dialogUploadText: '',
+      dialogUploadVisible: false,
+      // 扫码枪判断
+      lastInputTime: 0,
+      inputTimer: null,
+      //提示弹窗
+      dialogTipVisible: false,
+      tip: '',
+      loading: false,
+      isSaving: false,
+      isWrite: false,
+      isReset: false,
+      isRead: false
+    }
+  },
+  computed: {
+    isConnected() {
+      return usbSDK.client.isConnected()
+    },
+    // 是否带通讯
+    isWithComm() {
+      // 默认电池是不带通讯的、带通讯的是新电池 不带通讯5 带通讯13
+      return this.itemInfo.category_root_id === Core.Const.CATEGORY_ROOT_TYPE.BATTERY_COMM
+    },
+    // 是否是技师账号
+    isTechnicianAccount() {
+      const accountType = Core.Data.get('accountType') || []
+      return accountType.includes(7) || accountType.includes(11)
+    }
+  },
+  mounted: function () {
+    // 订单id
+    this.orderId = this.$route.query.orderId
+    // 物料订单信息
+    this.itemOrderInfo = this.$route.query.item
+    // 设置上传参数
+    this.options.params.order_id = this.orderId
+    this.options.params.item_id = this.itemOrderInfo.item_id
+    // 获取订单详情
+    this.getProductionOrderDetail()
+    // 获取物料详情
+    this.getItemDetail()
+
+    this.listen()
+  },
+  methods: {
+    handleSnInput() {
+      this.checkScannerInput()
+    },
+    checkScannerInput() {
+      const now = Date.now()
+      const timeDiff = now - this.lastInputTime
+
+      // 判断是否为扫码枪输入（快速连续输入且间隔很短）
+      if (timeDiff < 35 && this.sn.length > 0) {
+        // 扫码枪输入处理逻辑
+        console.log('扫码枪输入:', this.sn)
+        clearTimeout(this.inputTimer)
+        // 设置新的定时器
+        this.inputTimer = setTimeout(async () => {
+          await this.processScannerInput()
+        }, 800) // 00ms防抖延迟
+      }
+
+      this.lastInputTime = now
+    },
+    async processScannerInput() {
+      try {
+        let sn = this.sn.replace(/\s+/g, '')
+        if (sn.length !== this.snLength) {
+          this.sn = ''
+          this.customer_sn = ''
+          clearTimeout(this.inputTimer)
+          this.$message.error('SN长度不符合,暂停录入')
+          return
+        }
+        if (!this.autoOperation) return
+        if (this.isTechnicianUse) {
+          this.next()
+        } else {
+          await this.writeSn()
+          // 延迟等待
+          await this.delay(100)
+          await this.read()
+          // 延迟等待
+          await this.delay(this.autoOperationNextTime)
+          this.next()
+        }
+      } catch (error) {
+        console.log('processScannerInput error:', error)
+      }
+    },
+    listen() {
+      usbSDK.client.events.on('public-data', async (res) => {
+        if (res.code == '34' && res.subCode == '00') {
+          const buffer = Buffer.from(res.data, 'hex')
+          // 总容量 byte0 - byte1
+          var total_capacity = buffer.readUInt16LE(0)
+          this.readInfo.totalCapacity = total_capacity
+          // 剩余容量
+          var remain_capacity = buffer.readUInt16LE(2)
+          this.readInfo.remainCapacity = remain_capacity
+          // 相对容量百分比
+          var relative_capacity = buffer.readUInt8(4)
+          this.readInfo.relativeCapacity = relative_capacity
+          // 绝对容量百分比
+          var absolute_capacity = buffer.readUInt8(5)
+          this.readInfo.absoluteCapacity = absolute_capacity
+        }
+      })
+    },
+    async getProductionOrderDetail() {
+      try {
+        var res = await Core.Api.Order.getProductionOrderDetail(this.orderId)
+        this.orderInfo = res.order
+        console.log('orderInfo', res.order)
+        // 物料订单信息
+        this.itemOrderInfo = res.order.item_list.find((item) => {
+          return item.item_id == this.itemOrderInfo.item_id
+        })
+
+        if (this.itemOrderInfo && this.itemOrderInfo.produced >= this.itemOrderInfo.amount) {
+          this.$message({
+            message: 'The item is finished，订单已完成',
+            type: 'warning'
+          })
+          this.$router.back()
+        }
+      } catch (error) {
+        console.log(error)
+      }
+    },
+    async getItemDetail() {
+      var res = await Core.Api.Item.getItemDetail(this.itemOrderInfo.item_id)
+      this.itemInfo = res.item
+      console.log(res.item)
+      // 渲染动态物料字段
+      this.getAttr()
+    },
+    // 渲染动态物料字段
+    getAttr() {
+      if (this.itemInfo.attr_list.length <= 0) {
+        return
+      }
+      let needNameList = ['soft_ver', 'hard_ver', 'capacity', 'voltage']
+
+      this.needAttrList = this.itemInfo.attr_list.filter((item) => {
+        return needNameList.indexOf(item.attr_def_key) > -1
+      })
+
+      this.needAttrList.forEach((item) => {
+        this.attrValues[item.attr_def_key] = item.value + ''
+      })
+    },
+    connect() {
+      usbSDK.client.connect()
+    },
+    async reset() {
+      try {
+        this.isReset = true
+        this.clearParams()
+        this.clear()
+        await usbSDK.client.reset()
+        this.isReset = false
+      } catch (error) {
+        this.isReset = false
+        console.log(error)
+      }
+    },
+    async read() {
+      try {
+        this.isRead = true
+        this.clearParams()
+        await this.readBase()
+        this.isRead = false
+      } catch (error) {
+        this.isRead = false
+        console.log(error)
+      }
+    },
+    clear() {
+      this.isWrite = false
+      this.isRead = false
+      this.isSaving = false
+      this.loading = false
+      this.canNext = false
+      this.dialogTipVisible = false
+    },
+    // 读取数据
+    async readBase() {
+      // sn
+      var snRes = await usbSDK.machineInformation.get.serialNumber(this.source, this.target)
+      console.log('snRes:', snRes)
+      this.sn = snRes.dataParsed
+      this.readInfo.sn = snRes.dataParsed
+
+      if (this.sn.length !== this.snLength) {
+        this.checkSnLengthMsg(1)
+        this.canNext = false
+      } else {
+        this.canNext = true
+      }
+      // 硬件版本号
+      var hvRes = await usbSDK.machineInformation.get.hardwareVersionNumber(this.source, this.target)
+      this.readInfo.hardVersion = hvRes.dataParsed
+      if (this.readInfo.hardVersion != this.attrValues['hard_ver']) {
+        this.errorList.push('hard_ver')
+      }
+
+      // 软件版本号
+      var svRes = await usbSDK.machineInformation.get.softwareVersionNumber(this.source, this.target)
+      this.readInfo.softVersion = svRes.dataParsed
+      if (this.readInfo.softVersion != this.attrValues['soft_ver']) {
+        this.errorList.push('soft_ver')
+      }
+      // 添加300ms延迟
+      await this.delay(300)
+      // 型号
+      var modelRes = await usbSDK.machineInformation.get.modelNumber(this.source, this.target)
+      this.readInfo.modelNumber = modelRes.dataParsed
+    },
+    async writeSn() {
+      try {
+        if (!this.sn) {
+          this.$message({
+            message: 'Please in put SN. 请输入SN',
+            type: 'warning',
+            duration: 2000,
+            showClose: true
+          })
+          return
+        }
+        let writeSn = this.sn.replace(/\s/g, '')
+        let snLength = writeSn.length
+        if (snLength !== this.snLength) {
+          this.checkSnLengthMsg(2)
+          return
+        }
+        this.isWrite = true
+        var res = await usbSDK.machineInformation.update.serialNumber(this.source, this.target, Core.Util.stringToHex(writeSn))
+        if (res.can === 'NORMAL_ACK') {
+          console.log('sn:', res)
+          this.$message({
+            message: this.$t('cNam.writeSuccess') + this.$t('cNam.sn'),
+            type: 'success',
+            duration: 2000,
+            showClose: true
+          })
+          this.sn = ''
+          // if (res.dataParsed) this.sn = res.dataParsed
+
+          // 写入客户号
+          await this.writeCustomerNum()
+        } else {
+          this.$message({
+            message: this.$t('cNam.writeFail') + this.$t('cNam.sn'),
+            type: 'error',
+            duration: 2000,
+            showClose: true
+          })
+        }
+        this.isWrite = false
+      } catch (error) {
+        this.isWrite = false
+        console.log(error)
+      }
+    },
+    async writeCustomerNum() {
+      try {
+        let clientCodeText = this.clientCode.replace(/\s/g, '')
+        if (clientCodeText == '') return
+        var res = await usbSDK.machineInformation.update.customerNumber(this.source, this.target, Core.Util.stringToHex(clientCodeText))
+
+        if (res.can === 'NORMAL_ACK') {
+          this.$message({
+            message: this.$t('cNam.writeSuccess') + this.$t('cNam.clientCode'),
+            type: 'success',
+            duration: 2000,
+            showClose: true
+          })
+        } else {
+          this.$message({
+            message: this.$t('cNam.writeFail') + this.$t('cNam.clientCode'),
+            type: 'error',
+            duration: 2000,
+            showClose: true
+          })
+        }
+      } catch (error) {
+        console.log(error)
+      }
+    },
+    next() {
+      let sn = this.sn.replace(/\s/g, '')
+      if (sn.length !== this.snLength) {
+        this.checkSnLengthMsg(3)
+        return
+      }
+
+      if (this.checkReadInfo()) {
+        this.saveComponent()
+      } else {
+        this.dialogTipVisible = true
+      }
+    },
+    saveComponent() {
+      if (this.isSaving) {
+        return
+      }
+
+      let sn = this.sn.replace(/\s/g, '')
+      if (!sn) {
+        this.$message({
+          message: 'Please input sn, 请输入SN',
+          type: 'warning',
+          duration: 2000,
+          showClose: true
+        })
+        return
+      }
+      this.isSaving = true
+      let id = ''
+      let orderId = this.orderId
+      let qc = ''
+      let testData = this.getReadJson()
+      let productTime = Core.Util.time()
+      let itemId = this.itemOrderInfo.item_id
+      let customerSN = this.customer_sn
+
+      Core.Api.Component.saveComponent(id, orderId, sn, qc, testData, productTime, itemId, customerSN)
+        .then((res) => {
+          this.canNext = false
+          this.clearParams()
+          this.getProductionOrderDetail()
+          this.$message({
+            message: this.$t('cNam.saveSuccess'),
+            type: 'success',
+            duration: 2000,
+            showClose: true
+          })
+          this.dialogTipVisible = false
+          this.isSaving = false
+        })
+        .catch((e) => {
+          this.isSaving = false
+          console.log(e)
+        })
+    },
+    getReadJson() {
+      let params = {}
+      params['soft_ver'] = this.readInfo.softVersion.trim()
+      params['hard_ver'] = this.readInfo.hardVersion.trim()
+      params['model'] = this.readInfo.modelNumber.trim()
+      if (params && params !== '') {
+        return JSON.stringify(params)
+      }
+      return ''
+    },
+    clearParams() {
+      this.errorList = []
+      this.sn = ''
+      this.readInfo = {
+        sn: '',
+        hardVersion: '',
+        softVersion: '',
+        modelNumber: '',
+        totalCapacity: '',
+        remainCapacity: '',
+        relativeCapacity: '',
+        absoluteCapacity: ''
+      }
+    },
+    changeSnLength(event) {
+      this.snLength = event
+    },
+    setAutoTime() {
+      let tem = this.autoTime
+      if (tem > 800 && tem < 5000) {
+        this.autoOperationNextTime = tem
+      } else {
+        this.$message({
+          message: '请在 800 - 5000范围内设置',
+          type: 'error'
+        })
+      }
+    },
+    //文件上传
+    submitUpload() {
+      this.loading = true
+      this.$refs.upload.submit()
+    },
+    onSuccess(response, file, fileList) {
+      this.loading = false
+      if (response.code !== 0) {
+        this.$message({
+          message: response.message,
+          type: 'error'
+        })
+      } else {
+        let failList = response.data && response.data.fail_list
+        let successList = response.data && response.data.success_list
+        if (failList && failList.length > 0) {
+          this.dialogUploadVisible = true
+          this.dialogUploadText = 'Upload Fail List'
+          this.showList = failList
+        } else if (successList && successList.length > 0) {
+          this.dialogUploadVisible = true
+          this.dialogUploadText = 'Upload Success List'
+          this.showList = successList
+        } else {
+          const h = this.$createElement
+          this.$message({
+            message: h('p', null, [
+              h('p', null, 'If the SN is duplicated or there is a problem with the file, the completed amount will not increase.'),
+              h('p', null, '文件上传成功，服务器会处理，请等待并检查数量。如果SN重复或者文件有问题，已完成数量就不会增加。'),
+              h(
+                'p',
+                { style: 'margin-top: 20px' },
+                "File upload successfully! It's processing in the background. Please wait and check the quantity. "
+              )
+            ]),
+            type: 'success',
+            duration: 20000,
+            customClass: this.dialogCustom
+          })
+
+          this.getProductionOrderDetail()
+        }
+      }
+    },
+    checkSnLengthMsg(index) {
+      this.$message({
+        message: `please check sn length read，请检查读取的长度。${index}`,
+        type: 'error',
+        duration: 2000,
+        showClose: true
+      })
+    },
+    checkReadInfo() {
+      // 判断读取的数据如果为空停止录入
+
+      this.tip = ''
+
+      var isEmpty = Object.values(this.readInfo).every((value) => value !== null && value !== undefined && value !== '')
+      if (!isEmpty) {
+        this.tip = '数据缺失'
+        return false
+      }
+
+      if (this.readInfo.softVersion.replace(/\s/g, '') != this.attrValues['soft_ver'].replace(/\s/g, '')) {
+        this.tip = this.tip + ', Software Version'
+      }
+      if (this.readInfo.hardVersion.replace(/\s/g, '') != this.attrValues['hard_ver'].replace(/\s/g, '')) {
+        this.tip = this.tip + ', Hardware Version'
+      }
+      if (this.tip !== '') {
+        return false
+      }
+      return true
+    },
+    delay(ms) {
+      return new Promise((resolve) => setTimeout(resolve, ms))
+    }
+  },
+  beforeDestroy() {
+    // 组件销毁前清除定时器
+    clearTimeout(this.inputTimer)
+  },
+  i18n: {
+    messages: {
+      fr: FR.Component.Order.TestReport,
+      en: EN.Component.Order.TestReport,
+      zh: ZH.Component.Order.TestReport,
+      de: DE.Component.Order.TestReport,
+      nl: NL.Component.Order.TestReport
+    }
+  }
+}
+</script>
+
+<style lang="scss" rel="stylesheet/scss" scoped>
+.component-order-test-report {
+  width: 100%;
+  height: 100%;
+
+  .content-wrap {
+    padding: 0;
+  }
+
+  .content-card-item {
+    .save-btn {
+      float: right;
+      margin-top: 10px;
+    }
+
+    .content-header {
+      padding: 5px 43px;
+      font-size: 14px;
+      height: 40px;
+      line-height: 30px;
+      font-weight: bold;
+      box-sizing: border-box;
+    }
+    .content-body {
+      font-size: 0;
+      background: #353945;
+      overflow: hidden;
+      padding: 20px 0;
+      .item {
+        width: 49%;
+        display: inline-block;
+        padding-left: 60px;
+        line-height: 40px;
+
+        label {
+          display: inline-block;
+          width: 142px;
+          font-size: 14px;
+          color: #a1a5b1;
+        }
+
+        span {
+          margin-left: 8px;
+          font-size: 14px;
+        }
+      }
+      .hardware-item {
+        padding: 0 60px;
+        line-height: 40px;
+        overflow: hidden;
+
+        .select-holder {
+          width: 50%;
+          float: left;
+          overflow: hidden;
+
+          & > label {
+            display: inline-block;
+            width: 120px;
+          }
+
+          .el-select {
+            width: calc(100% - 150px);
+          }
+
+          .tip {
+            display: inline-block;
+            border-radius: 50%;
+            width: 10px;
+            height: 10px;
+            background: #e26829;
+            margin-left: 6px;
+          }
+
+          .connect {
+            background: #76ee00;
+          }
+        }
+        .input-holder {
+          width: 50%;
+          float: left;
+          overflow: hidden;
+
+          & > label {
+            display: inline-block;
+            width: 120px;
+          }
+
+          .el-input {
+            float: left;
+            width: calc(100% - 124px);
+          }
+
+          .fileList {
+            line-height: 20px;
+            margin-left: 100px;
+          }
+
+          .el-input::after {
+            top: 10px;
+          }
+        }
+        .operation-holder {
+          float: right;
+
+          .resetButton {
+            background-color: red;
+          }
+        }
+        .autoTime {
+          width: 100px;
+        }
+      }
+    }
+  }
+
+  .loading {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .input-sn:after {
+    top: 8px;
+  }
+
+  .input {
+    width: 290px;
+  }
+
+  .errorTip {
+    color: #e26829;
+  }
+  .btn-green {
+    background-color: #98b42c;
+
+    &:hover {
+      background-color: #98d22c;
+    }
+
+    &:active {
+      background-color: #e26829;
+    }
+  }
+  .loading {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+</style>
+
+
+
+// WEBPACK FOOTER //
+// battery.vue?2651bb76

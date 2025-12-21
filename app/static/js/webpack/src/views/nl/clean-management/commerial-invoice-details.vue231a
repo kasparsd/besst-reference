@@ -12,5 +12,5 @@ exports.push([module.id, ".CI-header{width:100%;height:100%}.CI-header span.requ
 //////////////////
 // WEBPACK FOOTER
 // ./node_modules/css-loader?{"minimize":true,"sourceMap":true}!./node_modules/vue-loader/lib/style-compiler?{"vue":true,"id":"data-v-3c889793","scoped":false,"hasInlineConfig":false}!./node_modules/sass-loader/lib/loader.js?{"sourceMap":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./src/views/nl/clean-management/commerial-invoice-details.vue
-// module id = 2673
+// module id = 2704
 // module chunks = 16

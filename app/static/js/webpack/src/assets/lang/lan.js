@@ -1,7 +1,3 @@
-/**
- * Created by sukai on 2019/4/13.
- */
-
 import ZH from 'src/assets/lang/zh'
 import EN from 'src/assets/lang/en'
 import DE from 'src/assets/lang/de'

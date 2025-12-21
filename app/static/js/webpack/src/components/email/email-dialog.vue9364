@@ -12,5 +12,5 @@ exports.push([module.id, ".dialog[data-v-128fc700]{overflow:hidden}.dialog span.
 //////////////////
 // WEBPACK FOOTER
 // ./node_modules/css-loader?{"minimize":true,"sourceMap":true}!./node_modules/vue-loader/lib/style-compiler?{"vue":true,"id":"data-v-128fc700","scoped":true,"hasInlineConfig":false}!./node_modules/sass-loader/lib/loader.js?{"sourceMap":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./src/components/email/email-dialog.vue
-// module id = 2361
+// module id = 2393
 // module chunks = 8 9 10 11 12 13 14

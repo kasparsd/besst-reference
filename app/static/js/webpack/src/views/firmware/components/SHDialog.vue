@@ -21,5 +21,5 @@ module.exports = Component.exports
 //////////////////
 // WEBPACK FOOTER
 // ./src/views/firmware/components/SHDialog.vue
-// module id = 2425
+// module id = 2456
 // module chunks = 0

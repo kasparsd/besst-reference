@@ -12,5 +12,5 @@ exports.push([module.id, ".verify{display:-webkit-box;display:-ms-flexbox;displa
 //////////////////
 // WEBPACK FOOTER
 // ./node_modules/css-loader?{"minimize":true,"sourceMap":true}!./node_modules/vue-loader/lib/style-compiler?{"vue":true,"id":"data-v-2d26a732","scoped":false,"hasInlineConfig":false}!./node_modules/sass-loader/lib/loader.js?{"sourceMap":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./src/views/firmware/verify.vue
-// module id = 2786
-// module chunks = 48
+// module id = 2817
+// module chunks = 75

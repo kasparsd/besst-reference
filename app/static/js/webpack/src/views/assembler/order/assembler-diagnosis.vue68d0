@@ -185,7 +185,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [_vm._m(1), _vm._v(" "), _vm._m(2), _vm._v(" "), _c('div', {
       staticClass: "system-txt"
     }, [_c('span', {
-      staticClass: "title "
+      staticClass: "title"
     }, [_vm._v("Test System")]), _vm._v(" "), _vm._m(3), _vm._v(" "), _vm._m(4), _vm._v(" "), _vm._m(5), _vm._v(" "), _c('span', {
       staticClass: "test-button",
       on: {
@@ -348,7 +348,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [_vm._v("Failed\n                            ")]), _vm._v("\n                            and"), _c('br'), _vm._v(" then replace control unit or controller.\n                            "), _c('div', {
       staticClass: "clear-20"
     })], 1) : _vm._e(), _vm._v(" "), (_vm.testSelect.No === 3) ? _c('div', {
-      staticClass: "support "
+      staticClass: "support"
     }, [_c('img', {
       staticClass: "img",
       attrs: {
@@ -381,7 +381,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [_vm._v("Failed\n                            ")]), _vm._v("\n                            and then replace it."), _c('br'), _vm._v(" "), _c('div', {
       staticClass: "clear-20"
     })], 1) : _vm._e(), _vm._v(" "), (_vm.testSelect.No === 4) ? _c('div', {
-      staticClass: "walk-assistance "
+      staticClass: "walk-assistance"
     }, [_c('img', {
       staticClass: "img",
       attrs: {
@@ -419,7 +419,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [_vm._v("Failed\n                            ")]), _vm._v("\n                            and then replace it."), _c('br'), _vm._v(" "), _c('div', {
       staticClass: "clear-20"
     })], 1) : _vm._e(), _vm._v(" "), (_vm.testSelect.No == 5) ? _c('div', {
-      staticClass: "speed "
+      staticClass: "speed"
     }, [_c('img', {
       staticClass: "img",
       attrs: {
@@ -658,7 +658,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }, [_vm._v("\n                " + _vm._s(item.name) + "\n            ")])
   }), 1), _vm._v(" "), _c('div', {
-    staticClass: "clear-20 "
+    staticClass: "clear-20"
   }), _vm._v(" "), _c('div', {
     staticClass: "fr"
   }, [_c('el-button', {
@@ -674,7 +674,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }
   }, [_vm._v("Confirm")])], 1), _vm._v(" "), _c('div', {
-    staticClass: "clear-20 "
+    staticClass: "clear-20"
   })], 1), _vm._v(" "), _c('el-dialog', {
     attrs: {
       "title": "Error Solution",
@@ -804,5 +804,5 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
 //////////////////
 // WEBPACK FOOTER
 // ./node_modules/vue-loader/lib/template-compiler?{"id":"data-v-5183ce2e","hasScoped":false}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./src/views/assembler/order/assembler-diagnosis.vue
-// module id = 1921
+// module id = 1940
 // module chunks = 76

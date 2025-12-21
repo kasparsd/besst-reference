@@ -12,5 +12,5 @@ exports.push([module.id, ".reception-list{display:-webkit-box;display:-ms-flexbo
 //////////////////
 // WEBPACK FOOTER
 // ./node_modules/css-loader?{"minimize":true,"sourceMap":true}!./node_modules/vue-loader/lib/style-compiler?{"vue":true,"id":"data-v-544c6f1f","scoped":false,"hasInlineConfig":false}!./node_modules/sass-loader/lib/loader.js?{"sourceMap":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./src/views/nl/finance/reception.vue
-// module id = 2487
-// module chunks = 69
+// module id = 2518
+// module chunks = 68

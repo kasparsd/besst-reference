@@ -1,0 +1,338 @@
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "component-order-test-report"
+  }, [_c('div', {
+    staticClass: "header"
+  }, [_c('div', {
+    staticClass: "btn-group-inline"
+  }, [_c('div', {
+    staticClass: "icons"
+  }, [_c('div', {
+    staticClass: "icon-item back",
+    attrs: {
+      "title": _vm.$t('back')
+    },
+    on: {
+      "click": function($event) {
+        return _vm.$router.back()
+      }
+    }
+  })])])]), _vm._v(" "), _c('div', {
+    staticClass: "content-wrap"
+  }, [_c('div', {
+    staticClass: "content"
+  }, [_c('div', {
+    staticClass: "content-card-item"
+  }, [_c('label', {
+    staticClass: "content-header"
+  }, [_vm._v("Setting")]), _vm._v(" "), _c('div', {
+    staticClass: "content-body"
+  }, [_c('div', {
+    staticClass: "item"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v("Model")]), _vm._v(" "), _c('span', [_vm._v(_vm._s(_vm.itemInfo.name))])]), _vm._v(" "), _c('div', {
+    staticClass: "item"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v("Customer Name")]), _vm._v(" "), _c('span', [_vm._v(_vm._s(_vm.orderInfo.customer_id || '/'))])]), _vm._v(" "), _c('div', {
+    staticClass: "item"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v("Order No.")]), _vm._v(" "), _c('span', [_vm._v(_vm._s(_vm.orderInfo.source_id || '/'))])]), _vm._v(" "), _c('div', {
+    staticClass: "item"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v("Article No.")]), _vm._v(" "), _c('span', [_vm._v(_vm._s(_vm.itemInfo.ext_part_no || '/'))])]), _vm._v(" "), _vm._l((_vm.needAttrList), function(item, index) {
+    return _c('div', {
+      key: index,
+      staticClass: "item"
+    }, [_c('label', {
+      staticClass: "label"
+    }, [_vm._v(_vm._s(item.attr_def_name))]), _vm._v(" "), _c('span', [_vm._v(_vm._s(item.value))])])
+  }), _vm._v(" "), _c('div', {
+    staticClass: "item"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v("Produced/Amount")]), _vm._v(" "), _c('span', [_vm._v(_vm._s(_vm.itemOrderInfo ? _vm.itemOrderInfo.produced : 0) + "/" + _vm._s(_vm.itemOrderInfo ? _vm.itemOrderInfo.amount : 0))])])], 2)]), _vm._v(" "), _c('div', {
+    staticClass: "content-card-item"
+  }, [_c('label', {
+    staticClass: "content-header"
+  }, [_vm._v("Test Report")]), _vm._v(" "), _c('div', {
+    staticClass: "content-body"
+  }, [_c('div', {
+    staticClass: "hardware-item"
+  }, [_c('div', {
+    staticClass: "select-holder"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v("USB HID")]), _vm._v(" "), _c('label', {
+    staticClass: "tip",
+    class: {
+      connect: _vm.isConnected
+    }
+  })]), _vm._v(" "), _c('div', {
+    staticClass: "operation-holder"
+  }, [_c('el-button', {
+    attrs: {
+      "type": "danger"
+    },
+    on: {
+      "click": _vm.reset
+    }
+  }, [_vm._v("Reset")])], 1)]), _vm._v(" "), _c('div', {
+    staticClass: "hardware-item"
+  }, [_c('div', {
+    staticClass: "input-holder"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v("SN")]), _vm._v(" "), _c('textarea', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.sn),
+      expression: "sn"
+    }],
+    ref: "sn_input",
+    staticClass: "input el-input__inner sn-input",
+    attrs: {
+      "rows": "1"
+    },
+    domProps: {
+      "value": (_vm.sn)
+    },
+    on: {
+      "keyup": _vm.handleSnInput,
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.sn = $event.target.value
+      }
+    }
+  })])]), _vm._v(" "), _c('div', {
+    staticClass: "hardware-item"
+  }, [_c('div', {
+    staticClass: "select-holder"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v(_vm._s(_vm.$t('cNam.sn')))]), _vm._v(" "), _c('el-input', {
+    staticClass: "input",
+    attrs: {
+      "disabled": ""
+    },
+    model: {
+      value: (_vm.readInfo.idNo),
+      callback: function($$v) {
+        _vm.$set(_vm.readInfo, "idNo", $$v)
+      },
+      expression: "readInfo.idNo"
+    }
+  })], 1)]), _vm._v(" "), _c('div', {
+    staticClass: "hardware-item"
+  }, [_c('div', {
+    staticClass: "select-holder"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v("标定值")]), _vm._v(" "), _c('el-input', {
+    staticClass: "input",
+    attrs: {
+      "type": "number"
+    },
+    model: {
+      value: (_vm.calibrationValue),
+      callback: function($$v) {
+        _vm.calibrationValue = $$v
+      },
+      expression: "calibrationValue"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "operation-holder"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v("误差值")]), _vm._v(" "), _c('el-input', {
+    staticClass: "input",
+    attrs: {
+      "type": "number"
+    },
+    model: {
+      value: (_vm.errorValue),
+      callback: function($$v) {
+        _vm.errorValue = $$v
+      },
+      expression: "errorValue"
+    }
+  }), _vm._v(" "), _c('el-button', {
+    attrs: {
+      "type": "primary"
+    },
+    on: {
+      "click": _vm.setCalibrationValue
+    }
+  }, [_vm._v("设置")])], 1)]), _vm._v(" "), _c('div', {
+    staticClass: "hardware-item"
+  }, [_c('div', {
+    staticClass: "select-holder"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v(_vm._s(_vm.$t('cNam.softwareVersion')))]), _vm._v(" "), _c('el-input', {
+    staticClass: "input",
+    attrs: {
+      "disabled": ""
+    },
+    model: {
+      value: (_vm.readInfo.softVersion),
+      callback: function($$v) {
+        _vm.$set(_vm.readInfo, "softVersion", $$v)
+      },
+      expression: "readInfo.softVersion"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "operation-holder"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v(_vm._s(_vm.$t('cNam.hardwareVersion')))]), _vm._v(" "), _c('el-input', {
+    staticClass: "input",
+    attrs: {
+      "disabled": ""
+    },
+    model: {
+      value: (_vm.readInfo.hardVersion),
+      callback: function($$v) {
+        _vm.$set(_vm.readInfo, "hardVersion", $$v)
+      },
+      expression: "readInfo.hardVersion"
+    }
+  })], 1)]), _vm._v(" "), _c('div', {
+    staticClass: "hardware-item"
+  }, [_c('div', {
+    staticClass: "select-holder"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v("BOOT号")]), _vm._v(" "), _c('el-input', {
+    staticClass: "input",
+    attrs: {
+      "disabled": ""
+    },
+    model: {
+      value: (_vm.readInfo.bootNo),
+      callback: function($$v) {
+        _vm.$set(_vm.readInfo, "bootNo", $$v)
+      },
+      expression: "readInfo.bootNo"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "operation-holder"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v("材料号")]), _vm._v(" "), _c('el-input', {
+    staticClass: "input",
+    attrs: {
+      "disabled": ""
+    },
+    model: {
+      value: (_vm.readInfo.materialNo),
+      callback: function($$v) {
+        _vm.$set(_vm.readInfo, "materialNo", $$v)
+      },
+      expression: "readInfo.materialNo"
+    }
+  })], 1)]), _vm._v(" "), _c('div', {
+    staticClass: "hardware-item"
+  }, [_c('div', {
+    staticClass: "select-holder"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v("称重")]), _vm._v(" "), _c('el-input', {
+    staticClass: "input",
+    attrs: {
+      "disabled": ""
+    },
+    model: {
+      value: (_vm.readInfo.actualWeight),
+      callback: function($$v) {
+        _vm.$set(_vm.readInfo, "actualWeight", $$v)
+      },
+      expression: "readInfo.actualWeight"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "operation-holder"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v("传感器实际值")]), _vm._v(" "), _c('el-input', {
+    staticClass: "input",
+    attrs: {
+      "disabled": ""
+    },
+    model: {
+      value: (_vm.readInfo.actualValue),
+      callback: function($$v) {
+        _vm.$set(_vm.readInfo, "actualValue", $$v)
+      },
+      expression: "readInfo.actualValue"
+    }
+  })], 1)]), _vm._v(" "), _c('div', {
+    staticClass: "hardware-item"
+  }, [_c('div', {
+    staticClass: "select-holder"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v("测量重量")]), _vm._v(" "), _c('el-input', {
+    staticClass: "input",
+    attrs: {
+      "disabled": ""
+    },
+    model: {
+      value: (_vm.cachedWeight),
+      callback: function($$v) {
+        _vm.cachedWeight = $$v
+      },
+      expression: "cachedWeight"
+    }
+  })], 1)])])])])]), _vm._v(" "), _c('el-dialog', {
+    attrs: {
+      "title": "Tip",
+      "visible": _vm.dialogTipVisible,
+      "size": "tiny"
+    },
+    on: {
+      "update:visible": function($event) {
+        _vm.dialogTipVisible = $event
+      }
+    }
+  }, [_c('p', [_vm._v("请检查 " + _vm._s(_vm.tip))]), _vm._v(" "), _c('div', {
+    staticClass: "dialog-footer",
+    attrs: {
+      "slot": "footer"
+    },
+    slot: "footer"
+  }, [_c('el-button', {
+    attrs: {
+      "type": "preview"
+    },
+    on: {
+      "click": _vm.saveComponent
+    }
+  }, [_vm._v(_vm._s(_vm.$t('cNam.save')))]), _vm._v(" "), _c('el-button', {
+    attrs: {
+      "type": "primary"
+    },
+    on: {
+      "click": function($event) {
+        return _vm.clear()
+      }
+    }
+  }, [_vm._v(_vm._s(_vm.$t('cNam.cancel')))])], 1)]), _vm._v(" "), (_vm.loading) ? _c('div', {
+    staticClass: "loading"
+  }, [_c('img', {
+    attrs: {
+      "src": require("../../../../assets/images/icon/loading-bars.svg"),
+      "alt": "Loading icon"
+    }
+  })]) : _vm._e()], 1)
+},staticRenderFns: []}
+
+
+//////////////////
+// WEBPACK FOOTER
+// ./node_modules/vue-loader/lib/template-compiler?{"id":"data-v-3461baef","hasScoped":true}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./src/views/component/order/test-report/weighing.vue
+// module id = 2029
+// module chunks = 76

@@ -21,5 +21,5 @@ module.exports = Component.exports
 //////////////////
 // WEBPACK FOOTER
 // ./src/views/nl/warehouse-pick/pick-list.vue
-// module id = 2307
-// module chunks = 54
+// module id = 2339
+// module chunks = 53

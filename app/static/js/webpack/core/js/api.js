@@ -363,7 +363,27 @@ function Api() {
       exportBikeList: ['vehicle/export-for-brand-override', 'brand_org_id', 'start_time', 'end_time']
     },
     Component: {
-      saveComponent: ['component/save', 'id', 'order_id', 'sn', 'qc', 'test_data', 'produce_time', 'item_id', 'customer_sn', 'imei', 'mac'],
+      saveComponent: [
+        'component/save',
+        'id',
+        'order_id',
+        'sn',
+        'qc',
+        'test_data',
+        'produce_time',
+        'item_id',
+        'customer_sn',
+        'imei',
+        'mac',
+        'startSn',
+        'endSn',
+        'currentSn',
+        'cartonCode',
+        'qrCode',
+        'cartonNum',
+        'currentCartonNum',
+        'macHmi'
+      ],
       // getComponentList: ['component/list', 'source_id', 'item_name', 'item_part_no', 'sn', 'customer_id', 'page'],
       getComponentList: [
         'component/listOverride',
@@ -803,5 +823,5 @@ export default new Api()
 //////////////////
 // WEBPACK FOOTER
 // ./core/js/api.js
-// module id = 800
+// module id = 806
 // module chunks = 76

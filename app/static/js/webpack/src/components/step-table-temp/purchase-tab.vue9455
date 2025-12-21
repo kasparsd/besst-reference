@@ -37,5 +37,5 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
 //////////////////
 // WEBPACK FOOTER
 // ./node_modules/vue-loader/lib/template-compiler?{"id":"data-v-605b5a90","hasScoped":true}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./src/components/step-table-temp/purchase-tab.vue
-// module id = 2593
+// module id = 2624
 // module chunks = 1

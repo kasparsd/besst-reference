@@ -2,7 +2,7 @@
  * @Author: Bai YanShuo
  * @Date: 2022-06-15 11:22:15
  * @LastEditors: Bai YanShuo
- * @LastEditTime: 2023-03-31 15:59:01
+ * @LastEditTime: 2024-04-10 13:49:21
  * @FilePath: /BESST/besst-client/src/services/firmware/channelService.js
  * @Description:
  */
@@ -11,7 +11,8 @@ import Core from 'core/core'
 function uploadFirmware(data) {
   return Core.HttpHelp.request({
     method: 'POST',
-    url: '/sys/firmware/bulk',
+    // url: '/sys/firmware/bulk',
+    url: '/sys/firmware/batch',
     data: data
   })
 }
@@ -81,6 +82,16 @@ function articleHsHistory(data) {
   })
 }
 
+function firmwareEnable(id, isEnable) {
+  return Core.HttpHelp.request({
+    method: 'PUT',
+    url: `/sys/firmware/${id}/enable`,
+    params: {
+      isEnable: isEnable
+    }
+  })
+}
+
 const ChannelService = {
   firmware,
   saveFirmware,
@@ -90,7 +101,8 @@ const ChannelService = {
   findHV,
   upgradeList,
   articleHsHistory,
-  deleteFirmware
+  deleteFirmware,
+  firmwareEnable
 }
 
 export default ChannelService

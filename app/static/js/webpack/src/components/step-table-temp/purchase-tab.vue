@@ -21,5 +21,5 @@ module.exports = Component.exports
 //////////////////
 // WEBPACK FOOTER
 // ./src/components/step-table-temp/purchase-tab.vue
-// module id = 2589
+// module id = 2620
 // module chunks = 1

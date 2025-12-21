@@ -142,5 +142,5 @@ export default new StatusData();
 //////////////////
 // WEBPACK FOOTER
 // ./core/js/statusData.js
-// module id = 883
+// module id = 889
 // module chunks = 76

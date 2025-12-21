@@ -382,5 +382,5 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
 //////////////////
 // WEBPACK FOOTER
 // ./node_modules/vue-loader/lib/template-compiler?{"id":"data-v-bf9a4ada","hasScoped":false}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./src/views/nl/receipt-order/receipt-put-away-advice.vue
-// module id = 2517
-// module chunks = 63
+// module id = 2548
+// module chunks = 62

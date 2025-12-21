@@ -29,23 +29,48 @@
               <label class="label">Article No.</label>
               <span>{{ itemInfo.ext_part_no || '/' }}</span>
             </div>
-            <div class="item">
-              <label class="label">Produced/Amount</label>
-              <span>{{ itemOrderInfo ? itemOrderInfo.produced : 0 }}/{{ itemOrderInfo ? itemOrderInfo.amount : 0 }}</span>
-            </div>
-            <div class="item">
-              <label class="label"></label>
-              <span></span>
-            </div>
             <div class="item" v-for="(item, index) in needAttrList" :key="index">
               <label class="label">{{ item.attr_def_name }}</label>
               <span>{{ item.value }}</span>
+            </div>
+            <div class="item">
+              <label class="label">Produced/Amount</label>
+              <span>{{ itemOrderInfo ? itemOrderInfo.produced : 0 }}/{{ itemOrderInfo ? itemOrderInfo.amount : 0 }}</span>
             </div>
           </div>
         </div>
         <div class="content-card-item" v-if="[4, 6, 7, 10, 12].indexOf(itemRoot) !== -1">
           <label class="content-header">Test Report</label>
           <div class="content-body">
+            <!-- 使用二维码扫描 -->
+            <div class="hardware-item" v-if="isHmiOrCtl">
+              <div class="select-holder">
+                <label class="label">使用二维码扫描</label>
+                <el-switch v-model="useScanQR" :on-text="'开启'" :off-text="'关闭'"> </el-switch>
+              </div>
+            </div>
+            <div class="hardware-item" v-show="isHmiOrCtl && useScanQR">
+              <div class="select-holder">
+                <label class="label">起始SN</label>
+                <el-input v-model="qrSN.start" class="input"></el-input>
+              </div>
+              <div class="operation-holder">
+                <div class="qr" id="qrCode"></div>
+                <span>当前二维码</span>
+                <p>{{ qrSN.current }}</p>
+              </div>
+              <div class="select-holder">
+                <label class="label">结束SN</label>
+                <el-input v-model="qrSN.end" class="input" disabled></el-input>
+              </div>
+              <div class="select-holder">
+                <el-button :disabled="isStart" @click="createSNStart" type="primary">开始</el-button>
+                <el-button @click="createSNReset" type="primary">重置</el-button>
+                <!-- <el-button @click="saveComponent" type="primary">保存写入</el-button> -->
+                <el-button @click="createSNPrev" type="primary">上一个</el-button>
+                <el-button @click="createSNNext" type="primary">下一个</el-button>
+              </div>
+            </div>
             <!--COM -->
             <div class="hardware-item">
               <div class="select-holder" v-show="itemRoot !== 6 && !usbHID">
@@ -79,6 +104,17 @@
               <div class="select-holder" v-if="itemRoot !== 6 || isCan">
                 <label class="label">Customer No.</label>
                 <el-input v-model="clientCodeText" class="input"></el-input>
+              </div>
+            </div>
+            <div class="hardware-item" v-if="showErrorCode">
+              <div class="select-holder">
+                <label class="label">{{ $t('cNam.errorCode') }}</label>
+                <el-input class="input" v-model="errorCode" placeholder="6007"></el-input>
+              </div>
+              <div class="btn-row">
+                <div class="btn-group">
+                  <el-button type="preview" @click="readErrorCode">{{ $t('cNam.read') }}</el-button>
+                </div>
               </div>
             </div>
             <div v-show="itemRoot === 12">
@@ -115,15 +151,18 @@
             </div>
             <!-- IOT END -->
             <div class="hardware-item" v-show="itemRoot !== 12">
-              <div class="input-holder" @keyup.13="next" v-if="itemRoot === 6">
+              <!-- <div class="input-holder" @keyup.13="next" v-if="itemRoot === 6">
                 <label class="label">SN</label>
                 <el-input type="textarea" class="input" :rows="1" resize="none" v-model="sn"></el-input>
               </div>
               <div class="input-holder" v-else>
                 <label class="label">SN</label>
                 <el-input type="textarea" class="input input-sn" :rows="1" resize="none" v-model="sn"></el-input>
+              </div> -->
+              <div class="input-holder">
+                <label class="label">SN</label>
+                <el-input type="textarea" class="input input-sn" :rows="1" resize="none" v-model="sn"></el-input>
               </div>
-
               <div class="operation-holder">
                 <el-button
                   type="primary"
@@ -144,6 +183,10 @@
               <div class="input-holder" v-if="customer_sn">
                 <label class="label">Customer SN</label>
                 <el-input v-model="customer_sn" class="input"></el-input>
+              </div>
+              <div class="input-holder" v-if="isCustomer0049">
+                <label class="label">MAC</label>
+                <span>{{ macHmi }}</span>
               </div>
               <div class="operation-holder">
                 <el-upload
@@ -401,8 +444,9 @@ import EN from 'src/assets/lang/en'
 import DE from 'src/assets/lang/de'
 import NL from 'src/assets/lang/nl'
 import FR from 'src/assets/lang/fr'
-import XLSX from 'xlsx'
+import XLSX, { read } from 'xlsx'
 import Update from 'device/update'
+import QRCode from 'qrcodejs2'
 export default {
   name: '',
   data() {
@@ -500,7 +544,7 @@ export default {
       writeSnText: '',
       canNext: false,
 
-      snLengthList: [15, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40],
+      snLengthList: [14, 15, 16, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40],
       snLength: '',
       snLengthCheck: false,
       isCan: false,
@@ -540,7 +584,23 @@ export default {
       iot_mac: '',
       iot_imei: '',
       // 判断是否有多个控制器
-      isMoreController: false
+      isMoreController: false,
+      // 开始/结束sn
+      qrSN: {
+        current: '',
+        start: '',
+        end: ''
+      },
+      // 开始控制按钮
+      isStart: false,
+      QRCodeMaker: null,
+      useScanQR: false,
+      // 是否是新法规 - 传感器
+      isNewRegulationSEN: false,
+      macHmi: '',
+      errorCode: '',
+      // 显示error code 功能
+      showErrorCode: false
     }
   },
   i18n: {
@@ -550,6 +610,16 @@ export default {
       zh: ZH.Component.Order.TestReport,
       de: DE.Component.Order.TestReport,
       nl: NL.Component.Order.TestReport
+    }
+  },
+  computed: {
+    isHmiOrCtl: function () {
+      return this.itemRoot === Core.Const.CATEGORY_ROOT_TYPE.HMI || this.itemRoot === Core.Const.CATEGORY_ROOT_TYPE.CONTROLLER
+    },
+    isCustomer0049: function () {
+      const customerId = this.orderInfo.customer_id
+      const model = this.itemInfo.name
+      return customerId === '0049-0303' && model === 'DP E010.CB'
     }
   },
   mounted: function () {
@@ -575,22 +645,24 @@ export default {
       console.log('[isCan]', this.isCan)
     } else if (this.itemPass.item_name && this.itemPass.item_name.indexOf('SR') > -1 && this.itemPass.item_name.indexOf('.C') > -1) {
       this.isCan = true
+      this.isNewRegulationSEN = true
       console.log('[isCan]', this.isCan)
-    } else if (
-      this.itemPass.item_name &&
-      this.itemPass.item_name.indexOf('MM') > -1 &&
-      (this.itemPass.item_name.indexOf('.FC') > -1 || this.itemPass.item_name.indexOf('.C') > -1)
-    ) {
+    } else if (this.itemPass.item_name && this.itemPass.item_name.indexOf('M') > -1 && this.itemPass.item_name.indexOf('.U') == -1) {
       this.isCan = true
       this.checkSNType = true
       console.log('[isCan]', this.isCan)
     }
+    // 判断是否使用error code
+    if (this.itemPass.item_name.replace(/\s+/g, '').indexOf('DPC') > -1) {
+      this.showErrorCode = true
+    }
+
     if (this.isCan) {
       this.config.hmi = 1200
       this.config.ctrl = 2800
       this.config.sen = 1000
       // 等待时间
-      this.autoOperationWriteTime = 600
+      this.autoOperationWriteTime = 300
     }
     this.options.params.order_id = this.orderId
     this.options.params.item_id = this.itemPass.item_id
@@ -611,6 +683,114 @@ export default {
   },
 
   methods: {
+    // 初始化QRCode插件
+    initQRCode() {
+      this.$nextTick(() => {
+        try {
+          this.QRCodeMaker = new QRCode('qrCode', {
+            text: '', // 需要转换为二维码的内容
+            width: 120,
+            height: 120,
+            colorDark: '#000000',
+            colorLight: '#ffffff',
+            correctLevel: QRCode.CorrectLevel.H
+          })
+        } catch (error) {
+          console.log(error)
+        }
+      })
+    },
+    createSNReset() {
+      this.$confirm('确定要重置吗？', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      })
+        .then(() => {
+          this.qrSN = {
+            current: '',
+            start: '',
+            end: ''
+          }
+          this.isStart = false
+          this.QRCodeMaker.clear()
+        })
+        .catch(() => {})
+    },
+    createSNStart() {
+      // 判断开始/和结束sn是否都存在
+      if (this.qrSN.start === '') {
+        this.$message.error('开始SN不能为空')
+        return false
+      }
+
+      // 计算结束sn
+      const _end = parseInt(this.qrSN.start.slice(-4)) + this.itemOrderInfo.amount - 1
+      this.qrSN.end = this.qrSN.start.slice(0, -4) + _end.toString().padStart(4, '0')
+
+      // 判断开始/和结束sn是否都存在
+      if (this.qrSN.start === '' || this.qrSN.end === '') {
+        this.$message.error('开始/结束SN不能为空')
+        return false
+      }
+
+      // 判断开始/结束sn长度是否相同
+      if (this.qrSN.start.length !== this.qrSN.end.length) {
+        this.$message.error('开始/结束SN长度不相同')
+        return false
+      }
+
+      // 根据开始/结束sn后四位获取流水号
+      const start = parseInt(this.qrSN.start.slice(-4))
+      const end = parseInt(this.qrSN.end.slice(-4))
+
+      // 计算流水号数量
+      const num = end - start + 1
+
+      // 判断数量为正数
+      if (num <= 0) {
+        this.$message.error('结束SN不能小于开始SN')
+        return false
+      }
+
+      // 判断数量是否和订单数量一致
+      if (num !== this.itemOrderInfo.amount) {
+        this.$message.error('开始/结束SN数量与订单数量不一致')
+        return false
+      }
+      this.isStart = true
+      // 根据流水号，设置当前sn
+      this.qrSN.current = this.qrSN.start
+      if (this.QRCodeMaker != null) this.QRCodeMaker.makeCode(this.qrSN.current)
+    },
+    createSNPrev() {
+      // 当为第一个开始
+      if (this.qrSN.current === this.qrSN.start) {
+        this.isStart = false
+        this.$message.info('已经是第一个SN')
+        return false
+      }
+
+      // 根据当前sn，获取上一个sn
+      const current = parseInt(this.qrSN.current.slice(-4))
+      const prev = (current - 1).toString().padStart(4, '0')
+      this.qrSN.current = this.qrSN.current.slice(0, -4) + prev
+      if (this.QRCodeMaker != null) this.QRCodeMaker.makeCode(this.qrSN.current)
+    },
+    createSNNext() {
+      // 当为最后一个结束
+      if (this.qrSN.current === this.qrSN.end) {
+        this.isStart = false
+        this.$message.info('已经是最后一个SN')
+        return false
+      }
+
+      // 根据当前sn，获取下一个sn
+      const current = parseInt(this.qrSN.current.slice(-4))
+      const next = (current + 1).toString().padStart(4, '0')
+      this.qrSN.current = this.qrSN.current.slice(0, -4) + next
+      if (this.QRCodeMaker != null) this.QRCodeMaker.makeCode(this.qrSN.current)
+    },
     // IOT
     iotQRInput(event) {
       const { value } = event.target
@@ -787,8 +967,8 @@ export default {
       this.checkSNLength = []
       this.getDeviceList()
     },
-    getProductionOrderDetail(orderId) {
-      Core.Api.Order.getProductionOrderDetail(orderId).then((res) => {
+    async getProductionOrderDetail(orderId) {
+      await Core.Api.Order.getProductionOrderDetail(orderId).then((res) => {
         this.orderInfo = res.order
         this.getItemOrderInfo(res.order.item_list)
       })
@@ -802,11 +982,14 @@ export default {
         this.attrList = this.itemInfo.attr_list
         this.getDeviceType()
         this.getDeviceList()
+        this.initQRCode()
+
         //                    console.log(res,"res");
       })
     },
 
     getDeviceType() {
+      debugger
       switch (this.itemRoot) {
         case Core.Const.CATEGORY_ROOT_TYPE.MOTOR:
           this.options.url = Core.Const.NET.END_POINT + '/component/upload-motor'
@@ -853,35 +1036,38 @@ export default {
       let lengthCheck = this.checkModelName(this.itemPass.item_name)
       let itemNameLength = this.itemPass.item_name.replace(/\s+/g, '').length
       let temLength
-
       if (this.itemRoot === Core.Const.CATEGORY_ROOT_TYPE.HMI) {
         console.log('HMI')
         this.getHmiAttr(this.attrList)
         this.deviceName = this.deviceNameList['HMI']
         this.device = this.deviceList['HMI']
         this.target = 0x03
+        const _length = this.hmiAttrValues['hard_ver'].replace(/\s+/g, '').length
         if (lengthCheck.dot === 3 && lengthCheck.space === 4) {
           temLength = itemNameLength + 10
         } else {
-          const _length = this.hmiAttrValues['hard_ver'].replace(/\s+/g, '').length
           temLength = _length + 13
         }
-        if (this.snLengthCheck && this.snLength !== temLength) {
+        this.checkSNLength = [_length + 10, _length + 13]
+
+        if (this.snLengthCheck && !this.checkSNLength.includes(this.snLength)) {
           this.checkModelNameMsg()
+        } else if (this.checkSNLength.includes(this.snLength)) {
+          this.snLength = this.snLength
         } else {
           this.snLength = temLength
         }
         this.autoOperationNextTime = this.config.hmi
       }
       if (this.itemRoot === Core.Const.CATEGORY_ROOT_TYPE.CONTROLLER) {
+        console.log('Controller')
+        this.getControllerAttr(this.attrList)
+        this.deviceName = this.deviceNameList['controller']
+        this.device = this.deviceList['controller']
+        this.target = this.isMoreController ? 0x0a : 0x02
         if (this.sn.length === 15 && this.sn.slice(0, 2) === '10') {
           this.snLength = 15
         } else {
-          console.log('Controller')
-          this.getControllerAttr(this.attrList)
-          this.deviceName = this.deviceNameList['controller']
-          this.device = this.deviceList['controller']
-          this.target = this.isMoreController ? 0x0a : 0x02
           if (this.isCan) {
             // if (
             //   this.itemPass.item_name &&
@@ -902,7 +1088,7 @@ export default {
 
             const _length = this.ctrlAttrValues['hard_ver'].replace(/\s+/g, '').length
             temLength = _length + 13
-            this.checkSNLength = [_length + 13, _length + 14]
+            this.checkSNLength = [_length + 10, _length + 13, _length + 14]
 
             if (this.snLengthCheck && !this.checkSNLength.includes(this.snLength)) {
               this.checkModelNameMsg()
@@ -1160,14 +1346,7 @@ export default {
       })
     },
     readBase() {
-      // 检查并更新值
-      const checkAndUpdateValue = (value, thisProperty, attrProperty, attrValuesProperty) => {
-        this[thisProperty] = value
-        if (value !== this[attrValuesProperty][attrProperty]) {
-          this.errorList.push(attrProperty)
-        }
-      }
-
+      const _this = this
       if (!this.isConnected) {
         this.$message({
           message: 'Com is disconnect',
@@ -1190,16 +1369,17 @@ export default {
               this.isConnected = false
               this.com = ''
             }
+            console.log(`0x05 getBus deviceName ${this.deviceName}`)
             const data = res.data && res.data[this.deviceName]
 
             if (!data) {
               return
             }
-
             if (data.hasOwnProperty('sn')) {
               let sn = data.sn
               let snLength = sn.length
               this.sn = sn
+              console.log(`0x05 getBus ${this.snLength}`)
               if (snLength !== this.snLength) {
                 this.checkSnLengthMsg('位置：readBase:target != 0x05 getBus')
                 this.canNext = false
@@ -1208,7 +1388,12 @@ export default {
               }
             }
 
-            checkAndUpdateValue(data.model, 'model', 'name', 'itemInfo')
+            if (data.hasOwnProperty('model')) {
+              this.model = data.model
+              if (this.model != this.itemInfo.name) {
+                this.errorList.push('model')
+              }
+            }
 
             if (data.hasOwnProperty('version')) {
               this.version = data.version
@@ -1218,15 +1403,42 @@ export default {
             }
             if (data.hasOwnProperty('hardware_version')) {
               this.hardVersion = data.hardware_version
-              if (this.hardVersion != this.hmiAttrValues['hard_ver'] && this.version != this.ctrlAttrValues['hard_ver']) {
+              if (this.hardVersion != this.hmiAttrValues['hard_ver'] && this.hardVersion != this.ctrlAttrValues['hard_ver']) {
                 this.errorList.push('hard_ver')
               }
             }
-            checkAndUpdateValue(data.speed_limit, 'speedLimit', 'speed_limit', 'hmiAttrValues')
-            checkAndUpdateValue(data.wheel_diameter, 'wheelDiameter', 'wheel_size', 'hmiAttrValues')
-            checkAndUpdateValue(data.nml_volt, 'nmlVolt', 'voltage', 'ctrlAttrValues')
-            checkAndUpdateValue(data.limit_cur, 'limitCurrent', 'current_limit', 'ctrlAttrValues')
-            checkAndUpdateValue(data.spd_meter_signal_num, 'pasSignals', 'pas_signals', 'ctrlAttrValues')
+
+            if (data.hasOwnProperty('speed_limit')) {
+              this.speedLimit = data.speed_limit
+              if (this.speedLimit != this.hmiAttrValues['speed_limit']) {
+                this.errorList.push('speed_limit')
+              }
+            }
+
+            if (data.hasOwnProperty('wheel_diameter')) {
+              this.wheelDiameter = data.wheel_diameter
+              if (this.wheelDiameter != this.hmiAttrValues['wheel_size']) {
+                this.errorList.push('wheel_size')
+              }
+            }
+            if (data.hasOwnProperty('nml_volt')) {
+              this.nmlVolt = data.nml_volt
+              if (this.nmlVolt != this.ctrlAttrValues['voltage']) {
+                this.errorList.push('voltage')
+              }
+            }
+            if (data.hasOwnProperty('limit_cur')) {
+              this.limitCurrent = data.limit_cur
+              if (this.limitCurrent != this.ctrlAttrValues['current_limit']) {
+                this.errorList.push('current_limit')
+              }
+            }
+            if (data.hasOwnProperty('spd_meter_signal_num')) {
+              this.pasSignals = data.spd_meter_signal_num
+              if (this.pasSignals != this.ctrlAttrValues['pas_signals']) {
+                this.errorList.push('pas_signals')
+              }
+            }
           })
         } else {
           this.device.port.getUsbBasic(this.target).subscribe((res) => {
@@ -1246,17 +1458,27 @@ export default {
               }
             }
 
-            checkAndUpdateValue(data.model, 'model', 'name', 'itemInfo')
+            if (data.hasOwnProperty('model')) {
+              this.model = data.model
+              if (this.model != this.itemInfo.name) {
+                this.errorList.push('model')
+              }
+            }
 
             if (data.hasOwnProperty('version')) {
               this.version = data.version
-              if (this.version != this.hmiAttrValues['soft_ver'] && this.version != this.ctrlAttrValues['soft_ver']) {
+              console.log('version', this.version)
+              console.log('hmiAttrValues', this.hmiAttrValues)
+              console.log('ctrlAttrValues', this.ctrlAttrValues)
+              var flg = this.version.includes(this.hmiAttrValues['soft_ver'])
+              console.log('ctrlAttrValues', flg)
+              if (!this.version.includes(this.hmiAttrValues['soft_ver']) && !this.version.includes(this.ctrlAttrValues['soft_ver'])) {
                 this.errorList.push('soft_ver')
               }
             }
             if (data.hasOwnProperty('hardware_version')) {
               this.hardVersion = data.hardware_version
-              if (this.hardVersion != this.hmiAttrValues['hard_ver'] && this.version != this.ctrlAttrValues['hard_ver']) {
+              if (this.hardVersion != this.hmiAttrValues['hard_ver'] && this.hardVersion != this.ctrlAttrValues['hard_ver']) {
                 this.errorList.push('hard_ver')
               }
             }
@@ -1345,9 +1567,26 @@ export default {
               }
             }
 
-            checkAndUpdateValue(data.model, 'model', 'name', 'itemInfo')
-            checkAndUpdateValue(data.version, 'version', 'soft_ver', 'toolAttrValues')
-            checkAndUpdateValue(data.hardware_version, 'hardVersion', 'hard_ver', 'toolAttrValues')
+            if (data.hasOwnProperty('model')) {
+              this.model = data.model
+              if (this.model != this.itemInfo.name) {
+                this.errorList.push('model')
+              }
+            }
+
+            if (data.hasOwnProperty('version')) {
+              this.version = data.version
+              if (this.version != this.toolAttrValues['soft_ver']) {
+                this.errorList.push('soft_ver')
+              }
+            }
+            if (data.hasOwnProperty('hardware_version')) {
+              this.hardVersion = data.hardware_version
+              if (this.version != this.toolAttrValues['hard_ver']) {
+                this.errorList.push('hard_ver')
+              }
+            }
+
             if (data.hasOwnProperty('client_code')) {
               this.clientCode = data.client_code
             }
@@ -1372,8 +1611,18 @@ export default {
               }
             }
 
-            checkAndUpdateValue(data.version, 'version', 'soft_ver', 'toolAttrValues')
-            checkAndUpdateValue(data.hardware_version, 'hardVersion', 'hard_ver', 'toolAttrValues')
+            if (data.hasOwnProperty('version')) {
+              this.version = data.version
+              if (this.version != this.toolAttrValues['soft_ver']) {
+                this.errorList.push('soft_ver')
+              }
+            }
+            if (data.hasOwnProperty('hardware_version')) {
+              this.hardVersion = data.hardware_version
+              if (this.version != this.toolAttrValues['hard_ver']) {
+                this.errorList.push('hard_ver')
+              }
+            }
             if (data.hasOwnProperty('client_code')) {
               this.clientCode = data.client_code
             }
@@ -1429,12 +1678,15 @@ export default {
                     let sn = res.data.hmi.sn
                     if (sn === this.writeSnText) {
                       this.sn = ''
-                      this.$message({
-                        message: this.$t('cNam.writeSuccess') + this.$t('cNam.sn'),
-                        type: 'success',
-                        duration: 2000,
-                        showClose: true
-                      })
+
+                      setTimeout(() => {
+                        this.$message({
+                          message: this.$t('cNam.writeSuccess') + this.$t('cNam.sn'),
+                          type: 'success',
+                          duration: 2000,
+                          showClose: true
+                        })
+                      }, 100)
                     } else {
                       this.$message({
                         message: 'Write failed sn, 写SN失败',
@@ -1448,12 +1700,14 @@ export default {
                   if (res.data.hmi && 'client_code' in res.data.hmi) {
                     let code = res.data.hmi.client_code
                     if (code === this.clientCodeText) {
-                      this.$message({
-                        message: this.$t('cNam.writeSuccess') + this.$t('cNam.clientCode'),
-                        type: 'success',
-                        duration: 2000,
-                        showClose: true
-                      })
+                      setTimeout(() => {
+                        this.$message({
+                          message: this.$t('cNam.writeSuccess') + this.$t('cNam.clientCode'),
+                          type: 'success',
+                          duration: 2000,
+                          showClose: true
+                        })
+                      }, 100)
                     } else {
                       this.$message({
                         message: 'Write failed cCode, 写客户号失败',
@@ -1470,13 +1724,15 @@ export default {
                   if (res.data.ctrl && 'sn' in res.data.ctrl) {
                     let sn = res.data.ctrl.sn
                     if (sn === this.writeSnText || sn === ' ') {
-                      this.sn = ''
-                      this.$message({
-                        message: this.$t('cNam.writeSuccess') + this.$t('cNam.sn'),
-                        type: 'success',
-                        duration: 2000,
-                        showClose: true
-                      })
+                      setTimeout(() => {
+                        this.sn = ''
+                        this.$message({
+                          message: this.$t('cNam.writeSuccess') + this.$t('cNam.sn'),
+                          type: 'success',
+                          duration: 2000,
+                          showClose: true
+                        })
+                      }, 100)
                     } else {
                       this.$message({
                         message: 'Write failed sn，写SN失败',
@@ -1498,41 +1754,45 @@ export default {
             .then((res) => {
               //                                console.log(res);
               if (res.can === 'NORMAL_ACK') {
-                this.sn = ''
-                this.$message({
-                  message: this.$t('cNam.writeSuccess') + this.$t('cNam.sn'),
-                  type: 'success',
-                  duration: 2000,
-                  showClose: true
-                })
-                this.sn = res.dataParsed
-                if (this.clientCodeText !== '') {
-                  console.log('client code true')
-                  this.device.port.usbSDK.machineInformation.update
-                    .customerNumber(0x05, this.target, this.device.port.Core.Util.stringToHex(this.clientCodeText.replace(/\s/g, '')))
-                    .then((res) => {
-                      if (res.can === 'NORMAL_ACK') {
-                        this.$message({
-                          message: this.$t('cNam.writeSuccess') + this.$t('cNam.clientCode'),
-                          type: 'success',
-                          duration: 2000,
-                          showClose: true
-                        })
-                      } else {
-                        this.$message({
-                          message: this.$t('cNam.writeFail') + this.$t('cNam.clientCode'),
-                          type: 'error',
-                          duration: 2000,
-                          showClose: true
-                        })
-                      }
-                    })
-                    .catch((err) => {
-                      console.log(err)
-                      this.usbErrorCheck(err)
-                    })
-                    .finally(() => {})
-                }
+                setTimeout(() => {
+                  this.sn = ''
+                  this.$message({
+                    message: this.$t('cNam.writeSuccess') + this.$t('cNam.sn'),
+                    type: 'success',
+                    duration: 2000,
+                    showClose: true
+                  })
+                  this.sn = res.dataParsed
+                  if (this.clientCodeText !== '') {
+                    console.log('client code true')
+                    this.device.port.usbSDK.machineInformation.update
+                      .customerNumber(0x05, this.target, this.device.port.Core.Util.stringToHex(this.clientCodeText.replace(/\s/g, '')))
+                      .then((res) => {
+                        if (res.can === 'NORMAL_ACK') {
+                          setTimeout(() => {
+                            this.$message({
+                              message: this.$t('cNam.writeSuccess') + this.$t('cNam.clientCode'),
+                              type: 'success',
+                              duration: 2000,
+                              showClose: true
+                            })
+                          }, 100)
+                        } else {
+                          this.$message({
+                            message: this.$t('cNam.writeFail') + this.$t('cNam.clientCode'),
+                            type: 'error',
+                            duration: 2000,
+                            showClose: true
+                          })
+                        }
+                      })
+                      .catch((err) => {
+                        console.log(err)
+                        this.usbErrorCheck(err)
+                      })
+                      .finally(() => {})
+                  }
+                }, 100)
               } else {
                 this.$message({
                   message: this.$t('cNam.writeFail') + this.$t('cNam.sn'),
@@ -1554,13 +1814,15 @@ export default {
         Tool.port.usbSDK.client
           .serialNumber(snlen + sntem)
           .then((res) => {
-            this.sn = ''
-            this.$message({
-              message: this.$t('cNam.writeSuccess') + 'SN(序列号)',
-              type: 'success',
-              duration: 2000,
-              showClose: true
-            })
+            setTimeout(() => {
+              this.sn = ''
+              this.$message({
+                message: this.$t('cNam.writeSuccess') + 'SN(序列号)',
+                type: 'success',
+                duration: 2000,
+                showClose: true
+              })
+            }, 100)
           })
           .catch((err) => {
             console.log(err)
@@ -1568,7 +1830,41 @@ export default {
           .finally(() => {})
       }
     },
+    // 读取Error code
+    async readErrorCode() {
+      this.errorCode = ''
+      var res = await this.device.port.usbSDK.machineInformation.get.errorCode(0x05, this.target)
 
+      // 两个字符之间加逗号
+      this.errorCode = res.dataParsed.trim().replace(/(.{2})/g, '$1,')
+
+      if (this.errorCode) {
+        // 弹窗提示是否清除（阻塞）
+        try {
+          var msg = await this.$confirm('是否清除错误代码', '提示', {
+            confirmButtonText: '确定',
+            cancelButtonText: '取消',
+            type: 'warning'
+          })
+          if (msg == 'confirm') {
+            // 清除错误代码
+            await this.device.port.usbSDK.machineInformation.update.errorCode(0x05, this.target, '00')
+
+            // 等待2秒
+            await new Promise((resolve) => setTimeout(resolve, 2000))
+            // 重新读取
+            return await this.readErrorCode()
+          } else {
+            return false
+          }
+        } catch (error) {
+          // 用户取消了确认框
+          return false
+        }
+      } else {
+        return true
+      }
+    },
     usbErrorCheck(err) {
       this.device.port.checkUsbError(err)
     },
@@ -1591,6 +1887,7 @@ export default {
         this.iot_sn = ''
         this.iot_mac = ''
         this.iot_imei = ''
+        this.macHmi = ''
       }
     },
 
@@ -1653,7 +1950,7 @@ export default {
       //                if (this.model != this.itemInfo.name.substr(0, this.model.length)) {
       //                    this.tip = "Model ";
       //                }
-      if (this.version.replace(/\s/g, '') != this.hmiAttrValues['soft_ver'].replace(/\s/g, '')) {
+      if (!this.version.replace(/\s/g, '').includes(this.hmiAttrValues['soft_ver'].replace(/\s/g, ''))) {
         this.tip = this.tip + ', Software Version'
       }
       if (this.hardVersion.replace(/\s/g, '') != this.hmiAttrValues['hard_ver'].replace(/\s/g, '')) {
@@ -1678,7 +1975,7 @@ export default {
       //                if (this.model !== this.itemInfo.name.substr(0, this.model.length)) {
       //                    this.tip = "Model ";
       //                }
-      if (this.version.replace(/\s/g, '') != this.ctrlAttrValues['soft_ver'].replace(/\s/g, '')) {
+      if (!this.version.replace(/\s/g, '').includes(this.ctrlAttrValues['soft_ver'].replace(/\s/g, ''))) {
         this.tip = this.tip + ', Software Version'
       }
       if (this.hardVersion.replace(/\s/g, '') != this.ctrlAttrValues['hard_ver'].replace(/\s/g, '')) {
@@ -1716,10 +2013,10 @@ export default {
       //                if (this.model != this.itemInfo.name.substr(0, this.model.length)) {
       //                    this.tip = "Model ";
       //                }
-      if (this.version.replace(/\s/g, '') != this.hmiAttrValues['soft_ver'].replace(/\s/g, '')) {
+      if (this.version.replace(/\s/g, '') != this.senAttrValues['soft_ver'].replace(/\s/g, '')) {
         this.tip = this.tip + ', Software Version'
       }
-      if (this.hardVersion.replace(/\s/g, '') != this.hmiAttrValues['hard_ver'].replace(/\s/g, '')) {
+      if (this.hardVersion.replace(/\s/g, '') != this.senAttrValues['hard_ver'].replace(/\s/g, '')) {
         this.tip = this.tip + ', Hardware Version'
       }
       if (this.tip !== '') {
@@ -1738,6 +2035,19 @@ export default {
         this.checkSnLengthMsg('位置：next')
         return
       }
+
+      if (this.customer_sn != '' && this.customer_sn.length > 31) {
+        this.customer_sn = ''
+        this.sn = ''
+        this.$message({
+          message: '客户SN长度不符',
+          type: 'warning',
+          duration: 2000,
+          showClose: true
+        })
+        return
+      }
+
       if (this.itemRoot === Core.Const.CATEGORY_ROOT_TYPE.HMI) {
         if (this.isTechnicianUse) {
           if (this.sn.indexOf('DPC350') > -1) {
@@ -1845,9 +2155,12 @@ export default {
         })
         return
       } else if (!this.checkSNType) {
+        // 料号是1168030100024 不需要判断型号和SN前面是否一致
+
+        let needCheck = this.itemInfo.ext_part_no !== '1168030100024'
         let name = this.itemInfo.name.replace(/\s/g, '')
 
-        if (name.substr(0, 6).toUpperCase() !== sn.substr(0, 6).toUpperCase()) {
+        if (needCheck && name.substr(0, 6).toUpperCase() !== sn.substr(0, 6).toUpperCase()) {
           this.$message({
             message: 'SN 内容和型号不匹配，请确认',
             type: 'error',
@@ -1867,7 +2180,30 @@ export default {
       let itemId = this.itemPass.item_id
       let customerSN = this.customer_sn
       //                console.log( id, orderId, sn, qc, testData, productTime, itemId );
-      Core.Api.Component.saveComponent(id, orderId, sn, qc, testData, productTime, itemId, customerSN)
+
+      // 生成下一个sn二维码
+      if (this.useScanQR) this.createSNNext()
+
+      Core.Api.Component.saveComponent(
+        id,
+        orderId,
+        sn,
+        qc,
+        testData,
+        productTime,
+        itemId,
+        customerSN,
+        '',
+        '',
+        this.qrSN.start,
+        this.qrSN.end,
+        this.qrSN.current,
+        '',
+        '',
+        '',
+        '',
+        this.macHmi
+      )
         .then((res) => {
           if (
             this.itemRoot === Core.Const.CATEGORY_ROOT_TYPE.CONTROLLER ||
@@ -1877,7 +2213,9 @@ export default {
             this.canNext = false
           }
           this.clearParams()
+
           this.getProductionOrderDetail(this.orderId)
+
           this.$message({
             message: this.$t('cNam.saveSuccess'),
             type: 'success',
@@ -1897,7 +2235,16 @@ export default {
       let newList = list.filter(function (item) {
         return item.item_id == $this.itemPass.item_id
       })
-      this.itemOrderInfo = newList[0]
+      const data = newList[0]
+      this.itemOrderInfo = data
+      // 获取qrSN
+      if (data) {
+        const { start_sn, end_sn, current_sn } = data
+        this.qrSN.start = start_sn || ''
+        this.qrSN.end = end_sn || ''
+        this.qrSN.current = current_sn || ''
+        if (this.QRCodeMaker != null) this.QRCodeMaker.makeCode(this.qrSN.current)
+      }
 
       if (this.itemOrderInfo && this.itemOrderInfo.produced >= this.itemOrderInfo.amount) {
         this.$message({
@@ -1955,7 +2302,7 @@ export default {
         return needNameList.indexOf(item.attr_def_key) > -1
       })
       this.needAttrList.forEach((item, index) => {
-        this.hmiAttrValues[item.attr_def_key] = item.value + ''
+        this.senAttrValues[item.attr_def_key] = item.value + ''
       })
     },
     getToolAttr(attrList) {
@@ -2284,75 +2631,285 @@ export default {
     }
   },
   watch: {
-    sn: function (newValue, oldValue) {
-      const vm = this
-
+    sn: async function (newValue, oldValue) {
+      let vm = this
       if (newValue === oldValue || newValue === '' || vm.isRead) {
         return
       }
-
-      if (oldValue && oldValue.length > 15) {
-        vm.isScanner = new Date().getTime() - vm.lastInputTime <= 35
-        vm.lastInputTime = new Date().getTime()
+      if (typeof oldValue !== 'undefined' && oldValue.length > 15) {
+        let time = new Date().getTime()
+        vm.isScanner = time - vm.lastInputTime <= 35 // 间隔小于100ms的就认为是扫描枪输入 整个过程大概会600ms 每隔20ms触发一次
+        vm.lastInputTime = time
       } else {
         vm.lastInputTime = new Date().getTime()
       }
-
-      const autoTime = new Date().getTime()
-      const autoOperationTimeout = vm.autoOperationWriteTime + vm.autoOperationNextTime
-
-      if (autoTime - vm.lastInputTime > 30 && autoTime - vm.lastInputTime < autoOperationTimeout + 2000) {
+      let autoTime = new Date().getTime()
+      if (autoTime - vm.lastInputTime > 35 && autoTime - vm.lastInputTime < vm.autoOperationWriteTime + 2000 + vm.autoOperationNextTime) {
         vm.isScanner = false
         return
       }
+      //
+      if (vm.scannerTimeout) {
+        clearTimeout(vm.scannerTimeout)
+        vm.scannerTimeout = undefined
+      }
 
-      if (!vm.scannerTimeout) {
-        vm.scannerTimeout = setTimeout(function () {
-          if (!vm.isScanner) {
-            return
-          }
+      vm.scannerTimeout = setTimeout(async function () {
+        if (vm.isScanner) {
+          console.log(vm.sn)
+          // 判断是否是客户sn规则
+          if (vm.itemRoot === Core.Const.CATEGORY_ROOT_TYPE.CONTROLLER) {
+            // 老控制器不带换行，新控制器sn带换行
+            if (vm.sn.includes('\n')) {
+              const array = vm.sn.split('\n')
+              let _sn = ''
+              let _snData = []
 
-          vm.isScanner = false
-          clearTimeout(vm.scannerTimeout)
-          vm.scannerTimeout = undefined
+              // 电机控制器
+              if (vm.sn.includes('M')) {
+                // 客户sn
+                if (vm.sn.includes('\/')) {
+                  // 二维码解析 第一行数据（可能为客户sn）
+                  vm.customer_sn = array[0].replace(/\s/g, '')
+                  // 获取的sn数据，进行空行数据删除
+                  const data = array.filter((res) => res !== '')
 
-          if (vm.sn.indexOf('\n') > -1) {
-            const array = vm.sn.split('\n')
-            if (array.length < 4 && array[1] !== '') {
-              vm.customer_sn = array[0]
-              vm.sn = array[1]
-              if (vm.customer_sn.length !== 31) {
-                vm.sn = ''
-                vm.customer_sn = ''
-                vm.$message.error('客户SN长度不符合,暂停录入')
-                return
+                  _snData = data.slice(1, array.length)
+                } else {
+                  _snData = array.filter((res) => res !== '')
+                }
+
+                _snData.forEach((item, index) => {
+                  if (index == 0 || index == 2) {
+                    _sn += item
+                  }
+                })
+              } else {
+                // 客户sn
+                if (vm.sn.includes('\/')) {
+                  // 二维码解析 第一行数据（可能为客户sn）
+                  vm.customer_sn = array[0].replace(/\s/g, '')
+
+                  // 获取的sn数据，进行空行数据删除
+                  const data = array.filter((res) => res !== '')
+
+                  _snData = data.slice(1, array.length)
+
+                  if (data.length > 2) {
+                    // 新sn
+                    _snData.forEach((item, index) => {
+                      _sn += index === 0 ? item.slice(0, item.length - 5) : item
+                    })
+                  } else {
+                    // 老sn
+                    _sn = _snData[0]
+                  }
+                } else {
+                  _snData = array
+                  _snData.forEach((item, index) => {
+                    _sn += index === 0 ? item.slice(0, item.length - 5) : item
+                  })
+                }
+              }
+
+              vm.sn = _sn
+            }
+          } else if (vm.itemRoot === Core.Const.CATEGORY_ROOT_TYPE.HMI) {
+            if (vm.isCustomer0049) {
+              // 如果是特殊客户
+              if (vm.sn.includes('\n')) {
+                const array = vm.sn.split('\n')
+                let _sn = ''
+                // 获取的sn数据，进行空行数据删除
+                let _snData = array.filter((res) => res !== '')
+                // 二维码解析 第一行数据为客户sn
+                _sn = _snData[0].replace(/\s/g, '')
+                vm.macHmi = _snData[1].replace(/\s/g, '')
+                vm.sn = _sn
+              }
+            } else {
+              // 是否带有客户sn
+              if (vm.sn.includes('\/')) {
+                if (vm.sn.includes('\n')) {
+                  const array = vm.sn.split('\n')
+                  // let _sn = ''
+                  // 获取的sn数据，进行空行数据删除
+                  let _snData = array.filter((res) => res !== '')
+                  // 二维码解析 第一行数据（可能为客户sn）
+                  vm.customer_sn = array[0].replace(/\s/g, '')
+                  _snData = _snData.slice(1)
+
+                  // 获取第一行的软件版本号
+                  const version = _snData[0]
+                  // 如果软件版本号和读取出来的软件版本号不匹配就弹窗提示
+                  if (version !== vm.hmiAttrValues['soft_ver']) {
+                    vm.sn = ''
+                    vm.customer_sn = ''
+                    clearTimeout(vm.scannerTimeout)
+                    vm.scannerTimeout = undefined
+                    vm.$message({
+                      message: '软件版本号和读取出来的软件版本号不匹配',
+                      type: 'error'
+                    })
+                    return
+                  }
+                  // 合并sn data
+                  _snData = _snData.join('')
+
+                  if (_snData.includes('DP')) {
+                    let array = _snData.split('DP')
+                    if (array.length > 1) {
+                      vm.sn = ('DP' + array[array.length - 1]).replace(/\s+/g, '')
+                    }
+                  }
+
+                  // if (_snData.length > 1) {
+                  //   // 新
+                  //   _snData.forEach((item, index) => {
+                  //     _sn += index === 0 ? item.slice(0, item.length - 5) : item
+                  //   })
+                  // } else {
+                  //   // 老
+                  //   _sn = _snData[0]
+                  // }
+                  // vm.sn = _sn
+                } else {
+                  // 老
+                  if (vm.sn.includes('DP')) {
+                    let array = vm.sn.split('DP')
+                    if (array.length > 1) {
+                      vm.sn = ('DP' + array[array.length - 1]).replace(/\s+/g, '')
+                    }
+                  }
+                }
+              } else {
+                // 非客户sn
+                if (vm.sn.includes('\n')) {
+                  const array = vm.sn.split('\n')
+                  // 获取第一行的软件版本号
+                  const version = array[0]
+                  // 如果软件版本号和读取出来的软件版本号不匹配就弹窗提示
+                  if (version !== vm.hmiAttrValues['soft_ver']) {
+                    vm.sn = ''
+                    vm.customer_sn = ''
+                    clearTimeout(vm.scannerTimeout)
+                    vm.scannerTimeout = undefined
+                    vm.$message({
+                      message: '软件版本号和读取出来的软件版本号不匹配',
+                      type: 'error'
+                    })
+                    return
+                  }
+
+                  if (vm.sn.includes('DP')) {
+                    const array = vm.sn.split('DP')
+                    if (array.length > 1) {
+                      vm.sn = ('DP' + array[array.length - 1]).replace(/\s+/g, '')
+                    }
+                  }
+
+                  // 不再根据换行符来处理sn逻辑
+                  //  const array = vm.sn.split('\n')
+                  //  let _sn = ''
+                  // 获取的sn数据，进行空行数据删除
+                  // let _snData = array.filter((res) => res !== '')
+                  // if (_snData.length > 3) {
+                  //   // 老
+                  //   if (vm.sn.includes('DP')) {
+                  //     const array = vm.sn.split('DP')
+                  //     if (array.length > 1) {
+                  //       vm.sn = ('DP' + array[array.length - 1]).replace(/\s+/g, '')
+                  //     }
+                  //   }
+                  // } else {
+                  //   // 新
+                  //   _snData.forEach((item, index) => {
+                  //     _sn += index === 0 ? item.slice(0, item.length - 5) : item
+                  //   })
+                  //   vm.sn = _sn
+                  // }
+                } else {
+                  // 老的不带换行符
+                  if (vm.sn.includes('DP')) {
+                    const array = vm.sn.split('DP')
+                    if (array.length > 1) {
+                      vm.sn = ('DP' + array[array.length - 1]).replace(/\s+/g, '')
+                    }
+                  }
+                }
+              }
+            }
+          } else if (vm.itemRoot === Core.Const.CATEGORY_ROOT_TYPE.SENSOR) {
+            // 是否带有客户sn
+            if (vm.sn.includes('\/')) {
+              // 带客户sn
+              // 新标带客户SN：出现三个换行符且带“/”
+              const array = vm.sn.split('\n')
+              let _sn = ''
+              let _snData = []
+              // 获取的sn数据，进行空行数据删除
+              _snData = array.filter((res) => res !== '')
+
+              if (vm.sn.includes('\n') && array.length >= 4) {
+                // 二维码解析 第一行数据（可能为客户sn）
+                vm.customer_sn = array[0].replace(/\s/g, '')
+
+                _snData = _snData.slice(1)
+
+                _snData.forEach((item, index) => {
+                  if (index == 1) {
+                    _sn += item.slice(0, 8)
+                  } else {
+                    _sn += item
+                  }
+                })
+              } else if (array.length == 2) {
+                // 老标带客户
+                vm.customer_sn = array[0].replace(/\s/g, '')
+                _sn = array[1].replace(/\s/g, '')
+              }
+              vm.sn = _sn
+            } else {
+              // 非客户sn
+              // 传感器SN 如果出现两个换行符,扫描二维码后文本框显示：第一行+第二行前8个字符+第三行
+              if (vm.sn.includes('\n') && vm.sn.split('\n').length >= 3) {
+                const array = vm.sn.split('\n')
+                let _sn = ''
+                let _snData = []
+
+                // 获取的sn数据，进行空行数据删除
+                _snData = array.filter((res) => res !== '')
+
+                _snData.forEach((item, index) => {
+                  if (index == 1) {
+                    _sn += item.slice(0, 8)
+                  } else {
+                    _sn += item
+                  }
+                })
+                vm.sn = _sn
+              } else if (vm.sn.includes('SR')) {
+                const array = vm.sn.split('SR')
+                if (array.length > 1) {
+                  vm.sn = ('SR' + array[array.length - 1]).replace(/\s+/g, '')
+                }
               }
             }
           }
 
           vm.sn = vm.sn.replace(/\s+/g, '')
-
           if (vm.sn.length === 15 && vm.sn.slice(0, 2) === '10') {
             const crcCheck = vm.sn.slice(-2)
             const crcStr = vm.sn.slice(0, -2)
             if (parseInt(Update.checkCrc8(crcStr), 16) === parseInt(crcCheck, 16)) {
               vm.snLength = 15
               vm.checkSNType = true
+              // vm.writeSn()
             } else {
+              clearTimeout(vm.scannerTimeout)
+              vm.scannerTimeout = undefined
               vm.$message.error('CRC校验失败')
               return false
-            }
-          }
-
-          if (vm.sn.indexOf('DP') > -1) {
-            const array = vm.sn.split('DP')
-            if (array.length > 1) {
-              vm.sn = ('DP' + array[array.length - 1]).replace(/\s+/g, '')
-            }
-          } else if (vm.sn.indexOf('SR') > -1) {
-            const array = vm.sn.split('SR')
-            if (array.length > 1) {
-              vm.sn = ('SR' + array[array.length - 1]).replace(/\s+/g, '')
             }
           }
 
@@ -2361,30 +2918,52 @@ export default {
           if (vm.sn.length !== vm.snLength) {
             vm.sn = ''
             vm.customer_sn = ''
+            clearTimeout(vm.scannerTimeout)
+            vm.scannerTimeout = undefined
             vm.$message.error('SN长度不符合,暂停录入')
             return
           }
 
+          if (vm.showErrorCode) {
+            // 读取Error code
+            const isOK = await vm.readErrorCode()
+            console.log('isOk:', isOK)
+            if (!isOK) {
+              vm.sn = ''
+              vm.customer_sn = ''
+              clearTimeout(vm.scannerTimeout)
+              vm.scannerTimeout = undefined
+              vm.$message.error('读取ErrorCode失败,暂停录入')
+              return
+            }
+          }
           if (vm.autoOperation && [4, 7, 6].includes(vm.itemRoot)) {
             if (vm.isTechnicianUse) {
-              setTimeout(function () {
+              vm.autonNextTimeout = setTimeout(function () {
+                // console.log("next start",new Date().getTime());
+                vm.next()
+              }, vm.autoOperationNextTime)
+            } else if (vm.itemRoot === 6 && !vm.isNewRegulationSEN) {
+              // 如果是老规则的传感器
+              vm.autonNextTimeout = setTimeout(function () {
                 vm.next()
               }, vm.autoOperationNextTime)
             } else {
-              if (!vm.sn) {
-                return
-              }
+              if (!vm.sn) return
               vm.writeSn()
-              setTimeout(function () {
+              vm.autoReadTimeout = setTimeout(function () {
+                // console.log('read start', new Date().getTime())
                 vm.readBase()
               }, vm.autoOperationWriteTime)
-              setTimeout(function () {
+              vm.autonNextTimeout = setTimeout(function () {
+                // console.log('next start', new Date().getTime())
                 vm.next()
-              }, autoOperationTimeout)
+              }, vm.autoOperationWriteTime + vm.autoOperationNextTime)
             }
           }
-        }, 800)
-      }
+          vm.isScanner = false
+        }
+      }, 800)
     },
     isConnected: function (newValue, oldValue) {
       let vm = this
@@ -2435,15 +3014,20 @@ export default {
 .component-order-test-report {
   width: 100%;
   height: 100%;
+  .content-wrap {
+    padding: 0;
+  }
   .header {
     line-height: 40px;
     height: 40px;
     padding: 0 38px;
     border-bottom: 1px solid #2b2f3b;
+
     .label {
       margin-left: 25px;
       font-size: 16px;
     }
+
     .add-btn {
       margin: 20px 0;
       float: right;
@@ -2459,9 +3043,9 @@ export default {
 
     .content-header {
       display: block;
-      padding: 10px 43px;
+      padding: 5px 43px;
       font-size: 14px;
-      height: 50px;
+      height: 40px;
       line-height: 30px;
       font-weight: bold;
       box-sizing: border-box;
@@ -2472,39 +3056,47 @@ export default {
       background: #353945;
       overflow: hidden;
       padding: 20px 0;
+
       .item {
         width: 49%;
         display: inline-block;
         padding-left: 60px;
         line-height: 40px;
+
         label {
           display: inline-block;
           width: 142px;
           font-size: 14px;
           color: #a1a5b1;
         }
+
         span {
           margin-left: 8px;
           font-size: 14px;
         }
       }
+
       .hardware-item {
         padding: 0 60px;
         line-height: 40px;
         overflow: hidden;
+
         .select-holder {
           width: 50%;
           float: left;
           overflow: hidden;
+
           & > label {
             display: inline-block;
             width: 120px;
             /*float: left;*/
           }
+
           .el-select {
             /*float: left;*/
             width: calc(100% - 150px);
           }
+
           .tip {
             display: inline-block;
             border-radius: 50%;
@@ -2513,47 +3105,58 @@ export default {
             background: #e26829;
             margin-left: 6px;
           }
+
           .connect {
             background: #76ee00;
           }
         }
+
         .input-holder {
           width: 50%;
           float: left;
           overflow: hidden;
+
           & > label {
             float: left;
             display: inline-block;
             width: 120px;
           }
+
           .el-input {
             float: left;
             width: calc(100% - 124px);
           }
+
           .fileList {
             line-height: 20px;
             margin-left: 100px;
           }
+
           .el-input::after {
             top: 10px;
           }
         }
+
         .operation-holder {
           float: right;
+
           .resetButton {
             background-color: red;
           }
         }
+
         .autoTime {
           width: 100px;
         }
       }
     }
   }
+
   table {
     border-collapse: collapse;
     border-color: rgba(255, 255, 255, 0.3);
     width: 100%;
+
     tr {
       td {
         width: 25%;
@@ -2563,6 +3166,7 @@ export default {
         overflow: hidden;
         text-overflow: ellipsis;
         word-break: break-all;
+
         input {
           height: 34px;
           background: #2b2f3b;
@@ -2580,29 +3184,43 @@ export default {
     align-items: center;
     justify-content: center;
   }
+
   .iot-input {
     resize: none;
     padding: 0 10px;
     line-height: 2;
     margin-left: 3px;
   }
+
   .input-sn:after {
     top: 8px;
   }
+
   .input {
     width: 290px;
   }
+
   .errorTip {
     color: #e26829;
   }
+
   .btn-green {
     background-color: #98b42c;
+
     &:hover {
       background-color: #98d22c;
     }
+
     &:active {
       background-color: #e26829;
     }
+  }
+
+  .qr {
+    width: 130px;
+    height: 130px;
+    padding: 5px;
+    background: #fff;
   }
 }
 </style>
@@ -2610,4 +3228,4 @@ export default {
 
 
 // WEBPACK FOOTER //
-// test-report.vue?17e2da40
+// test-report.vue?771d3748

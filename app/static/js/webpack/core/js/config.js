@@ -26,5 +26,5 @@ export default new Config();
 //////////////////
 // WEBPACK FOOTER
 // ./core/js/config.js
-// module id = 339
+// module id = 343
 // module chunks = 76

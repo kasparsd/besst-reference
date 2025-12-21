@@ -64,7 +64,12 @@
                 <div class="select-holder">
                   <label class="label">{{ $t('cNam.controller') }}</label>
                   <el-input v-model="controllerSn" placeholder="-"></el-input>
-                  <label class="tip" :class="{ connect: isControllerConnected }"></label>
+                  <label
+                    class="tip"
+                    :class="{
+                      connect: isControllerConnected
+                    }"
+                  ></label>
                   <el-button type="preview" @click="readController">{{ $t('cNam.read') }}</el-button>
                 </div>
                 <div class="select-holder">
@@ -164,7 +169,9 @@
                 <!--</div>-->
                 <div class="input-holder" v-show="true">
                   <div class="note">
-                    <div class="msg-title">{{ $t('cNam.updateMsg') }}</div>
+                    <div class="msg-title">
+                      {{ $t('cNam.updateMsg') }}
+                    </div>
                   </div>
                   <div class="note">
                     <div class="msg">{{ updateMsg }}</div>
@@ -250,39 +257,84 @@
               <div class="clear-10"></div>
               <div class="item" v-if="!isCan">
                 <label class="label">{{ $t('cNam.nmlVolt') }}</label>
-                <span :class="{ errorTip: errorList.indexOf('voltage') > -1 }">{{ nmlVolt }}</span>
+                <span
+                  :class="{
+                    errorTip: errorList.indexOf('voltage') > -1
+                  }"
+                  >{{ nmlVolt }}</span
+                >
               </div>
               <div class="item" v-if="!isCan">
                 <label class="label">{{ $t('cNam.limitCurrent') }}</label>
-                <span :class="{ errorTip: errorList.indexOf('current_limit') > -1 }">{{ limitCurrent }}</span>
+                <span
+                  :class="{
+                    errorTip: errorList.indexOf('current_limit') > -1
+                  }"
+                  >{{ limitCurrent }}</span
+                >
               </div>
               <div class="item">
                 <label class="label">{{ $t('cNam.hardwareVersion') }}</label>
-                <span :class="{ errorTip: errorList.indexOf('hard_ver') > -1 }">{{ hardVersion }}</span>
+                <span
+                  :class="{
+                    errorTip: errorList.indexOf('hard_ver') > -1
+                  }"
+                  >{{ hardVersion }}</span
+                >
               </div>
               <div class="item">
                 <label class="label">{{ $t('cNam.softwareVersion') }}</label>
-                <span :class="{ errorTip: errorList.indexOf('soft_ver') > -1 }">{{ version }}</span>
+                <span
+                  :class="{
+                    errorTip: errorList.indexOf('soft_ver') > -1
+                  }"
+                  >{{ version }}</span
+                >
               </div>
               <div class="item" v-if="!isCan">
                 <label class="label">{{ $t('cNam.spdMeterSignalNum') }}</label>
-                <span :class="{ errorTip: errorList.indexOf('pas_signals') > -1 }">{{ pasSignals }}</span>
+                <span
+                  :class="{
+                    errorTip: errorList.indexOf('pas_signals') > -1
+                  }"
+                  >{{ pasSignals }}</span
+                >
               </div>
               <div class="item">
                 <label class="label">{{ $t('cNam.model') }}</label>
-                <span :class="{ errorTip: errorList.indexOf('model') > -1 }">{{ model }}</span>
+                <span
+                  :class="{
+                    errorTip: errorList.indexOf('model') > -1
+                  }"
+                  >{{ model }}</span
+                >
               </div>
               <div class="item" v-if="isCan">
                 <label class="label">{{ $t('cNam.speedLimit') }}</label>
-                <span :class="{ errorTip: errorList.indexOf('speedLimit') > -1 }">{{ speedLimitRead }}</span>
+                <span
+                  :class="{
+                    errorTip: errorList.indexOf('speedLimit') > -1
+                  }"
+                  >{{ speedLimitRead }}</span
+                >
               </div>
               <div class="item" v-if="isCan">
                 <label class="label">{{ $t('cNam.wheelDiameter') }}</label>
-                <span :class="{ errorTip: errorList.indexOf('wheelDiameter') > -1 }">{{ wheelDiameterRead }}</span>
+                <span
+                  :class="{
+                    errorTip: errorList.indexOf('wheelDiameter') > -1
+                  }"
+                  >{{ wheelDiameterRead }}</span
+                >
               </div>
               <div class="item" v-if="isCan">
                 <label class="label">{{ $t('cNam.circumference') }}</label>
-                <span :class="{ errorTip: errorList.indexOf('circumference') > -1 }">{{ circumferenceRead }}</span>
+                <span
+                  :class="{
+                    errorTip: errorList.indexOf('circumference') > -1
+                  }"
+                  >{{ circumferenceRead }}</span
+                >
               </div>
             </div>
           </div>
@@ -313,19 +365,47 @@
                 </el-select>
               </div>
             </div>
+            <div v-show="isFM">
+              <div class="hardware-item">
+                <div class="input-holder">
+                  <label class="label">Carton Code</label>
+                  <input
+                    type="text"
+                    class="input el-input__inner input-sn-textarea"
+                    ref="carton_code"
+                    v-model="cartonCode"
+                    @input="cartonCodeInput"
+                  />
+                </div>
+              </div>
+              <div class="hardware-item">
+                <label class="label">数量</label>
+                <el-select v-model="cartonNum" placeholder="Please select">
+                  <el-option v-for="item in cartonNumList" :key="item" :label="item" :value="item"> </el-option>
+                </el-select>
+                <input type="text" class="input el-input__inner" v-model="currentCartonNum" style="width: 50px" @input="onChangeCurrentCartonNum" />
+                {{ `/${cartonNum}` }}
+              </div>
+              <div class="hardware-item">
+                <div class="input-holder">
+                  <label class="label">QR Code</label>
+                  <input type="text" class="input el-input__inner input-sn-textarea" ref="qr_code" v-model="qrCode" @input="qrCodeInput" />
+                </div>
+              </div>
+            </div>
             <div class="hardware-item">
               <div class="input-holder">
                 <label class="label">SN</label>
-                <el-input
-                  ref="content"
+                <input
+                  ref="motor_sn"
                   id="scan"
                   type="textarea"
-                  class="input-sn-textarea"
+                  class="input el-input__inner input-sn-textarea"
                   :rows="1"
                   resize="none"
                   v-model="motorUploadSN"
-                ></el-input>
-                <el-button type="primary" @click="next(3)" :disabled="isSaving">下一个</el-button>
+                />
+                <el-button type="primary" @click="next(3)" :disabled="isSaving || checkInput">下一个</el-button>
                 <el-button type="danger" @click="motorUploadSN = ''">清空</el-button>
               </div>
             </div>
@@ -355,7 +435,9 @@
           </tr>
         </thead>
         <tr v-for="item in HWRecordList">
-          <td class="history-td">{{ item.create_time | dateFormat }}</td>
+          <td class="history-td">
+            {{ item.create_time | dateFormat }}
+          </td>
           <td class="history-td">{{ item.version }}</td>
           <td class="history-td">{{ item.firmware_name }}</td>
           <td class="history-td">{{ item.remark }}</td>
@@ -393,8 +475,12 @@
           <td class="history-td">{{ item.motor_sn }}</td>
           <td class="history-td">{{ item.controller_sn }}</td>
           <td class="history-td">{{ item.sensor_sn }}</td>
-          <td class="history-td">{{ item.create_time | dateFormat }}</td>
-          <td class="history-td">{{ item.update_time | dateFormat }}</td>
+          <td class="history-td">
+            {{ item.create_time | dateFormat }}
+          </td>
+          <td class="history-td">
+            {{ item.update_time | dateFormat }}
+          </td>
         </tr>
       </table>
       <div class="table-footer">
@@ -599,7 +685,19 @@ export default {
         }
       ],
 
-      isSenorOrMotor: true
+      isSenorOrMotor: true,
+      // 纸箱编码
+      cartonCode: '',
+      // 纸箱容量
+      cartonNum: 4,
+      // 当前数量
+      currentCartonNum: 1,
+      // 二维码
+      qrCode: '',
+      // 是否是‘FM’系列产品
+      isFM: false,
+      // 纸箱容量列表
+      cartonNumList: [4, 5, 6, 7, 8, 9, 10]
     }
   },
   i18n: {
@@ -609,6 +707,11 @@ export default {
       zh: ZH.Component.Order.Produce,
       de: DE.Component.Order.Produce,
       nl: NL.Component.Order.Produce
+    }
+  },
+  computed: {
+    checkInput() {
+      return this.cartonCode == '' || this.qrCode == '' || this.motorUploadSN == ''
     }
   },
   mounted: function () {
@@ -645,6 +748,58 @@ export default {
     this.initTrans()
   },
   methods: {
+    focusInput(event) {
+      this.$refs[event].focus()
+    },
+    //
+    cartonCodeInput(event) {
+      const { value } = event.target
+      if (value === '') return false
+      clearTimeout(this.scannerTimeout)
+      this.scannerTimeout = null
+      this.scannerTimeout = setTimeout(() => {
+        // 以BF开头 长度为13
+        if (value.length !== 13 || value.indexOf('BF') === -1) {
+          this.cartonCode = ''
+          this.$message.error('Carton Code 格式错误，请重新输入')
+        } else {
+          this.cartonCode = value
+          this.$nextTick(() => {
+            this.focusInput('qr_code')
+          })
+        }
+      }, 800)
+    },
+    onChangeCurrentCartonNum(event) {
+      const { value } = event.target
+      if (value === '') return
+      if (value > this.cartonNum) {
+        this.currentCartonNum = this.cartonNum
+        return
+      } else if (value <= 0) {
+        this.currentCartonNum = 1
+        return
+      }
+      this.currentCartonNum = value
+    },
+    qrCodeInput(event) {
+      const { value } = event.target
+      if (value === '') return false
+      clearTimeout(this.scannerTimeout)
+      this.scannerTimeout = null
+      this.scannerTimeout = setTimeout(() => {
+        // 以SM开头 出现两次'/'的情况 长度为24
+        if (value.length !== 24 || value.indexOf('SM') === -1 || value.split('/').length !== 3) {
+          this.qrCode = ''
+          this.$message.error('QR Code 格式错误，请重新输入')
+        } else {
+          this.qrCode = value
+          this.$nextTick(() => {
+            this.focusInput('motor_sn')
+          })
+        }
+      }, 800)
+    },
     getProductionOrderDetail(orderId) {
       Core.Api.Order.getProductionOrderDetail(orderId).then((res) => {
         this.orderInfo = res.order
@@ -664,18 +819,40 @@ export default {
           $this.orderItemInfo = item
           $this.itemRoot = item.category_root_id
           $this.itemPassCurrent = item
-        }
-        if (item.category_root_id === 7) {
-          $this.hasCtl = true
-          $this.itemPass = item
-          if ($this.itemPass.item_name && $this.itemPass.item_name.indexOf('CR') > -1 && $this.itemPass.item_name.indexOf('.FC') > -1) {
-            $this.isCan = true
+          // 判断是否是FM系列产品
+          if (item.item_name.indexOf('FM G320.250.R') > -1) {
+            $this.isFM = true
+            if (item.carton_num && item.current_carton_num) {
+              if (item.current_carton_num >= item.carton_num) {
+                item.current_carton_num = 1
+                item.carton_code = ''
+                this.$nextTick(() => {
+                  this.focusInput('carton_code')
+                })
+              } else {
+                item.current_carton_num++
+                this.$nextTick(() => {
+                  this.focusInput('qr_code')
+                })
+              }
+              $this.cartonCode = item.carton_code
+              $this.cartonNum = item.carton_num
+              $this.currentCartonNum = item.current_carton_num
+            }
           }
-          Core.Api.Item.getItemDetail(item.item_id).then((res) => {
-            //                            console.log(res);
-            $this.getControllerAttr(res.item.attr_list)
-            $this.getDeviceList()
-          })
+
+          if (item.category_root_id === 7) {
+            $this.hasCtl = true
+            $this.itemPass = item
+            if ($this.itemPass.item_name && $this.itemPass.item_name.indexOf('CR') > -1 && $this.itemPass.item_name.indexOf('.FC') > -1) {
+              $this.isCan = true
+            }
+            Core.Api.Item.getItemDetail(item.item_id).then((res) => {
+              //                            console.log(res);
+              $this.getControllerAttr(res.item.attr_list)
+              $this.getDeviceList()
+            })
+          }
         }
       })
     },
@@ -1057,6 +1234,11 @@ export default {
       this.clientCode = ''
       this.testJson = []
       this.motorUploadSN = ''
+      this.qrCode = ''
+      if (this.cartonNum == this.currentCartonNum) {
+        this.cartonCode = ''
+        this.currentCartonNum = 1
+      }
     },
     getTestJson() {
       let params = {}
@@ -1148,7 +1330,25 @@ export default {
       let testData = this.getTestJson()
       let productTime = Core.Util.time()
       let itemId = this.itemPassCurrent.item_id
-      Core.Api.Component.saveComponent(id, orderId, sn, qc, testData, productTime, itemId, this.customer_sn)
+      Core.Api.Component.saveComponent(
+        id,
+        orderId,
+        sn,
+        qc,
+        testData,
+        productTime,
+        itemId,
+        this.customer_sn,
+        '',
+        '',
+        '',
+        '',
+        '',
+        this.cartonCode,
+        this.qrCode,
+        this.cartonNum,
+        this.currentCartonNum
+      )
         .then((res) => {
           if (this.itemRoot === Core.Const.CATEGORY_ROOT_TYPE.CONTROLLER) {
             this.canNext = false
@@ -1458,9 +1658,8 @@ export default {
     checkBoxUpdate() {
       let count = 1
       let vm = this
-      let res = Update.port.usbSDK.client.events.on('firmware-update-completed-progress', (e) => {
-        //                    console.log(e); // {progress: 0, status: "01"}
-        //                    console.log(e.progress,vm.fileBufferLength);
+      let res = Update.port.usbSDK.client.events.on('firmware-upgrade-progress', (e) => {
+        vm.boxPercentage = parseInt(e.progress)
         if (vm.category_root) {
           switch (vm.category_root) {
             case 4:
@@ -1473,24 +1672,16 @@ export default {
               vm.updateMsg = vm.updateMsgObject.msg6
               break
           }
-        } else {
+        } else if (parseInt(e.status) == 0x00) {
           vm.updateMsg = vm.updateMsgObject.msg10
         }
         //                    console.log("[true]",vm.isCanSoft, vm.isCan);
         //                    console.log("[true]",vm.isCanSoft || vm.isCan);
-        if (vm.isCanSoft || vm.isCan) {
-          vm.boxPercentage = Math.ceil((e.progress / vm.fileBufferLength) * 100)
-        } else {
-          if (e.progress * 128 > vm.fileBufferLength && e.progress * 128 - vm.fileBufferLength < 1024) {
-            vm.boxPercentage = 100
-          } else {
-            vm.boxPercentage = Math.ceil(((e.progress * 128) / vm.fileBufferLength) * 100)
-          }
-        }
+
         if (vm.boxPercentage > 100) {
           vm.updateMsg = vm.updateMsgObject.msg11
         }
-        if (vm.boxPercentage === 0) {
+        if (vm.boxPercentage === 100) {
           if (count === 1) {
             vm.updateMsg = vm.updateMsgObject.msg20
           }
@@ -1498,6 +1689,11 @@ export default {
         } else {
           count = 1
         }
+      })
+
+      Update.port.usbSDK.client.events.on('firmware-upgrade-failed', (e) => {
+        console.log(`firmware-upgrade-failed:${JSON.stringify(e)}`)
+        vm.updateMsg = this.updateMsgObject.msg11
       })
       //                console.log(res,'[ud]');
     },
@@ -1571,11 +1767,11 @@ export default {
         //                    Update.readFileData( data );
         //                    Update.sendFileHeadFrameHID();
 
-        Update.port.usbSDK.client.events.on('firmware-update-progress', (e) => {
+        Update.port.usbSDK.client.events.on('firmware-upload-progress', (e) => {
           vm.startTip = false
-          vm.percentage = Math.ceil((e.upload / e.total) * 100)
+          vm.percentage = parseInt(e.progress)
           //                        console.log(e);
-          if (e.upload == e.total || vm.percentage == 100) {
+          if (vm.percentage == 100) {
             if (count == 0) {
               vm.$message({
                 message: vm.updateMsgObject.successTip,
@@ -1602,7 +1798,7 @@ export default {
             count++
           }
         })
-        Update.port.usbSDK.client.events.on('firmware-update-completed', (e) => {
+        Update.port.usbSDK.client.events.on('firmware-upload-completed', (e) => {
           vm.percentage = 0
           //                        this.$message({
           //                            message: this.$t('cNam.updateSuccessTip'),
@@ -1858,7 +2054,7 @@ export default {
         if (res.type == 'error_usb') {
           this.isConnected = false
         }
-        if (res.data.code === '32' && res.data.subCode === '03' && res.data.targetCode == 15) {
+        if (res.data.code === '32' && res.data.subCode === '03' && res.data.targetCode == 0x1f) {
           //  console.log(res.data);
           //  can:"WRITE_CMD"canCode:0code:"32"data:"a406d0002c090000"dataLen:6source:"CTL"sourceCode:2subCode:"03"target:nulltargetCode:15
           let result_3 = Buffer.from(res.data.data, 'hex')
@@ -2496,14 +2692,14 @@ export default {
           & > label {
             float: left;
             display: inline-block;
-            width: 120px;
+            width: 130px;
           }
           .el-input {
             float: left;
             width: 295px;
           }
           .sn:after {
-            top: 6px;
+            top: 9px;
           }
         }
         .file {
@@ -2573,4 +2769,4 @@ export default {
 
 
 // WEBPACK FOOTER //
-// data-connect.vue?5d0acd2b
+// data-connect.vue?432389e0

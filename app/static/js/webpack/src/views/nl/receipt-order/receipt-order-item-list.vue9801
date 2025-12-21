@@ -12,5 +12,5 @@ exports.push([module.id, ".receipt-order-item-list{width:100%;height:100%}.recei
 //////////////////
 // WEBPACK FOOTER
 // ./node_modules/css-loader?{"minimize":true,"sourceMap":true}!./node_modules/vue-loader/lib/style-compiler?{"vue":true,"id":"data-v-054cf2f3","scoped":false,"hasInlineConfig":false}!./node_modules/sass-loader/lib/loader.js?{"sourceMap":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./src/views/nl/receipt-order/receipt-order-item-list.vue
-// module id = 2511
-// module chunks = 64
+// module id = 2542
+// module chunks = 63

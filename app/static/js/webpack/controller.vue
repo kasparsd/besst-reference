@@ -27,6 +27,12 @@
           <span @click="jumpToUpdate" v-show="showUpdateTag">New version ready for Update</span>
         </div>
         <div class="part">
+          <div class="item">
+            <label class="label">{{ $t('cNam.component') }}</label>
+            <el-select v-model="componentType" class="input" :placeholder="$t('cNam.select')">
+              <el-option v-for="item in optionsCtl" :key="item.type" :label="item.label" :value="item.type"> </el-option>
+            </el-select>
+          </div>
           <div class="item" v-if="org.type === Core.Const.ORG_TYPE.COMPONENT">
             <label class="label">SN</label>
             <el-input type="textarea" class="input input-sn" :rows="1" resize="none" v-model="sn"></el-input>
@@ -288,17 +294,16 @@
           <el-button type="preview" @click="writeParam" v-if="userName.indexOf('fqc') > -1">{{ $t('cNam.write') }}</el-button>
         </div>
       </div>
-
       <!-- Can 页面逻辑  -->
-      <div class="info" v-if="isCan">
+      <div class="info">
         <div class="note-title">
           <label class="title">{{ $t('cNam.setting') }}</label>
         </div>
         <div class="part">
           <div class="item">
             <label class="label">{{ $t('cNam.speedLimit') }}</label>
-            <el-select v-model="speedLimit" class="com-select" filterable :placeholder="$t('cNam.select')">
-              <el-option v-for="(item, index) in speedLimits" :key="index" :label="item" :value="item"> </el-option>
+            <el-select v-model="speedLimit" class="com-select" filterable allow-create :placeholder="$t('cNam.select')">
+              <el-option v-for="(item, index) in speedLimits" :key="index" :label="item.label" :value="item.value"> </el-option>
             </el-select>
           </div>
           <div class="item">
@@ -724,7 +729,23 @@ export default {
       activeName: 'first',
       openCollapse: 0,
 
-      showUpdateTag: false
+      showUpdateTag: false,
+      target: '',
+      optionsCtl: [
+        {
+          type: 'ctrl',
+          label: 'Controller'
+        }
+      ],
+      componentType: 'ctrl',
+      // 判断是否有多个控制器
+      isMoreController: false,
+      // 当前是否是零件商
+      isComponent: false,
+      // 当前是否是品牌商
+      isBrand: false,
+      // 最大限速
+      maxSpeed: 25
     }
   },
 
@@ -741,35 +762,25 @@ export default {
   mounted() {
     this.initTrans()
 
-    this.wheelDiameters = Core.Const.wheelDiameters
     if (Core.Data.getOrg()) {
       this.isDealerOrAssembler =
         Core.Data.getOrg().type === Core.Const.ORG_TYPE.DEALER ||
         Core.Data.getOrg().type === Core.Const.ORG_TYPE.OEM ||
         Core.Data.getOrg().type === Core.Const.ORG_TYPE.SPECIAL_DEAlER
+
+      this.isComponent = Core.Data.getOrg().type === Core.Const.ORG_TYPE.COMPONENT
+      this.isBrand = Core.Data.getOrg().type === Core.Const.ORG_TYPE.BRAND
     }
+    console.log(Core.Data.getOrg())
     this.offLineFlag = Core.Data.getOffline()
     this.userId = Core.Data.getUser().id
     this.recordType = Core.Const.OBJECT_RECORD_TYPE.EDIT
+    // 轮径初始化
+    this.wheelDiameters = Core.Const.wheelDiameters
 
-    for (let i = 10; i <= 60; i++) {
-      this.speedLimits.push(i)
-      if (i < 60) {
-        this.speedLimits.push(i + 0.5)
-      }
-    }
-    // 经销商离线10-25
-    if (this.isDealerOrAssembler && this.offLineFlag) {
-      this.speedLimits = []
-      for (let i = 10; i <= 25; i++) {
-        this.speedLimits.push(i)
-        if (i < 25) {
-          this.speedLimits.push(i + 0.5)
-        }
-      }
-      //                this.wheelDiameters.pop();
-    }
-    this.speedLimit = 25
+    // 初始化限速
+    this.initSpeedLimit()
+
     this.getOfflineRecordList()
     this.offlineRecordLength = this.offlineRecordList.length
 
@@ -790,6 +801,66 @@ export default {
     this.parseParams()
   },
   methods: {
+    // 初始化限速
+    initSpeedLimit() {
+      // 零件商 品牌商
+      if (this.isBrand || this.isComponent) {
+        this.maxSpeed = 60
+      }
+
+      // 经销商
+      if (this.isDealerOrAssembler) {
+        this.maxSpeed = 25
+      }
+
+      if ((this.isBrand || this.isDealerOrAssembler) && ['United States of America', 'Canada'].includes(Core.Data.getOrg().country)) {
+        this.maxSpeed = 45
+      }
+
+      if (this.org.id == 25) {
+        this.maxSpeed = 100
+      }
+
+      for (let i = 10; i <= this.maxSpeed; i++) {
+        this.speedLimits.push({
+          label: i,
+          value: i
+        })
+        if (i < this.maxSpeed) {
+          this.speedLimits.push({
+            label: i + 0.5,
+            value: i + 0.5
+          })
+        }
+      }
+      // 经销商离线10-25
+      if (this.isDealerOrAssembler && this.offLineFlag) {
+        this.speedLimits = []
+        for (let i = 10; i <= 25; i++) {
+          this.speedLimits.push({
+            label: i,
+            value: i
+          })
+          if (i < 25) {
+            this.speedLimits.push({
+              label: i + 0.5,
+              value: i + 0.5
+            })
+          }
+        }
+        //   this.wheelDiameters.pop();
+      }
+
+      // 组件商
+      if (this.isComponent) {
+        this.speedLimits.push({
+          label: 'No Limit',
+          value: 65535
+        })
+      }
+
+      this.speedLimit = 25
+    },
     onClickPrint() {
       const data = [
         {
@@ -1249,6 +1320,12 @@ export default {
           if (!res.data) {
             return
           }
+          // 打印监听数据
+          // debugger
+          // console.log(`res.data:${res.data.source} - ${res.data.sourceCode} -${res.data.subCode}`)
+          if (res.data.sourceCode == 10) {
+            this.isMoreController = true
+          }
           if (res.type == 'error_usb') {
             this.isConnected = false
             this.clear()
@@ -1295,7 +1372,7 @@ export default {
 
       // 从控制器读取
       Controller.port.usbSDK.machineInformation.get
-        .conParams_1(0x05, 0x02)
+        .conParams_1(0x05, this.target)
         .then((res) => {
           //                        getUsbBasicBus.next({type: 'data', data: {'model':res.dataParsed}});
           this.conParamsRead_11 = res.data
@@ -1315,7 +1392,7 @@ export default {
 
       //                // 从控制器读取
       Controller.port.usbSDK.machineInformation.get
-        .conParams_2(0x05, 0x02)
+        .conParams_2(0x05, this.target)
         .then((res) => {
           //                        getUsbBasicBus.next({type: 'data', data: {'model':res.dataParsed}});
 
@@ -1333,7 +1410,7 @@ export default {
     conParamsRead_6013() {
       // 从控制器读取
       Controller.port.usbSDK.machineInformation.get
-        .conParams_3(0x05, 0x02)
+        .conParams_3(0x05, this.target)
         .then((res) => {
           this.conParamsRead_13 = res.data
           this.conParamsParse(this.conParamsRead_13, this.ctrlParams6013)
@@ -1348,7 +1425,7 @@ export default {
     conParamsRead_6014() {
       // 从控制器读取
       Controller.port.usbSDK.machineInformation.get
-        .conParams_4(0x05, 0x02)
+        .conParams_4(0x05, this.target)
         .then((res) => {
           this.conParamsRead_14 = res.data
           this.conParamsParse(this.conParamsRead_14, this.ctrlParams6014)
@@ -1363,7 +1440,7 @@ export default {
     conParamsRead_6017() {
       // 从控制器读取
       Controller.port.usbSDK.machineInformation.get
-        .conParams_7(0x05, 0x02)
+        .conParams_7(0x05, this.target)
         .then((res) => {
           this.conParamsRead_17 = res.data
           this.conParamsParse(this.conParamsRead_17, this.ctrlParams6017)
@@ -1378,7 +1455,7 @@ export default {
     conParamsRead_6018() {
       // 从控制器读取
       Controller.port.usbSDK.machineInformation.get
-        .conParams_8(0x05, 0x02)
+        .conParams_8(0x05, this.target)
         .then((res) => {
           this.conParamsRead_18 = res.data
           this.conParamsParse(this.conParamsRead_18, this.ctrlParams6018)
@@ -1521,7 +1598,7 @@ export default {
         this.conParamsCombine_6011()
       }
       Controller.port.usbSDK.machineInformation.update
-        .conParams_1(0x05, 0x02, this.conParamsWrite_11)
+        .conParams_1(0x05, this.target, this.conParamsWrite_11)
         .then((res) => {
           //                        console.log(res);
           if (res.can === 'NORMAL_ACK') {
@@ -1547,7 +1624,7 @@ export default {
         this.conParamsCombine_6012()
       }
       Controller.port.usbSDK.machineInformation.update
-        .conParams_2(0x05, 0x02, this.conParamsWrite_12)
+        .conParams_2(0x05, this.target, this.conParamsWrite_12)
         .then((res) => {
           //                        console.log(res);
           if (res.can === 'NORMAL_ACK') {
@@ -1573,7 +1650,7 @@ export default {
         this.conParamsCombine_6013()
       }
       Controller.port.usbSDK.machineInformation.update
-        .conParams_3(0x05, 0x02, this.conParamsWrite_13)
+        .conParams_3(0x05, this.target, this.conParamsWrite_13)
         .then((res) => {
           //                        console.log(res);
           if (res.can === 'NORMAL_ACK') {
@@ -1599,7 +1676,7 @@ export default {
         this.conParamsCombine_6014()
       }
       Controller.port.usbSDK.machineInformation.update
-        .conParams_4(0x05, 0x02, this.conParamsWrite_14)
+        .conParams_4(0x05, this.target, this.conParamsWrite_14)
         .then((res) => {
           console.log(res)
           if (res.can == 'NORMAL_ACK') {
@@ -1625,7 +1702,7 @@ export default {
         this.conParamsCombine_6017()
       }
       Controller.port.usbSDK.machineInformation.update
-        .conParams_7(0x05, 0x02, this.conParamsWrite_17)
+        .conParams_7(0x05, this.target, this.conParamsWrite_17)
         .then((res) => {
           //                        console.log(res);
           if (res.can === 'NORMAL_ACK') {
@@ -1651,7 +1728,7 @@ export default {
         this.conParamsCombine_6018()
       }
       Controller.port.usbSDK.machineInformation.update
-        .conParams_8(0x05, 0x02, this.conParamsWrite_18)
+        .conParams_8(0x05, this.target, this.conParamsWrite_18)
         .then((res) => {
           console.log(res)
           if (res.can == 'NORMAL_ACK') {
@@ -1709,6 +1786,24 @@ export default {
         })
         return
       }
+
+      if (!this.componentType) {
+        this.$message({
+          message: this.$t('componentTypeTip'),
+          type: 'warning'
+        })
+        return
+      } else {
+        switch (this.componentType) {
+          case 'ctrl':
+            this.target = 0x02
+            break
+          case 'ctrl2':
+            this.target = 0x0a
+            break
+        }
+      }
+
       this.loading = true
       this.writeStatus = false
       console.log(this.readInterval)
@@ -1830,7 +1925,7 @@ export default {
           //                        }
         })
       } else {
-        Controller.port.getUsbBasic(0x02).subscribe((res) => {
+        Controller.port.getUsbBasic(this.target).subscribe((res) => {
           if (!res.data) {
             return
           }
@@ -1862,13 +1957,14 @@ export default {
         })
 
         Controller.port.getListenData().subscribe((res) => {
-          if (!res.data) {
+          if (!res.data || (res.data && res.data.sourceCode != this.target)) {
             return
           }
           if (res.type == 'error_usb') {
             this.isConnected = false
             this.clear()
           }
+
           if (res.data.code === '32' && res.data.subCode === '00') {
             // 2s 一次
             let temInfo_0 = Buffer.from(res.data.data, 'hex')
@@ -1906,17 +2002,20 @@ export default {
               this.assistance = temInfo_2_value.substr(7, 1) === '0' ? this.lanTrans[0] : this.lanTrans[1]
             }
           }
-          if (res.data.code === '32' && res.data.subCode === '03' && res.data.targetCode == 15) {
+          if (res.data.code === '32' && res.data.subCode === '03' && res.data.targetCode === 0x1f) {
             //  console.log(res.data);
             //  can:"WRITE_CMD"canCode:0code:"32"data:"a406d0002c090000"dataLen:6source:"CTL"sourceCode:2subCode:"03"target:nulltargetCode:15
             let result_3 = Buffer.from(res.data.data, 'hex')
             if (result_3.length >= 6) {
               this.speedLimitRead = (result_3[0] + result_3[1] * 256) / 100
-              this.wheelDiameters.find((item) => {
-                if (item.value == res.data.data.substr(4, 4).toUpperCase()) {
-                  this.wheelDiameterRead = item.label
-                }
-              })
+              // this.wheelDiameters.find((item) => {
+              //   if (item.value == res.data.data.substr(4, 4).toUpperCase()) {
+              //     this.wheelDiameterRead = item.label
+              //   }
+              // })
+              this.wheelDiameterRead =
+                parseInt(res.data.data.substring(6, 8) + res.data.data.substring(4, 5), 16) + parseInt(res.data.data.substring(5, 6), 16) * 0.1
+
               this.circumferenceRead = result_3[4] + result_3[5] * 256
             }
           }
@@ -2000,11 +2099,13 @@ export default {
           if (res.data.ctrl && 'sn' in res.data.ctrl) {
             let sn = res.data.ctrl.sn
             if (sn === this.sn || sn === ' ') {
-              this.sn = ''
-              this.$message({
-                message: this.$t('cNam.writeSuccess'),
-                type: 'success'
-              })
+              setTimeout(() => {
+                this.sn = ''
+                this.$message({
+                  message: this.$t('cNam.writeSuccess'),
+                  type: 'success'
+                })
+              }, 100)
             } else {
               this.$message({
                 message: this.$t('cNam.writeFail'),
@@ -2016,26 +2117,28 @@ export default {
         })
       } else {
         Controller.port.usbSDK.machineInformation.update
-          .serialNumber(0x05, 0x02, Controller.port.Core.Util.stringToHex(this.sn))
+          .serialNumber(0x05, this.target, Controller.port.Core.Util.stringToHex(this.sn))
           .then((res) => {
             //                            console.log(res);
             if (res.can === 'NORMAL_ACK') {
-              this.sn = ''
-              this.$message({
-                message: this.$t('cNam.writeSuccess'),
-                type: 'success'
-              })
-              Controller.port.usbSDK.machineInformation.get
-                .serialNumber(0x05, 0x02)
-                .then((res) => {
-                  this.sn = res.dataParsed
-                  this.readSn = this.sn
+              setTimeout(() => {
+                this.sn = ''
+                this.$message({
+                  message: this.$t('cNam.writeSuccess'),
+                  type: 'success'
                 })
-                .catch((err) => {
-                  console.log(err)
-                  this.usbErrorCheck(err)
-                })
-                .finally(() => {})
+                Controller.port.usbSDK.machineInformation.get
+                  .serialNumber(0x05, this.target)
+                  .then((res) => {
+                    this.sn = res.dataParsed
+                    this.readSn = this.sn
+                  })
+                  .catch((err) => {
+                    console.log(err)
+                    this.usbErrorCheck(err)
+                  })
+                  .finally(() => {})
+              }, 100)
             } else {
               this.$message({
                 message: this.$t('cNam.writeFail'),
@@ -2096,7 +2199,7 @@ export default {
     clickWriteReset() {
       if (this.modelWrite && this.modelWrite.indexOf('CR') > -1) {
         Controller.port.usbSDK.machineInformation.update
-          .modelNumber(0x05, 0x02, Controller.port.Core.Util.stringToHex(this.modelWrite.trim()))
+          .modelNumber(0x05, this.target, Controller.port.Core.Util.stringToHex(this.modelWrite.trim()))
           .then((res) => {
             //                            console.log(res);
             if (res.can === 'NORMAL_ACK') {
@@ -2106,7 +2209,7 @@ export default {
                 type: 'success'
               })
               Controller.port.usbSDK.machineInformation.get
-                .modelNumber(0x05, 0x02)
+                .modelNumber(0x05, this.target)
                 .then((res) => {
                   this.modelWrite = res.dataParsed
                 })
@@ -2135,7 +2238,7 @@ export default {
       }
       if (this.hardwareWrite && this.hardwareWrite.indexOf('CR') > -1) {
         Controller.port.usbSDK.machineInformation.update
-          .hardwareVersionNumber(0x05, 0x02, Controller.port.Core.Util.stringToHex(this.hardwareWrite.trim()))
+          .hardwareVersionNumber(0x05, this.target, Controller.port.Core.Util.stringToHex(this.hardwareWrite.trim()))
           .then((res) => {
             //                            console.log(res);
             if (res.can === 'NORMAL_ACK') {
@@ -2145,7 +2248,7 @@ export default {
                 type: 'success'
               })
               Controller.port.usbSDK.machineInformation.get
-                .hardwareVersionNumber(0x05, 0x02)
+                .hardwareVersionNumber(0x05, this.target)
                 .then((res) => {
                   this.hardwareWrite = res.dataParsed
                 })
@@ -2202,7 +2305,7 @@ export default {
       if (!this.usbHID) {
         Controller.connect(this.com)
       }
-      if (parseInt(this.speedLimit) > 60 && parseInt(this.speedLimit) < 10) {
+      if (parseInt(this.speedLimit) > 60 && parseInt(this.speedLimit) < 10 && this.speedLimit != 65535) {
         this.$message({
           message: 'SpeedLimit should between 10-60 Km/h',
           type: 'warning',
@@ -2238,12 +2341,12 @@ export default {
         if (this.speedLimitRead == '') {
           this.$message.warning(this.$t('cNam.speedLimitEmpty'))
           return
-        } else if (this.speedLimitRead <= 25) {
-          if (this.speedLimit > 25) {
+        } else if (this.speedLimitRead <= this.maxSpeed) {
+          if (this.speedLimit > this.maxSpeed) {
             this.$message.warning(this.$t('cNam.offlineNo'))
             return
           }
-        } else if (this.speedLimitRead > 25) {
+        } else if (this.speedLimitRead > this.maxSpeed) {
           if (this.speedLimitRead < this.speedLimit) {
             this.$message.warning(this.$t('cNam.offlineNo'))
             return
@@ -2331,11 +2434,11 @@ export default {
       //                Port.writeByQueueAndWait(makeFrameCanWrite('00','3203', spdStr + wheel +cirBuf), 100);
       //                console.log(spdStr + this.wheelDiameter + cirBuf);
       Controller.port.usbSDK.publicInformation.update
-        .controllerInformation_3(0x05, 0x02, spdStr + this.wheelDiameter + cirBuf)
+        .controllerInformation_3(0x05, this.target, spdStr + this.wheelDiameter + cirBuf)
         .then((res) => {
           //                        console.log(res);
           //                        can:"NORMAL_ACK"canCode:2code:"32"data:""dataPacks:{}dataParsed:""source:"CTL"sourceCode:2subCode:"03"target:"BST"targetCode:5
-          if (res.can == 'NORMAL_ACK' && res.targetCode == 5) {
+          if (res.can == 'NORMAL_ACK' && res.targetCode == 5 && res.code == '32' && res.subCode == '03') {
             this.speedLimitRead = ''
             this.wheelDiameterRead = ''
             this.circumferenceRead = ''
@@ -2346,7 +2449,7 @@ export default {
             if (!!this.sn) {
               this.saveRecord(data)
             }
-          } else if (res.can == 'ERROR_ACK' && res.targetCode == 5) {
+          } else if (res.can == 'ERROR_ACK' && res.targetCode == 5 && res.code == '32' && res.subCode == '03') {
             this.$message({
               message: this.$t('cNam.writeFail'),
               type: 'error'
@@ -2383,7 +2486,7 @@ export default {
       this.clientCode = this.clientCode.replace(/\s/g, '')
       if (this.clientCode.length < 25) {
         Controller.port.usbSDK.machineInformation.update
-          .customerNumber(0x05, 0x02, Controller.port.Core.Util.stringToHex(this.clientCode))
+          .customerNumber(0x05, this.target, Controller.port.Core.Util.stringToHex(this.clientCode))
           .then((res) => {
             //                            console.log(res);
             if (res.can === 'NORMAL_ACK') {
@@ -2393,7 +2496,7 @@ export default {
                 type: 'success'
               })
               Controller.port.usbSDK.machineInformation.get
-                .customerNumber(0x05, 0x02)
+                .customerNumber(0x05, this.target)
                 .then((res) => {
                   this.clientCode = res.dataParsed
                   this.clientCodeRead = this.clientCode
@@ -2422,7 +2525,7 @@ export default {
     readManufacturer() {
       this.manName = ''
       Controller.port.usbSDK.machineInformation.get
-        .manufacturer(0x05, 0x02)
+        .manufacturer(0x05, this.target)
         .then((res) => {
           this.manName = res.dataParsed.replace(/\s+/g, '')
           this.$message({
@@ -2437,7 +2540,7 @@ export default {
     },
     writeManufacturer() {
       Controller.port.usbSDK.machineInformation.update
-        .manufacturer(0x05, 0x02, Controller.port.Core.Util.stringToHex(this.manName.trim()))
+        .manufacturer(0x05, this.target, Controller.port.Core.Util.stringToHex(this.manName.trim()))
         .then((res) => {
           if (res.can === 'NORMAL_ACK') {
             this.$message({
@@ -2454,7 +2557,7 @@ export default {
     readErrorCode() {
       this.errorCode = ''
       Controller.port.usbSDK.machineInformation.get
-        .errorCode(0x05, 0x02)
+        .errorCode(0x05, this.target)
         .then((res) => {
           this.errorCode = res.dataParsed.replace(/\s+/g, '')
           this.$message({
@@ -2470,7 +2573,7 @@ export default {
     readParamsCode() {
       this.paramsCode = ''
       Controller.port.usbSDK.machineInformation.get
-        .params(0x05, 0x02)
+        .params(0x05, this.target)
         .then((res) => {
           this.paramsCode = res.dataParsed.replace(/\s+/g, '')
           this.$message({
@@ -2485,7 +2588,7 @@ export default {
     },
     writeParamsCode() {
       Controller.port.usbSDK.machineInformation.update
-        .params(0x05, 0x02, Controller.port.Core.Util.stringToHex(this.paramsCode.trim()))
+        .params(0x05, this.target, Controller.port.Core.Util.stringToHex(this.paramsCode.trim()))
         .then((res) => {
           if (res.can === 'NORMAL_ACK') {
             this.$message({
@@ -2502,7 +2605,7 @@ export default {
     readBootLoad() {
       this.bootLoad = ''
       Controller.port.usbSDK.machineInformation.get
-        .bootLoad(0x05, 0x02)
+        .bootLoad(0x05, this.target)
         .then((res) => {
           this.bootLoad = res.dataParsed.replace(/\s+/g, '')
           this.$message({
@@ -2516,131 +2619,143 @@ export default {
         .finally(() => {})
     },
     sensorSetStart() {
-      this.sensorStart = true
-      this.sensorStartState = 0
-      Controller.port.usbSDK.machineInformation.update
-        .positionSensorCalibration(0x05, 0x02, '')
-        .then((res) => {})
-        .catch((err) => {
-          console.log(err)
-        })
-        .finally(() => {
-          this.sensorStartState = 2
-          console.log('positionSensorCalibration 1')
-        })
-      let vm = this
-      Controller.port.getListenData().subscribe((res) => {
-        if (!res.data) {
-          return
-        }
-        if (res.type === 'error_usb') {
-          this.isConnected = false
-        }
-        if (res.data.code === '12' && res.data.subCode === '00') {
-          //                        console.log(res.data.data)
-          if (res.data.data === '08') {
-            this.sensorStartState = 1
+      this.$confirm(this.$t('calibrationTip'), this.$t('cNam.operationTip'), {
+        confirmButtonText: this.$t('cNam.confirm'),
+        cancelButtonText: this.$t('cNam.cancel'),
+        type: 'warning'
+      }).then(() => {
+        this.sensorStart = true
+        this.sensorStartState = 0
+        Controller.port.usbSDK.machineInformation.update
+          .positionSensorCalibration(0x05, this.target, '')
+          .then((res) => {})
+          .catch((err) => {
+            console.log(err)
+          })
+          .finally(() => {
+            this.sensorStartState = 2
+            console.log('positionSensorCalibration 1')
+          })
+        let vm = this
+        Controller.port.getListenData().subscribe((res) => {
+          if (!res.data) {
+            return
+          }
+          if (res.type === 'error_usb') {
+            this.isConnected = false
+          }
+          if (res.data.code === '12' && res.data.subCode === '00') {
+            //                        console.log(res.data.data)
+            if (res.data.data === '08') {
+              this.sensorStartState = 1
+              //                            this.$message({
+              //                                message: "正在标定",
+              //                                type: 'info'
+              //                            });
+            } else if (res.data.data === '00') {
+              if (this.sensorStart && this.sensorStartState === 1) {
+                vm.$message({
+                  message: vm.$t('cNam.success'),
+                  type: 'success'
+                })
+                this.sensorStart = false
+              }
+            }
+          }
+          if (res.data.code === '62' && res.data.subCode === '00') {
+            //                        console.log(res.data.data)
+
             //                            this.$message({
             //                                message: "正在标定",
             //                                type: 'info'
             //                            });
-          } else if (res.data.data === '00') {
-            if (this.sensorStart && this.sensorStartState === 1) {
-              vm.$message({
-                message: vm.$t('cNam.success'),
-                type: 'success'
-              })
-              this.sensorStart = false
+            if (this.sensorStart && this.sensorStartState === 2) {
+              let data = res.data.data.substr(0, 2)
+              if (data === '00') {
+                vm.$message({
+                  message: vm.$t('cNam.operationFail'),
+                  type: 'error'
+                })
+                this.sensorStart = false
+              } else if (data === '01') {
+                vm.$message({
+                  message: vm.$t('cNam.success'),
+                  type: 'success'
+                })
+                this.sensorStart = false
+              }
             }
           }
-        }
-        if (res.data.code === '62' && res.data.subCode === '00') {
-          //                        console.log(res.data.data)
-
-          //                            this.$message({
-          //                                message: "正在标定",
-          //                                type: 'info'
-          //                            });
-          if (this.sensorStart && this.sensorStartState === 2) {
-            let data = res.data.data.substr(0, 2)
-            if (data === '00') {
-              vm.$message({
-                message: vm.$t('cNam.operationFail'),
-                type: 'error'
-              })
-              this.sensorStart = false
-            } else if (data === '01') {
-              vm.$message({
-                message: vm.$t('cNam.success'),
-                type: 'success'
-              })
-              this.sensorStart = false
-            }
-          }
-        }
+        })
       })
     },
     sensorZeroSetStart() {
-      this.sensorZeroStart = false
-      let vm = this
-      Controller.port.usbSDK.machineInformation.update
-        .zeroPointSensorCalibration(0x05, 0x02, '')
-        .then((res) => {
-          this.sensorZeroStart = true
-          if (res.code == '61' && res.subCode == '01' && res.targetCode == 5) {
-            this.sensorZeroStart = false
+      this.$confirm(this.$t('calibrationTip'), this.$t('cNam.operationTip'), {
+        confirmButtonText: this.$t('cNam.confirm'),
+        cancelButtonText: this.$t('cNam.cancel'),
+        type: 'warning'
+      }).then(() => {
+        this.sensorZeroStart = false
+        let vm = this
+        Controller.port.usbSDK.machineInformation.update
+          .zeroPointSensorCalibration(0x05, this.target, '')
+          .then((res) => {
+            this.sensorZeroStart = true
+            if (res.code == '61' && res.subCode == '01' && res.targetCode == 5) {
+              this.sensorZeroStart = false
 
-            if (res.can === 'ERROR_ACK') {
-              vm.$message({
-                message: vm.$t('cNam.operationFail'),
-                type: 'error'
-              })
-            } else if (res.can === 'NORMAL_ACK') {
-              vm.$message({
-                message: vm.$t('cNam.success'),
-                type: 'success'
-              })
+              if (res.can === 'ERROR_ACK') {
+                vm.$message({
+                  message: vm.$t('cNam.operationFail'),
+                  type: 'error'
+                })
+              } else if (res.can === 'NORMAL_ACK') {
+                vm.$message({
+                  message: vm.$t('cNam.success'),
+                  type: 'success'
+                })
+              }
             }
-          }
-        })
-        .catch((err) => {
-          console.log(err)
-          if (err == 'Timeout') {
-            //                        this.$message({
-            //                            message: "回复超时，请检查",
-            //                            type: 'info'
-            //                        });
-            Controller.port.usbSDK.machineInformation.update
-              .zeroPointSensorCalibration(0x05, 0x02, '')
-              .then((res) => {
-                this.sensorZeroStart = true
-                if (res.code == '61' && res.subCode == '01' && res.targetCode == 5) {
-                  this.sensorZeroStart = false
+          })
+          .catch((err) => {
+            console.log(err)
+            if (err == 'Timeout') {
+              //                        this.$message({
+              //                            message: "回复超时，请检查",
+              //                            type: 'info'
+              //                        });
+              Controller.port.usbSDK.machineInformation.update
+                .zeroPointSensorCalibration(0x05, this.target, '')
+                .then((res) => {
+                  this.sensorZeroStart = true
+                  if (res.code == '61' && res.subCode == '01' && res.targetCode == 5) {
+                    this.sensorZeroStart = false
 
-                  if (res.can === 'ERROR_ACK') {
-                    vm.$message({
-                      message: vm.$t('cNam.operationFail'),
-                      type: 'error'
-                    })
-                  } else if (res.can === 'NORMAL_ACK') {
-                    vm.$message({
-                      message: vm.$t('cNam.success'),
-                      type: 'success'
-                    })
+                    if (res.can === 'ERROR_ACK') {
+                      vm.$message({
+                        message: vm.$t('cNam.operationFail'),
+                        type: 'error'
+                      })
+                    } else if (res.can === 'NORMAL_ACK') {
+                      vm.$message({
+                        message: vm.$t('cNam.success'),
+                        type: 'success'
+                      })
+                    }
                   }
-                }
-              })
-              .catch((err) => {
-                console.log(err)
-              })
-              .finally(() => {
-                console.log('zeroPointSensorCalibration 2')
-              })
-          }
-        })
-        .finally(() => {
-          console.log('zeroPointSensorCalibration 1')
-        })
+                })
+                .catch((err) => {
+                  console.log(err)
+                })
+                .finally(() => {
+                  console.log('zeroPointSensorCalibration 2')
+                })
+            }
+          })
+          .finally(() => {
+            console.log('zeroPointSensorCalibration 1')
+          })
+      })
     },
 
     saveRecord(data) {
@@ -2672,7 +2787,15 @@ export default {
         }
       }
     },
-
+    // 读取控制器信息
+    // getControllerInfo() {
+    //   Controller.port.usbSDK.publicInformation.get.controllerInformation_3203(0x05, 0x02).then((res) => {
+    //     console.log(res)
+    //     this.speedLimitRead = res.parsedInfo.speedLimit
+    //     this.wheelDiameterRead = res.parsedInfo.wheelDiameter
+    //     this.circumferenceRead = res.parsedInfo.circumference
+    //   })
+    // },
     getOfflineRecordList() {
       if (this.offLineFlag || !navigator.onLine) {
         this.offlineRecordList = Core.Data.getRecordList() || []
@@ -2694,7 +2817,9 @@ export default {
       this.version = ''
       this.hardVersion = ''
       this.spdMeterType = ''
+      this.circumference = ''
       this.circumferenceRead = ''
+      this.wheelDiameter = ''
       this.wheelDiameterRead = ''
       this.speedLimitRead = ''
       this.manNameRead = ''
@@ -2779,6 +2904,18 @@ export default {
     Controller.port.setBoxOperation()
   },
   watch: {
+    speedLimit(newVal, oldVal) {
+      const num = parseFloat(newVal)
+      if (this.org.id != 25 && (isNaN(num) || num < 10 || num > this.maxSpeed || !/^\d{1,2}(\.\d{1,2})?$/.test(newVal)) && num != 65535) {
+        this.speedLimit = oldVal
+        this.$message({
+          message: `SpeedLimit should between 10-${this.maxSpeed} Km/h`,
+          type: 'warning',
+          duration: 0,
+          showClose: true
+        })
+      }
+    },
     sn: function (newValue, oldValue) {
       let vm = this
       if (newValue === oldValue || newValue === '') {
@@ -2847,6 +2984,22 @@ export default {
           }, 500)
         }
       }
+    },
+    // 监听是否有多个控制器
+    isMoreController: function (newValue, oldValue) {
+      if (newValue) {
+        // 发现多个控制器后
+        this.optionsCtl = [
+          {
+            type: 'ctrl',
+            label: 'Controller1'
+          },
+          {
+            type: 'ctrl2',
+            label: 'Controller2'
+          }
+        ]
+      }
     }
   }
 }
@@ -2858,28 +3011,34 @@ export default {
   height: 100%;
   overflow: auto;
   padding: 44px 0;
+
   .btn-back {
     margin-left: 40px;
     top: -26px;
     position: relative;
   }
+
   .controller-content {
     width: 950px;
     margin: 0 auto;
+
     .connect-tip {
       display: flex;
       float: right;
       align-items: center;
+
       a {
         display: flex;
         color: #e26829;
       }
+
       .tip-img {
         top: 0;
         right: 20px;
         margin-left: 5px;
       }
     }
+
     .title {
       display: flex;
       justify-content: space-between;
@@ -2887,30 +3046,36 @@ export default {
       font-size: 16px;
       /*display: flex;*/
       align-items: center;
+
       img {
         width: 24px;
         height: 24px;
         margin-right: 16px;
       }
     }
+
     .info {
       overflow: hidden;
       background: #353945;
       width: 950px;
       /*min-height: 350px;*/
       margin-top: 22px;
-      -moz-box-shadow: 0 1px 0 #2b2f3b; /* 老的 Firefox */
+      -moz-box-shadow: 0 1px 0 #2b2f3b;
+      /* 老的 Firefox */
       box-shadow: 0 1px 0 #2b2f3b;
+
       .part {
         float: left;
         margin-top: 9px;
         width: 473px;
         border-right: 1px dotted #2b2f3b;
+
         .item {
           overflow: hidden;
           margin-left: 33px;
           height: 50px;
           line-height: 50px;
+
           .label {
             width: 110px;
             display: inline-block;
@@ -2918,13 +3083,16 @@ export default {
             word-wrap: break-word;
             vertical-align: middle;
           }
+
           .input {
             width: 295px;
           }
+
           .input-sn:after {
             top: 8px;
           }
         }
+
         .com {
           height: 50px;
           margin-left: 33px;
@@ -2932,10 +3100,12 @@ export default {
           display: flex;
           align-items: center;
           padding-right: 28px;
+
           .label {
             width: 110px;
             display: inline-block;
           }
+
           .tip {
             display: inline-block;
             border-radius: 50%;
@@ -2944,14 +3114,17 @@ export default {
             background: #e26829;
             margin: 0 6px;
           }
+
           .connect {
             background: #76ee00;
           }
+
           .com-select {
             flex: 1;
             margin-left: 10px;
           }
         }
+
         /*.sn {*/
         /*width: 440px;*/
         /*margin-left: 33px;*/
@@ -2969,30 +3142,37 @@ export default {
         /*}*/
         /*}*/
       }
+
       .btn-row {
         width: 100%;
         position: relative;
         height: 30px;
         line-height: 30px;
+
         .btn-group {
           position: absolute;
           right: 0;
         }
+
         .loading {
           display: inline-block;
           vertical-align: middle;
           margin-top: -13px;
         }
       }
+
       .right {
         border-right: none;
       }
+
       .con-Params {
         margin: 10px 20px;
+
         .input {
           width: 295px;
         }
       }
+
       .table-wrap {
         .long-td {
           max-width: 200px;
@@ -3000,6 +3180,7 @@ export default {
           overflow: hidden;
           text-align: left;
         }
+
         .short-td {
           max-width: 100px;
           text-overflow: ellipsis;
@@ -3007,43 +3188,52 @@ export default {
           text-align: left;
         }
       }
+
       .note-title {
         margin-top: 10px;
       }
     }
+
     .can-data {
       margin-top: 1px;
     }
+
     .data {
       width: 950px;
       height: 100%;
       background: #353945;
       margin-top: 1px;
+
       .part {
         display: inline-block;
         margin-top: 9px;
         width: 440px;
         margin-left: 32px;
         border-right: 1px dotted #2b2f3b;
+
         .head {
           height: 60px;
           line-height: 60px;
+
           .label {
             display: inline-block;
             width: 110px;
             line-height: 20px;
             vertical-align: middle;
           }
+
           .input {
             margin-left: 5px;
             width: 296px;
             position: relative;
           }
         }
+
         .text {
           margin-left: 112px;
           height: 40px;
           line-height: 40px;
+
           .label {
             color: #a1a5b1;
             width: 148px;
@@ -3054,10 +3244,12 @@ export default {
             text-align: center;
           }
         }
+
         .content {
           .item {
             height: 50px;
             line-height: 50px;
+
             .label {
               display: inline-block;
               width: 110px;
@@ -3065,15 +3257,19 @@ export default {
               line-height: 20px;
               vertical-align: middle;
             }
+
             .input-left {
               margin-left: 5px;
               width: 148px;
+
               & > input {
                 border-radius: 20px 0 0 20px;
               }
             }
+
             .input-right {
               width: 148px;
+
               & > input {
                 border-radius: 0 20px 20px 0;
               }
@@ -3081,6 +3277,7 @@ export default {
           }
         }
       }
+
       .right {
         border-right: none;
       }
@@ -3092,6 +3289,7 @@ export default {
       line-height: 30px;
       margin-right: 30px;
     }
+
     .el-collapse-item {
       border-bottom: 1px solid #353945;
     }
@@ -3102,4 +3300,4 @@ export default {
 
 
 // WEBPACK FOOTER //
-// controller.vue?2dbe351a
+// controller.vue?3efb5d30

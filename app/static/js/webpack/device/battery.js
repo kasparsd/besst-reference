@@ -1085,5 +1085,5 @@ export default Battery;
 //////////////////
 // WEBPACK FOOTER
 // ./device/battery.js
-// module id = 82
+// module id = 86
 // module chunks = 76

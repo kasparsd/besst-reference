@@ -12,5 +12,5 @@ exports.push([module.id, ".warehouse-list{display:-webkit-box;display:-ms-flexbo
 //////////////////
 // WEBPACK FOOTER
 // ./node_modules/css-loader?{"minimize":true,"sourceMap":true}!./node_modules/vue-loader/lib/style-compiler?{"vue":true,"id":"data-v-171f1a94","scoped":false,"hasInlineConfig":false}!./node_modules/sass-loader/lib/loader.js?{"sourceMap":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./src/views/nl-view/warehouse/warehouseList.vue
-// module id = 2702
-// module chunks = 47
+// module id = 2733
+// module chunks = 46

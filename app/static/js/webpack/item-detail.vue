@@ -23,6 +23,10 @@
           <span>{{ $t('pedalSensor') }}</span>
           <span v-if="tabToUpdate">{{ $t('cNam.update') }}</span>
         </div>
+        <div class="title-left" v-if="testSelect.No == 12">
+          <img class="icon" src="../../assets/images/icon/icon-elock.png" />
+          <span>{{ $t('cNam.elock') }}</span>
+        </div>
         <div class="title-left" v-if="testSelect.No == 7">
           <img class="icon" src="../../assets/images/icon/icon-motor.png" />
           <span>{{ $t('cNam.motor') }}</span>
@@ -270,6 +274,29 @@
                 </div>
               </div>
             </template>
+            <!-- elock -->
+            <template v-if="testSelect.No == 12">
+              <div class="info-left">
+                <div class="item">
+                  <label class="label">SN</label>
+                  <el-input class="input" v-model="elockInfo.sn"></el-input>
+                </div>
+                <div class="item">
+                  <label class="label">{{ $t('cNam.model') }}</label>
+                  <el-input class="input" v-model="elockInfo.model"></el-input>
+                </div>
+              </div>
+              <div class="info-right">
+                <div class="item">
+                  <label class="label">{{ $t('cNam.softwareVersion') }}</label>
+                  <el-input class="input" v-model="elockInfo.version" :class="{ active: testSelect.update }"></el-input>
+                </div>
+                <div class="item">
+                  <label class="label">{{ $t('cNam.hardwareVersion') }}</label>
+                  <el-input class="input" v-model="elockInfo.hardVersion"></el-input>
+                </div>
+              </div>
+            </template>
             <!-- motor -->
             <template v-if="testSelect.No == 7">
               <div class="info-left">
@@ -312,19 +339,24 @@
           </div>
           <div class="message">
             <div v-if="testSelect.No == 8 && hmiInfo.tip">
-              {{ $t('cNam.message') }}: <span>{{ hmiInfo.tip }}</span>
+              {{ $t('cNam.message') }}:
+              <span>{{ hmiInfo.tip }}</span>
             </div>
             <div v-else-if="testSelect.No == 9 && controllerInfo.tip">
-              {{ $t('cNam.message') }}: <span>{{ controllerInfo.tip }}</span>
+              {{ $t('cNam.message') }}:
+              <span>{{ controllerInfo.tip }}</span>
             </div>
             <div v-else-if="testSelect.No == 10 && batteryInfo.tip">
-              {{ $t('cNam.message') }}: <span>{{ batteryInfo.tip }}</span>
+              {{ $t('cNam.message') }}:
+              <span>{{ batteryInfo.tip }}</span>
             </div>
             <div v-else-if="testSelect.No == 11 && pedalSensorInfo.tip">
-              {{ $t('cNam.message') }}: <span>{{ pedalSensorInfo.tip }}</span>
+              {{ $t('cNam.message') }}:
+              <span>{{ pedalSensorInfo.tip }}</span>
             </div>
             <div v-else="motorInfo.tip">
-              {{ $t('cNam.message') }}: <span>{{ motorInfo.tip }}</span>
+              {{ $t('cNam.message') }}:
+              <span>{{ motorInfo.tip }}</span>
             </div>
           </div>
           <!-- 没有update要内容填充 battery内容已够长不需要 -->
@@ -350,13 +382,21 @@
                 <el-table-column align="center" label="Operation">
                   <template slot-scope="scope">
                     <!-- 1 未更新版本 2 已更新版本 -->
-                    <div class="operation" @click="goToUpdate(scope.row)" :class="{ active: versionCompare < scope.row.version }">
+                    <div
+                      class="operation"
+                      @click="goToUpdate(scope.row)"
+                      :class="{
+                        active: versionCompare < scope.row.version
+                      }"
+                    >
                       {{ $t('cNam.update') }}
                     </div>
                   </template>
                 </el-table-column>
               </el-table>
-              <div class="operation cancel" @click="closeItemDetail">{{ $t('cNam.cancel') }}</div>
+              <div class="operation cancel" @click="closeItemDetail">
+                {{ $t('cNam.cancel') }}
+              </div>
             </div>
           </template>
         </template>
@@ -366,7 +406,10 @@
           <div class="info update">
             <div class="update-top">
               <div class="update-head">
-                <span>{{ $t('updateTitle') }}: {{ selectHWFile.version }} </span>
+                <span
+                  >{{ $t('updateTitle') }}:
+                  {{ selectHWFile.version }}
+                </span>
                 <el-progress :percentage="percentage" class="progress" v-show="percentage > 0"></el-progress>
                 <span class="finish" v-if="percentage == 100">{{ $t('finish') }}</span>
               </div>
@@ -374,23 +417,35 @@
                 <div class="text" v-show="isCan">{{ $t('step') }} 1: {{ $t('update1111') }}</div>
                 <div class="text" v-show="!isCan">{{ $t('step') }} 1: {{ $t('update111') }}</div>
                 <div class="text">{{ $t('step') }} 2: {{ $t('update11') }}</div>
-                <div class="text next-line" v-show="isCan">{{ $t('update122') }}</div>
-                <div class="text next-line" v-show="!isCan">{{ $t('update12') }}</div>
-                <div class="text next-line">{{ $t('update13') }}</div>
+                <div class="text next-line" v-show="isCan">
+                  {{ $t('update122') }}
+                </div>
+                <div class="text next-line" v-show="!isCan">
+                  {{ $t('update12') }}
+                </div>
+                <div class="text next-line">
+                  {{ $t('update13') }}
+                </div>
                 <div class="text">{{ $t('step') }} 3: {{ $t('update14') }}</div>
                 <div class="text">{{ $t('step') }} 4: {{ $t('update15') }}</div>
               </template>
               <template v-if="testSelect.No == 9">
                 <div class="text">{{ $t('step') }} 1: {{ $t('update112') }}</div>
                 <div class="text">{{ $t('step') }} 2: {{ $t('update11') }}</div>
-                <div class="text next-line">{{ $t('update16') }}</div>
-                <div class="text next-line">{{ $t('update17') }}</div>
+                <div class="text next-line">
+                  {{ $t('update16') }}
+                </div>
+                <div class="text next-line">
+                  {{ $t('update17') }}
+                </div>
                 <div class="text">{{ $t('step') }} 3: {{ $t('update14') }}</div>
                 <div class="text">{{ $t('step') }} 4: {{ $t('update19') }}</div>
               </template>
               <template v-if="testSelect.No == 11">
                 <div class="text">{{ $t('step') }} 1: {{ $t('update11') }}</div>
-                <div class="text next-line">{{ $t('update20') }}</div>
+                <div class="text next-line">
+                  {{ $t('update20') }}
+                </div>
                 <div class="text">{{ $t('step') }} 2: {{ $t('update14') }}</div>
               </template>
             </div>
@@ -459,6 +514,7 @@ export default {
     batteryInfo: Object,
     pedalSensorInfo: Object,
     motorInfo: Object,
+    elockInfo: Object,
     com: '',
     isCan: false
   },
@@ -653,11 +709,11 @@ export default {
       let vm = this
       if (usbHID) {
         let count = 0
-        Update.port.usbSDK.client.events.on('firmware-update-progress', (e) => {
+        Update.port.usbSDK.client.events.on('firmware-upload-progress', (e) => {
           //                        this.startTip = false;
-          this.percentage = Math.ceil((e.upload / e.total) * 100)
+          this.percentage = parseInt(e.progress)
           //                        console.log(e);
-          if (e.upload === e.total || vm.percentage === 100) {
+          if (this.percentage) {
             if (count === 0) {
               vm.$message({
                 message: vm.updateMsgObject.successTip,
@@ -672,7 +728,7 @@ export default {
             count++
           }
         })
-        Update.port.usbSDK.client.events.on('firmware-update-completed', (e) => {
+        Update.port.usbSDK.client.events.on('firmware-upload-completed', (e) => {
           vm.percentage = 0
           //                        this.$message({
           //                            message: this.$t('cNam.updateSuccessTip'),
@@ -727,47 +783,21 @@ export default {
       }
     },
     checkBoxUpdate() {
-      let count = 1
-      //                this.dialogUpdateResVisible = true;
-      //                Update.port.getListenData().subscribe((res) => {
-      //                    if (!res.data) {
-      //                        return;
-      //                    }
-      //                    if (res.type == 'error_usb') {
-      //                        this.isConnected = false;
-      //                        this.clear();
-      //                    }
-      //                    if(res.data.toString('hex').toUpperCase().substr(0,2) == '28'){
-      //                        console.log(res.data.toString('hex'));
-      ////                        let len = res.data.toString('hex').toUpperCase().substr(2,4);
-      ////                        this.boxPercentage = Math.ceil( parseInt( Buffer.from(len).toString('hex'), 16)/this.fileBufferLength*100 );
-      //                    }
-      //                });
+      let vm = this
+      Update.port.usbSDK.client.events.on('firmware-upgrade-progress', (e) => {
+        this.boxPercentage = parseInt(e.progress)
 
-      Update.port.usbSDK.client.events.on('firmware-update-completed-progress', (e) => {
-        //                    console.log(e);
-        //                    console.log(e.progress,this.fileBufferLength);
-
-        if (this.isCan) {
-          this.boxPercentage = Math.ceil((e.progress / this.fileBufferLength) * 100)
-        } else {
-          if (e.progress * 128 > this.fileBufferLength && e.progress * 128 - this.fileBufferLength < 1024) {
-            this.boxPercentage = 100
-          } else {
-            this.boxPercentage = Math.ceil(((e.progress * 128) / this.fileBufferLength) * 100)
-          }
-        }
         if (this.boxPercentage > 100) {
           this.updateMsg = this.updateMsgObject.msg11
         }
-        if (this.boxPercentage === 0) {
-          if (count === 1) {
-            this.updateMsg = this.updateMsgObject.msg20
-          }
-          count++
-        } else {
-          count = 1
+        if (this.boxPercentage === 100) {
+          this.updateMsg = this.updateMsgObject.msg20
         }
+      })
+
+      Update.port.usbSDK.client.events.on('firmware-upgrade-failed', (e) => {
+        console.log(`firmware-upgrade-failed:${JSON.stringify(e)}`)
+        vm.updateMsg = vm.updateMsgObject.msg11
       })
     },
 
@@ -1130,4 +1160,4 @@ export default {
 
 
 // WEBPACK FOOTER //
-// item-detail.vue?66801a40
+// item-detail.vue?097f35b8

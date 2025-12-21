@@ -12,5 +12,5 @@ exports.push([module.id, ".service-center-save{width:100%;height:100%}.service-c
 //////////////////
 // WEBPACK FOOTER
 // ./node_modules/css-loader?{"minimize":true,"sourceMap":true}!./node_modules/vue-loader/lib/style-compiler?{"vue":true,"id":"data-v-2159527a","scoped":false,"hasInlineConfig":false}!./node_modules/sass-loader/lib/loader.js?{"sourceMap":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./src/views/nl/after-sales/service-center/service-center-save.vue
-// module id = 2628
+// module id = 2659
 // module chunks = 18

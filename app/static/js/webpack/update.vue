@@ -40,6 +40,10 @@
             <label class="label">{{ $t('cNam.softwareVersion') }}</label>
             <el-input class="input" v-model="version" disabled></el-input>
           </div>
+          <div class="item">
+            <label class="label">{{ $t('cNam.hardwareVersion') }}</label>
+            <el-input class="input" v-model="hardware_version" disabled></el-input>
+          </div>
           <div class="item btn">
             <div class="pull-right operation">
               <vue-loading class="loading" type="spin" color="#E26829" v-if="loading"></vue-loading>
@@ -49,6 +53,11 @@
             </div>
           </div>
           <div class="space"></div>
+          <div class="item" v-if="isUpgrade">
+            <label class="label">升级数量</label>
+            <span class="text-span">{{ upgradeCount }}/{{ amount }}</span>
+            <!-- <el-button class="cloud" @click="upgradeRecord()" type="primary">测试升级</el-button> -->
+          </div>
           <div class="item" v-if="!offLineFlag && org.type != Core.Const.ORG_TYPE.SPECIAL_DEAlER">
             <el-button class="cloud" :style="a" @click="getFirmwareBySn()" type="primary">{{ $t('fileCloudToUpdate') }}</el-button>
             <!--<label class="label">{{ $t('itemName') }}</label>-->
@@ -69,6 +78,12 @@
           <div class="file">
             <el-progress v-show="percentage > 0" :percentage="percentage"></el-progress>
             <div class="">
+              <span v-if="HWRecordList.length == 1 && newVerTipPop" class="text-span">{{
+                $t('cNam.newVerTip', {
+                  ver: HWRecordList[0].version
+                })
+              }}</span>
+              <span v-if="HWRecordList.length > 1 && newVerTipPop" class="text-span">{{ $t('cNam.moreVerTip') }}</span>
               <span v-show="startTip" class="text-span"> {{ $t('cNam.updateStarting') }}</span>
             </div>
           </div>
@@ -118,7 +133,9 @@
           <div v-else>
             <div class="clear-10"></div>
             <div class="note tip">
-              <div class="msg-title">{{ $t('cNam.updateMsg') }}</div>
+              <div class="msg-title">
+                {{ $t('cNam.updateMsg') }}
+              </div>
             </div>
             <div class="note">
               <div class="msg">{{ updateMsg }}</div>
@@ -134,22 +151,40 @@
         <div class="step">{{ $t('cNam.updateStep0') }}</div>
         <div class="step">
           <div>
-            <span class="no">1:</span><span class="stepText"> {{ $t('cNam.updateStep1') }} </span>
+            <span class="no">1:</span
+            ><span class="stepText">
+              {{ $t('cNam.updateStep1') }}
+            </span>
           </div>
           <div>
-            <span class="no">2:</span><span class="stepText"> {{ $t('cNam.updateStep2') }} </span>
+            <span class="no">2:</span
+            ><span class="stepText">
+              {{ $t('cNam.updateStep2') }}
+            </span>
           </div>
           <div>
-            <span class="no">3:</span><span class="stepText"> {{ $t('cNam.updateStep3') }} </span>
+            <span class="no">3:</span
+            ><span class="stepText">
+              {{ $t('cNam.updateStep3') }}
+            </span>
           </div>
           <div>
-            <span class="no">4:</span><span class="stepText"> {{ $t('cNam.updateStep4') }} </span>
+            <span class="no">4:</span
+            ><span class="stepText">
+              {{ $t('cNam.updateStep4') }}
+            </span>
           </div>
           <div>
-            <span class="no">5:</span><span class="stepText"> {{ $t('cNam.updateStep5') }} </span>
+            <span class="no">5:</span
+            ><span class="stepText">
+              {{ $t('cNam.updateStep5') }}
+            </span>
           </div>
           <div>
-            <span class="no">6:</span><span class="stepText"> {{ $t('cNam.updateStep6') }} </span>
+            <span class="no">6:</span
+            ><span class="stepText">
+              {{ $t('cNam.updateStep6') }}
+            </span>
           </div>
         </div>
       </div>
@@ -160,10 +195,12 @@
       <div>
         <h1>{{ $t('cNam.txtTitle1') }}</h1>
         <div class="txt">
-          <span class="itemName">COM</span> <span>{{ $t('cNam.txtTitleCom') }}</span>
+          <span class="itemName">COM</span>
+          <span>{{ $t('cNam.txtTitleCom') }}</span>
         </div>
         <div class="txt">
-          <span class="itemName">USB HID</span> <span>{{ $t('cNam.txtTitleHid') }}</span>
+          <span class="itemName">USB HID</span>
+          <span>{{ $t('cNam.txtTitleHid') }}</span>
         </div>
         <div class="txt">
           <span class="itemName">{{ $t('cNam.connect') }}</span>
@@ -211,9 +248,11 @@
             </td>
           </tr>
         </thead>
-        <tr v-for="item in HWRecordList">
+        <tr v-for="(item, index) in HWRecordList" :key="index">
           <td class="history-td">{{ item.version }}</td>
-          <td class="history-td">{{ item.create_time | dateFormat }}</td>
+          <td class="history-td">
+            {{ item.publishDate }}
+          </td>
           <td class="history-td">{{ item.remark }}</td>
           <td class="history-td">
             <el-button type="text" @click="updateObject(item)">
@@ -241,6 +280,8 @@ import NL from 'src/assets/lang/nl'
 import FR from 'src/assets/lang/fr'
 import Core from 'core/core'
 import updateFirmware from 'src/components/instruction/updateFirmware'
+import ChannelService from 'src/services/firmware/channelService.js'
+import UpgradeService from 'src/services/upgrade/index.js'
 
 export default {
   name: 'toolUpdate',
@@ -303,7 +344,12 @@ export default {
         controller: Controller,
         tool: Tool,
         bat: Battery,
-        sensor: Sensor
+        sensor: Sensor,
+        trs: Controller,
+        elk: Battery,
+        tlc: Controller,
+        testA: Controller,
+        charge: Controller
       },
       device: '',
 
@@ -328,6 +374,26 @@ export default {
           type: 'tool',
           label: 'Service Tool'
         }
+        // {
+        //   type: 'trs',
+        //   label: 'TRS'
+        // },
+        // {
+        //   type: 'elk',
+        //   label: 'E-Lock'
+        // },
+        // {
+        //   type: 'testA',
+        //   label: '测试工装A'
+        // },
+        // {
+        //   type: 'tlc',
+        //   label: 'TLC'
+        // },
+        // {
+        //   type: 'charge',
+        //   label: '充电器'
+        // }
       ],
       componentType: '',
       disableInput: true,
@@ -381,7 +447,14 @@ export default {
 
       isTemAccount: false,
       // 判断是否有多个控制器
-      isMoreController: false
+      isMoreController: false,
+      // 判断是否已经读取
+      isRead: false,
+      newVerTipPop: false,
+      orderId: '',
+      itemId: '',
+      amount: 0,
+      upgradeCount: 0
     }
   },
   i18n: {
@@ -391,6 +464,18 @@ export default {
       zh: ZH.Components.Tool.Update,
       de: DE.Components.Tool.Update,
       nl: NL.Components.Tool.Update
+    }
+  },
+  computed: {
+    //           width(){
+    //               if( this.lang =='zh' || this.lang =='en'){
+    //                   return {width:'220px'}
+    //               }else{
+    //                   return {width:'280px'}
+    //               }
+    //           }
+    isUpgrade() {
+      return this.$route.query.isUpgrade
     }
   },
   mounted() {
@@ -442,18 +527,32 @@ export default {
     Update.port.setBoxOperation()
     this.checkConnection()
 
+    if (this.org.id == 25) {
+      this.optionsCom = [
+        ...this.optionsCom,
+        {
+          type: 'trs',
+          label: 'TRS'
+        },
+        {
+          type: 'testA',
+          label: '测试工装A'
+        },
+        {
+          type: 'tlc',
+          label: 'TLC'
+        },
+        {
+          type: 'charge',
+          label: '充电器'
+        }
+      ]
+    }
+
     // this.isTemAccount = Core.Data.getSpecialAccount('tem');
     this.isTemAccount = Core.Data.get('accountType').length > 0 && Core.Data.get('accountType').indexOf(5) > -1
   },
-  computed: {
-    //           width(){
-    //               if( this.lang =='zh' || this.lang =='en'){
-    //                   return {width:'220px'}
-    //               }else{
-    //                   return {width:'280px'}
-    //               }
-    //           }
-  },
+
   watch: {
     lang: function (newLang, oldLang) {
       if (newLang == 'zh' || newLang == 'en') {
@@ -526,11 +625,40 @@ export default {
             type: 'tool',
             label: 'Service Tool'
           }
+
+          // {
+          //   type: 'elk',
+          //   label: 'E-Lock'
+          // },
         ]
+        if (this.org.id == 25) {
+          this.optionsCom = [
+            ...this.optionsCom,
+            {
+              type: 'trs',
+              label: 'TRS'
+            },
+            {
+              type: 'testA',
+              label: '测试工装A'
+            },
+            {
+              type: 'tlc',
+              label: 'TLC'
+            },
+            {
+              type: 'charge',
+              label: '充电器'
+            }
+          ]
+        }
       }
     }
   },
   methods: {
+    reSetIsRead() {
+      this.isRead = false
+    },
     checkRouterFrom() {
       let query = this.$route.query
       if (query.isUpdate) {
@@ -544,6 +672,18 @@ export default {
           this.componentType = 'hmi'
         }
         this.getFirmwareBySn()
+      }
+
+      if (query.isUpgrade) {
+        this.orderId = query.orderId
+        this.itemId = query.itemId
+        this.amount = query.amount
+        this.upgradeCount = query.upgradeCount
+        if (this.upgradeCount >= this.amount) {
+          this.$alert('升级完毕', this.$t('cNam.operationTip'), {
+            confirmButtonText: this.$t('cNam.confirm')
+          })
+        }
       }
     },
     checkConnection() {
@@ -561,6 +701,9 @@ export default {
         }
         if (connection.com) {
           vm.usbHID = false
+        }
+        if (!connection.usb && !connection.com) {
+          this.reSetIsRead()
         }
         if (connection.usb || connection.com) {
           vm.init()
@@ -635,6 +778,7 @@ export default {
     },
 
     changeComp() {
+      this.reSetIsRead()
       if (this.isDealerOrAssembler) {
         if (this.componentType === 'tool') {
           console.log(this.componentType)
@@ -745,6 +889,7 @@ export default {
     },
 
     readBase() {
+      this.isRead = true
       if (!this.isConnected) {
         this.$message({
           message: this.$t('cNam.comDisconnect'),
@@ -783,15 +928,35 @@ export default {
             this.device = this.deviceList['tool']
             this.target = 0x05
             break
+          case 'trs':
+            this.device = this.deviceList['trs']
+            this.target = 0x86
+            break
+          case 'elk':
+            this.device = this.deviceList['elk']
+            this.target = 0x07
+            break
+          case 'tlc':
+            this.device = this.deviceList['tlc']
+            this.target = 0x16
+            break
+          case 'charge':
+            this.device = this.deviceList['charge']
+            this.target = 0x0e
+            break
+          case 'testA':
+            this.device = this.deviceList['testA']
+            this.target = 0x90
+            break
         }
       }
       this.loading = true
       setTimeout(() => {
         if (!this.sn) {
-          this.$message({
-            message: this.$t('cNam.needReadSn'),
-            type: 'warning'
-          })
+          // this.$message({
+          //   message: this.$t('cNam.needReadSn'),
+          //   type: 'warning'
+          // })
           this.showHelp = true
         } else {
           this.showHelp = false
@@ -811,29 +976,10 @@ export default {
               this.com = ''
             }
             if (res.data) {
-              switch (this.componentType) {
-                case 'hmi':
-                  this.sn = Core.Util.get(res, 'data.hmi.sn', this.sn)
-                  this.version = Core.Util.get(res, 'data.hmi.version', this.version)
-                  break
-                case 'ctrl':
-                case 'ctrl2':
-                  this.sn = Core.Util.get(res, 'data.ctrl.sn', this.sn)
-                  this.version = Core.Util.get(res, 'data.ctrl.version', this.version)
-                  break
-                case 'bat':
-                  this.sn = Core.Util.get(res, 'data.bat.sn', this.sn)
-                  this.version = Core.Util.get(res, 'data.bat.version', this.version)
-                  break
-                case 'sensor':
-                  this.sn = Core.Util.get(res, 'data.sensor.sn', this.sn)
-                  this.version = Core.Util.get(res, 'data.sensor.version', this.version)
-                  break
-                case 'tool':
-                  this.sn = Core.Util.get(res, 'data.tool.sn', this.sn)
-                  this.version = Core.Util.get(res, 'data.tool.version', this.version)
-                  break
-              }
+              this.sn = Core.Util.get(res, `data.${this.componentType}.sn`, this.sn)
+              this.version = Core.Util.get(res, `data.${this.componentType}.version`, this.version)
+              this.hardware_version = Core.Util.get(res, `data.${this.componentType}.hardware_version`, '')
+
               if (this.sn && this.version) {
                 this.updateMsg = this.$t('cNam.updateMsgLO')
               } else if (this.sn) {
@@ -842,8 +988,8 @@ export default {
             }
           })
         } else {
-          this.device.port.getUsbBasic(this.target, true).subscribe((res) => {
-            //                            console.log(res);
+          this.device.port.getUsbBasic(this.target, false).subscribe((res) => {
+            console.log('getUsbBasic:' + res)
             if (!res.data) {
               return
             }
@@ -853,11 +999,15 @@ export default {
             if (res.data.hasOwnProperty('version')) {
               this.version = res.data.version
             }
+            if (res.data.hasOwnProperty('hardware_version')) {
+              this.hardware_version = res.data.hardware_version
+            }
             if (this.sn && this.version) {
               this.updateMsg = this.$t('cNam.updateMsgLO')
             } else if (this.sn) {
               this.updateMsg = this.$t('cNam.updateMsgL')
             }
+            this.isRead = true
           })
         }
       } else if (this.target == 0x05) {
@@ -882,6 +1032,7 @@ export default {
               } else if (this.sn) {
                 this.updateMsg = this.$t('cNam.updateMsgL')
               }
+              this.isRead = true
             }
           })
         } else {
@@ -899,9 +1050,14 @@ export default {
             if (res.data.hasOwnProperty('hardware_version')) {
               this.hardware_version = res.data.hardware_version
             }
+            this.isRead = true
           })
         }
       }
+      setTimeout(() => {
+        // if (!this.sn) return
+        this.getFirmwareBySn(false)
+      }, 2000)
     },
 
     startUpdate() {
@@ -928,8 +1084,17 @@ export default {
       //                if(Core.Util){
       //
       //                }
-
+      // debugger
+      // console.log(`${Core.Data.getOrg().type}-${Core.Const.ORG_TYPE.COMPONENT}`);
       if (Core.Data.getOrg().type !== Core.Const.ORG_TYPE.COMPONENT) {
+        if (!this.isRead) {
+          this.$message({
+            message: this.$t('cNam.readButtonBeforeUpdate'),
+            type: 'warning'
+          })
+          return
+        }
+
         if (!this.componentType) {
           this.$message({
             message: this.$t('componentTypeTip'),
@@ -942,12 +1107,15 @@ export default {
             message: this.$t('cNam.snEmptyTip'),
             type: 'warning'
           })
-          return
         }
-        if (this.checkSN()) {
-          return
-        }
+
+        // 只提示不拦截
+        this.checkSN()
+        // if (this.checkSN()) {
+        //   return
+        // }
       }
+      this.newVerTipPop = false
 
       if (this.offLineFlag || !navigator.onLine) {
         // 如果上一次的数据在被处理，需要等待
@@ -969,7 +1137,6 @@ export default {
     },
 
     doUpdate(data) {
-      let count = 0
       let vm = this
       vm.startTip = true
       if (vm.usbHID) {
@@ -978,39 +1145,36 @@ export default {
         //                    Update.readFileData( data );
         //                    Update.sendFileHeadFrameHID();
 
-        Update.port.usbSDK.client.events.on('firmware-update-progress', (e) => {
+        Update.port.usbSDK.client.events.on('firmware-upload-progress', (e) => {
           vm.startTip = false
-          vm.percentage = Math.ceil((e.upload / e.total) * 100)
-          //                        console.log(e);
-          if (e.upload === e.total || vm.percentage === 100) {
-            if (count === 0) {
-              vm.updateOnline = false
+          vm.percentage = parseInt(e.progress)
+          console.log(`firmware-upload-progress:${JSON.stringify(e)}`)
+          if (vm.percentage === 100) {
+            vm.updateOnline = false
 
-              if (vm.sn && vm.org.id !== 25) {
-                vm.saveUpdateRecord()
-              }
-              if (vm.componentType) {
-                switch (vm.componentType) {
-                  case 'hmi':
-                    vm.updateMsg = vm.updateMsgObject.msg1
-                    break
-                  case 'ctrl':
-                  case 'ctrl2':
-                    vm.updateMsg = vm.updateMsgObject.msg2
-                    break
-                  case 'tool':
-                    vm.updateMsg = vm.updateMsgObject.msg3
-                    break
-                }
-              } else {
-                vm.updateMsg = ''
-              }
-              vm.checkBoxUpdate()
+            if (vm.sn && vm.org.id !== 25) {
+              vm.saveUpdateRecord()
             }
-            count++
+            if (vm.componentType) {
+              switch (vm.componentType) {
+                case 'hmi':
+                  vm.updateMsg = vm.updateMsgObject.msg1
+                  break
+                case 'ctrl':
+                case 'ctrl2':
+                  vm.updateMsg = vm.updateMsgObject.msg2
+                  break
+                case 'tool':
+                  vm.updateMsg = vm.updateMsgObject.msg3
+                  break
+              }
+            } else {
+              vm.updateMsg = ''
+            }
+            vm.checkBoxUpdate()
           }
         })
-        Update.port.usbSDK.client.events.on('firmware-update-completed', (e) => {
+        Update.port.usbSDK.client.events.on('firmware-upload-completed', (e) => {
           vm.percentage = 0
           //                        this.$message({
           //                            message: this.$t('cNam.updateSuccessTip'),
@@ -1140,31 +1304,34 @@ export default {
     },
 
     saveUpdateRecord() {
-      if (!this.sn) {
-        this.$message.warning(this.$t('cNam.needReadSn'))
-        return false
-      }
-      let sn = this.sn.replace(/\s+/g, '')
-      let time = Core.Util.time()
-      let filename = this.file.name || this.fileName
-      let type = this.recordType
-      this.sn = ''
-      if (this.userName.indexOf('fqc') < 0) {
-        if (!this.offLineFlag && navigator.onLine) {
-          Core.Api.ObjectRecord.save(sn, filename + '--' + this.fileBufferCrc, time, type)
-        } else {
-          let userId = this.userId
-          let recordData = {
-            userId: userId,
-            sn: sn,
-            data: filename + '--' + this.fileBufferCrc,
-            time: time,
-            type: type
-          }
-          this.offlineRecordList.push(recordData)
+      try {
+        // if (!this.sn) {
+        //   this.$message.warning(this.$t('cNam.needReadSn'))
+        // }
+        let sn = this.sn.replace(/\s+/g, '')
+        let time = Core.Util.time()
+        let filename = (this.file && this.file.name) || this.fileName
+        let type = this.recordType
+        this.sn = ''
+        if (this.userName.indexOf('fqc') < 0) {
+          if (!this.offLineFlag && navigator.onLine) {
+            Core.Api.ObjectRecord.save(sn, filename + '--' + this.fileBufferCrc, time, type)
+          } else {
+            let userId = this.userId
+            let recordData = {
+              userId: userId,
+              sn: sn,
+              data: filename + '--' + this.fileBufferCrc,
+              time: time,
+              type: type
+            }
+            this.offlineRecordList.push(recordData)
 
-          Core.Data.setRecordList(this.offlineRecordList)
+            Core.Data.setRecordList(this.offlineRecordList)
+          }
         }
+      } catch (error) {
+        console.log(error)
       }
     },
 
@@ -1175,8 +1342,6 @@ export default {
     },
 
     checkBoxUpdate() {
-      let count = 1
-
       //                this.dialogUpdateResVisible = true;
       //                Update.port.getListenData().subscribe((res) => {
       //                    if (!res.data) {
@@ -1193,25 +1358,12 @@ export default {
       //                    }
       //                });
       let vm = this
-      let _tmp_last_progress = 0
-      let res = Update.port.usbSDK.client.events.on('firmware-update-completed-progress', (e) => {
+      Update.port.usbSDK.client.events.on('firmware-upgrade-progress', (e) => {
+        console.log(`firmware-upgrade-progress:${JSON.stringify(e)}`)
         //    console.log(e); // {progress: 0, status: "01"}
         //                    console.log(e.progress,vm.fileBufferLength);
         try {
-          // 增加固件超过512k溢出处理进度条问题
-          if (e.progress === 0) {
-            _tmp_last_progress = 0
-          }
-          let a = _tmp_last_progress
-          if (_tmp_last_progress > e.progress) {
-            e.progress += _tmp_last_progress
-          } else {
-            _tmp_last_progress = e.progress
-          }
-
-          let b = e.progress
-          let rate = Math.ceil((e.progress / vm.fileBufferLength) * 100)
-          // console.log(`${rate}\t ${a}\t${b}`);
+          vm.boxPercentage = parseInt(e.progress)
 
           if (vm.componentType) {
             switch (vm.componentType) {
@@ -1226,34 +1378,52 @@ export default {
                 vm.updateMsg = vm.updateMsgObject.msg6
                 break
             }
-          } else {
+          } else if (parseInt(e.status) == 0x00) {
+            vm.updateMsg = vm.updateMsgObject.msg10
+          } else if (parseInt(e.status) == 0x01) {
+            vm.updateMsg = vm.updateMsgObject.msg20
+          } else if (parseInt(e.status) == 0x02) {
+            vm.updateMsg = vm.updateMsgObject.msg11
+          }
+          //                    console.log("[true]",vm.isCanSoft, vm.isCan);
+          //                    console.log("[true]",vm.isCanSoft || vm.isCan);
+          if (vm.componentType) {
+            switch (vm.componentType) {
+              case 'hmi':
+                vm.updateMsg = vm.updateMsgObject.msg4
+                break
+              case 'ctrl':
+              case 'ctrl2':
+                vm.updateMsg = vm.updateMsgObject.msg5
+                break
+              case 'tool':
+                vm.updateMsg = vm.updateMsgObject.msg6
+                break
+            }
+          } else if (parseInt(e.status) == 0x00) {
             vm.updateMsg = vm.updateMsgObject.msg10
           }
           //                    console.log("[true]",vm.isCanSoft, vm.isCan);
           //                    console.log("[true]",vm.isCanSoft || vm.isCan);
-          if (vm.isCanSoft) {
-            vm.boxPercentage = Math.ceil((e.progress / vm.fileBufferLength) * 100)
-          } else {
-            if (e.progress * 128 > vm.fileBufferLength && e.progress * 128 - vm.fileBufferLength < 1024) {
-              vm.boxPercentage = 100
-            } else {
-              vm.boxPercentage = Math.ceil(((e.progress * 128) / vm.fileBufferLength) * 100)
-            }
-          }
-          if (vm.boxPercentage > 100) {
-            vm.updateMsg = vm.updateMsgObject.msg11
-          }
-          if (vm.boxPercentage === 0) {
-            if (count === 1) {
-              vm.updateMsg = vm.updateMsgObject.msg20
-            }
-            count++
-          } else {
-            count = 1
+
+          if (vm.boxPercentage === 100 && parseInt(e.status) == 0x01) {
+            vm.updateMsg = vm.updateMsgObject.msg20
+            vm.boxPercentage = 0
+            // 升级计数
+            vm.upgradeRecord()
           }
         } catch (err) {
           console.log(err)
         }
+      })
+
+      Update.port.usbSDK.client.events.on('firmware-upgrade-failed', (e) => {
+        console.log(`firmware-upgrade-failed:${e}`)
+        vm.updateMsg = vm.updateMsgObject.msg11
+
+        vm.$alert(vm.$t('firmwareUpgradeFailed'), vm.$t('cNam.operationTip'), {
+          confirmButtonText: vm.$t('cNam.confirm')
+        })
       })
       //                console.log(res,'[ud]');
     },
@@ -1312,6 +1482,7 @@ export default {
       this.percentage = 0
       this.isReset = true
       this.showHelp = false
+      this.reSetIsRead()
       setTimeout(() => {
         this.isReset = false
       }, 1000)
@@ -1353,6 +1524,10 @@ export default {
     clear() {
       this.sn = ''
       this.version = ''
+      this.hardware_version = ''
+      this.HWRecordList = []
+      this.newVerTipPop = false
+      this.reSetIsRead()
     },
     selectItem(item) {
       Core.Api.Firmware.getHistory(item.id).then((res) => {
@@ -1431,15 +1606,29 @@ export default {
     },
 
     // 获取固件 by sn
-    getFirmwareBySn() {
+    getFirmwareBySn(showTip = true) {
       this.sn = this.sn.replace(/\s+/g, '')
-      if (!this.sn) {
+      // this.sn = 'CRX210.350.FC1.0A47F5V4065006'
+      // this.version = 'CRX210C3617E101006.4'
+      // this.hardware_version = 'CR X210.350.FC 1.0'
+      // 不再判断sn
+      // if (!this.sn) {
+      //   this.$message({
+      //     message: this.$t('cNam.snEmptyTip'),
+      //     type: 'warning'
+      //   })
+      //   return
+      // }
+
+      // 硬件版本号不能为空
+      if (!this.hardware_version) {
         this.$message({
-          message: this.$t('cNam.snEmptyTip'),
+          message: '硬件版本号不能为空',
           type: 'warning'
         })
         return
       }
+
       if (!this.componentType) {
         this.$message({
           message: this.$t('componentTypeTip'),
@@ -1447,9 +1636,11 @@ export default {
         })
         return
       }
-      if (this.checkSN()) {
-        return
-      }
+      // if (this.sn && this.checkSN()) {
+      //   return
+      // }
+      this.checkSN()
+
       if (this.sn.length > 40) {
         this.$message({
           message: 'Please check SN. Maximum length is 40.',
@@ -1458,12 +1649,19 @@ export default {
         return
       }
 
-      Core.Api.Firmware.getHistoryBySn(this.sn).then((res) => {
-        let record = res.record
+      ChannelService.upgradeList({
+        sn: this.sn,
+        hard_ver: this.hardware_version,
+        soft_ver: this.version,
+        platform: 'besst'
+      }).then(({ data }) => {
+        let record = data.content
         console.log(this.version, this.hardware_version, 'BSF')
         this.HWRecordList = record
-        if (this.HWRecordList.length > 0) {
-          this.dialogRecordListVisible = true
+        // 判断当前版本是否是最新版本
+        if (this.HWRecordList && this.HWRecordList.length > 0) {
+          this.newVerTipPop = true
+          this.dialogRecordListVisible = showTip
         } else {
           this.$message({
             message: 'There is no history software in BESST.',
@@ -1482,7 +1680,8 @@ export default {
         })
         return
       }
-      let url = Core.Const.NET.FILE_URL_PREFIX + item.file
+      this.newVerTipPop = false
+      let url = item.downloadUrl
       let $this = this
       $this.fileName = item.version
       $this.$http.get(url, { responseType: 'blob' }).then((response) => {
@@ -1547,7 +1746,7 @@ export default {
       this.fileBufferCrc = Update.checkCrc(arr)
 
       let show = false
-      if (arr[2] > 128 && arr[2] < 150) {
+      if (arr[2] >= 0x80 && arr[2] <= 0x9e) {
         this.isCanSoft = true
       } else if (arr[2] > 0 && arr[2] < 8) {
         this.isCanSoft = false
@@ -1588,6 +1787,30 @@ export default {
       } else {
         return true
       }
+    },
+    upgradeRecord() {
+      let query = this.$route.query
+      if (query.isUpgrade) {
+        console.log('执行计数')
+        if (this.upgradeCount >= this.amount) {
+          this.$alert('升级完毕', this.$t('cNam.operationTip'), {
+            confirmButtonText: this.$t('cNam.confirm')
+          })
+          return
+        }
+
+        UpgradeService.saveUpgradeRecord({
+          orderId: this.orderId,
+          orderItemId: this.itemId
+        }).then((res) => {
+          this.upgradeCount++
+          if (this.upgradeCount >= this.amount) {
+            this.$alert('升级完毕', this.$t('cNam.operationTip'), {
+              confirmButtonText: this.$t('cNam.confirm')
+            })
+          }
+        })
+      }
     }
   },
   beforeDestroy: function () {
@@ -1608,9 +1831,11 @@ export default {
   width: 100%;
   height: 100%;
   overflow: auto;
+
   .update-content {
     width: 950px;
     margin: 0 auto;
+
     .connect-tip {
       display: inline-block;
       float: right;
@@ -1618,37 +1843,44 @@ export default {
       a {
         color: #e26829;
       }
+
       .tip-img {
         top: 0;
         right: 20px;
       }
     }
+
     .title {
       margin-left: 33px;
       font-size: 16px;
       /*display: flex;*/
       align-items: center;
+
       img {
         width: 24px;
         height: 24px;
         margin-right: 16px;
       }
     }
+
     .content {
       overflow: hidden;
       background: #353945;
       width: 950px;
       margin-top: 22px;
       padding-bottom: 30px;
+
       .left {
         float: left;
         margin-top: 9px;
         width: 474px;
         border-right: 1px dotted #2b2f3b;
         overflow: hidden;
+
         .btns {
           margin-top: 30px;
           margin-right: 26px;
+
           .btn {
             margin-left: 10px;
           }
@@ -1662,31 +1894,39 @@ export default {
             padding: 10px;
             font-size: 14px;
           }
+
           .btn {
             margin-left: 33px;
           }
+
           .input {
             margin-left: 6px;
             width: 300px;
           }
         }
+
         .item {
           margin-left: 33px;
           height: 60px;
           line-height: 60px;
+
           .cloud {
             text-align: left;
+
             span {
               padding-left: 10px;
             }
           }
+
           .label {
             min-width: 130px;
             display: inline-block;
           }
+
           .input {
             width: 300px;
           }
+
           .tip {
             display: inline-block;
             border-radius: 50%;
@@ -1695,15 +1935,19 @@ export default {
             background: #e26829;
             margin-left: 5px;
           }
+
           .connect {
             background: #76ee00;
           }
         }
+
         .btn {
           height: 30px;
           line-height: 30px;
+
           .operation {
             margin-right: 26px;
+
             .loading {
               display: inline-block;
               vertical-align: middle;
@@ -1711,30 +1955,37 @@ export default {
             }
           }
         }
+
         .space {
           width: 100%;
           height: 10px;
         }
       }
+
       .right {
         float: left;
         margin-top: 9px;
         width: 474px;
+
         .item {
           margin-left: 33px;
           height: 60px;
           line-height: 60px;
+
           .el-select {
             width: 300px;
           }
+
           .label {
             width: 90px;
             display: inline-block;
           }
+
           .input {
             margin-left: 10px;
             width: 310px;
           }
+
           .tip {
             display: inline-block;
             border-radius: 50%;
@@ -1743,38 +1994,47 @@ export default {
             background: #e26829;
             margin-left: 10px;
           }
+
           .connect {
             background: #76ee00;
           }
         }
+
         .note {
           margin-left: 33px;
           padding: 5px 33px 0 0;
           height: 42px;
           line-height: 42px;
+
           .msg-title {
             width: 100%;
             border-top: 1px solid #2b2f3b;
             color: #e26829;
           }
+
           .msg {
             width: 100%;
           }
         }
+
         .btns {
           margin-right: 30px;
+
           .btn {
             margin-left: 10px;
           }
         }
+
         .tip {
           margin-top: 20px;
           color: #e26829;
           line-height: 30px;
         }
       }
+
       .file {
         position: relative;
+
         .label {
           display: inline-block;
           height: 26px;
@@ -1785,6 +2045,7 @@ export default {
           padding-left: 25px;
           /*padding-right: 30px;*/
         }
+
         .text-span {
           display: block;
           width: 400px;
@@ -1795,34 +2056,42 @@ export default {
           /*-o-text-overflow: ellipsis;*/
           /*white-space:nowrap;*/
         }
+
         .btn {
           margin-left: 33px;
         }
+
         .file-input {
           display: none;
           margin: 10px 30px;
           width: 300px;
         }
+
         .textFixed {
           position: absolute;
           top: 0;
           left: 0;
         }
+
         .el-progress {
           padding: 5px 0 0 33px;
         }
       }
+
       .step {
         margin-left: 33px;
         margin-top: 9px;
+
         span {
           display: inline-block;
         }
+
         .no {
           font-weight: bold;
           width: 2%;
           vertical-align: top;
         }
+
         .stepText {
           width: 92%;
           line-height: 20px;
@@ -1830,23 +2099,29 @@ export default {
       }
     }
   }
+
   .dialogSelectItem {
     .el-dialog__header {
       display: none;
     }
   }
+
   .el-dialog--small {
     width: 770px;
   }
+
   .history-table {
     width: 100%;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
+
     tr {
       line-height: 30px;
     }
+
     .head {
       color: white;
     }
+
     .history-td {
       padding: 0 6px;
       width: 300px;
@@ -1854,6 +2129,7 @@ export default {
       font-size: 14px;
       text-align: center;
     }
+
     .img {
       width: auto;
       height: 30px;
@@ -1889,33 +2165,42 @@ export default {
       display: flex;
       flex-direction: column;
       padding: 5px 20px;
+
       span {
         font-size: 13px;
       }
+
       .item {
         padding: 5px 0;
         display: flex;
         flex-direction: row;
         align-items: flex-start;
+
         .left {
           width: 100px;
         }
+
         .right {
           flex: 1;
         }
       }
+
       .type {
         align-items: center;
+
         img {
           margin-right: 10px;
         }
       }
+
       .note {
         min-height: 100px;
       }
+
       .file {
       }
     }
+
     .update-res-bottom {
       padding: 10px 24px;
       display: flex;
@@ -1928,4 +2213,4 @@ export default {
 
 
 // WEBPACK FOOTER //
-// update.vue?f9386856
+// update.vue?3b8d4e16

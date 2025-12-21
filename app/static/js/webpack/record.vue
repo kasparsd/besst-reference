@@ -29,15 +29,7 @@
               <td>{{ item.sn }}</td>
               <td>{{ item.vehicle_sn }}</td>
               <td>
-                {{
-                  item.org_type == 3
-                    ? "ASSEMBLER"
-                    : item.org_type == 2
-                    ? "DEALER"
-                    : item.org_type == 4
-                    ? "COMPONENT"
-                    : "BRAND"
-                }}
+                {{ item.org_type == 3 ? 'ASSEMBLER' : item.org_type == 2 ? 'DEALER' : item.org_type == 4 ? 'COMPONENT' : 'BRAND' }}
               </td>
               <td>{{ item.user_email }}</td>
               <td>{{ item.time | timeFormat }}</td>
@@ -55,7 +47,7 @@
           </tbody>
         </table>
         <div class="no-data-content" v-show="recordList.length <= 0 && !loading">
-          {{ $t("noResult") }}
+          {{ $t('noResult') }}
         </div>
         <div class="loading" v-if="loading">
           <img src="../../assets/images/icon/loading-bars.svg" alt="Loading icon" />
@@ -70,49 +62,49 @@
           :total="total"
         >
         </el-pagination>
-        <p class="total">{{ $t("total") }}: {{ total }}</p>
+        <p class="total">{{ $t('total') }}: {{ total }}</p>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import Core from "core/core";
-import ZH from "src/assets/lang/zh";
-import EN from "src/assets/lang/en";
-import DE from "src/assets/lang/de";
-import NL from "src/assets/lang/nl";
-import FR from "src/assets/lang/fr";
+import Core from 'core/core'
+import ZH from 'src/assets/lang/zh'
+import EN from 'src/assets/lang/en'
+import DE from 'src/assets/lang/de'
+import NL from 'src/assets/lang/nl'
+import FR from 'src/assets/lang/fr'
 
 export default {
-  name: "recordList",
+  name: 'recordList',
   data() {
     return {
-      tableHead: ["SN", "Vehicle", "Operator", "Account", "Time", "Type", "Data"],
+      tableHead: ['SN', 'Vehicle', 'Operator', 'Account', 'Time', 'Type', 'Data'],
       recordList: [],
       currentPage: 1,
       total: 0,
       date: Core.Util.time(),
       org: Core.Data.getOrg(),
-      sn: "",
-      data: "",
-      mail: "",
-      loading: false,
-    };
+      sn: '',
+      data: '',
+      mail: '',
+      loading: false
+    }
   },
   filters: {
     operationType: function (type) {
       switch (type) {
         case 1:
-          return "Edit";
+          return 'Edit'
         case 2:
-          return "Update";
+          return 'Update'
         case 3:
-          return "Replace";
+          return 'Replace'
         default:
-          return "--";
+          return '--'
       }
-    },
+    }
   },
   i18n: {
     messages: {
@@ -120,130 +112,123 @@ export default {
       en: EN.Brand.RecordList,
       zh: ZH.Brand.RecordList,
       de: DE.Brand.RecordList,
-      nl: NL.Brand.RecordList,
-    },
+      nl: NL.Brand.RecordList
+    }
   },
   mounted() {
-    this.initData();
+    this.initData()
     this.$root.eventHub.$on(Core.Const.DATA.KEY_I18N_UPDATE, () => {
       setTimeout(() => {
-        this.initData();
-      }, 100);
-    });
-    this.org = Core.Data.getOrg();
+        this.initData()
+      }, 100)
+    })
+    this.org = Core.Data.getOrg()
     // 获取SN记录列表
-    this.getRecordList();
+    this.getRecordList()
   },
   methods: {
     initData() {
       this.tableHead = [
-        this.$t("tableHead.sn"),
-        this.$t("tableHead.vehicle"),
-        this.$t("tableHead.operator"),
-        this.$t("tableHead.account"),
-        this.$t("tableHead.time"),
-        this.$t("tableHead.type"),
-        this.$t("tableHead.data"),
-      ];
+        this.$t('tableHead.sn'),
+        this.$t('tableHead.vehicle'),
+        this.$t('tableHead.operator'),
+        this.$t('tableHead.account'),
+        this.$t('tableHead.time'),
+        this.$t('tableHead.type'),
+        this.$t('tableHead.data')
+      ]
     },
     getRecordList() {
-      this.loading = true;
+      this.loading = true
 
       if (this.org.type === Core.Const.ORG_TYPE.BRAND) {
         Core.Api.ObjectRecord.getListForBrand(this.currentPage).then((res) => {
-          this.loading = false;
-          let list = res.record_list ? res.record_list : [];
+          this.loading = false
+          let list = res.record_list ? res.record_list : []
           list.forEach((item) => {
             if (item.data && item.type == 1) {
               // type = 1，是edit
-              if (item.data.match("{")) {
-                item.data = JSON.parse(item.data);
+              if (item.data.match('{')) {
+                item.data = JSON.parse(item.data)
               } else {
                 item.data = {
                   old: item.data,
-                  new: "wrong type",
-                };
+                  new: 'wrong type'
+                }
               }
             }
-          });
-          this.recordList = list;
-          this.total = res.count;
-        });
+          })
+          this.recordList = list
+          this.total = res.count
+        })
       } else {
         Core.Api.ObjectRecord.getListForBF(this.currentPage).then((res) => {
-          this.loading = false;
-          let list = res.record_list ? res.record_list : [];
-          console.log(list);
+          this.loading = false
+          let list = res.record_list ? res.record_list : []
+          console.log(list)
           list.forEach((item) => {
             if (item.data && item.type == 1) {
-              if (item.data.match("{")) {
-                item.data = JSON.parse(item.data);
+              if (item.data.match('{')) {
+                item.data = JSON.parse(item.data)
               } else {
                 item.data = {
                   old: item.data,
-                  new: "wrong type",
-                };
+                  new: 'wrong type'
+                }
               }
             }
-          });
-          this.recordList = list;
-          this.total = res.count;
-        });
+          })
+          this.recordList = list
+          this.total = res.count
+        })
       }
     },
     getSaveList() {
-      var type = 1; // Brand
+      var type = 1 // Brand
       if (this.org.type === Core.Const.ORG_TYPE.BRAND) {
-        type = 2; // BF
+        type = 2 // BF
       }
       if (this.sn.trim() || this.data.trim() || this.mail.trim()) {
-        this.loading = true;
-        console.log("type", type);
+        this.loading = true
+        console.log('type', type)
 
-        Core.Api.ObjectRecord.searchList(
-          this.sn.trim(),
-          this.data.trim(),
-          this.mail.trim(),
-          this.currentPage,
-          "",
-          type
-        ).then((res) => {
-          this.loading = false;
+        Core.Api.ObjectRecord.searchList(this.sn.trim(), this.data.trim(), this.mail.trim(), this.currentPage, '', type).then((res) => {
+          this.loading = false
           if (res) {
-            let list = res.record_list ? res.record_list : [];
+            let list = res.record_list ? res.record_list : []
             list.forEach((item) => {
               if (item.data && item.type == 1) {
-                if (item.data.match("{")) {
-                  item.data = JSON.parse(item.data);
+                if (item.data.match('{')) {
+                  item.data = JSON.parse(item.data)
                 } else {
                   item.data = {
                     old: item.data,
-                    new: "wrong type",
-                  };
+                    new: 'wrong type'
+                  }
                 }
               }
-            });
-            this.recordList = list;
-            this.total = res.count;
+            })
+            this.recordList = list
+            this.total = res.count
           } else {
-            this.recordList = [];
-            this.total = 0;
+            this.recordList = []
+            this.total = 0
           }
-        });
+        })
       } else {
-        this.getRecordList();
+        this.getRecordList()
       }
     },
     handleCurrentChange(val) {
-      this.currentPage = val;
+      this.currentPage = val
       if (this.sn.trim() || this.data.trim() || this.mail.trim()) {
-        this.getSaveList();
+        this.getSaveList()
       } else {
-        this.getRecordList();
+        this.getRecordList()
       }
-    },
-  },
-};
+    }
+  }
+}
 </script>
 
 <style lang="scss" rel="stylesheet/scss">
@@ -252,15 +237,19 @@ export default {
   height: 100%;
   display: flex;
   flex-direction: column;
+
   .table-wrap {
     /*flex: 1;*/
   }
+
   .header {
     height: auto;
+
     .el-form-item {
       margin-bottom: 0;
     }
   }
+
   /*.loading {*/
   /*width: 100%;*/
   /*display: flex;*/
@@ -271,9 +260,11 @@ export default {
     overflow: hidden;
     text-overflow: ellipsis;
   }
+
   .name {
     max-width: 120px;
   }
+
   .address {
     max-width: 280px;
   }
@@ -283,4 +274,4 @@ export default {
 
 
 // WEBPACK FOOTER //
-// record.vue?39e41c3f
+// record.vue?36fcb4c0

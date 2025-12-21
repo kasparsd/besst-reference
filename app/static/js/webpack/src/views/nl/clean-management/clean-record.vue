@@ -21,5 +21,5 @@ module.exports = Component.exports
 //////////////////
 // WEBPACK FOOTER
 // ./src/views/nl/clean-management/clean-record.vue
-// module id = 2340
-// module chunks = 40
+// module id = 2372
+// module chunks = 39

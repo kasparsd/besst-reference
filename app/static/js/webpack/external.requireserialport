@@ -1,8 +1,0 @@
-module.exports = require('serialport');
-
-
-//////////////////
-// WEBPACK FOOTER
-// external "require('serialport')"
-// module id = 1248
-// module chunks = 76

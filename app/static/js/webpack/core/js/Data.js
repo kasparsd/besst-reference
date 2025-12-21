@@ -11,6 +11,8 @@ function Data() {
     getToken,
     setUser,
     getUser,
+    setRole,
+    getRole,
     setOrg,
     getOrg,
     setBrandPartner,
@@ -99,6 +101,14 @@ function Data() {
 
   function getUser() {
     return get(Const.DATA.KEY_USER)
+  }
+
+  function setRole(role) {
+    return set(Const.DATA.KEY_ROLE, role)
+  }
+
+  function getRole() {
+    return get(Const.DATA.KEY_ROLE)
   }
 
   function setUpdateCount(list) {
@@ -355,5 +365,5 @@ export default new Data()
 //////////////////
 // WEBPACK FOOTER
 // ./core/js/Data.js
-// module id = 862
+// module id = 868
 // module chunks = 76

@@ -123,10 +123,14 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticStyle: {
         "text-align": "right"
       }
+    }, [_vm._v(_vm._s(item.upgrade_count) + "/" + _vm._s(item.amount))]), _vm._v(" "), _c('td', {
+      staticStyle: {
+        "text-align": "right"
+      }
     }, [_vm._v(_vm._s(item.produced) + "/" + _vm._s(item.amount))]), _vm._v(" "), _c('td', {
       class: {
         'order-finish': item.status == 1,
-        'order-doing': item.status == 0,
+        'order-doing': item.status == 0
       }
     }, [_vm._v("\n              " + _vm._s(_vm._f("orderStatus")(item.status, _vm.Core.Data.getLang())) + "\n            ")]), _vm._v(" "), _c('td', [_c('a', {
       staticClass: "btn-underline",
@@ -136,7 +140,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           return _vm.goProductionOrderDetail(item.id)
         }
       }
-    }, [_vm._v(_vm._s(_vm.$t("detail")))]), _vm._v(" "), _c('a', {
+    }, [_vm._v(_vm._s(_vm.$t('detail')))]), _vm._v(" "), _c('a', {
       staticClass: "btn-underline",
       on: {
         "click": function($event) {
@@ -144,7 +148,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           return _vm.goToComponentList(item.source_id)
         }
       }
-    }, [_vm._v(_vm._s(_vm.$t("list")))]), _vm._v(" "), (_vm.authList[_vm.Core.Const.AUTH_LIST.productionDelete]) ? _c('a', {
+    }, [_vm._v(_vm._s(_vm.$t('list')))]), _vm._v(" "), (_vm.authList[_vm.Core.Const.AUTH_LIST.productionDelete]) ? _c('a', {
       staticClass: "btn-underline",
       on: {
         "click": function($event) {
@@ -152,7 +156,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           return _vm.showDeleteDialog(item)
         }
       }
-    }, [_vm._v(_vm._s(_vm.$t("delete")))]) : _vm._e()])])
+    }, [_vm._v(_vm._s(_vm.$t('delete')))]) : _vm._e()])])
   }), 0) : _vm._e()]), _vm._v(" "), _c('div', {
     directives: [{
       name: "show",
@@ -161,7 +165,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       expression: "tableData.length <= 0 && !loading"
     }],
     staticClass: "no-data-content"
-  }, [_vm._v("\n        " + _vm._s(_vm.$t("noResult")) + "\n      ")]), _vm._v(" "), (_vm.loading) ? _c('div', {
+  }, [_vm._v("\n        " + _vm._s(_vm.$t('noResult')) + "\n      ")]), _vm._v(" "), (_vm.loading) ? _c('div', {
     staticClass: "loading"
   }, [_c('img', {
     attrs: {
@@ -188,7 +192,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }), _vm._v(" "), _c('p', {
     staticClass: "total"
-  }, [_vm._v(_vm._s(_vm.$t("total")) + ": " + _vm._s(_vm.total))])], 1)]), _vm._v(" "), _c('el-dialog', {
+  }, [_vm._v(_vm._s(_vm.$t('total')) + ": " + _vm._s(_vm.total))])], 1)]), _vm._v(" "), _c('el-dialog', {
     attrs: {
       "title": _vm.$t('deleteDialog.title'),
       "visible": _vm.dialogDeleteVisible,
@@ -199,7 +203,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.dialogDeleteVisible = $event
       }
     }
-  }, [_c('div', [_c('span', [_vm._v(_vm._s(_vm.$t("deleteDialog.content")))])]), _vm._v(" "), _c('br'), _vm._v(" "), _c('div', [_c('label', {
+  }, [_c('div', [_c('span', [_vm._v(_vm._s(_vm.$t('deleteDialog.content')))])]), _vm._v(" "), _c('br'), _vm._v(" "), _c('div', [_c('label', {
     attrs: {
       "for": "reason"
     }
@@ -230,19 +234,19 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.dialogDeleteVisible = false
       }
     }
-  }, [_vm._v(_vm._s(_vm.$t("deleteDialog.no")))]), _vm._v(" "), _c('el-button', {
+  }, [_vm._v(_vm._s(_vm.$t('deleteDialog.no')))]), _vm._v(" "), _c('el-button', {
     attrs: {
       "type": "success"
     },
     on: {
       "click": _vm.deleteProductionOrder
     }
-  }, [_vm._v(_vm._s(_vm.$t("deleteDialog.yes")))])], 1)])], 1)
+  }, [_vm._v(_vm._s(_vm.$t('deleteDialog.yes')))])], 1)])], 1)
 },staticRenderFns: []}
 
 
 //////////////////
 // WEBPACK FOOTER
 // ./node_modules/vue-loader/lib/template-compiler?{"id":"data-v-1baa0167","hasScoped":false}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./src/views/component/order/list.vue
-// module id = 1989
+// module id = 2008
 // module chunks = 76

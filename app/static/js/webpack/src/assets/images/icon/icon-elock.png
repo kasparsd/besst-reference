@@ -1,0 +1,8 @@
+module.exports = __webpack_public_path__ + "static/img/icon-elock.adf8bcf.png";
+
+
+//////////////////
+// WEBPACK FOOTER
+// ./src/assets/images/icon/icon-elock.png
+// module id = 300
+// module chunks = 76

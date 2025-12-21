@@ -17,5 +17,5 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
 //////////////////
 // WEBPACK FOOTER
 // ./node_modules/vue-loader/lib/template-compiler?{"id":"data-v-461d6fa2","hasScoped":true}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./src/views/layout/navbar.vue
-// module id = 884
+// module id = 890
 // module chunks = 76

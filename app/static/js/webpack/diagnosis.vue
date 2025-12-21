@@ -1,3 +1,11 @@
+<!--
+ * @Author: Bai YanShuo
+ * @Date: 2025-01-16 17:41:53
+ * @LastEditors: Bai YanShuo
+ * @LastEditTime: 2025-05-29 17:26:08
+ * @FilePath: /BESST/besst-client/src/components/3rd-diagnosis/diagnosis.vue
+ * @Description: 
+-->
 <template>
   <div class="my-diagnosis-container">
     <div class="switch">
@@ -333,7 +341,7 @@
               </div>
 
               <!-- 显示detail中的内容 默认0 不展现 -->
-              <template v-if="testSelect.No >= 7 && testSelect.No <= 11 && detailVisible">
+              <template v-if="testSelect.No >= 7 && testSelect.No <= 12 && detailVisible">
                 <item-detail
                   :vehicle-Sn="vehicleSn"
                   :test-select="testSelect"
@@ -341,6 +349,7 @@
                   :controller-info="controllerInfo"
                   :battery-info="batteryInfo"
                   :pedal-sensor-info="pedalSensorInfo"
+                  :elock-info="elockInfo"
                   :motor-info="motorInfo"
                   :com="com"
                   :isCan="isCan"
@@ -1119,6 +1128,17 @@ export default {
           update: false,
           required: false
         }
+        // 电机锁
+        // {
+        //   No: 12,
+        //   name: 'E-Lock',
+        //   img: require('../../assets/images/diagnosis/icon-new-motor.png'),
+        //   loaded: false,
+        //   percentage: 0,
+        //   status: 0,
+        //   update: false,
+        //   required: false
+        // }
       ],
       itemListSelect: false,
       // okOrFail  1:ok 2:fail 0:空白
@@ -1323,7 +1343,8 @@ export default {
         hmi: { device: HMI, time: 6000, key: 'hmi' },
         ctrl: { device: Controller, time: 7800, key: 'ctrl' },
         bat: { device: Battery, time: 12000, key: 'bat' },
-        sen: { device: Sensor, time: 3000, key: 'sen' }
+        sen: { device: Sensor, time: 3000, key: 'sen' },
+        elock: { device: Sensor, time: 3000, key: 'elock' }
       },
 
       //硬件部分
@@ -1358,7 +1379,15 @@ export default {
         tip: '',
         note: ''
       },
-
+      elockInfo: {
+        sn: '',
+        name: '',
+        version: '',
+        hardVersion: '',
+        error: '',
+        tip: '',
+        note: ''
+      },
       //读取数据
       hmiInfo: {
         sn: '',
@@ -1899,7 +1928,8 @@ export default {
           hmi: vm.getTargetItem(8, vm.connectionSelectDisplay).status,
           ctrl: vm.getTargetItem(9, vm.connectionSelectDisplay).status,
           bat: vm.getTargetItem(10, vm.connectionSelectDisplay).status,
-          sen: vm.getTargetItem(11, vm.connectionSelectDisplay).status
+          sen: vm.getTargetItem(11, vm.connectionSelectDisplay).status,
+          elock: vm.getTargetItem(12, vm.connectionSelectDisplay).status
         })
 
         vm.clearReadData()
@@ -2221,6 +2251,7 @@ export default {
           this.config.ctrl.time = 2000
           this.config.bat.time = 2000
           this.config.sen.time = 1200
+          this.config.elock.time = 1200
           this.isSenCan = false
           let time = new Date().getTime()
           let isSenCanTime = Diagnosis.port.checkSensor().last_en_time
@@ -2233,6 +2264,7 @@ export default {
           this.config.ctrl.time = 7800
           this.config.bat.time = 10000
           this.config.sen.time = 1100
+          this.config.elock.time = 1100
           //
           //                        this.connectionSelectDisplay = this.itemList.filter((item)=>{
           //                            return item.No != '11';
@@ -2395,6 +2427,9 @@ export default {
           break
         case 11:
           key = 'sen'
+          break
+        case 12:
+          key = 'elock'
           break
       }
       if (index === 1) {
@@ -2720,7 +2755,7 @@ export default {
         })
     },
     //读取硬件数据的方法
-    readBase(device) {
+    readBase(device, key) {
       if (!this.isConnected) {
         this.$message({
           type: 'warning',
@@ -2730,8 +2765,8 @@ export default {
       }
       let vm = this
       let target = ''
-      switch (device) {
-        case HMI:
+      switch (key) {
+        case 'hmi':
           target = vm.getTargetItem(8, vm.connectionSelectDisplay)
           setTimeout(function () {
             console.log('complete hmi')
@@ -2853,7 +2888,7 @@ export default {
           }
 
           break
-        case Controller:
+        case 'ctrl':
           target = vm.getTargetItem(9, vm.connectionSelectDisplay)
           setTimeout(function () {
             console.log('complete ctrl')
@@ -2944,7 +2979,7 @@ export default {
               if (res.type === 'error_usb') {
                 this.isConnected = false
               }
-              if (res.data.code === '32' && res.data.subCode === '03' && res.data.targetCode == 15) {
+              if (res.data.code === '32' && res.data.subCode === '03' && res.data.targetCode == 0x1f) {
                 let result_3 = Buffer.from(res.data.data, 'hex')
                 this.controllerInfo.speedLimit = (result_3[0] + result_3[1] * 256) / 100
                 this.wheelDiameters.find((item) => {
@@ -2957,7 +2992,7 @@ export default {
             })
           }
           break
-        case Battery:
+        case 'bat':
           target = vm.getTargetItem(10, vm.connectionSelectDisplay)
           setTimeout(function () {
             vm.result.batteryOK = !!vm.batteryInfo.sn && !!vm.batteryInfo.version && !!vm.batteryInfo.hardVersion && !!vm.batteryInfo.model
@@ -3097,7 +3132,7 @@ export default {
           }
 
           break
-        case Sensor:
+        case 'sen':
           target = vm.getTargetItem(11, vm.connectionSelectDisplay)
           setTimeout(function () {
             console.log('complete sensor')
@@ -3150,6 +3185,54 @@ export default {
             }
           })
           break
+        case 'elock':
+          target = vm.getTargetItem(12, vm.connectionSelectDisplay)
+          setTimeout(function () {
+            vm.result.elockOK = !!vm.elockInfo.sn && !!vm.elockInfo.version && !!vm.elockInfo.hardVersion && !!vm.elockInfo.name
+            vm.result.elock = vm.result.elockOK ? 'OK' : 'Fail'
+            if (target) {
+              target.loaded = true
+              if (vm.result.elockOK) {
+                vm.getVehicleByBomSn(vm.elockInfo.sn, 5)
+                target.status = 1
+                if (vm.elockInfo.version && vm.elockInfo.sn && !vm.offLineFlag && vm.isCan) {
+                  Core.Api.Object.objectVersionCompare(vm.elockInfo.sn, vm.elockInfo.version).then((res) => {
+                    target.update = res.flag === '4'
+                    if (!vm.detailVisible && target.update) {
+                      vm.showDetail(vm.itemList[4])
+                    }
+                  })
+                }
+              } else {
+                if (!vm.elockInfo.sn && !vm.elockInfo.version && !vm.elockInfo.hardVersion && !vm.elockInfo.name) {
+                  target.status = -1
+                } else {
+                  target.status = 2
+                }
+                if (!vm.detailVisible && target.status == -1) {
+                  vm.showDetail(vm.itemList[4])
+                }
+              }
+            }
+          }, vm.config.sen.time)
+          Sensor.port.getUsbBasic(0x07).subscribe((res) => {
+            if (!res.data) {
+              return
+            }
+            if (res.data.hasOwnProperty('sn')) {
+              this.elockInfo.sn = res.data.sn
+            }
+            if (res.data.hasOwnProperty('model')) {
+              this.elockInfo.name = res.data.model
+            }
+            if (res.data.hasOwnProperty('version')) {
+              this.elockInfo.version = res.data.version
+            }
+            if (res.data.hasOwnProperty('hardware_version')) {
+              this.elockInfo.hardVersion = res.data.hardware_version
+            }
+          })
+          break
       }
     },
 
@@ -3184,6 +3267,9 @@ export default {
             break
           case 11:
             deviceList.push(config.sen)
+            break
+          case 12:
+            deviceList.push(config.elock)
             break
         }
       })
@@ -3514,6 +3600,17 @@ export default {
             note: ''
           }
           break
+        case 11:
+          this.elockInfo = {
+            sn: '',
+            name: '',
+            version: '',
+            hardVersion: '',
+            error: '',
+            tip: '',
+            note: ''
+          }
+          break
         case 7:
           this.motorInfo = {
             sn: '',
@@ -3566,6 +3663,7 @@ export default {
         batteryOK: true,
         motorOK: true,
         pedalSensorOK: true,
+        elockOK: true,
         rpmSensorOK: true,
         brakeOK: true,
         lightOK: true,
@@ -3577,6 +3675,7 @@ export default {
         battery: '',
         controller: '',
         motor: '',
+        elock: '',
         pedalSensor: '',
         rpmSensor: '',
         brake: '',
@@ -3621,6 +3720,9 @@ export default {
             break
           case 11:
             deviceList.push(this.config.sen)
+            break
+          case 12:
+            deviceList.push(this.config.elock)
             break
         }
       } else {
@@ -3674,11 +3776,16 @@ export default {
                   })
                 }
                 break
+              case 'elcok':
+                dex = $this.connectionSelectDisplay.findIndex((item) => {
+                  return item.No === 12
+                })
+                break
             }
             if (dex > -1) {
               $this.startShowPercentage($this.connectionSelectDisplay[dex], item.time)
             }
-            $this.readBase(item.device)
+            $this.readBase(item.device, item.key)
           }, beginTime)
           beginTime = beginTime + item.time
         }
@@ -4206,6 +4313,10 @@ export default {
           this.result.pedalSensorOK = false
           this.result.pedalSensor = 'Fail'
           break
+        case 'elock':
+          this.result.elockOK = false
+          this.result.elock = 'Fail'
+          break
         case 'motor':
           this.result.motorOK = false
           this.result.motor = 'Fail'
@@ -4255,6 +4366,10 @@ export default {
           this.result.pedalSensorOK = true
           this.result.pedalSensor = 'OK'
           break
+        case 'elock':
+          this.result.elockOK = true
+          this.result.elock = 'OK'
+          break
         case 'motor':
           this.result.motorOK = true
           this.result.motor = 'OK'
@@ -4301,7 +4416,8 @@ export default {
             controller: this.controllerInfo,
             battery: this.batteryInfo,
             motor: this.motorInfo,
-            pedalSensor: this.pedalSensorInfo
+            pedalSensor: this.pedalSensorInfo,
+            elock: this.elockInfo
           },
           can: this.isCan,
           test: this.testData,
@@ -4315,6 +4431,7 @@ export default {
         }
       } else {
         this.reportInfo = {
+          // 读取的数据
           device: {
             vehicle: {
               id: this.vehicleId,
@@ -4326,12 +4443,14 @@ export default {
             controller: this.controllerInfo,
             battery: this.batteryInfo,
             motor: this.motorInfo,
-            pedalSensor: this.pedalSensorInfo
+            pedalSensor: this.pedalSensorInfo,
+            elock: this.elockInfo
           },
           can: this.isCan,
           test: this.testData,
           result: this.result,
           existComList: this.existList,
+          // 从数据库读取的数据
           bomList: this.componentList,
           connectList: connectListTem,
           testList: testListTem,
@@ -5330,4 +5449,4 @@ export default {
 
 
 // WEBPACK FOOTER //
-// diagnosis.vue?5362cf31
+// diagnosis.vue?f5f99f4e

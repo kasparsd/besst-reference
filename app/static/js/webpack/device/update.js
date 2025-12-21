@@ -734,5 +734,5 @@ export default Update
 //////////////////
 // WEBPACK FOOTER
 // ./device/update.js
-// module id = 100
+// module id = 95
 // module chunks = 76

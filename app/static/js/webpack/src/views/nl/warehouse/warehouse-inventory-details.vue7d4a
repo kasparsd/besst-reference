@@ -194,5 +194,5 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
 //////////////////
 // WEBPACK FOOTER
 // ./node_modules/vue-loader/lib/template-compiler?{"id":"data-v-5d7d1840","hasScoped":false}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./src/views/nl/warehouse/warehouse-inventory-details.vue
-// module id = 2465
-// module chunks = 53
+// module id = 2496
+// module chunks = 52

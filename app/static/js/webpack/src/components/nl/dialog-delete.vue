@@ -21,5 +21,5 @@ module.exports = Component.exports
 //////////////////
 // WEBPACK FOOTER
 // ./src/components/nl/dialog-delete.vue
-// module id = 2416
+// module id = 2447
 // module chunks = 4 5

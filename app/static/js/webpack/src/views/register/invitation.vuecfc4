@@ -89,5 +89,5 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
 //////////////////
 // WEBPACK FOOTER
 // ./node_modules/vue-loader/lib/template-compiler?{"id":"data-v-1e2e62c2","hasScoped":false}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./src/views/register/invitation.vue
-// module id = 900
+// module id = 906
 // module chunks = 76

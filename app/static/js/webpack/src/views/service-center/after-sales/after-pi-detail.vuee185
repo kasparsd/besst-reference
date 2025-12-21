@@ -75,7 +75,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('span', {
     staticClass: "label"
   }, [_vm._v("Country")]), _vm._v(" "), _c('span', {
-    staticClass: "input ",
+    staticClass: "input",
     model: {
       value: (_vm.country),
       callback: function($$v) {
@@ -94,7 +94,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('span', {
     staticClass: "label"
   }, [_vm._v("Address")]), _vm._v(" "), _c('span', {
-    staticClass: "input ",
+    staticClass: "input",
     model: {
       value: (_vm.address),
       callback: function($$v) {
@@ -113,7 +113,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('span', {
     staticClass: "label"
   }, [_vm._v("Atten")]), _vm._v(" "), _c('span', {
-    staticClass: "input ",
+    staticClass: "input",
     model: {
       value: (_vm.atten),
       callback: function($$v) {
@@ -132,7 +132,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('span', {
     staticClass: "label"
   }, [_vm._v("Tel")]), _vm._v(" "), _c('span', {
-    staticClass: "input ",
+    staticClass: "input",
     model: {
       value: (_vm.tel),
       callback: function($$v) {
@@ -145,7 +145,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('span', {
     staticClass: "label"
   }, [_vm._v("VAT No.")]), _vm._v(" "), _c('span', {
-    staticClass: "input ",
+    staticClass: "input",
     model: {
       value: (_vm.vatNo),
       callback: function($$v) {
@@ -391,5 +391,5 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
 //////////////////
 // WEBPACK FOOTER
 // ./node_modules/vue-loader/lib/template-compiler?{"id":"data-v-629dd474","hasScoped":false}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./src/views/service-center/after-sales/after-pi-detail.vue
-// module id = 2107
+// module id = 2139
 // module chunks = 76

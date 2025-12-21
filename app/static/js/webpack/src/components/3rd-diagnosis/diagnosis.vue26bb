@@ -605,7 +605,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "src": require("../../assets/images/diagnosis/icon-new-bike.png")
     }
-  })]) : _vm._e(), _vm._v(" "), (_vm.testSelect.No >= 7 && _vm.testSelect.No <= 11 && _vm.detailVisible) ? [_c('item-detail', {
+  })]) : _vm._e(), _vm._v(" "), (_vm.testSelect.No >= 7 && _vm.testSelect.No <= 12 && _vm.detailVisible) ? [_c('item-detail', {
     staticClass: "item-detail",
     attrs: {
       "vehicle-Sn": _vm.vehicleSn,
@@ -614,6 +614,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "controller-info": _vm.controllerInfo,
       "battery-info": _vm.batteryInfo,
       "pedal-sensor-info": _vm.pedalSensorInfo,
+      "elock-info": _vm.elockInfo,
       "motor-info": _vm.motorInfo,
       "com": _vm.com,
       "isCan": _vm.isCan
@@ -1664,5 +1665,5 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
 //////////////////
 // WEBPACK FOOTER
 // ./node_modules/vue-loader/lib/template-compiler?{"id":"data-v-443cf187","hasScoped":false}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./src/components/3rd-diagnosis/diagnosis.vue
-// module id = 1719
+// module id = 1738
 // module chunks = 76

@@ -182,6 +182,9 @@ const Sidebar = {
   battery: '电池',
   sensor: '传感器',
   update: '升级',
+  motorLock: '电机锁',
+  tlc: 'TLC',
+  weighingSensor: '称重传感器',
   auth: '权限',
   product: '产品',
   component: '追溯',
@@ -267,6 +270,7 @@ const AttributeName = {
   charger: 'Charger',
   other: 'Other',
   bike: 'Bike',
+  elock: '电机锁',
 
   model: '型号',
   softwareVersion: '软件版本',
@@ -416,6 +420,8 @@ const AttributeName = {
   txtNote3: '你需要先读数据再更新。我们根据SN记录每一个操作以便追踪。',
   updateGetFileSucc: '升级文件下载成功。',
   updateStarting: '升级开始。。。',
+  newVerTip: '新版本：{ver}，可点击"从云端获取文件"进行升级。',
+  moreVerTip: '有多个固件，请点击“从云端获取文件”进行选择。',
   resetTip: 'BESST工具重置了状态。记得要关闭仪表，再次打开。',
 
   offlineNo: '经销商和组装厂不能设置更大数值',
@@ -588,7 +594,8 @@ const AttributeName = {
   faultInformation: '故障信息',
   NumberOfFaultTypes: '故障类型个数',
   TotalNumberOfFailures: '故障总个数',
-  FaultRecord: '故障记录'
+  FaultRecord: '故障记录',
+  readButtonBeforeUpdate: '升级前请点击读取按钮'
 }
 
 const Hmi = {
@@ -625,6 +632,7 @@ const Controller = {
   brandEmptyTip: '你没有合作的品牌商',
   getApplySuccess: '获取权限成功',
   controllerTip: 'Main data is empty。Please check whether controller is powered',
+  calibrationTip: '请抬起后轮，确保电机能够自由转动。',
   cNam: AttributeName
 }
 
@@ -632,6 +640,21 @@ const Battery = {
   battery: '电池',
   batteryTip: '没有读到主要数据。请检查电池是否有电，或者开关是否打开',
   faultInformation: '故障信息',
+  cNam: AttributeName
+}
+
+const MotorLock = {
+  elock: '电机锁',
+  cNam: AttributeName
+}
+
+const Tlc = {
+  tlc: 'TLC',
+  cNam: AttributeName
+}
+
+const WeighingSensor = {
+  weighingSensor: '传感器',
   cNam: AttributeName
 }
 
@@ -657,6 +680,7 @@ const Update = {
   componentTypeTip: '请选择部件',
 
   componentReadTip: '请再读一遍',
+  firmwareUpgradeFailed: '升级失败，请断电并重新连接部件后，再次升级。',
   cNam: AttributeName
 }
 
@@ -664,7 +688,10 @@ const ComponentsTool = {
   Hmi: Hmi,
   Controller: Controller,
   Battery: Battery,
-  Update: Update
+  Update: Update,
+  MotorLock: MotorLock,
+  Tlc: Tlc,
+  WeighingSensor: WeighingSensor
 }
 
 //主页
@@ -987,9 +1014,12 @@ const ComponentComponentList = {
     sn: '序列号',
     category: '分类',
     modelName: '型号名称',
+    hmiMac: 'HMI(MAC)',
     mac: 'MAC地址',
     imei: 'IMEI',
     customerName: '客户名',
+    cartonCode: 'Carton Code',
+    qrCode: 'QR Code',
     operation: '操作'
   },
   noResult: '没有记录！',
@@ -1205,6 +1235,7 @@ const ComponentOrderDetail = {
   headData: {
     modelName: '型号名称',
     articleNo: '物料号',
+    upgradeCount: '升级数量',
     customerArticleNo: '客户物料号',
     quantity: '数量',
     operation: '操作'
@@ -1245,6 +1276,7 @@ const ComponentOrderList = {
     date: '日期',
     orderNo: '订单号',
     customerName: '客户名',
+    upgradeCount: '升级数量',
     pQ: '已生产/数量数',
     status: '状态',
     operation: '操作',

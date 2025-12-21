@@ -2,7 +2,7 @@
  * @Author: Bai YanShuo
  * @Date: 2022-10-20 16:18:35
  * @LastEditors: Bai YanShuo
- * @LastEditTime: 2022-11-09 14:01:15
+ * @LastEditTime: 2023-10-13 17:00:24
  * @FilePath: /BESST/besst-client/src/components/error/components/edit.vue
  * @Description: 
 -->
@@ -140,9 +140,10 @@ export default {
         }
       })
     },
-    showCreate() {
+    showCreate(data) {
       this.isCreate = true
       this.title = 'Create Error Message'
+      this.form.language = data.language
       this.visible = true
     },
     showEdit(bool, data) {
@@ -179,19 +180,23 @@ export default {
     padding: 20px 0;
     text-align: center;
   }
+
   .el-form {
     .select {
       width: 320px;
     }
+
     .el-form-item {
       .el-form-item__label {
         width: 120px;
         text-align: left !important;
       }
+
       .el-form-item__content {
         .el-input {
           width: 320px;
         }
+
         .el-textarea {
           width: 320px;
         }
@@ -204,4 +209,4 @@ export default {
 
 
 // WEBPACK FOOTER //
-// edit.vue?397eca8e
+// edit.vue?bc53bf46

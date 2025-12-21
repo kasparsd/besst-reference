@@ -63,7 +63,7 @@ function init() {
         6927, 2217, 6968, 2230, 7009, 7056, 7065, 7125, 7135, 7204, 7226, 7263, 7323
       ]
     },
-    { inch: 29, circumference: [2268, 2293, 2299, 2312, 2330, 7323, 7618] },
+    { inch: 29, circumference: [2268, 2293, 2299, 2312, 2330, 2640, 7323, 7618] },
     { inch: 32, circumference: [2452, 2590] },
     { inch: 400, circumference: [1208, 1243, 1268, 1301, 1315] },
     { inch: 450, circumference: [1400, 1456, 1570] },
@@ -84,5 +84,5 @@ export default circumference
 //////////////////
 // WEBPACK FOOTER
 // ./core/circumference.js
-// module id = 482
+// module id = 485
 // module chunks = 76

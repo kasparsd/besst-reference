@@ -109,6 +109,22 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       expression: "version"
     }
   })], 1), _vm._v(" "), _c('div', {
+    staticClass: "item"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v(_vm._s(_vm.$t('cNam.hardwareVersion')))]), _vm._v(" "), _c('el-input', {
+    staticClass: "input",
+    attrs: {
+      "disabled": ""
+    },
+    model: {
+      value: (_vm.hardware_version),
+      callback: function($$v) {
+        _vm.hardware_version = $$v
+      },
+      expression: "hardware_version"
+    }
+  })], 1), _vm._v(" "), _c('div', {
     staticClass: "item btn"
   }, [_c('div', {
     staticClass: "pull-right operation"
@@ -134,7 +150,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v(_vm._s(_vm.$t('cNam.read')))])], 1)]), _vm._v(" "), _c('div', {
     staticClass: "space"
-  }), _vm._v(" "), (!_vm.offLineFlag && _vm.org.type != _vm.Core.Const.ORG_TYPE.SPECIAL_DEAlER) ? _c('div', {
+  }), _vm._v(" "), (_vm.isUpgrade) ? _c('div', {
+    staticClass: "item"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v("升级数量")]), _vm._v(" "), _c('span', {
+    staticClass: "text-span"
+  }, [_vm._v(_vm._s(_vm.upgradeCount) + "/" + _vm._s(_vm.amount))])]) : _vm._e(), _vm._v(" "), (!_vm.offLineFlag && _vm.org.type != _vm.Core.Const.ORG_TYPE.SPECIAL_DEAlER) ? _c('div', {
     staticClass: "item"
   }, [_c('el-button', {
     staticClass: "cloud",
@@ -182,7 +204,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "percentage": _vm.percentage
     }
-  }), _vm._v(" "), _c('div', {}, [_c('span', {
+  }), _vm._v(" "), _c('div', {}, [(_vm.HWRecordList.length == 1 && _vm.newVerTipPop) ? _c('span', {
+    staticClass: "text-span"
+  }, [_vm._v(_vm._s(_vm.$t('cNam.newVerTip', {
+    ver: _vm.HWRecordList[0].version
+  })))]) : _vm._e(), _vm._v(" "), (_vm.HWRecordList.length > 1 && _vm.newVerTipPop) ? _c('span', {
+    staticClass: "text-span"
+  }, [_vm._v(_vm._s(_vm.$t('cNam.moreVerTip')))]) : _vm._e(), _vm._v(" "), _c('span', {
     directives: [{
       name: "show",
       rawName: "v-show",
@@ -286,7 +314,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "note tip"
   }, [_c('div', {
     staticClass: "msg-title"
-  }, [_vm._v(_vm._s(_vm.$t('cNam.updateMsg')))])]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n              " + _vm._s(_vm.$t('cNam.updateMsg')) + "\n            ")])]), _vm._v(" "), _c('div', {
     staticClass: "note"
   }, [_c('div', {
     staticClass: "msg"
@@ -314,27 +342,27 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "no"
   }, [_vm._v("1:")]), _c('span', {
     staticClass: "stepText"
-  }, [_vm._v(" " + _vm._s(_vm.$t('cNam.updateStep1')) + " ")])]), _vm._v(" "), _c('div', [_c('span', {
+  }, [_vm._v("\n            " + _vm._s(_vm.$t('cNam.updateStep1')) + "\n          ")])]), _vm._v(" "), _c('div', [_c('span', {
     staticClass: "no"
   }, [_vm._v("2:")]), _c('span', {
     staticClass: "stepText"
-  }, [_vm._v(" " + _vm._s(_vm.$t('cNam.updateStep2')) + " ")])]), _vm._v(" "), _c('div', [_c('span', {
+  }, [_vm._v("\n            " + _vm._s(_vm.$t('cNam.updateStep2')) + "\n          ")])]), _vm._v(" "), _c('div', [_c('span', {
     staticClass: "no"
   }, [_vm._v("3:")]), _c('span', {
     staticClass: "stepText"
-  }, [_vm._v(" " + _vm._s(_vm.$t('cNam.updateStep3')) + " ")])]), _vm._v(" "), _c('div', [_c('span', {
+  }, [_vm._v("\n            " + _vm._s(_vm.$t('cNam.updateStep3')) + "\n          ")])]), _vm._v(" "), _c('div', [_c('span', {
     staticClass: "no"
   }, [_vm._v("4:")]), _c('span', {
     staticClass: "stepText"
-  }, [_vm._v(" " + _vm._s(_vm.$t('cNam.updateStep4')) + " ")])]), _vm._v(" "), _c('div', [_c('span', {
+  }, [_vm._v("\n            " + _vm._s(_vm.$t('cNam.updateStep4')) + "\n          ")])]), _vm._v(" "), _c('div', [_c('span', {
     staticClass: "no"
   }, [_vm._v("5:")]), _c('span', {
     staticClass: "stepText"
-  }, [_vm._v(" " + _vm._s(_vm.$t('cNam.updateStep5')) + " ")])]), _vm._v(" "), _c('div', [_c('span', {
+  }, [_vm._v("\n            " + _vm._s(_vm.$t('cNam.updateStep5')) + "\n          ")])]), _vm._v(" "), _c('div', [_c('span', {
     staticClass: "no"
   }, [_vm._v("6:")]), _c('span', {
     staticClass: "stepText"
-  }, [_vm._v(" " + _vm._s(_vm.$t('cNam.updateStep6')) + " ")])])])])]), _vm._v(" "), _c('el-dialog', {
+  }, [_vm._v("\n            " + _vm._s(_vm.$t('cNam.updateStep6')) + "\n          ")])])])])]), _vm._v(" "), _c('el-dialog', {
     attrs: {
       "title": _vm.$t('cNam.operationTip'),
       "custom-class": "tip-dialog",
@@ -402,12 +430,14 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "history-td head"
   }, [_vm._v("\n            " + _vm._s(_vm.$t('remark')) + "\n          ")]), _vm._v(" "), _c('td', {
     staticClass: "history-td head"
-  }, [_vm._v("\n            " + _vm._s(_vm.$t('operation')) + "\n          ")])])]), _vm._v(" "), _vm._l((_vm.HWRecordList), function(item) {
-    return _c('tr', [_c('td', {
+  }, [_vm._v("\n            " + _vm._s(_vm.$t('operation')) + "\n          ")])])]), _vm._v(" "), _vm._l((_vm.HWRecordList), function(item, index) {
+    return _c('tr', {
+      key: index
+    }, [_c('td', {
       staticClass: "history-td"
     }, [_vm._v(_vm._s(item.version))]), _vm._v(" "), _c('td', {
       staticClass: "history-td"
-    }, [_vm._v(_vm._s(_vm._f("dateFormat")(item.create_time)))]), _vm._v(" "), _c('td', {
+    }, [_vm._v("\n          " + _vm._s(item.publishDate) + "\n        ")]), _vm._v(" "), _c('td', {
       staticClass: "history-td"
     }, [_vm._v(_vm._s(item.remark))]), _vm._v(" "), _c('td', {
       staticClass: "history-td"
@@ -428,5 +458,5 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
 //////////////////
 // WEBPACK FOOTER
 // ./node_modules/vue-loader/lib/template-compiler?{"id":"data-v-126ed0fc","hasScoped":false}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./src/components/tool/update.vue
-// module id = 1294
+// module id = 1302
 // module chunks = 76

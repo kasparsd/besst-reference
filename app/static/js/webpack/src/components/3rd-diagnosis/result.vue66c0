@@ -16,7 +16,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })])]), _vm._v(" "), _c('span', {
     staticClass: "title"
-  }, [_vm._v(_vm._s(_vm.$t("resultTitle")))]), _vm._v(" "), _c('div', {
+  }, [_vm._v(_vm._s(_vm.$t('resultTitle')))]), _vm._v(" "), _c('div', {
     staticClass: "btn-group-top"
   }, [_c('div', {
     staticClass: "icons"
@@ -36,7 +36,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "bicycle-type mb-10"
   }, [_c('label', {
     staticClass: "mr-15"
-  }, [_vm._v("\n          " + _vm._s(_vm.$t("resultBike")) + "\n        ")]), _vm._v(" "), _c('el-input', {
+  }, [_vm._v("\n          " + _vm._s(_vm.$t('resultBike')) + "\n        ")]), _vm._v(" "), _c('el-input', {
     staticClass: "b-type-input inline-block w-200",
     attrs: {
       "disabled": ""
@@ -69,12 +69,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           return _vm.showDetail(item.key)
         }
       }
-    }, [_vm._v("\n              " + _vm._s(_vm.$t("detail")) + "\n            ")]) : _c('td', [_vm._v("-")])])
+    }, [_vm._v("\n              " + _vm._s(_vm.$t('detail')) + "\n            ")]) : _c('td', [_vm._v("-")])])
   }), 0)]), _vm._v(" "), _c('div', {
     staticClass: "table-bottom mb-10"
   }, [_c('div', [_c('label', {
     staticClass: "mr-15"
-  }, [_vm._v("\n            " + _vm._s(_vm.$t("cNam.motor")) + "\n          ")]), _vm._v(" "), _c('el-input', {
+  }, [_vm._v("\n            " + _vm._s(_vm.$t('cNam.motor')) + "\n          ")]), _vm._v(" "), _c('el-input', {
     staticClass: "scan-input inline-block",
     attrs: {
       "placeholder": "SN"
@@ -88,7 +88,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })], 1), _vm._v(" "), _c('div', [_c('label', {
     staticClass: "mr-15"
-  }, [_vm._v("\n            " + _vm._s(_vm.$t("bikeId")) + "\n          ")]), _vm._v(" "), _c('el-input', {
+  }, [_vm._v("\n            " + _vm._s(_vm.$t('bikeId')) + "\n          ")]), _vm._v(" "), _c('el-input', {
     staticClass: "scan-input inline-block",
     attrs: {
       "placeholder": "SN"
@@ -102,7 +102,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })], 1), _vm._v(" "), _c('div', [_c('label', {
     staticClass: "mr-15"
-  }, [_vm._v("\n            " + _vm._s(_vm.$t("key")) + "\n          ")]), _vm._v(" "), _c('el-input', {
+  }, [_vm._v("\n            " + _vm._s(_vm.$t('key')) + "\n          ")]), _vm._v(" "), _c('el-input', {
     staticClass: "scan-input inline-block",
     attrs: {
       "placeholder": "SN"
@@ -118,19 +118,19 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "result-holder"
   }, [_c('div', {
     staticClass: "result-top"
-  }, [_vm._v("\n          " + _vm._s(_vm.$t("result")) + "\n        ")]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n          " + _vm._s(_vm.$t('result')) + "\n        ")]), _vm._v(" "), _c('div', {
     staticClass: "result-content"
   }, [_vm._l((_vm.listStatus), function(item) {
     return [_c('div', [_c('span', [_vm._v(_vm._s(item.name))]), _vm._v(" "), (item.okOrFail == 1) ? _c('span', {
       staticClass: "result-span ok"
-    }, [_vm._v(_vm._s(_vm.$t("ok")))]) : _vm._e(), _vm._v(" "), (item.okOrFail == 2) ? _c('span', {
+    }, [_vm._v(_vm._s(_vm.$t('ok')))]) : _vm._e(), _vm._v(" "), (item.okOrFail == 2) ? _c('span', {
       staticClass: "result-span fail"
-    }, [_vm._v(_vm._s(_vm.$t("fail")))]) : _vm._e(), _vm._v(" "), (item.okOrFail == 0) ? _c('span', {
+    }, [_vm._v(_vm._s(_vm.$t('fail')))]) : _vm._e(), _vm._v(" "), (item.okOrFail == 0) ? _c('span', {
       staticClass: "result-span none"
     }, [_vm._v("--")]) : _vm._e()])]
   })], 2), _vm._v(" "), _c('div', {
     staticClass: "result-desc"
-  }, [_c('span', [_vm._v(_vm._s(_vm.$t("defects")))]), _vm._v(" "), _vm._l((_vm.defect), function(d) {
+  }, [_c('span', [_vm._v(_vm._s(_vm.$t('defects')))]), _vm._v(" "), _vm._l((_vm.defect), function(d) {
     return _c('div', [_c('span', {
       staticClass: "defect-span"
     }, [_vm._v(_vm._s(d))])])
@@ -138,13 +138,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "result-desc"
   }, [_c('div', {
     staticClass: "title-wrap"
-  }, [_c('span', [_vm._v(_vm._s(_vm.$t("defectDes")))])]), _vm._v(" "), _c('div', {
+  }, [_c('span', [_vm._v(_vm._s(_vm.$t('defectDes')))])]), _vm._v(" "), _c('div', {
     staticClass: "title-wrap"
   }, [_c('p', [_vm._v(_vm._s(_vm.desc))])])]), _vm._v(" "), _c('div', {
     staticClass: "result-desc"
   }, [_c('div', {
     staticClass: "title-wrap"
-  }, [_c('span', [_vm._v(_vm._s(_vm.$t("image")))])]), _vm._v(" "), _vm._l((_vm.fileList.img), function(item, index) {
+  }, [_c('span', [_vm._v(_vm._s(_vm.$t('image')))])]), _vm._v(" "), _vm._l((_vm.fileList.img), function(item, index) {
     return _c('div', {
       staticClass: "img-holder"
     }, [_c('img', {
@@ -157,7 +157,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "result-desc"
   }, [_c('div', {
     staticClass: "title-wrap"
-  }, [_c('span', [_vm._v(_vm._s(_vm.$t("video")))])]), _vm._v(" "), _vm._l((_vm.fileList.video), function(item, index) {
+  }, [_c('span', [_vm._v(_vm._s(_vm.$t('video')))])]), _vm._v(" "), _vm._l((_vm.fileList.video), function(item, index) {
     return _c('div', {
       staticClass: "video-holder"
     }, [_c('video', {
@@ -174,9 +174,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "click": _vm.saveReport
     }
-  }, [_vm._v(_vm._s(_vm.$t("saveReport")))]) : _vm._e(), _vm._v(" "), (_vm.offLineFlag) ? _c('span', {
+  }, [_vm._v(_vm._s(_vm.$t('saveReport')))]) : _vm._e(), _vm._v(" "), (_vm.offLineFlag) ? _c('span', {
     staticClass: "fr"
-  }, [_vm._v(_vm._s(_vm.$t("offLineTip")))]) : _vm._e()])]), _vm._v(" "), _c('el-dialog', {
+  }, [_vm._v(_vm._s(_vm.$t('offLineTip')))]) : _vm._e()])]), _vm._v(" "), _c('el-dialog', {
     staticClass: "diagnosis-detail-warp",
     attrs: {
       "title": "Detail",
@@ -213,7 +213,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "item"
   }, [_c('label', {
     staticClass: "label"
-  }, [_vm._v(_vm._s(_vm.$t("cNam.model")))]), _vm._v(" "), _c('el-input', {
+  }, [_vm._v(_vm._s(_vm.$t('cNam.model')))]), _vm._v(" "), _c('el-input', {
     staticClass: "input",
     model: {
       value: (_vm.controllerInfo.model),
@@ -226,7 +226,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "item"
   }, [_c('label', {
     staticClass: "label"
-  }, [_vm._v(_vm._s(_vm.$t("cNam.softwareVersion")))]), _vm._v(" "), _c('el-input', {
+  }, [_vm._v(_vm._s(_vm.$t('cNam.softwareVersion')))]), _vm._v(" "), _c('el-input', {
     staticClass: "input",
     model: {
       value: (_vm.controllerInfo.version),
@@ -239,7 +239,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "item"
   }, [_c('label', {
     staticClass: "label"
-  }, [_vm._v(_vm._s(_vm.$t("cNam.hardwareVersion")))]), _vm._v(" "), _c('el-input', {
+  }, [_vm._v(_vm._s(_vm.$t('cNam.hardwareVersion')))]), _vm._v(" "), _c('el-input', {
     staticClass: "input",
     model: {
       value: (_vm.controllerInfo.hardVersion),
@@ -260,7 +260,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "item"
   }, [_c('label', {
     staticClass: "label"
-  }, [_vm._v(_vm._s(_vm.$t("cNam.nmlVolt")))]), _vm._v(" "), _c('el-input', {
+  }, [_vm._v(_vm._s(_vm.$t('cNam.nmlVolt')))]), _vm._v(" "), _c('el-input', {
     staticClass: "input",
     model: {
       value: (_vm.controllerInfo.nmlVolt),
@@ -281,7 +281,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "item"
   }, [_c('label', {
     staticClass: "label"
-  }, [_vm._v(_vm._s(_vm.$t("cNam.maxCur")))]), _vm._v(" "), _c('el-input', {
+  }, [_vm._v(_vm._s(_vm.$t('cNam.maxCur')))]), _vm._v(" "), _c('el-input', {
     staticClass: "input",
     model: {
       value: (_vm.controllerInfo.maxCurrent),
@@ -302,7 +302,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "item"
   }, [_c('label', {
     staticClass: "label"
-  }, [_vm._v(_vm._s(_vm.$t("cNam.speedLimit")))]), _vm._v(" "), _c('el-input', {
+  }, [_vm._v(_vm._s(_vm.$t('cNam.speedLimit')))]), _vm._v(" "), _c('el-input', {
     staticClass: "input",
     model: {
       value: (_vm.controllerInfo.speedLimit),
@@ -323,7 +323,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "item"
   }, [_c('label', {
     staticClass: "label"
-  }, [_vm._v(_vm._s(_vm.$t("cNam.wheelDiameter")))]), _vm._v(" "), _c('el-input', {
+  }, [_vm._v(_vm._s(_vm.$t('cNam.wheelDiameter')))]), _vm._v(" "), _c('el-input', {
     staticClass: "input",
     model: {
       value: (_vm.controllerInfo.wheelDiameter),
@@ -342,7 +342,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "item"
   }, [_c('label', {
     staticClass: "label"
-  }, [_vm._v(_vm._s(_vm.$t("cNam.circumference")))]), _vm._v(" "), _c('el-input', {
+  }, [_vm._v(_vm._s(_vm.$t('cNam.circumference')))]), _vm._v(" "), _c('el-input', {
     staticClass: "input",
     model: {
       value: (_vm.controllerInfo.circumference),
@@ -372,7 +372,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "item"
   }, [_c('label', {
     staticClass: "label"
-  }, [_vm._v(_vm._s(_vm.$t("cNam.model")))]), _vm._v(" "), _c('el-input', {
+  }, [_vm._v(_vm._s(_vm.$t('cNam.model')))]), _vm._v(" "), _c('el-input', {
     staticClass: "input",
     model: {
       value: (_vm.hmiInfo.model),
@@ -385,7 +385,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "item"
   }, [_c('label', {
     staticClass: "label"
-  }, [_vm._v(_vm._s(_vm.$t("cNam.softwareVersion")))]), _vm._v(" "), _c('el-input', {
+  }, [_vm._v(_vm._s(_vm.$t('cNam.softwareVersion')))]), _vm._v(" "), _c('el-input', {
     staticClass: "input",
     model: {
       value: (_vm.hmiInfo.version),
@@ -398,7 +398,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "item"
   }, [_c('label', {
     staticClass: "label"
-  }, [_vm._v(_vm._s(_vm.$t("cNam.hardwareVersion")))]), _vm._v(" "), _c('el-input', {
+  }, [_vm._v(_vm._s(_vm.$t('cNam.hardwareVersion')))]), _vm._v(" "), _c('el-input', {
     staticClass: "input",
     model: {
       value: (_vm.hmiInfo.hardVersion),
@@ -413,7 +413,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "item"
   }, [_c('label', {
     staticClass: "label"
-  }, [_vm._v(_vm._s(_vm.$t("cNam.totalMileage")))]), _vm._v(" "), _c('el-input', {
+  }, [_vm._v(_vm._s(_vm.$t('cNam.totalMileage')))]), _vm._v(" "), _c('el-input', {
     staticClass: "input",
     model: {
       value: (_vm.hmiInfo.totalMileage),
@@ -434,7 +434,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "item"
   }, [_c('label', {
     staticClass: "label"
-  }, [_vm._v(_vm._s(_vm.$t("cNam.wheelDiameter")))]), _vm._v(" "), _c('el-input', {
+  }, [_vm._v(_vm._s(_vm.$t('cNam.wheelDiameter')))]), _vm._v(" "), _c('el-input', {
     staticClass: "input",
     model: {
       value: (_vm.hmiInfo.wheelDiameter),
@@ -453,7 +453,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "item"
   }, [_c('label', {
     staticClass: "label"
-  }, [_vm._v(_vm._s(_vm.$t("cNam.speedLimit")))]), _vm._v(" "), _c('el-input', {
+  }, [_vm._v(_vm._s(_vm.$t('cNam.speedLimit')))]), _vm._v(" "), _c('el-input', {
     staticClass: "input",
     model: {
       value: (_vm.hmiInfo.speedLimit),
@@ -483,7 +483,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "item"
   }, [_c('label', {
     staticClass: "label"
-  }, [_vm._v(_vm._s(_vm.$t("cNam.model")))]), _vm._v(" "), _c('el-input', {
+  }, [_vm._v(_vm._s(_vm.$t('cNam.model')))]), _vm._v(" "), _c('el-input', {
     staticClass: "input",
     model: {
       value: (_vm.pedalSensorInfo.name),
@@ -498,7 +498,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "item"
   }, [_c('label', {
     staticClass: "label"
-  }, [_vm._v(_vm._s(_vm.$t("cNam.softwareVersion")))]), _vm._v(" "), _c('el-input', {
+  }, [_vm._v(_vm._s(_vm.$t('cNam.softwareVersion')))]), _vm._v(" "), _c('el-input', {
     staticClass: "input",
     model: {
       value: (_vm.pedalSensorInfo.version),
@@ -511,7 +511,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "item"
   }, [_c('label', {
     staticClass: "label"
-  }, [_vm._v(_vm._s(_vm.$t("cNam.hardwareVersion")))]), _vm._v(" "), _c('el-input', {
+  }, [_vm._v(_vm._s(_vm.$t('cNam.hardwareVersion')))]), _vm._v(" "), _c('el-input', {
     staticClass: "input",
     model: {
       value: (_vm.pedalSensorInfo.hardVersion),
@@ -539,7 +539,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "item"
   }, [_c('label', {
     staticClass: "label"
-  }, [_vm._v(_vm._s(_vm.$t("cNam.power")))]), _vm._v(" "), _c('el-input', {
+  }, [_vm._v(_vm._s(_vm.$t('cNam.power')))]), _vm._v(" "), _c('el-input', {
     staticClass: "input",
     model: {
       value: (_vm.motorInfo.power),
@@ -554,7 +554,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "item"
   }, [_c('label', {
     staticClass: "label"
-  }, [_vm._v(_vm._s(_vm.$t("cNam.voltage")))]), _vm._v(" "), _c('el-input', {
+  }, [_vm._v(_vm._s(_vm.$t('cNam.voltage')))]), _vm._v(" "), _c('el-input', {
     staticClass: "input",
     model: {
       value: (_vm.motorInfo.voltage),
@@ -571,7 +571,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "item"
   }, [_c('label', {
     staticClass: "label"
-  }, [_vm._v(_vm._s(_vm.$t("cNam.model")))]), _vm._v(" "), _c('el-input', {
+  }, [_vm._v(_vm._s(_vm.$t('cNam.model')))]), _vm._v(" "), _c('el-input', {
     staticClass: "input",
     model: {
       value: (_vm.motorInfo.model),
@@ -584,7 +584,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "item"
   }, [_c('label', {
     staticClass: "label"
-  }, [_vm._v(_vm._s(_vm.$t("cNam.wheelSize")))]), _vm._v(" "), _c('el-input', {
+  }, [_vm._v(_vm._s(_vm.$t('cNam.wheelSize')))]), _vm._v(" "), _c('el-input', {
     staticClass: "input",
     model: {
       value: (_vm.motorInfo.wheelSize),
@@ -597,7 +597,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "item"
   }, [_c('label', {
     staticClass: "label"
-  }, [_vm._v(_vm._s(_vm.$t("cNam.rpm")))]), _vm._v(" "), _c('el-input', {
+  }, [_vm._v(_vm._s(_vm.$t('cNam.rpm')))]), _vm._v(" "), _c('el-input', {
     staticClass: "input",
     model: {
       value: (_vm.motorInfo.rpm),
@@ -625,7 +625,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "item"
   }, [_c('label', {
     staticClass: "label"
-  }, [_vm._v(_vm._s(_vm.$t("cNam.softwareVersion")))]), _vm._v(" "), _c('el-input', {
+  }, [_vm._v(_vm._s(_vm.$t('cNam.softwareVersion')))]), _vm._v(" "), _c('el-input', {
     staticClass: "input",
     model: {
       value: (_vm.batteryInfo.version),
@@ -638,7 +638,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "item"
   }, [_c('label', {
     staticClass: "label"
-  }, [_vm._v(_vm._s(_vm.$t("cNam.ASOC")))]), _vm._v(" "), _c('el-input', {
+  }, [_vm._v(_vm._s(_vm.$t('cNam.ASOC')))]), _vm._v(" "), _c('el-input', {
     staticClass: "input",
     model: {
       value: (_vm.batteryInfo.soh),
@@ -653,7 +653,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "item"
   }, [_c('label', {
     staticClass: "label"
-  }, [_vm._v(_vm._s(_vm.$t("cNam.packVoltage")))]), _vm._v(" "), _c('el-input', {
+  }, [_vm._v(_vm._s(_vm.$t('cNam.packVoltage')))]), _vm._v(" "), _c('el-input', {
     staticClass: "input",
     model: {
       value: (_vm.batteryInfo.packVoltage),
@@ -668,7 +668,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "item"
   }, [_c('label', {
     staticClass: "label"
-  }, [_vm._v(_vm._s(_vm.$t("cNam.fullChargeCapacity")))]), _vm._v(" "), _c('el-input', {
+  }, [_vm._v(_vm._s(_vm.$t('cNam.fullChargeCapacity')))]), _vm._v(" "), _c('el-input', {
     staticClass: "input",
     model: {
       value: (_vm.batteryInfo.fullChargerCapacity),
@@ -683,7 +683,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "item"
   }, [_c('label', {
     staticClass: "label"
-  }, [_vm._v(_vm._s(_vm.$t("cNam.current")))]), _vm._v(" "), _c('el-input', {
+  }, [_vm._v(_vm._s(_vm.$t('cNam.current')))]), _vm._v(" "), _c('el-input', {
     staticClass: "input",
     model: {
       value: (_vm.batteryInfo.current),
@@ -698,7 +698,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "item"
   }, [_c('label', {
     staticClass: "label"
-  }, [_vm._v(_vm._s(_vm.$t("cNam.cell8_14")))]), _vm._v(" "), _c('el-input', {
+  }, [_vm._v(_vm._s(_vm.$t('cNam.cell8_14')))]), _vm._v(" "), _c('el-input', {
     staticClass: "input",
     model: {
       value: (_vm.batteryInfo.cell8to14),
@@ -713,7 +713,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "item"
   }, [_c('label', {
     staticClass: "label"
-  }, [_vm._v(_vm._s(_vm.$t("cNam.currentChargeInterval")))]), _vm._v(" "), _c('el-input', {
+  }, [_vm._v(_vm._s(_vm.$t('cNam.currentChargeInterval')))]), _vm._v(" "), _c('el-input', {
     staticClass: "input",
     model: {
       value: (_vm.batteryInfo.lastCharge),
@@ -730,7 +730,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "item"
   }, [_c('label', {
     staticClass: "label"
-  }, [_vm._v(_vm._s(_vm.$t("cNam.model")))]), _vm._v(" "), _c('el-input', {
+  }, [_vm._v(_vm._s(_vm.$t('cNam.model')))]), _vm._v(" "), _c('el-input', {
     staticClass: "input",
     model: {
       value: (_vm.batteryInfo.model),
@@ -743,7 +743,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "item"
   }, [_c('label', {
     staticClass: "label"
-  }, [_vm._v(_vm._s(_vm.$t("cNam.hardwareVersion")))]), _vm._v(" "), _c('el-input', {
+  }, [_vm._v(_vm._s(_vm.$t('cNam.hardwareVersion')))]), _vm._v(" "), _c('el-input', {
     staticClass: "input",
     model: {
       value: (_vm.batteryInfo.hardVersion),
@@ -756,7 +756,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "item"
   }, [_c('label', {
     staticClass: "label"
-  }, [_vm._v(_vm._s(_vm.$t("cNam.RSOC")))]), _vm._v(" "), _c('el-input', {
+  }, [_vm._v(_vm._s(_vm.$t('cNam.RSOC')))]), _vm._v(" "), _c('el-input', {
     staticClass: "input",
     model: {
       value: (_vm.batteryInfo.soc),
@@ -771,7 +771,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "item"
   }, [_c('label', {
     staticClass: "label"
-  }, [_vm._v(_vm._s(_vm.$t("cNam.capacityLeft")))]), _vm._v(" "), _c('el-input', {
+  }, [_vm._v(_vm._s(_vm.$t('cNam.capacityLeft')))]), _vm._v(" "), _c('el-input', {
     staticClass: "input",
     model: {
       value: (_vm.batteryInfo.leftCapacity),
@@ -786,7 +786,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "item"
   }, [_c('label', {
     staticClass: "label"
-  }, [_vm._v(_vm._s(_vm.$t("cNam.temperature")))]), _vm._v(" "), _c('el-input', {
+  }, [_vm._v(_vm._s(_vm.$t('cNam.temperature')))]), _vm._v(" "), _c('el-input', {
     staticClass: "input",
     model: {
       value: (_vm.batteryInfo.temperature),
@@ -801,7 +801,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "item"
   }, [_c('label', {
     staticClass: "label"
-  }, [_vm._v(_vm._s(_vm.$t("cNam.cell1_7")))]), _vm._v(" "), _c('el-input', {
+  }, [_vm._v(_vm._s(_vm.$t('cNam.cell1_7')))]), _vm._v(" "), _c('el-input', {
     staticClass: "input",
     model: {
       value: (_vm.batteryInfo.cell1to7),
@@ -816,7 +816,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "item"
   }, [_c('label', {
     staticClass: "label"
-  }, [_vm._v(_vm._s(_vm.$t("cNam.cycleLife")))]), _vm._v(" "), _c('el-input', {
+  }, [_vm._v(_vm._s(_vm.$t('cNam.cycleLife')))]), _vm._v(" "), _c('el-input', {
     staticClass: "input",
     model: {
       value: (_vm.batteryInfo.loopTime),
@@ -829,7 +829,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "item"
   }, [_c('label', {
     staticClass: "label"
-  }, [_vm._v(_vm._s(_vm.$t("cNam.maxChargeInterval")))]), _vm._v(" "), _c('el-input', {
+  }, [_vm._v(_vm._s(_vm.$t('cNam.maxChargeInterval')))]), _vm._v(" "), _c('el-input', {
     staticClass: "input",
     model: {
       value: (_vm.batteryInfo.maxChargeInterval),
@@ -865,13 +865,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "label-title"
   }, [_vm._v("Store Name")]), _vm._v(" "), _c('div', {
     staticClass: "content"
-  }, [_vm._v(_vm._s(_vm.org.name || "-"))])]), _vm._v(" "), _c('li', {
+  }, [_vm._v(_vm._s(_vm.org.name || '-'))])]), _vm._v(" "), _c('li', {
     staticClass: "list-group-item-50"
   }, [_c('div', {
     staticClass: "label-title"
   }, [_vm._v("Store Email")]), _vm._v(" "), _c('div', {
     staticClass: "content"
-  }, [_vm._v(_vm._s(_vm.org.email || "-"))])])]), _vm._v(" "), _c('ul', {
+  }, [_vm._v(_vm._s(_vm.org.email || '-'))])])]), _vm._v(" "), _c('ul', {
     staticClass: "list-group-customer"
   }, [_c('li', {
     staticClass: "list-group-item-50"
@@ -879,7 +879,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "label-title"
   }, [_vm._v("Store Tel.")]), _vm._v(" "), _c('div', {
     staticClass: "content"
-  }, [_vm._v(_vm._s(_vm.org.phone || "-"))])])]), _vm._v(" "), _c('ul', {
+  }, [_vm._v(_vm._s(_vm.org.phone || '-'))])])]), _vm._v(" "), _c('ul', {
     staticClass: "list-group-customer"
   }, [_c('li', {
     staticClass: "list-group-item-100"
@@ -887,7 +887,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "label-title"
   }, [_vm._v("Store Address")]), _vm._v(" "), _c('div', {
     staticClass: "content"
-  }, [_vm._v(_vm._s(_vm.org.address + _vm.org.country || "-"))])])])]), _vm._v(" "), _c('el-collapse-item', {
+  }, [_vm._v(_vm._s(_vm.org.address + _vm.org.country || '-'))])])])]), _vm._v(" "), _c('el-collapse-item', {
     attrs: {
       "title": "Bike Info",
       "name": "2"
@@ -900,7 +900,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "label-title"
   }, [_vm._v("Bike ID")]), _vm._v(" "), _c('div', {
     staticClass: "content"
-  }, [_vm._v(_vm._s(_vm.vehicleSn || "-"))])])])]), _vm._v(" "), _c('el-collapse-item', {
+  }, [_vm._v(_vm._s(_vm.vehicleSn || '-'))])])])]), _vm._v(" "), _c('el-collapse-item', {
     attrs: {
       "title": "Diagnosis HMI",
       "name": "3"
@@ -913,31 +913,31 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "label-title"
   }, [_vm._v("SN")]), _vm._v(" "), _c('div', {
     staticClass: "content"
-  }, [_vm._v(_vm._s(_vm.hmiInfo ? _vm.hmiInfo.sn + _vm.hmiInfo.tip : "-"))])]), _vm._v(" "), _c('li', {
+  }, [_vm._v(_vm._s(_vm.hmiInfo ? _vm.hmiInfo.sn + _vm.hmiInfo.tip : '-'))])]), _vm._v(" "), _c('li', {
     staticClass: "list-group-item"
   }, [_c('div', {
     staticClass: "label-title"
-  }, [_vm._v(_vm._s(_vm.$t("cNam.model")))]), _vm._v(" "), _c('div', {
+  }, [_vm._v(_vm._s(_vm.$t('cNam.model')))]), _vm._v(" "), _c('div', {
     staticClass: "content"
-  }, [_vm._v(_vm._s(_vm.hmiInfo ? _vm.hmiInfo.model : "-"))])]), _vm._v(" "), _c('li', {
+  }, [_vm._v(_vm._s(_vm.hmiInfo ? _vm.hmiInfo.model : '-'))])]), _vm._v(" "), _c('li', {
     staticClass: "list-group-item"
   }, [_c('div', {
     staticClass: "label-title"
-  }, [_vm._v(_vm._s(_vm.$t("cNam.softwareVersion")))]), _vm._v(" "), _c('div', {
+  }, [_vm._v(_vm._s(_vm.$t('cNam.softwareVersion')))]), _vm._v(" "), _c('div', {
     staticClass: "content"
-  }, [_vm._v(_vm._s(_vm.hmiInfo ? _vm.hmiInfo.version : "-"))])]), _vm._v(" "), _c('li', {
+  }, [_vm._v(_vm._s(_vm.hmiInfo ? _vm.hmiInfo.version : '-'))])]), _vm._v(" "), _c('li', {
     staticClass: "list-group-item"
   }, [_c('div', {
     staticClass: "label-title"
-  }, [_vm._v(_vm._s(_vm.$t("cNam.hardwareVersion")))]), _vm._v(" "), _c('div', {
+  }, [_vm._v(_vm._s(_vm.$t('cNam.hardwareVersion')))]), _vm._v(" "), _c('div', {
     staticClass: "content"
-  }, [_vm._v(_vm._s(_vm.hmiInfo ? _vm.hmiInfo.hardVersion : "-"))])]), _vm._v(" "), _c('li', {
+  }, [_vm._v(_vm._s(_vm.hmiInfo ? _vm.hmiInfo.hardVersion : '-'))])]), _vm._v(" "), _c('li', {
     staticClass: "list-group-item"
   }, [_c('div', {
     staticClass: "label-title"
-  }, [_vm._v(_vm._s(_vm.$t("cNam.totalMileage")) + "(km)")]), _vm._v(" "), _c('div', {
+  }, [_vm._v(_vm._s(_vm.$t('cNam.totalMileage')) + "(km)")]), _vm._v(" "), _c('div', {
     staticClass: "content"
-  }, [_vm._v(_vm._s(_vm.hmiInfo ? _vm.hmiInfo.totalMileage : "-"))])]), _vm._v(" "), _c('li', {
+  }, [_vm._v(_vm._s(_vm.hmiInfo ? _vm.hmiInfo.totalMileage : '-'))])]), _vm._v(" "), _c('li', {
     directives: [{
       name: "show",
       rawName: "v-show",
@@ -947,9 +947,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "list-group-item"
   }, [_c('div', {
     staticClass: "label-title"
-  }, [_vm._v(_vm._s(_vm.$t("cNam.wheelDiameter")))]), _vm._v(" "), _c('div', {
+  }, [_vm._v(_vm._s(_vm.$t('cNam.wheelDiameter')))]), _vm._v(" "), _c('div', {
     staticClass: "content"
-  }, [_vm._v(_vm._s(_vm.hmiInfo ? _vm.hmiInfo.wheelDiameter : "-"))])]), _vm._v(" "), _c('li', {
+  }, [_vm._v(_vm._s(_vm.hmiInfo ? _vm.hmiInfo.wheelDiameter : '-'))])]), _vm._v(" "), _c('li', {
     directives: [{
       name: "show",
       rawName: "v-show",
@@ -959,9 +959,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "list-group-item"
   }, [_c('div', {
     staticClass: "label-title"
-  }, [_vm._v(_vm._s(_vm.$t("cNam.speedLimit")) + "(km/h)")]), _vm._v(" "), _c('div', {
+  }, [_vm._v(_vm._s(_vm.$t('cNam.speedLimit')) + "(km/h)")]), _vm._v(" "), _c('div', {
     staticClass: "content"
-  }, [_vm._v(_vm._s(_vm.hmiInfo ? _vm.hmiInfo.speedLimit : "-"))])])])]), _vm._v(" "), _c('el-collapse-item', {
+  }, [_vm._v(_vm._s(_vm.hmiInfo ? _vm.hmiInfo.speedLimit : '-'))])])])]), _vm._v(" "), _c('el-collapse-item', {
     attrs: {
       "title": "Diagnosis Controller",
       "name": "3"
@@ -974,25 +974,25 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "label-title"
   }, [_vm._v("SN")]), _vm._v(" "), _c('div', {
     staticClass: "content"
-  }, [_vm._v("\n                " + _vm._s(_vm.controllerInfo ? _vm.controllerInfo.sn + _vm.controllerInfo.tip : "-") + "\n              ")])]), _vm._v(" "), _c('li', {
+  }, [_vm._v("\n                " + _vm._s(_vm.controllerInfo ? _vm.controllerInfo.sn + _vm.controllerInfo.tip : '-') + "\n              ")])]), _vm._v(" "), _c('li', {
     staticClass: "list-group-item"
   }, [_c('div', {
     staticClass: "label-title"
-  }, [_vm._v(_vm._s(_vm.$t("cNam.model")))]), _vm._v(" "), _c('div', {
+  }, [_vm._v(_vm._s(_vm.$t('cNam.model')))]), _vm._v(" "), _c('div', {
     staticClass: "content"
-  }, [_vm._v("\n                " + _vm._s(_vm.controllerInfo ? _vm.controllerInfo.model : "-") + "\n              ")])]), _vm._v(" "), _c('li', {
+  }, [_vm._v("\n                " + _vm._s(_vm.controllerInfo ? _vm.controllerInfo.model : '-') + "\n              ")])]), _vm._v(" "), _c('li', {
     staticClass: "list-group-item"
   }, [_c('div', {
     staticClass: "label-title"
-  }, [_vm._v(_vm._s(_vm.$t("cNam.softwareVersion")))]), _vm._v(" "), _c('div', {
+  }, [_vm._v(_vm._s(_vm.$t('cNam.softwareVersion')))]), _vm._v(" "), _c('div', {
     staticClass: "content"
-  }, [_vm._v("\n                " + _vm._s(_vm.controllerInfo ? _vm.controllerInfo.version : "-") + "\n              ")])]), _vm._v(" "), _c('li', {
+  }, [_vm._v("\n                " + _vm._s(_vm.controllerInfo ? _vm.controllerInfo.version : '-') + "\n              ")])]), _vm._v(" "), _c('li', {
     staticClass: "list-group-item"
   }, [_c('div', {
     staticClass: "label-title"
-  }, [_vm._v(_vm._s(_vm.$t("cNam.hardwareVersion")))]), _vm._v(" "), _c('div', {
+  }, [_vm._v(_vm._s(_vm.$t('cNam.hardwareVersion')))]), _vm._v(" "), _c('div', {
     staticClass: "content"
-  }, [_vm._v("\n                " + _vm._s(_vm.controllerInfo ? _vm.controllerInfo.hardVersion : "-") + "\n              ")])]), _vm._v(" "), _c('li', {
+  }, [_vm._v("\n                " + _vm._s(_vm.controllerInfo ? _vm.controllerInfo.hardVersion : '-') + "\n              ")])]), _vm._v(" "), _c('li', {
     directives: [{
       name: "show",
       rawName: "v-show",
@@ -1002,9 +1002,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "list-group-item"
   }, [_c('div', {
     staticClass: "label-title"
-  }, [_vm._v(_vm._s(_vm.$t("cNam.nmlVolt")) + "(V)")]), _vm._v(" "), _c('div', {
+  }, [_vm._v(_vm._s(_vm.$t('cNam.nmlVolt')) + "(V)")]), _vm._v(" "), _c('div', {
     staticClass: "content"
-  }, [_vm._v("\n                " + _vm._s(_vm.controllerInfo ? _vm.controllerInfo.nmlVolt : "-") + "\n              ")])]), _vm._v(" "), _c('li', {
+  }, [_vm._v("\n                " + _vm._s(_vm.controllerInfo ? _vm.controllerInfo.nmlVolt : '-') + "\n              ")])]), _vm._v(" "), _c('li', {
     directives: [{
       name: "show",
       rawName: "v-show",
@@ -1014,9 +1014,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "list-group-item"
   }, [_c('div', {
     staticClass: "label-title"
-  }, [_vm._v(_vm._s(_vm.$t("cNam.maxCur")) + "(A)")]), _vm._v(" "), _c('div', {
+  }, [_vm._v(_vm._s(_vm.$t('cNam.maxCur')) + "(A)")]), _vm._v(" "), _c('div', {
     staticClass: "content"
-  }, [_vm._v("\n                " + _vm._s(_vm.controllerInfo ? _vm.controllerInfo.maxCurrent : "-") + "\n              ")])]), _vm._v(" "), _c('li', {
+  }, [_vm._v("\n                " + _vm._s(_vm.controllerInfo ? _vm.controllerInfo.maxCurrent : '-') + "\n              ")])]), _vm._v(" "), _c('li', {
     directives: [{
       name: "show",
       rawName: "v-show",
@@ -1026,9 +1026,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "list-group-item"
   }, [_c('div', {
     staticClass: "label-title"
-  }, [_vm._v(_vm._s(_vm.$t("cNam.speedLimit")) + "(km/h)")]), _vm._v(" "), _c('div', {
+  }, [_vm._v(_vm._s(_vm.$t('cNam.speedLimit')) + "(km/h)")]), _vm._v(" "), _c('div', {
     staticClass: "content"
-  }, [_vm._v("\n                " + _vm._s(_vm.controllerInfo ? _vm.controllerInfo.speedLimit : "-") + "\n              ")])]), _vm._v(" "), _c('li', {
+  }, [_vm._v("\n                " + _vm._s(_vm.controllerInfo ? _vm.controllerInfo.speedLimit : '-') + "\n              ")])]), _vm._v(" "), _c('li', {
     directives: [{
       name: "show",
       rawName: "v-show",
@@ -1038,9 +1038,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "list-group-item"
   }, [_c('div', {
     staticClass: "label-title"
-  }, [_vm._v(_vm._s(_vm.$t("cNam.wheelDiameter")))]), _vm._v(" "), _c('div', {
+  }, [_vm._v(_vm._s(_vm.$t('cNam.wheelDiameter')))]), _vm._v(" "), _c('div', {
     staticClass: "content"
-  }, [_vm._v("\n                " + _vm._s(_vm.controllerInfo ? _vm.controllerInfo.wheelDiameter : "-") + "\n              ")])]), _vm._v(" "), _c('li', {
+  }, [_vm._v("\n                " + _vm._s(_vm.controllerInfo ? _vm.controllerInfo.wheelDiameter : '-') + "\n              ")])]), _vm._v(" "), _c('li', {
     directives: [{
       name: "show",
       rawName: "v-show",
@@ -1050,9 +1050,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "list-group-item"
   }, [_c('div', {
     staticClass: "label-title"
-  }, [_vm._v(_vm._s(_vm.$t("cNam.circumference")) + "(mm)")]), _vm._v(" "), _c('div', {
+  }, [_vm._v(_vm._s(_vm.$t('cNam.circumference')) + "(mm)")]), _vm._v(" "), _c('div', {
     staticClass: "content"
-  }, [_vm._v("\n                " + _vm._s(_vm.controllerInfo ? _vm.controllerInfo.circumference : "-") + "\n              ")])])])]), _vm._v(" "), _c('el-collapse-item', {
+  }, [_vm._v("\n                " + _vm._s(_vm.controllerInfo ? _vm.controllerInfo.circumference : '-') + "\n              ")])])])]), _vm._v(" "), _c('el-collapse-item', {
     attrs: {
       "title": "Diagnosis Battery",
       "name": "3"
@@ -1065,97 +1065,97 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "label-title"
   }, [_vm._v("SN")]), _vm._v(" "), _c('div', {
     staticClass: "content"
-  }, [_vm._v("\n                " + _vm._s(_vm.batteryInfo ? _vm.batteryInfo.sn + _vm.batteryInfo.tip : "-") + "\n              ")])]), _vm._v(" "), _c('li', {
+  }, [_vm._v("\n                " + _vm._s(_vm.batteryInfo ? _vm.batteryInfo.sn + _vm.batteryInfo.tip : '-') + "\n              ")])]), _vm._v(" "), _c('li', {
     staticClass: "list-group-item"
   }, [_c('div', {
     staticClass: "label-title"
-  }, [_vm._v(_vm._s(_vm.$t("cNam.model")))]), _vm._v(" "), _c('div', {
+  }, [_vm._v(_vm._s(_vm.$t('cNam.model')))]), _vm._v(" "), _c('div', {
     staticClass: "content"
-  }, [_vm._v(_vm._s(_vm.batteryInfo ? _vm.batteryInfo.model : "-"))])]), _vm._v(" "), _c('li', {
+  }, [_vm._v(_vm._s(_vm.batteryInfo ? _vm.batteryInfo.model : '-'))])]), _vm._v(" "), _c('li', {
     staticClass: "list-group-item"
   }, [_c('div', {
     staticClass: "label-title"
-  }, [_vm._v(_vm._s(_vm.$t("cNam.softwareVersion")))]), _vm._v(" "), _c('div', {
+  }, [_vm._v(_vm._s(_vm.$t('cNam.softwareVersion')))]), _vm._v(" "), _c('div', {
     staticClass: "content"
-  }, [_vm._v(_vm._s(_vm.batteryInfo ? _vm.batteryInfo.version : "-"))])]), _vm._v(" "), _c('li', {
+  }, [_vm._v(_vm._s(_vm.batteryInfo ? _vm.batteryInfo.version : '-'))])]), _vm._v(" "), _c('li', {
     staticClass: "list-group-item"
   }, [_c('div', {
     staticClass: "label-title"
-  }, [_vm._v(_vm._s(_vm.$t("cNam.hardwareVersion")))]), _vm._v(" "), _c('div', {
+  }, [_vm._v(_vm._s(_vm.$t('cNam.hardwareVersion')))]), _vm._v(" "), _c('div', {
     staticClass: "content"
-  }, [_vm._v("\n                " + _vm._s(_vm.batteryInfo ? _vm.batteryInfo.hardVersion : "-") + "\n              ")])]), _vm._v(" "), _c('li', {
+  }, [_vm._v("\n                " + _vm._s(_vm.batteryInfo ? _vm.batteryInfo.hardVersion : '-') + "\n              ")])]), _vm._v(" "), _c('li', {
     staticClass: "list-group-item"
   }, [_c('div', {
     staticClass: "label-title"
-  }, [_vm._v(_vm._s(_vm.$t("cNam.ASOC")) + "(%)")]), _vm._v(" "), _c('div', {
+  }, [_vm._v(_vm._s(_vm.$t('cNam.ASOC')) + "(%)")]), _vm._v(" "), _c('div', {
     staticClass: "content"
-  }, [_vm._v(_vm._s(_vm.batteryInfo ? _vm.batteryInfo.soh : "-"))])]), _vm._v(" "), _c('li', {
+  }, [_vm._v(_vm._s(_vm.batteryInfo ? _vm.batteryInfo.soh : '-'))])]), _vm._v(" "), _c('li', {
     staticClass: "list-group-item"
   }, [_c('div', {
     staticClass: "label-title"
-  }, [_vm._v(_vm._s(_vm.$t("cNam.RSOC")) + "(%)")]), _vm._v(" "), _c('div', {
+  }, [_vm._v(_vm._s(_vm.$t('cNam.RSOC')) + "(%)")]), _vm._v(" "), _c('div', {
     staticClass: "content"
-  }, [_vm._v(_vm._s(_vm.batteryInfo ? _vm.batteryInfo.soc : "-"))])]), _vm._v(" "), _c('li', {
+  }, [_vm._v(_vm._s(_vm.batteryInfo ? _vm.batteryInfo.soc : '-'))])]), _vm._v(" "), _c('li', {
     staticClass: "list-group-item"
   }, [_c('div', {
     staticClass: "label-title"
-  }, [_vm._v(_vm._s(_vm.$t("cNam.packVoltage")) + "(mV)")]), _vm._v(" "), _c('div', {
+  }, [_vm._v(_vm._s(_vm.$t('cNam.packVoltage')) + "(mV)")]), _vm._v(" "), _c('div', {
     staticClass: "content"
-  }, [_vm._v("\n                " + _vm._s(_vm.batteryInfo ? _vm.batteryInfo.packVoltage : "-") + "\n              ")])]), _vm._v(" "), _c('li', {
+  }, [_vm._v("\n                " + _vm._s(_vm.batteryInfo ? _vm.batteryInfo.packVoltage : '-') + "\n              ")])]), _vm._v(" "), _c('li', {
     staticClass: "list-group-item"
   }, [_c('div', {
     staticClass: "label-title"
-  }, [_vm._v(_vm._s(_vm.$t("cNam.capacityLeft")) + "(mAh)")]), _vm._v(" "), _c('div', {
+  }, [_vm._v(_vm._s(_vm.$t('cNam.capacityLeft')) + "(mAh)")]), _vm._v(" "), _c('div', {
     staticClass: "content"
-  }, [_vm._v("\n                " + _vm._s(_vm.batteryInfo ? _vm.batteryInfo.leftCapacity : "-") + "\n              ")])]), _vm._v(" "), _c('li', {
+  }, [_vm._v("\n                " + _vm._s(_vm.batteryInfo ? _vm.batteryInfo.leftCapacity : '-') + "\n              ")])]), _vm._v(" "), _c('li', {
     staticClass: "list-group-item"
   }, [_c('div', {
     staticClass: "label-title"
-  }, [_vm._v(_vm._s(_vm.$t("cNam.fullChargeCapacity")) + "(mAh)")]), _vm._v(" "), _c('div', {
+  }, [_vm._v(_vm._s(_vm.$t('cNam.fullChargeCapacity')) + "(mAh)")]), _vm._v(" "), _c('div', {
     staticClass: "content"
-  }, [_vm._v("\n                " + _vm._s(_vm.batteryInfo ? _vm.batteryInfo.fullChargerCapacity : "-") + "\n              ")])]), _vm._v(" "), _c('li', {
+  }, [_vm._v("\n                " + _vm._s(_vm.batteryInfo ? _vm.batteryInfo.fullChargerCapacity : '-') + "\n              ")])]), _vm._v(" "), _c('li', {
     staticClass: "list-group-item"
   }, [_c('div', {
     staticClass: "label-title"
-  }, [_vm._v(_vm._s(_vm.$t("cNam.temperature")) + "(℃)")]), _vm._v(" "), _c('div', {
+  }, [_vm._v(_vm._s(_vm.$t('cNam.temperature')) + "(℃)")]), _vm._v(" "), _c('div', {
     staticClass: "content"
-  }, [_vm._v("\n                " + _vm._s(_vm.batteryInfo ? _vm.batteryInfo.temperature : "-") + "\n              ")])]), _vm._v(" "), _c('li', {
+  }, [_vm._v("\n                " + _vm._s(_vm.batteryInfo ? _vm.batteryInfo.temperature : '-') + "\n              ")])]), _vm._v(" "), _c('li', {
     staticClass: "list-group-item"
   }, [_c('div', {
     staticClass: "label-title"
-  }, [_vm._v(_vm._s(_vm.$t("cNam.current")) + "(mA)")]), _vm._v(" "), _c('div', {
+  }, [_vm._v(_vm._s(_vm.$t('cNam.current')) + "(mA)")]), _vm._v(" "), _c('div', {
     staticClass: "content"
-  }, [_vm._v(_vm._s(_vm.batteryInfo ? _vm.batteryInfo.current : "-"))])]), _vm._v(" "), _c('li', {
+  }, [_vm._v(_vm._s(_vm.batteryInfo ? _vm.batteryInfo.current : '-'))])]), _vm._v(" "), _c('li', {
     staticClass: "list-group-item"
   }, [_c('div', {
     staticClass: "label-title"
-  }, [_vm._v(_vm._s(_vm.$t("cNam.cell1_7")) + "(mV)")]), _vm._v(" "), _c('div', {
+  }, [_vm._v(_vm._s(_vm.$t('cNam.cell1_7')) + "(mV)")]), _vm._v(" "), _c('div', {
     staticClass: "content"
-  }, [_vm._v(_vm._s(_vm.batteryInfo ? _vm.batteryInfo.cell1to7 : "-"))])]), _vm._v(" "), _c('li', {
+  }, [_vm._v(_vm._s(_vm.batteryInfo ? _vm.batteryInfo.cell1to7 : '-'))])]), _vm._v(" "), _c('li', {
     staticClass: "list-group-item"
   }, [_c('div', {
     staticClass: "label-title"
-  }, [_vm._v(_vm._s(_vm.$t("cNam.cell8_14")) + "(mV)")]), _vm._v(" "), _c('div', {
+  }, [_vm._v(_vm._s(_vm.$t('cNam.cell8_14')) + "(mV)")]), _vm._v(" "), _c('div', {
     staticClass: "content"
-  }, [_vm._v(_vm._s(_vm.batteryInfo ? _vm.batteryInfo.cell8to14 : "-"))])]), _vm._v(" "), _c('li', {
+  }, [_vm._v(_vm._s(_vm.batteryInfo ? _vm.batteryInfo.cell8to14 : '-'))])]), _vm._v(" "), _c('li', {
     staticClass: "list-group-item"
   }, [_c('div', {
     staticClass: "label-title"
-  }, [_vm._v(_vm._s(_vm.$t("cNam.cycleLife")))]), _vm._v(" "), _c('div', {
+  }, [_vm._v(_vm._s(_vm.$t('cNam.cycleLife')))]), _vm._v(" "), _c('div', {
     staticClass: "content"
-  }, [_vm._v(_vm._s(_vm.batteryInfo ? _vm.batteryInfo.loopTime : "-"))])]), _vm._v(" "), _c('li', {
+  }, [_vm._v(_vm._s(_vm.batteryInfo ? _vm.batteryInfo.loopTime : '-'))])]), _vm._v(" "), _c('li', {
     staticClass: "list-group-item"
   }, [_c('div', {
     staticClass: "label-title"
-  }, [_vm._v(_vm._s(_vm.$t("cNam.currentChargeInterval")) + "(day)")]), _vm._v(" "), _c('div', {
+  }, [_vm._v(_vm._s(_vm.$t('cNam.currentChargeInterval')) + "(day)")]), _vm._v(" "), _c('div', {
     staticClass: "content"
-  }, [_vm._v("\n                " + _vm._s(_vm.batteryInfo ? _vm.batteryInfo.lastCharge : "-") + "\n              ")])]), _vm._v(" "), _c('li', {
+  }, [_vm._v("\n                " + _vm._s(_vm.batteryInfo ? _vm.batteryInfo.lastCharge : '-') + "\n              ")])]), _vm._v(" "), _c('li', {
     staticClass: "list-group-item"
   }, [_c('div', {
     staticClass: "label-title"
-  }, [_vm._v(_vm._s(_vm.$t("cNam.maxChargeInterval")) + "(day)")]), _vm._v(" "), _c('div', {
+  }, [_vm._v(_vm._s(_vm.$t('cNam.maxChargeInterval')) + "(day)")]), _vm._v(" "), _c('div', {
     staticClass: "content"
-  }, [_vm._v("\n                " + _vm._s(_vm.batteryInfo ? _vm.batteryInfo.maxChargeInterval : "-") + "\n              ")])])])]), _vm._v(" "), _c('el-collapse-item', {
+  }, [_vm._v("\n                " + _vm._s(_vm.batteryInfo ? _vm.batteryInfo.maxChargeInterval : '-') + "\n              ")])])])]), _vm._v(" "), _c('el-collapse-item', {
     attrs: {
       "title": "Diagnosis Motor",
       "name": "3"
@@ -1168,37 +1168,37 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "label-title"
   }, [_vm._v("SN")]), _vm._v(" "), _c('div', {
     staticClass: "content"
-  }, [_vm._v(_vm._s(_vm.motorInfo ? _vm.motorInfo.sn : "-"))])]), _vm._v(" "), _c('li', {
+  }, [_vm._v(_vm._s(_vm.motorInfo ? _vm.motorInfo.sn : '-'))])]), _vm._v(" "), _c('li', {
     staticClass: "list-group-item"
   }, [_c('div', {
     staticClass: "label-title"
-  }, [_vm._v(_vm._s(_vm.$t("cNam.model")))]), _vm._v(" "), _c('div', {
+  }, [_vm._v(_vm._s(_vm.$t('cNam.model')))]), _vm._v(" "), _c('div', {
     staticClass: "content"
-  }, [_vm._v(_vm._s(_vm.motorInfo ? _vm.motorInfo.name : "-"))])]), _vm._v(" "), _c('li', {
+  }, [_vm._v(_vm._s(_vm.motorInfo ? _vm.motorInfo.name : '-'))])]), _vm._v(" "), _c('li', {
     staticClass: "list-group-item"
   }, [_c('div', {
     staticClass: "label-title"
-  }, [_vm._v(_vm._s(_vm.$t("cNam.power")) + "(W)")]), _vm._v(" "), _c('div', {
+  }, [_vm._v(_vm._s(_vm.$t('cNam.power')) + "(W)")]), _vm._v(" "), _c('div', {
     staticClass: "content"
-  }, [_vm._v(_vm._s(_vm.motorInfo ? _vm.motorInfo.power : "-"))])]), _vm._v(" "), _c('li', {
+  }, [_vm._v(_vm._s(_vm.motorInfo ? _vm.motorInfo.power : '-'))])]), _vm._v(" "), _c('li', {
     staticClass: "list-group-item"
   }, [_c('div', {
     staticClass: "label-title"
-  }, [_vm._v(_vm._s(_vm.$t("cNam.wheelSize")))]), _vm._v(" "), _c('div', {
+  }, [_vm._v(_vm._s(_vm.$t('cNam.wheelSize')))]), _vm._v(" "), _c('div', {
     staticClass: "content"
-  }, [_vm._v(_vm._s(_vm.motorInfo ? _vm.motorInfo.wheelSize : "-"))])]), _vm._v(" "), _c('li', {
+  }, [_vm._v(_vm._s(_vm.motorInfo ? _vm.motorInfo.wheelSize : '-'))])]), _vm._v(" "), _c('li', {
     staticClass: "list-group-item"
   }, [_c('div', {
     staticClass: "label-title"
-  }, [_vm._v(_vm._s(_vm.$t("cNam.voltage")) + "(V)")]), _vm._v(" "), _c('div', {
+  }, [_vm._v(_vm._s(_vm.$t('cNam.voltage')) + "(V)")]), _vm._v(" "), _c('div', {
     staticClass: "content"
-  }, [_vm._v(_vm._s(_vm.motorInfo ? _vm.motorInfo.voltage : "-"))])]), _vm._v(" "), _c('li', {
+  }, [_vm._v(_vm._s(_vm.motorInfo ? _vm.motorInfo.voltage : '-'))])]), _vm._v(" "), _c('li', {
     staticClass: "list-group-item"
   }, [_c('div', {
     staticClass: "label-title"
-  }, [_vm._v(_vm._s(_vm.$t("cNam.rpm")))]), _vm._v(" "), _c('div', {
+  }, [_vm._v(_vm._s(_vm.$t('cNam.rpm')))]), _vm._v(" "), _c('div', {
     staticClass: "content"
-  }, [_vm._v(_vm._s(_vm.motorInfo ? _vm.motorInfo.rpm : "-"))])])])]), _vm._v(" "), _c('el-collapse-item', {
+  }, [_vm._v(_vm._s(_vm.motorInfo ? _vm.motorInfo.rpm : '-'))])])])]), _vm._v(" "), _c('el-collapse-item', {
     attrs: {
       "title": "Diagnosis Pedal Sensor",
       "name": "3"
@@ -1211,25 +1211,25 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "label-title"
   }, [_vm._v("SN")]), _vm._v(" "), _c('div', {
     staticClass: "content"
-  }, [_vm._v("\n                " + _vm._s(_vm.pedalSensorInfo ? _vm.pedalSensorInfo.sn : "-") + "\n              ")])]), _vm._v(" "), _c('li', {
+  }, [_vm._v("\n                " + _vm._s(_vm.pedalSensorInfo ? _vm.pedalSensorInfo.sn : '-') + "\n              ")])]), _vm._v(" "), _c('li', {
     staticClass: "list-group-item"
   }, [_c('div', {
     staticClass: "label-title"
-  }, [_vm._v(_vm._s(_vm.$t("cNam.model")))]), _vm._v(" "), _c('div', {
+  }, [_vm._v(_vm._s(_vm.$t('cNam.model')))]), _vm._v(" "), _c('div', {
     staticClass: "content"
-  }, [_vm._v("\n                " + _vm._s(_vm.pedalSensorInfo ? _vm.pedalSensorInfo.name : "-") + "\n              ")])]), _vm._v(" "), _c('li', {
+  }, [_vm._v("\n                " + _vm._s(_vm.pedalSensorInfo ? _vm.pedalSensorInfo.name : '-') + "\n              ")])]), _vm._v(" "), _c('li', {
     staticClass: "list-group-item"
   }, [_c('div', {
     staticClass: "label-title"
-  }, [_vm._v(_vm._s(_vm.$t("cNam.softwareVersion")))]), _vm._v(" "), _c('div', {
+  }, [_vm._v(_vm._s(_vm.$t('cNam.softwareVersion')))]), _vm._v(" "), _c('div', {
     staticClass: "content"
-  }, [_vm._v("\n                " + _vm._s(_vm.pedalSensorInfo ? _vm.pedalSensorInfo.version : "-") + "\n              ")])]), _vm._v(" "), _c('li', {
+  }, [_vm._v("\n                " + _vm._s(_vm.pedalSensorInfo ? _vm.pedalSensorInfo.version : '-') + "\n              ")])]), _vm._v(" "), _c('li', {
     staticClass: "list-group-item"
   }, [_c('div', {
     staticClass: "label-title"
-  }, [_vm._v(_vm._s(_vm.$t("cNam.hardwareVersion")))]), _vm._v(" "), _c('div', {
+  }, [_vm._v(_vm._s(_vm.$t('cNam.hardwareVersion')))]), _vm._v(" "), _c('div', {
     staticClass: "content"
-  }, [_vm._v("\n                " + _vm._s(_vm.pedalSensorInfo ? _vm.pedalSensorInfo.hardVersion : "-") + "\n              ")])])])]), _vm._v(" "), _c('el-collapse-item', {
+  }, [_vm._v("\n                " + _vm._s(_vm.pedalSensorInfo ? _vm.pedalSensorInfo.hardVersion : '-') + "\n              ")])])])]), _vm._v(" "), _c('el-collapse-item', {
     attrs: {
       "title": "Diagnosis Result",
       "name": "4"
@@ -1240,7 +1240,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "list-group-item"
   }, [_c('div', {
     staticClass: "label-title"
-  }, [_vm._v(_vm._s(_vm.$t("cNam.hmi")))]), _vm._v(" "), _c('div', {
+  }, [_vm._v(_vm._s(_vm.$t('cNam.hmi')))]), _vm._v(" "), _c('div', {
     staticClass: "content"
   }, [_c('span', [_vm._v(_vm._s(_vm.result.hmi))]), _vm._v(" "), (_vm.hmiInfo.error) ? _c('span', {
     staticClass: "split"
@@ -1250,7 +1250,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "list-group-item"
   }, [_c('div', {
     staticClass: "label-title"
-  }, [_vm._v(_vm._s(_vm.$t("cNam.controller")))]), _vm._v(" "), _c('div', {
+  }, [_vm._v(_vm._s(_vm.$t('cNam.controller')))]), _vm._v(" "), _c('div', {
     staticClass: "content"
   }, [_c('span', [_vm._v(_vm._s(_vm.result.controller))]), _vm._v(" "), (_vm.controllerInfo.error) ? _c('span', {
     staticClass: "split"
@@ -1260,7 +1260,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "list-group-item"
   }, [_c('div', {
     staticClass: "label-title"
-  }, [_vm._v(_vm._s(_vm.$t("cNam.battery")))]), _vm._v(" "), _c('div', {
+  }, [_vm._v(_vm._s(_vm.$t('cNam.battery')))]), _vm._v(" "), _c('div', {
     staticClass: "content"
   }, [_c('span', [_vm._v(_vm._s(_vm.result.battery))]), _vm._v(" "), (_vm.batteryInfo.error) ? _c('span', {
     staticClass: "split"
@@ -1270,7 +1270,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "list-group-item"
   }, [_c('div', {
     staticClass: "label-title"
-  }, [_vm._v(_vm._s(_vm.$t("cNam.motor")))]), _vm._v(" "), _c('div', {
+  }, [_vm._v(_vm._s(_vm.$t('cNam.motor')))]), _vm._v(" "), _c('div', {
     staticClass: "content"
   }, [_c('span', [_vm._v(_vm._s(_vm.result.motor))]), _vm._v(" "), (_vm.motorInfo.error) ? _c('span', {
     staticClass: "split"
@@ -1280,7 +1280,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "list-group-item"
   }, [_c('div', {
     staticClass: "label-title"
-  }, [_vm._v(_vm._s(_vm.$t("cNam.sensor")))]), _vm._v(" "), _c('div', {
+  }, [_vm._v(_vm._s(_vm.$t('cNam.sensor')))]), _vm._v(" "), _c('div', {
     staticClass: "content"
   }, [_c('span', [_vm._v(_vm._s(_vm.result.pedalSensor))]), _vm._v(" "), (_vm.pedalSensorInfo.error) ? _c('span', {
     staticClass: "split"
@@ -1292,7 +1292,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "list-group-item"
   }, [_c('div', {
     staticClass: "label-title"
-  }, [_vm._v(_vm._s(_vm.$t("defects")))])]), _vm._v(" "), _vm._l((_vm.defect), function(d) {
+  }, [_vm._v(_vm._s(_vm.$t('defects')))])]), _vm._v(" "), _vm._l((_vm.defect), function(d) {
     return _c('li', {
       staticClass: "list-group-item"
     }, [_c('span', {
@@ -1304,7 +1304,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "list-group-item"
   }, [_c('div', {
     staticClass: "label-title"
-  }, [_vm._v(_vm._s(_vm.$t("defectDes")))]), _vm._v(" "), _c('div', {
+  }, [_vm._v(_vm._s(_vm.$t('defectDes')))]), _vm._v(" "), _c('div', {
     staticClass: "content"
   }, [_vm._v(_vm._s(_vm.desc))])])])])], 1)], 1)])], 1)
 },staticRenderFns: []}
@@ -1313,5 +1313,5 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
 //////////////////
 // WEBPACK FOOTER
 // ./node_modules/vue-loader/lib/template-compiler?{"id":"data-v-60fd3077","hasScoped":false}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./src/components/3rd-diagnosis/result.vue
-// module id = 1726
+// module id = 1745
 // module chunks = 76

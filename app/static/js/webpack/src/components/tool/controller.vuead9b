@@ -60,7 +60,31 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v("New version ready for Update")])]), _vm._v(" "), _c('div', {
     staticClass: "part"
-  }, [(_vm.org.type === _vm.Core.Const.ORG_TYPE.COMPONENT) ? _c('div', {
+  }, [_c('div', {
+    staticClass: "item"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v(_vm._s(_vm.$t('cNam.component')))]), _vm._v(" "), _c('el-select', {
+    staticClass: "input",
+    attrs: {
+      "placeholder": _vm.$t('cNam.select')
+    },
+    model: {
+      value: (_vm.componentType),
+      callback: function($$v) {
+        _vm.componentType = $$v
+      },
+      expression: "componentType"
+    }
+  }, _vm._l((_vm.optionsCtl), function(item) {
+    return _c('el-option', {
+      key: item.type,
+      attrs: {
+        "label": item.label,
+        "value": item.type
+      }
+    })
+  }), 1)], 1), _vm._v(" "), (_vm.org.type === _vm.Core.Const.ORG_TYPE.COMPONENT) ? _c('div', {
     staticClass: "item"
   }, [_c('label', {
     staticClass: "label"
@@ -1086,7 +1110,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "click": _vm.writeParam
     }
-  }, [_vm._v(_vm._s(_vm.$t('cNam.write')))]) : _vm._e()], 1)]) : _vm._e(), _vm._v(" "), (_vm.isCan) ? _c('div', {
+  }, [_vm._v(_vm._s(_vm.$t('cNam.write')))]) : _vm._e()], 1)]) : _vm._e(), _vm._v(" "), _c('div', {
     staticClass: "info"
   }, [_c('div', {
     staticClass: "note-title"
@@ -1102,6 +1126,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "com-select",
     attrs: {
       "filterable": "",
+      "allow-create": "",
       "placeholder": _vm.$t('cNam.select')
     },
     model: {
@@ -1115,8 +1140,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     return _c('el-option', {
       key: index,
       attrs: {
-        "label": item,
-        "value": item
+        "label": item.label,
+        "value": item.value
       }
     })
   }), 1)], 1), _vm._v(" "), _c('div', {
@@ -1392,7 +1417,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticStyle: {
       "padding": "0 20px 0 20px"
     }
-  }, [_vm._v(_vm._s(_vm.$t('cNam.start')))]) : _vm._e()], 1)])]) : _vm._e(), _vm._v(" "), _c('div', {
+  }, [_vm._v(_vm._s(_vm.$t('cNam.start')))]) : _vm._e()], 1)])]), _vm._v(" "), _c('div', {
     directives: [{
       name: "show",
       rawName: "v-show",
@@ -1870,5 +1895,5 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
 //////////////////
 // WEBPACK FOOTER
 // ./node_modules/vue-loader/lib/template-compiler?{"id":"data-v-1558d4cf","hasScoped":false}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./src/components/tool/controller.vue
-// module id = 1278
+// module id = 1285
 // module chunks = 76

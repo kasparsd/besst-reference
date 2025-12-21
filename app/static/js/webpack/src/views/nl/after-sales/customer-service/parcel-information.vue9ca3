@@ -283,5 +283,5 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
 //////////////////
 // WEBPACK FOOTER
 // ./node_modules/vue-loader/lib/template-compiler?{"id":"data-v-6cacca22","hasScoped":false}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./src/views/nl/after-sales/customer-service/parcel-information.vue
-// module id = 2659
-// module chunks = 44
+// module id = 2690
+// module chunks = 43

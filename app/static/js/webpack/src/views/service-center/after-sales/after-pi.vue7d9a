@@ -212,7 +212,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_vm._v("Proforma Invoice"), _c('span', {
     staticClass: "required"
   }, [_vm._v("*")])]), _vm._v(" "), _c('el-input', {
-    staticClass: "input ",
+    staticClass: "input",
     model: {
       value: (_vm.piNumber),
       callback: function($$v) {
@@ -309,5 +309,5 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
 //////////////////
 // WEBPACK FOOTER
 // ./node_modules/vue-loader/lib/template-compiler?{"id":"data-v-c655eb8c","hasScoped":false}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./src/views/service-center/after-sales/after-pi.vue
-// module id = 2099
+// module id = 2131
 // module chunks = 76

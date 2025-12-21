@@ -12,5 +12,5 @@ exports.push([module.id, ".cashier-details{width:100%;height:100%}.cashier-detai
 //////////////////
 // WEBPACK FOOTER
 // ./node_modules/css-loader?{"minimize":true,"sourceMap":true}!./node_modules/vue-loader/lib/style-compiler?{"vue":true,"id":"data-v-63c5f708","scoped":false,"hasInlineConfig":false}!./node_modules/sass-loader/lib/loader.js?{"sourceMap":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./src/views/nl/finance/cashier-details.vue
-// module id = 2483
-// module chunks = 72
+// module id = 2514
+// module chunks = 71

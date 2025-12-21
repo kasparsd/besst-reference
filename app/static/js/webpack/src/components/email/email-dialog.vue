@@ -21,5 +21,5 @@ module.exports = Component.exports
 //////////////////
 // WEBPACK FOOTER
 // ./src/components/email/email-dialog.vue
-// module id = 2359
+// module id = 2391
 // module chunks = 8 9 10 11 12 13 14

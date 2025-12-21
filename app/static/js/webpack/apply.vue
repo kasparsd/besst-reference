@@ -6,10 +6,12 @@
       </div>
       <div class="apply-list">
         <el-table :data="applyList">
-          <el-table-column v-for="(item, index) in applyHeadList" :label="item.label" :prop="item.name" :key="index"></el-table-column>
+          <el-table-column v-for="(item, index) in applyHeadList" :label="item.label" :prop="item.name"
+            :key="index"></el-table-column>
           <el-table-column label="Operation">
             <template slot-scope="scope">
-              <a class="btn-underline" @click.stop="clickEditSpec(scope.row)" v-if="scope.row.audit_type == 'Not approved'">Edit</a>
+              <a class="btn-underline" @click.stop="clickEditSpec(scope.row)"
+                v-if="scope.row.audit_type == 'Not approved'">Edit</a>
             </template>
           </el-table-column>
         </el-table>
@@ -18,14 +20,8 @@
       <el-dialog :visible.sync="createOrg" title="Create organization account for customer">
         <el-form :model="orgForm" :rules="rules" ref="orgForm" label-width="100px">
           <el-form-item label="Logo">
-            <el-upload
-              :action="options.url"
-              :on-success="onSuccess"
-              :multiple="true"
-              :auto-upload="true"
-              :show-file-list="false"
-              :data="options.params"
-            >
+            <el-upload :action="options.url" :on-success="onSuccess" :multiple="true" :auto-upload="true"
+              :show-file-list="false" :data="options.params">
               <el-button size="small" type="primary">Upload</el-button>
               <div slot="tip" class="el-upload__tip">Only jpg/png file，No large than 500kb</div>
             </el-upload>
@@ -35,13 +31,15 @@
             <el-input v-model="orgForm.name"></el-input>
           </el-form-item>
           <el-form-item label="Type" prop="type">
-            <el-select v-model="orgForm.type" clearable placeholder="Select account type" @change="selectChangeType($event)">
+            <el-select v-model="orgForm.type" clearable placeholder="Select account type"
+              @change="selectChangeType($event)">
               <el-option v-for="item in typeList" :key="item.value" :label="item.label" :value="item.value"> </el-option>
             </el-select>
           </el-form-item>
           <el-form-item label="Country" prop="country">
             <el-select v-model="orgForm.country" class="land" filterable @change="showAreaCode">
-              <el-option v-for="(item, index) in areaCodeList" :key="index" :label="item.area_en" :value="item.area_en"> </el-option>
+              <el-option v-for="(item, index) in areaCodeList" :key="index" :label="item.area_en" :value="item.area_en">
+              </el-option>
             </el-select>
           </el-form-item>
           <el-form-item label="Address" prop="address">
@@ -66,7 +64,8 @@
           </el-form-item>
           <el-form-item label="Auditor" prop="reviewer" v-if="authMemberList.length > 0">
             <el-select v-model="orgForm.reviewer" clearable placeholder="Select auditor" @change="showAuditor">
-              <el-option v-for="item in authMemberList" :label="item.account" :value="item.account" :key="item.value"> </el-option>
+              <el-option v-for="item in authMemberList" :label="item.account" :value="item.account" :key="item.value">
+              </el-option>
             </el-select>
           </el-form-item>
           <el-form-item label="Describe">
@@ -82,14 +81,8 @@
       <el-dialog :visible.sync="editOrg" title="Edit organization account for customer">
         <el-form :model="selectApply" :rules="rules" ref="orgForm" label-width="100px">
           <el-form-item label="Logo">
-            <el-upload
-              :action="options.url"
-              :on-success="onSuccess"
-              :multiple="true"
-              :auto-upload="true"
-              :show-file-list="false"
-              :data="options.params"
-            >
+            <el-upload :action="options.url" :on-success="onSuccess" :multiple="true" :auto-upload="true"
+              :show-file-list="false" :data="options.params">
               <el-button size="small" type="primary">Upload</el-button>
               <div slot="tip" class="el-upload__tip">Only jpg/png file，No large than 500kb</div>
             </el-upload>
@@ -99,13 +92,15 @@
             <el-input v-model="selectApply.name"></el-input>
           </el-form-item>
           <el-form-item label="Type" prop="type">
-            <el-select v-model="selectApply.type" clearable placeholder="Select account type" @change="selectChangeType($event)">
+            <el-select v-model="selectApply.type" clearable placeholder="Select account type"
+              @change="selectChangeType($event)">
               <el-option v-for="item in typeList" :key="item.value" :label="item.label" :value="item.value"> </el-option>
             </el-select>
           </el-form-item>
           <el-form-item label="Country" prop="country">
             <el-select v-model="selectApply.country" class="land" filterable>
-              <el-option v-for="(item, index) in areaCodeList" :key="index" :label="item.area_en" :value="item.area_en"> </el-option>
+              <el-option v-for="(item, index) in areaCodeList" :key="index" :label="item.area_en" :value="item.area_en">
+              </el-option>
             </el-select>
           </el-form-item>
           <el-form-item label="Address" prop="address">
@@ -130,7 +125,8 @@
           </el-form-item>
           <el-form-item label="Auditor" prop="reviewer" v-if="authMemberList.length > 0">
             <el-select v-model="selectApply.reviewer" clearable placeholder="Select auditor" @change="showAuditor()">
-              <el-option v-for="item in authMemberList" :label="item.account" :value="item.account" :key="item.value"> </el-option>
+              <el-option v-for="item in authMemberList" :label="item.account" :value="item.account" :key="item.value">
+              </el-option>
             </el-select>
           </el-form-item>
           <el-form-item label="Describe">
@@ -146,13 +142,15 @@
         <div v-show="recordType == 1">
           <p>This email account was applied by other people.</p>
           <el-table :data="recordApply">
-            <el-table-column v-for="(item, index) in applyHeadList" :label="item.label" :prop="item.name" :key="index"></el-table-column>
+            <el-table-column v-for="(item, index) in applyHeadList" :label="item.label" :prop="item.name"
+              :key="index"></el-table-column>
           </el-table>
         </div>
         <div v-show="recordType == 3">
           <p>This email account has registered before.</p>
           <el-table :data="recordApply">
-            <el-table-column v-for="(item, index) in userHeadList" :label="item.label" :prop="item.name" :key="index"></el-table-column>
+            <el-table-column v-for="(item, index) in userHeadList" :label="item.label" :prop="item.name"
+              :key="index"></el-table-column>
           </el-table>
         </div>
         <span slot="footer" class="dialog-footer">
@@ -317,6 +315,8 @@ export default {
       } else {
         this.authMemberList = this.authMemberListOrigin
       }
+      this.orgForm.reviewer = ''
+      this.editOrg.reviewer = ''
     },
     showAuditor(val) {
       console.log(val)
@@ -325,6 +325,7 @@ export default {
       this.createOrg = true
     },
     saveOrgList() {
+
       this.isSaving = true
       let org
       if (this.createOrg && !this.editOrg) {
@@ -364,6 +365,12 @@ export default {
         this.showErrMessage('邮箱')
         return false
       }
+
+      if (!org.applicant) {
+        this.showErrMessage('申请人')
+        return false
+      }
+
       const regEmail = /^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/
       if (!regEmail.test(org.email)) {
         this.$message({
@@ -372,9 +379,15 @@ export default {
         })
         return false
       }
+
+      if (!org.reviewer) {
+        this.showErrMessage('审核人')
+        return false
+      }
       const data = org
       data.specificInformation = org.specific_information
       data.country_status = this.countryCode
+
       Core.Api.request({
         url: '/orgAudit/save',
         method: 'GET',
@@ -524,10 +537,12 @@ export default {
   height: 100%;
   display: flex;
   flex-direction: column;
+
   .container-wrap {
     width: 100%;
     height: 100%;
     overflow: auto;
+
     .apply-btn {
       padding: 20px;
     }
@@ -538,4 +553,4 @@ export default {
 
 
 // WEBPACK FOOTER //
-// apply.vue?13b08531
+// apply.vue?4b03428a

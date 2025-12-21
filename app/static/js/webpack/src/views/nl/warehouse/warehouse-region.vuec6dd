@@ -289,5 +289,5 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
 //////////////////
 // WEBPACK FOOTER
 // ./node_modules/vue-loader/lib/template-compiler?{"id":"data-v-7b94e6d6","hasScoped":false}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./src/views/nl/warehouse/warehouse-region.vue
-// module id = 2442
-// module chunks = 50
+// module id = 2473
+// module chunks = 49

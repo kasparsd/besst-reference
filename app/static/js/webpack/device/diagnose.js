@@ -254,7 +254,7 @@ function parseTestCan() {
     wrapper = {}
     test = {}
 
-    if (res.data.targetCode === 15 && res.data.canCode === 7) {
+    if (res.data.targetCode === 0x1f && res.data.canCode === 7) {
       // 021f0712000108  1200 控制器一般故障
       // {"code":"12","subCode":"00","source":"CTL","sourceCode":2,"target":null,"targetCode":15,"can":"LONG_WARNING_CMD","canCode":7,"dataLen":1,"data":"08"}
       // console.log(res.data);
@@ -639,5 +639,5 @@ export default Diagnose
 //////////////////
 // WEBPACK FOOTER
 // ./device/diagnose.js
-// module id = 136
+// module id = 139
 // module chunks = 76

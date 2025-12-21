@@ -216,7 +216,7 @@
           </div>
           <div class="clear-10"></div>
           <div v-if="org.type === Core.Const.ORG_TYPE.COMPONENT">
-            <div class="item" v-if="org.type === Core.Const.ORG_TYPE.COMPONENT">
+            <div class="item">
               <label class="label">{{ $t('cNam.setTimeZone') }}</label>
               <el-select v-model="utcTime" :placeholder="$t('cNam.select')" class="input">
                 <el-option v-for="item in timezone" :key="item.value" :label="item.label" :value="item.value"> </el-option>
@@ -363,12 +363,19 @@
             <!--</div>-->
           </div>
           <div class="item">
+            <label class="label">{{ $t('cNam.setTimeZone') }}</label>
+            <el-select v-model="utcTime" :placeholder="$t('cNam.select')" @change="handleChangeTimeZone" class="input">
+              <el-option v-for="item in timezone" :key="item.value" :label="item.label" :value="item.value"> </el-option>
+            </el-select>
+          </div>
+          <div class="item">
             <label class="label">{{ $t('cNam.time') }}</label>
             <el-time-picker v-model="setTime" value-format="HH:mm:ss" @change="handleChange()"> </el-time-picker>
           </div>
           <div>
             <div class="btn-row">
               <div class="btn-group">
+                <el-button type="primary" @click="resetTime">{{ $t('cNam.reset') }}</el-button>
                 <el-button type="primary" @click="setTimeCAN">{{ $t('cNam.set') }}</el-button>
               </div>
             </div>
@@ -638,18 +645,110 @@ export default {
 
       userId: Core.Data.getUser().id,
       recordType: Core.Const.OBJECT_RECORD_TYPE.EDIT,
-
+      // 时区
       timezone: [
         {
-          value: '0700',
-          label: 'UTC +7'
+          value: -12,
+          label: 'UTC -12 (Baker Island)'
         },
         {
-          value: '0800',
-          label: 'UTC +8'
+          value: -11,
+          label: 'UTC -11 (American Samoa)'
+        },
+        {
+          value: -10,
+          label: 'UTC -10 (Hawaii)'
+        },
+        {
+          value: -9,
+          label: 'UTC -9 (Alaska)'
+        },
+        {
+          value: -8,
+          label: 'UTC -8 (Pacific Time)'
+        },
+        {
+          value: -7,
+          label: 'UTC -7 (Mountain Time)'
+        },
+        {
+          value: -6,
+          label: 'UTC -6 (Central Time)'
+        },
+        {
+          value: -5,
+          label: 'UTC -5 (Eastern Time)'
+        },
+        {
+          value: -4,
+          label: 'UTC -4 (Atlantic Time)'
+        },
+        {
+          value: -3,
+          label: 'UTC -3 (Argentina)'
+        },
+        {
+          value: -2,
+          label: 'UTC -2 (South Georgia)'
+        },
+        {
+          value: -1,
+          label: 'UTC -1 (Azores)'
+        },
+        {
+          value: 0,
+          label: 'UTC +0 (London/GMT)'
+        },
+        {
+          value: 1,
+          label: 'UTC +1 (Berlin)'
+        },
+        {
+          value: 2,
+          label: 'UTC +2 (Cairo)'
+        },
+        {
+          value: 3,
+          label: 'UTC +3 (Moscow)'
+        },
+        {
+          value: 4,
+          label: 'UTC +4 (Dubai)'
+        },
+        {
+          value: 5,
+          label: 'UTC +5 (Karachi)'
+        },
+        {
+          value: 6,
+          label: 'UTC +6 (Dhaka)'
+        },
+        {
+          value: 7,
+          label: 'UTC +7 (Bangkok)'
+        },
+        {
+          value: 8,
+          label: 'UTC +8 (Beijing/Shanghai)'
+        },
+        {
+          value: 9,
+          label: 'UTC +9 (Tokyo)'
+        },
+        {
+          value: 10,
+          label: 'UTC +10 (Sydney)'
+        },
+        {
+          value: 11,
+          label: 'UTC +11 (Solomon Islands)'
+        },
+        {
+          value: 12,
+          label: 'UTC +12 (New Zealand)'
         }
       ],
-      utcTime: '',
+      utcTime: 8,
 
       readSn: '', // 读取到的sn
       offlineRecordList: [],
@@ -677,7 +776,11 @@ export default {
       isTechnician: false,
 
       showUpdateTag: false,
-      checkInterval: 0 // tem test
+      checkInterval: 0, // tem test
+      // 当前是否是品牌商
+      isBrand: false,
+      // 最大限速
+      maxSpeed: 60
     }
   },
   i18n: {
@@ -692,31 +795,24 @@ export default {
 
   mounted() {
     this.initTrans()
-    this.isDealerOrAssembler =
-      Core.Data.getOrg().type === Core.Const.ORG_TYPE.DEALER ||
-      Core.Data.getOrg().type === Core.Const.ORG_TYPE.OEM ||
-      Core.Data.getOrg().type === Core.Const.ORG_TYPE.SPECIAL_DEAlER
+    if (Core.Data.getOrg()) {
+      this.isDealerOrAssembler =
+        Core.Data.getOrg().type === Core.Const.ORG_TYPE.DEALER ||
+        Core.Data.getOrg().type === Core.Const.ORG_TYPE.OEM ||
+        Core.Data.getOrg().type === Core.Const.ORG_TYPE.SPECIAL_DEAlER
+
+      this.isBrand = Core.Data.getOrg().type === Core.Const.ORG_TYPE.BRAND
+    }
+    console.log(Core.Data.getOrg())
     this.offLineFlag = Core.Data.getOffline()
     this.userId = Core.Data.getUser().id
     this.recordType = Core.Const.OBJECT_RECORD_TYPE.EDIT
+    // 轮径初始化
+    this.initWheelDiameter()
 
-    for (let i = 6; i < 35; i++) {
-      this.wheelDiameters.push(i)
-      if (i == 27) this.wheelDiameters.push(27.5)
-    }
-    this.wheelDiameter = 26
+    // 初始化限速
+    this.initSpeedLimit()
 
-    for (let i = 10; i <= 60; i++) {
-      this.speedLimits.push(i)
-    }
-    // 经销商离线10-25
-    if (this.isDealerOrAssembler && this.offLineFlag) {
-      this.speedLimits = []
-      for (let i = 10; i <= 25; i++) {
-        this.speedLimits.push(i)
-      }
-    }
-    this.speedLimit = 25
     this.getOfflineRecordList()
     this.offlineRecordLength = this.offlineRecordList.length
 
@@ -738,6 +834,32 @@ export default {
     this.isTechnician = Core.Data.get('accountType').length > 0 && Core.Data.get('accountType').indexOf(7) > -1
   },
   methods: {
+    // 初始化限速
+    initSpeedLimit() {
+      if ((this.isBrand || this.isDealerOrAssembler) && ['United States of America', 'Canada'].includes(Core.Data.getOrg().country)) {
+        this.maxSpeed = 45
+      }
+
+      for (let i = 10; i <= this.maxSpeed; i++) {
+        this.speedLimits.push(i)
+      }
+      // 经销商离线10-25
+      if (this.isDealerOrAssembler && this.offLineFlag) {
+        this.speedLimits = []
+        for (let i = 10; i <= 25; i++) {
+          this.speedLimits.push(i)
+        }
+      }
+      this.speedLimit = 25
+    },
+    // 轮径初始化
+    initWheelDiameter() {
+      for (let i = 6; i < 35; i++) {
+        this.wheelDiameters.push(i)
+        if (i == 27) this.wheelDiameters.push(27.5)
+      }
+      this.wheelDiameter = 26
+    },
     onClickPrint() {
       const data = [
         {
@@ -1397,11 +1519,14 @@ export default {
             let sn = res.data.hmi.sn
             console.log(sn, this.sn)
             if (sn === this.sn || sn == ' ') {
-              this.sn = ''
-              this.$message({
-                message: this.$t('cNam.writeSuccess'),
-                type: 'success'
-              })
+              // 延迟100ms
+              setTimeout(() => {
+                this.sn = ''
+                this.$message({
+                  message: this.$t('cNam.writeSuccess'),
+                  type: 'success'
+                })
+              }, 100)
             } else {
               this.$message({
                 message: this.$t('cNam.writeFail'),
@@ -1417,22 +1542,25 @@ export default {
           .then((res) => {
             //                            console.log(res);
             if (res.can === 'NORMAL_ACK') {
-              this.sn = ''
-              this.$message({
-                message: this.$t('cNam.writeSuccess'),
-                type: 'success'
-              })
-              HMI.port.usbSDK.machineInformation.get
-                .serialNumber(0x05, 0x03)
-                .then((res) => {
-                  this.sn = res.dataParsed
-                  this.readSn = this.sn
+              setTimeout(() => {
+                this.sn = ''
+                this.$message({
+                  message: this.$t('cNam.writeSuccess'),
+                  type: 'success'
                 })
-                .catch((err) => {
-                  console.log(err)
-                  this.usbErrorCheck(err)
-                })
-                .finally(() => {})
+
+                HMI.port.usbSDK.machineInformation.get
+                  .serialNumber(0x05, 0x03)
+                  .then((res) => {
+                    this.sn = res.dataParsed
+                    this.readSn = this.sn
+                  })
+                  .catch((err) => {
+                    console.log(err)
+                    this.usbErrorCheck(err)
+                  })
+                  .finally(() => {})
+              }, 100)
             } else {
               this.$message({
                 message: this.$t('cNam.writeFail'),
@@ -2261,7 +2389,25 @@ export default {
         this.loading = false
       }, 2000)
     },
+    getTimeZone(zone) {
+      // 获取当前本地时间（东八区 UTC+8）
+      let currentLocalTime = new Date()
 
+      // 计算当前时间对应的UTC时间
+      // 东八区比UTC快8小时，所以UTC时间 = 本地时间 - 8小时
+      let currentUTC = new Date(currentLocalTime.getTime() - 8 * 60 * 60 * 1000)
+
+      // 根据目标时区计算新的时间
+      // 目标时区时间 = UTC时间 + 目标时区偏移
+      let targetTime = new Date(currentUTC.getTime() + zone * 60 * 60 * 1000)
+      return targetTime
+    },
+    handleChangeTimeZone(e) {
+      this.setTime = this.getTimeZone(e)
+    },
+    resetTime() {
+      this.setTime = this.getTimeZone(this.utcTime)
+    },
     handleChange() {
       console.log(this.setTime)
       //                console.log( this.setTime.split(' '));
@@ -2616,6 +2762,18 @@ export default {
   },
 
   watch: {
+    speedLimit(newVal, oldVal) {
+      const num = parseFloat(newVal)
+      if ((isNaN(num) || num < 10 || num > this.maxSpeed || !/^\d{1,2}(\.\d{1,2})?$/.test(newVal)) && num != 65535) {
+        this.speedLimit = oldVal
+        this.$message({
+          message: `SpeedLimit should between 10-${this.maxSpeed} Km/h`,
+          type: 'warning',
+          duration: 0,
+          showClose: true
+        })
+      }
+    },
     sn: function (newValue, oldValue) {
       let vm = this
       if (newValue === oldValue || newValue === '') {
@@ -2906,4 +3064,4 @@ export default {
 
 
 // WEBPACK FOOTER //
-// hmi.vue?6d024b48
+// hmi.vue?3a210205
