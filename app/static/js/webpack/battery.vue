@@ -169,6 +169,444 @@
           </div>
         </div>
       </div>
+      <!-- 状态信息 -->
+      <div class="info data">
+        <div class="note-title">
+          <label class="title">状态信息</label>
+        </div>
+        <div class="part">
+          <!-- 状态信息 -->
+          <div class="item">
+            <label class="label">充电器连接</label>
+            <el-input class="input" v-model="chargerConnect" disabled> </el-input>
+          </div>
+          <div class="item">
+            <label class="label">充电器识别</label>
+            <el-input class="input" v-model="chargerRecognition" disabled> </el-input>
+          </div>
+          <div class="item">
+            <label class="label">充电二极管状态</label>
+            <el-input class="input" v-model="chargerDiode" disabled> </el-input>
+          </div>
+          <div class="item">
+            <label class="label">充电结束标志位</label>
+            <el-input class="input" v-model="chargeEnd" disabled> </el-input>
+          </div>
+          <div class="item">
+            <label class="label">电池包负载状态</label>
+            <el-input class="input" v-model="batteryLoad" disabled> </el-input>
+          </div>
+          <div class="item">
+            <label class="label">电池深度休眠标志位</label>
+            <el-input class="input" v-model="batteryDeepSleep" disabled> </el-input>
+          </div>
+          <div class="item">
+            <label class="label">老化模式标志位</label>
+            <el-input class="input" v-model="agingMode" disabled> </el-input>
+          </div>
+          <div class="item">
+            <label class="label">预放电 MOS 状态</label>
+            <el-input class="input" v-model="preDischargeMOS" disabled> </el-input>
+          </div>
+        </div>
+        <div class="part right">
+          <div class="item">
+            <label class="label">电芯 1#NTC 损坏</label>
+            <el-input class="input" v-model="cell1NTC" disabled> </el-input>
+          </div>
+          <div class="item">
+            <label class="label">电芯 2#NTC 损坏</label>
+            <el-input class="input" v-model="cell2NTC" disabled> </el-input>
+          </div>
+          <div class="item">
+            <label class="label">电芯 3#NTC 损坏</label>
+            <el-input class="input" v-model="cell3NTC" disabled> </el-input>
+          </div>
+          <div class="item">
+            <label class="label">电芯 4#NTC 损坏</label>
+            <el-input class="input" v-model="cell4NTC" disabled> </el-input>
+          </div>
+          <div class="item">
+            <label class="label">电芯 5#NTC 损坏</label>
+            <el-input class="input" v-model="cell5NTC" disabled> </el-input>
+          </div>
+          <div class="item">
+            <label class="label">电芯 6#NTC 损坏</label>
+            <el-input class="input" v-model="cell6NTC" disabled> </el-input>
+          </div>
+          <div class="item">
+            <label class="label">功率电路 NTC 损坏</label>
+            <el-input class="input" v-model="powerCircuitNTC" disabled> </el-input>
+          </div>
+          <div class="item">
+            <label class="label">环境 NTC 损坏</label>
+            <el-input class="input" v-model="environmentNTC" disabled> </el-input>
+          </div>
+        </div>
+      </div>
+      <!-- 功率信息 -->
+      <div class="info data">
+        <div class="note-title">
+          <label class="title">功率信息</label>
+        </div>
+        <div class="part">
+          <div class="item">
+            <label class="label">充电口电压</label>
+            <el-input class="input" v-model="ChargingPortVoltage" disabled>
+              <template slot="append">V</template>
+            </el-input>
+          </div>
+          <div class="item">
+            <label class="label">Mos 温度</label>
+            <el-input class="input" v-model="MosTemperature" disabled>
+              <template slot="append">℃</template>
+            </el-input>
+          </div>
+        </div>
+        <div class="part right">
+          <div class="item">
+            <label class="label">放电口电压</label>
+            <el-input class="input" v-model="DischargePortVoltage" disabled>
+              <template slot="append">V</template>
+            </el-input>
+          </div>
+          <div class="item">
+            <label class="label">循环次数</label>
+            <el-input class="input" v-model="cycleTimes" disabled> </el-input>
+          </div>
+        </div>
+      </div>
+      <!-- BMS错误/告警信息 -->
+      <div class="info data">
+        <div class="part">
+          <div class="note-title">
+            <label class="title">错误信息</label>
+          </div>
+          <div class="item">
+            <label class="label">保护芯片损坏</label>
+            <el-input class="input" v-model="protectionChipDamage" disabled> </el-input>
+          </div>
+          <div class="item">
+            <label class="label">计量损坏</label>
+            <el-input class="input" v-model="meteringDamage" disabled> </el-input>
+          </div>
+          <div class="item">
+            <label class="label">存储损坏</label>
+            <el-input class="input" v-model="storageDamage" disabled> </el-input>
+          </div>
+          <div class="item">
+            <label class="label">时钟芯片损坏</label>
+            <el-input class="input" v-model="clockChipDamage" disabled> </el-input>
+          </div>
+          <div class="item">
+            <label class="label">充电 Mos 损坏</label>
+            <el-input class="input" v-model="chargeMosDamage" disabled> </el-input>
+          </div>
+          <div class="item">
+            <label class="label">放电 Mos 损坏</label>
+            <el-input class="input" v-model="dischargeMosDamage" disabled> </el-input>
+          </div>
+          <div class="item">
+            <label class="label">微处理器 ROM 区损坏</label>
+            <el-input class="input" v-model="microprocessorRomDamage" disabled> </el-input>
+          </div>
+          <div class="item">
+            <label class="label">微处理器 RAM 区损坏</label>
+            <el-input class="input" v-model="microprocessorRamDamage" disabled> </el-input>
+          </div>
+          <div class="item">
+            <label class="label">电芯温度传感器损坏</label>
+            <el-input class="input" v-model="cellTemperatureSensorDamage" disabled> </el-input>
+          </div>
+          <div class="item">
+            <label class="label">其他温度传感器损坏</label>
+            <el-input class="input" v-model="otherTemperatureSensorDamage" disabled> </el-input>
+          </div>
+          <div class="item">
+            <label class="label">充电保险丝损坏</label>
+            <el-input class="input" v-model="chargeFuseDamage" disabled> </el-input>
+          </div>
+          <div class="item">
+            <label class="label">放电保险丝损坏</label>
+            <el-input class="input" v-model="dischargeFuseDamage" disabled> </el-input>
+          </div>
+          <div class="item">
+            <label class="label">电芯不平衡</label>
+            <el-input class="input" v-model="cellImbalance" disabled> </el-input>
+          </div>
+          <div class="item">
+            <label class="label">电芯掉线</label>
+            <el-input class="input" v-model="cellDrop" disabled> </el-input>
+          </div>
+          <div class="item">
+            <label class="label">配置错误</label>
+            <el-input class="input" v-model="configurationError" disabled> </el-input>
+          </div>
+          <div class="item">
+            <label class="label">充电过流</label>
+            <el-input class="input" v-model="chargeOvercurrent" disabled> </el-input>
+          </div>
+          <div class="item">
+            <label class="label">欠压第 1 层保护</label>
+            <el-input class="input" v-model="undervoltageProtection1" disabled> </el-input>
+          </div>
+          <div class="item">
+            <label class="label">欠压第 2 层保护</label>
+            <el-input class="input" v-model="undervoltageProtection2" disabled> </el-input>
+          </div>
+          <div class="item">
+            <label class="label">过压第 1 层保护</label>
+            <el-input class="input" v-model="overvoltageProtection1" disabled> </el-input>
+          </div>
+          <div class="item">
+            <label class="label">过压第 2 层保护</label>
+            <el-input class="input" v-model="overvoltageProtection2" disabled> </el-input>
+          </div>
+          <div class="item">
+            <label class="label">过流第 1 层保护</label>
+            <el-input class="input" v-model="overcurrentProtection1" disabled> </el-input>
+          </div>
+          <div class="item">
+            <label class="label">过流第 2 层保护</label>
+            <el-input class="input" v-model="overcurrentProtection2" disabled> </el-input>
+          </div>
+          <div class="item">
+            <label class="label">过流第 3 层保护</label>
+            <el-input class="input" v-model="overcurrentProtection3" disabled> </el-input>
+          </div>
+          <div class="item">
+            <label class="label">过流第 4 层保护</label>
+            <el-input class="input" v-model="overcurrentProtection4" disabled> </el-input>
+          </div>
+          <div class="item">
+            <label class="label">充电过温</label>
+            <el-input class="input" v-model="chargeOvertemperature" disabled> </el-input>
+          </div>
+          <div class="item">
+            <label class="label">放电过温</label>
+            <el-input class="input" v-model="dischargeOvertemperature" disabled> </el-input>
+          </div>
+          <div class="item">
+            <label class="label">充电欠温</label>
+            <el-input class="input" v-model="chargeUndertemperature" disabled> </el-input>
+          </div>
+          <div class="item">
+            <label class="label">放电欠温</label>
+            <el-input class="input" v-model="dischargeUndertemperature" disabled> </el-input>
+          </div>
+          <div class="item">
+            <label class="label">MOS 过温</label>
+            <el-input class="input" v-model="mosOvertemperature" disabled> </el-input>
+          </div>
+          <div class="item">
+            <label class="label">环境过温</label>
+            <el-input class="input" v-model="environmentOvertemperature" disabled> </el-input>
+          </div>
+          <div class="item">
+            <label class="label">预放电错误</label>
+            <el-input class="input" v-model="preDischargeError" disabled> </el-input>
+          </div>
+          <div class="item">
+            <label class="label">预充电错误</label>
+            <el-input class="input" v-model="preChargeError" disabled> </el-input>
+          </div>
+        </div>
+
+        <div class="part right">
+          <div class="note-title">
+            <label class="title">告警信息</label>
+          </div>
+          <!--BMS 告警信息 -->
+          <!--保护芯片损坏 -->
+          <div class="item">
+            <label class="label">保护芯片损坏</label>
+            <el-input class="input" v-model="warn_protectionChipDamage" disabled> </el-input>
+          </div>
+          <div class="item">
+            <label class="label">计量损坏</label>
+            <el-input class="input" v-model="warn_meteringDamage" disabled> </el-input>
+          </div>
+          <div class="item">
+            <label class="label">存储损坏</label>
+            <el-input class="input" v-model="warn_storageDamage" disabled> </el-input>
+          </div>
+          <div class="item">
+            <label class="label">时钟芯片损坏</label>
+            <el-input class="input" v-model="warn_clockChipDamage" disabled> </el-input>
+          </div>
+          <div class="item">
+            <label class="label">充电 Mos 损坏</label>
+            <el-input class="input" v-model="warn_chargeMosDamage" disabled> </el-input>
+          </div>
+          <div class="item">
+            <label class="label">放电 Mos 损坏</label>
+            <el-input class="input" v-model="warn_dischargeMosDamage" disabled> </el-input>
+          </div>
+          <div class="item">
+            <label class="label">微处理器 ROM 区损坏</label>
+            <el-input class="input" v-model="warn_microprocessorRomDamage" disabled> </el-input>
+          </div>
+          <div class="item">
+            <label class="label">微处理器 RAM 区损坏</label>
+            <el-input class="input" v-model="warn_microprocessorRamDamage" disabled> </el-input>
+          </div>
+          <div class="item">
+            <label class="label">电芯温度传感器损坏</label>
+            <el-input class="input" v-model="warn_cellTemperatureSensorDamage" disabled> </el-input>
+          </div>
+          <div class="item">
+            <label class="label">其他温度传感器损坏</label>
+            <el-input class="input" v-model="warn_otherTemperatureSensorDamage" disabled> </el-input>
+          </div>
+          <div class="item">
+            <label class="label">充电保险丝损坏</label>
+            <el-input class="input" v-model="warn_chargeFuseDamage" disabled> </el-input>
+          </div>
+          <div class="item">
+            <label class="label">放电保险丝损坏</label>
+            <el-input class="input" v-model="warn_dischargeFuseDamage" disabled> </el-input>
+          </div>
+          <div class="item">
+            <label class="label">电芯不平衡</label>
+            <el-input class="input" v-model="warn_cellImbalance" disabled> </el-input>
+          </div>
+          <div class="item">
+            <label class="label">电芯掉线</label>
+            <el-input class="input" v-model="warn_cellDrop" disabled> </el-input>
+          </div>
+          <div class="item">
+            <label class="label">配置错误</label>
+            <el-input class="input" v-model="warn_configurationError" disabled> </el-input>
+          </div>
+          <div class="item">
+            <label class="label">充电过流</label>
+            <el-input class="input" v-model="warn_chargeOvercurrent" disabled> </el-input>
+          </div>
+          <div class="item">
+            <label class="label">欠压第 1 层保护</label>
+            <el-input class="input" v-model="warn_undervoltageProtection1" disabled> </el-input>
+          </div>
+          <div class="item">
+            <label class="label">欠压第 2 层保护</label>
+            <el-input class="input" v-model="warn_undervoltageProtection2" disabled> </el-input>
+          </div>
+          <div class="item">
+            <label class="label">过压第 1 层保护</label>
+            <el-input class="input" v-model="warn_overvoltageProtection1" disabled> </el-input>
+          </div>
+          <div class="item">
+            <label class="label">过压第 2 层保护</label>
+            <el-input class="input" v-model="warn_overvoltageProtection2" disabled> </el-input>
+          </div>
+          <div class="item">
+            <label class="label">过流第 1 层保护</label>
+            <el-input class="input" v-model="warn_overcurrentProtection1" disabled> </el-input>
+          </div>
+          <div class="item">
+            <label class="label">过流第 2 层保护</label>
+            <el-input class="input" v-model="warn_overcurrentProtection2" disabled> </el-input>
+          </div>
+          <div class="item">
+            <label class="label">过流第 3 层保护</label>
+            <el-input class="input" v-model="warn_overcurrentProtection3" disabled> </el-input>
+          </div>
+          <div class="item">
+            <label class="label">过流第 4 层保护</label>
+            <el-input class="input" v-model="warn_overcurrentProtection4" disabled> </el-input>
+          </div>
+          <div class="item">
+            <label class="label">充电过温</label>
+            <el-input class="input" v-model="warn_chargeOvertemperature" disabled> </el-input>
+          </div>
+          <div class="item">
+            <label class="label">放电过温</label>
+            <el-input class="input" v-model="warn_dischargeOvertemperature" disabled> </el-input>
+          </div>
+          <div class="item">
+            <label class="label">充电欠温</label>
+            <el-input class="input" v-model="warn_chargeUndertemperature" disabled> </el-input>
+          </div>
+          <div class="item">
+            <label class="label">放电欠温</label>
+            <el-input class="input" v-model="warn_dischargeUndertemperature" disabled> </el-input>
+          </div>
+          <div class="item">
+            <label class="label">MOS 过温</label>
+            <el-input class="input" v-model="warn_mosOvertemperature" disabled> </el-input>
+          </div>
+          <div class="item">
+            <label class="label">环境过温</label>
+            <el-input class="input" v-model="warn_environmentOvertemperature" disabled> </el-input>
+          </div>
+          <div class="item">
+            <label class="label">预放电错误</label>
+            <el-input class="input" v-model="warn_preDischargeError" disabled> </el-input>
+          </div>
+          <div class="item">
+            <label class="label">预充电错误</label>
+            <el-input class="input" v-model="warn_preChargeError" disabled> </el-input>
+          </div>
+        </div>
+      </div>
+      <!-- 最值信息 -->
+      <div class="info data">
+        <div class="note-title">
+          <label class="title">最值信息</label>
+        </div>
+        <div class="part">
+          <div class="item">
+            <label class="label">历史最大放电电流</label>
+            <el-input class="input" v-model="historyMaxDischargeCurrent" disabled>
+              <template slot="append">A</template>
+            </el-input>
+          </div>
+          <div class="item">
+            <label class="label">历史最大充电电流</label>
+            <el-input class="input" v-model="historyMaxChargeCurrent" disabled>
+              <template slot="append">A</template>
+            </el-input>
+          </div>
+          <div class="item">
+            <label class="label">历史最高单节电芯电压</label>
+            <el-input class="input" v-model="historyMaxSingleCellVoltage" disabled>
+              <template slot="append">V</template>
+            </el-input>
+          </div>
+          <div class="item">
+            <label class="label">历史最低单节电芯电压</label>
+            <el-input class="input" v-model="historyMinSingleCellVoltage" disabled>
+              <template slot="append">V</template>
+            </el-input>
+          </div>
+        </div>
+        <div class="part right">
+          <div class="item">
+            <label class="label">历史最高电芯温度</label>
+            <el-input class="input" v-model="historyMaxCellTemperature" disabled>
+              <template slot="append">℃</template>
+            </el-input>
+          </div>
+          <div class="item">
+            <label class="label">历史最低电芯温度</label>
+            <el-input class="input" v-model="historyMinCellTemperature" disabled>
+              <template slot="append">℃</template>
+            </el-input>
+          </div>
+          <div class="item">
+            <label class="label">历史最高 MOS 温度</label>
+            <el-input class="input" v-model="historyMaxMosTemperature" disabled>
+              <template slot="append">℃</template>
+            </el-input>
+          </div>
+          <div class="item">
+            <label class="label">历史最高环境温度</label>
+            <el-input class="input" v-model="historyMaxEnvironmentTemperature" disabled>
+              <template slot="append">℃</template>
+            </el-input>
+          </div>
+        </div>
+      </div>
+
       <div class="info data" v-if="isCan && org.type === Core.Const.ORG_TYPE.COMPONENT">
         <div class="note-title">
           <label class="title">{{ $t('cNam.setting') }}</label>
@@ -348,6 +786,7 @@ import vueLoading from 'vue-loading-template'
 import Core from 'core/core'
 import CustomerSNService from 'src/services/sn/CustomerSNService.js'
 import PrintPreview from './printPreview'
+import conversion from 'src/utils/conversion'
 export default {
   name: 'battery',
   components: {
@@ -453,7 +892,193 @@ export default {
         err_type_count: '',
         err_count: '',
         err_list: []
-      }
+      },
+      // 充电器连接
+      chargerConnect: '',
+      // 充电器识别
+      chargerRecognition: '',
+      // 充电二极管状态
+      chargerDiode: '',
+      // 充电结束标志位
+      chargeEnd: '',
+      // 电池包负载状态
+      batteryLoad: '',
+      // 电池深度休眠标志位
+      batteryDeepSleep: '',
+      // 老化模式标志位
+      agingMode: '',
+      // 预放电 MOS 状态
+      preDischargeMOS: '',
+      // 电芯 1#NTC 损坏
+      cell1NTC: '',
+      // 电芯 2#NTC 损坏
+      cell2NTC: '',
+      // 电芯 3#NTC 损坏
+      cell3NTC: '',
+      // 电芯 4#NTC 损坏
+      cell4NTC: '',
+      // 电芯 5#NTC 损坏
+      cell5NTC: '',
+      // 电芯 6#NTC 损坏
+      cell6NTC: '',
+      // 功率电路 NTC 损坏
+      powerCircuitNTC: '',
+      // 环境 NTC 损坏
+      environmentNTC: '',
+      // 充电口电压
+      ChargingPortVoltage: '',
+      // Mos 温度
+      MosTemperature: '',
+      // 放电口电压
+      DischargePortVoltage: '',
+      // 循环次数
+      cycleTimes: '',
+      // 历史最大放电电流
+      historyMaxDischargeCurrent: '',
+      // 历史最大充电电流
+      historyMaxChargeCurrent: '',
+      // 历史最高单节电芯电压
+      historyMaxSingleCellVoltage: '',
+      // 历史最低单节电芯电压
+      historyMinSingleCellVoltage: '',
+      // 历史最高电芯温度
+      historyMaxCellTemperature: '',
+      // 历史最低电芯温度
+      historyMinCellTemperature: '',
+      // 历史最高 MOS 温度
+      historyMaxMosTemperature: '',
+      // 历史最高环境温度
+      historyMaxEnvironmentTemperature: '',
+      //BMS 错误信息
+      // 保护芯片损坏
+      protectionChipDamage: '',
+      // 计量损坏
+      meteringDamage: '',
+      // 存储损坏
+      storageDamage: '',
+      // 时钟芯片损坏
+      clockChipDamage: '',
+      // 充电 Mos 损坏
+      chargeMosDamage: '',
+      // 放电 Mos 损坏
+      dischargeMosDamage: '',
+      // 微处理器 ROM 区损坏
+      microprocessorRomDamage: '',
+      // 微处理器 RAM 区损坏
+      microprocessorRamDamage: '',
+      // 电芯温度传感器损坏
+      cellTemperatureSensorDamage: '',
+      //  其他温度传感器损坏
+      otherTemperatureSensorDamage: '',
+      //  充电保险丝损坏
+      chargeFuseDamage: '',
+      // 放电保险丝损坏
+      dischargeFuseDamage: '',
+      //  电芯不平衡
+      cellImbalance: '',
+      //  电芯掉线
+      cellDrop: '',
+      // 配置错误
+      configurationError: '',
+      //  充电过流
+      chargeOvercurrent: '',
+      // 欠压第 1 层保护
+      undervoltageProtection1: '',
+      // 欠压第 2 层保护
+      undervoltageProtection2: '',
+      // 过压第 1 层保护
+      overvoltageProtection1: '',
+      // 过压第 2 层保护
+      overvoltageProtection2: '',
+      // 过流第 1 层保护
+      overcurrentProtection1: '',
+      // 过流第 2 层保护
+      overcurrentProtection2: '',
+      //  过流第 3 层保护
+      overcurrentProtection3: '',
+      //  过流第 4 层保护
+      overcurrentProtection4: '',
+      // 充电过温
+      chargeOvertemperature: '',
+      //  放电过温
+      dischargeOvertemperature: '',
+      // 充电欠温
+      chargeUndertemperature: '',
+      // 放电欠温
+      dischargeUndertemperature: '',
+      // MOS 过温
+      mosOvertemperature: '',
+      // 环境过温
+      environmentOvertemperature: '',
+      // 预放电错误
+      preDischargeError: '',
+      //  预充电错误
+      preChargeError: '',
+      // BMS 告警信息
+      // 保护芯片损坏
+      warn_protectionChipDamage: '',
+      // 计量损坏
+      warn_meteringDamage: '',
+      // 存储损坏
+      warn_storageDamage: '',
+      // 时钟芯片损坏
+      warn_clockChipDamage: '',
+      // 充电 Mos 损坏
+      warn_chargeMosDamage: '',
+      // 放电 Mos 损坏
+      warn_dischargeMosDamage: '',
+      // 微处理器 ROM 区损坏
+      warn_microprocessorRomDamage: '',
+      // 微处理器 RAM 区损坏
+      warn_microprocessorRamDamage: '',
+      // 电芯温度传感器损坏
+      warn_cellTemperatureSensorDamage: '',
+      //  其他温度传感器损坏
+      warn_otherTemperatureSensorDamage: '',
+      //  充电保险丝损坏
+      warn_chargeFuseDamage: '',
+      // 放电保险丝损坏
+      warn_dischargeFuseDamage: '',
+      //  电芯不平衡
+      warn_cellImbalance: '',
+      //  电芯掉线
+      warn_cellDrop: '',
+      // 配置错误
+      warn_configurationError: '',
+      //  充电过流
+      warn_chargeOvercurrent: '',
+      // 欠压第 1 层保护
+      warn_undervoltageProtection1: '',
+      // 欠压第 2 层保护
+      warn_undervoltageProtection2: '',
+      // 过压第 1 层保护
+      warn_overvoltageProtection1: '',
+      // 过压第 2 层保护
+      warn_overvoltageProtection2: '',
+      // 过流第 1 层保护
+      warn_overcurrentProtection1: '',
+      // 过流第 2 层保护
+      warn_overcurrentProtection2: '',
+      //  过流第 3 层保护
+      warn_overcurrentProtection3: '',
+      //  过流第 4 层保护
+      warn_overcurrentProtection4: '',
+      // 充电过温
+      warn_chargeOvertemperature: '',
+      //  放电过温
+      warn_dischargeOvertemperature: '',
+      // 充电欠温
+      warn_chargeUndertemperature: '',
+      // 放电欠温
+      warn_dischargeUndertemperature: '',
+      // MOS 过温
+      warn_mosOvertemperature: '',
+      // 环境过温
+      warn_environmentOvertemperature: '',
+      // 预放电错误
+      warn_preDischargeError: '',
+      //  预充电错误
+      warn_preChargeError: ''
     }
   },
   i18n: {
@@ -935,6 +1560,138 @@ export default {
             this.cell8_14 = res.data.cell8_14
           }
         })
+
+        // 循环信息 Index: 0x6401
+        Battery.port.usbSDK.machineInformation.get
+          .commonGet(0x05, 0x04, '64', '01')
+          .then((res) => {
+            if (!res.data) {
+              return
+            }
+            let byte0Un1 = res.data.substring(0, 4)
+            this.cycleTimes = conversion.hexStringToDecimal(byte0Un1)
+          })
+          .catch((err) => {
+            console.log(err)
+          })
+
+        // 最值信息 Index: 0x6417
+        Battery.port.usbSDK.machineInformation.get
+          .commonGet(0x05, 0x04, '64', '17')
+          .then((res) => {
+            if (!res.data) {
+              return
+            }
+            let byte0Un1 = res.data.substring(0, 4)
+            this.historyMaxDischargeCurrent = conversion.hexStringToDecimal(byte0Un1, 2)
+            let byte2Un3 = res.data.substring(4, 8)
+            this.historyMaxChargeCurrent = conversion.hexStringToDecimal(byte2Un3, 2)
+            let byte4Un5 = res.data.substring(8, 12)
+            this.historyMaxSingleCellVoltage = conversion.hexStringToDecimal(byte4Un5, 2)
+            let byte6Un7 = res.data.substring(12, 16)
+            this.historyMinSingleCellVoltage = conversion.hexStringToDecimal(byte6Un7, 2)
+          })
+          .catch((err) => {
+            console.log(err)
+          })
+
+        // 最值信息 Index: 0x6418
+        Battery.port.usbSDK.machineInformation.get
+          .commonGet(0x05, 0x04, '64', '18')
+          .then((res) => {
+            if (!res.data) {
+              return
+            }
+            let byte0 = res.data.substring(0, 2)
+            this.historyMaxCellTemperature = conversion.hexStringToDecimal(byte0) - 40
+            let byte1 = res.data.substring(2, 4)
+            this.historyMinCellTemperature = conversion.hexStringToDecimal(byte1) - 40
+            let byte2 = res.data.substring(4, 6)
+            this.historyMaxMosTemperature = conversion.hexStringToDecimal(byte2) - 40
+            let byte3 = res.data.substring(6, 8)
+            this.historyMaxEnvironmentTemperature = conversion.hexStringToDecimal(byte3) - 40
+          })
+          .catch((err) => {
+            console.log(err)
+          })
+
+        // 内部故障信息 Index: 0x6419
+        Battery.port.usbSDK.machineInformation.get.commonGet(0x05, 0x04, '64', '19').then((res) => {
+          if (!res.data) {
+            return
+          }
+          //BMS 错误信息
+          let byte0Un3 = res.data.data.substring(0, 6)
+          let byte0Un3DataArr = conversion.hexStringToBinaryArray(byte0Un3, 32)
+          this.protectionChipDamage = byte0Un3DataArr[0]
+          this.meteringDamage = byte0Un3DataArr[1]
+          this.storageDamage = byte0Un3DataArr[2]
+          this.clockChipDamage = byte0Un3DataArr[3]
+          this.chargeMosDamage = byte0Un3DataArr[4]
+          this.dischargeMosDamage = byte0Un3DataArr[5]
+          this.microprocessorRomDamage = byte0Un3DataArr[6]
+          this.microprocessorRamDamage = byte0Un3DataArr[7]
+          this.cellTemperatureSensorDamage = byte0Un3DataArr[8]
+          this.otherTemperatureSensorDamage = byte0Un3DataArr[9]
+          this.chargeFuseDamage = byte0Un3DataArr[10]
+          this.dischargeFuseDamage = byte0Un3DataArr[11]
+          this.cellImbalance = byte0Un3DataArr[12]
+          this.cellDrop = byte0Un3DataArr[13]
+          this.configurationError = byte0Un3DataArr[14]
+          this.chargeOvercurrent = byte0Un3DataArr[15]
+          this.undervoltageProtection1 = byte0Un3DataArr[16]
+          this.undervoltageProtection2 = byte0Un3DataArr[17]
+          this.overvoltageProtection1 = byte0Un3DataArr[18]
+          this.overvoltageProtection2 = byte0Un3DataArr[19]
+          this.overcurrentProtection1 = byte0Un3DataArr[20]
+          this.overcurrentProtection2 = byte0Un3DataArr[21]
+          this.overcurrentProtection3 = byte0Un3DataArr[22]
+          this.overcurrentProtection4 = byte0Un3DataArr[23]
+          this.chargeOvertemperature = byte0Un3DataArr[24]
+          this.dischargeOvertemperature = byte0Un3DataArr[25]
+          this.chargeUndertemperature = byte0Un3DataArr[26]
+          this.dischargeUndertemperature = byte0Un3DataArr[27]
+          this.mosOvertemperature = byte0Un3DataArr[28]
+          this.environmentOvertemperature = byte0Un3DataArr[29]
+          this.preDischargeError = byte0Un3DataArr[30]
+          this.preChargeError = byte0Un3DataArr[31]
+          // BMS 告警信息
+          let byte4Un7 = res.data.data.substring(7, 12)
+          let byte4Un7DataArr = conversion.hexStringToBinaryArray(byte4Un7, 32)
+          this.warn_protectionChipDamage = byte4Un7DataArr[0]
+          this.warn_meteringDamage = byte4Un7DataArr[1]
+          this.warn_storageDamage = byte4Un7DataArr[2]
+          this.warn_clockChipDamage = byte4Un7DataArr[3]
+          this.warn_chargeMosDamage = byte4Un7DataArr[4]
+          this.warn_dischargeMosDamage = byte4Un7DataArr[5]
+          this.warn_microprocessorRomDamage = byte4Un7DataArr[6]
+          this.warn_microprocessorRamDamage = byte4Un7DataArr[7]
+          this.warn_cellTemperatureSensorDamage = byte4Un7DataArr[8]
+          this.warn_otherTemperatureSensorDamage = byte4Un7DataArr[9]
+          this.warn_chargeFuseDamage = byte4Un7DataArr[10]
+          this.warn_dischargeFuseDamage = byte4Un7DataArr[11]
+          this.warn_cellImbalance = byte4Un7DataArr[12]
+          this.warn_cellDrop = byte4Un7DataArr[13]
+          this.warn_configurationError = byte4Un7DataArr[14]
+          this.warn_chargeOvercurrent = byte4Un7DataArr[15]
+          this.warn_undervoltageProtection1 = byte4Un7DataArr[16]
+          this.warn_undervoltageProtection2 = byte4Un7DataArr[17]
+          this.warn_overvoltageProtection1 = byte4Un7DataArr[18]
+          this.warn_overvoltageProtection2 = byte4Un7DataArr[19]
+          this.warn_overcurrentProtection1 = byte4Un7DataArr[20]
+          this.warn_overcurrentProtection2 = byte4Un7DataArr[21]
+          this.warn_overcurrentProtection3 = byte4Un7DataArr[22]
+          this.warn_overcurrentProtection4 = byte4Un7DataArr[23]
+          this.warn_chargeOvertemperature = byte4Un7DataArr[24]
+          this.warn_dischargeOvertemperature = byte4Un7DataArr[25]
+          this.warn_chargeUndertemperature = byte4Un7DataArr[26]
+          this.warn_dischargeUndertemperature = byte4Un7DataArr[27]
+          this.warn_mosOvertemperature = byte4Un7DataArr[28]
+          this.warn_environmentOvertemperature = byte4Un7DataArr[29]
+          this.warn_preDischargeError = byte4Un7DataArr[30]
+          this.warn_preChargeError = byte4Un7DataArr[31]
+        })
+
         Battery.port.getListenData().subscribe((res) => {
           if (!res.data) {
             return
@@ -960,6 +1717,40 @@ export default {
             let result_2 = Buffer.from(res.data.data, 'hex')
             this.packVoltage = (result_2[2] + result_2[3] * 256) * 10
             this.temperature = result_2[4] - 40
+          }
+          // 状态信息
+          if (res.data.code === '34' && res.data.subCode === '21') {
+            let byte1 = res.data.data.substring(2, 4)
+            let byte1DataArr = conversion.hexStringToBinaryArray(byte1)
+            this.chargerConnect = byte1DataArr[0]
+            this.chargerRecognition = byte1DataArr[1]
+            this.chargerDiode = byte1DataArr[2]
+            this.chargeEnd = byte1DataArr[3]
+            this.batteryLoad = byte1DataArr[4]
+            this.batteryDeepSleep = byte1DataArr[5]
+            this.agingMode = byte1DataArr[6]
+            this.preDischargeMOS = byte1DataArr[7]
+
+            let byte2 = res.data.data.substring(4, 6)
+            let byte2DataArr = conversion.hexStringToBinaryArray(byte2)
+            this.cell1NTC = byte2DataArr[0]
+            this.cell2NTC = byte2DataArr[1]
+            this.cell3NTC = byte2DataArr[2]
+            this.cell4NTC = byte2DataArr[3]
+            this.cell5NTC = byte2DataArr[4]
+            this.cell6NTC = byte2DataArr[5]
+            this.powerCircuitNTC = byte2DataArr[6]
+            this.environmentNTC = byte2DataArr[7]
+          }
+
+          // 功率信息
+          if (res.data.code === '34' && res.data.subCode === '34') {
+            let byte0Un1 = res.data.data.substring(0, 4)
+            this.ChargingPortVoltage = conversion.hexStringToDecimal(byte0Un1, 2)
+            let byte2Un3 = res.data.data.substring(4, 8)
+            this.DischargePortVoltage = conversion.hexStringToDecimal(byte2Un3, 2)
+            let byte4 = res.data.data.substring(8, 10)
+            this.MosTemperature = conversion.hexStringToDecimal(byte4) - 40
           }
         })
       }
@@ -1771,4 +2562,4 @@ export default {
 
 
 // WEBPACK FOOTER //
-// battery.vue?960ebcbc
+// battery.vue?aeda570a

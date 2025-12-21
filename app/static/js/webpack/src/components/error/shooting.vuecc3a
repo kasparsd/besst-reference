@@ -38,61 +38,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }, [_c('p', {
       staticClass: "name"
-    }, [_vm._v(_vm._s(item.name))]), _vm._v(" "), _c('button', {
-      staticClass: "btn-underline",
-      on: {
-        "click": function($event) {
-          $event.stopPropagation();
-          return _vm.onDelete(item)
-        }
-      }
-    }, [_vm._v("Delete")])])
+    }, [_vm._v(_vm._s(item.name))])])
   })], 2), _vm._v(" "), _c('div', {
     staticClass: "content"
-  }, [_c('el-tabs', {
-    model: {
-      value: (_vm.language),
-      callback: function($$v) {
-        _vm.language = $$v
-      },
-      expression: "language"
-    }
-  }, [_c('el-tab-pane', {
-    attrs: {
-      "label": "English",
-      "name": "en"
-    }
-  }), _vm._v(" "), _c('el-tab-pane', {
-    attrs: {
-      "label": "中文",
-      "name": "zh"
-    }
-  }), _vm._v(" "), _c('el-tab-pane', {
-    attrs: {
-      "label": "Deutsch",
-      "name": "de"
-    }
-  }), _vm._v(" "), _c('el-tab-pane', {
-    attrs: {
-      "label": "Dutch",
-      "name": "nl"
-    }
-  }), _vm._v(" "), _c('el-tab-pane', {
-    attrs: {
-      "label": "French",
-      "name": "fr"
-    }
-  }), _vm._v(" "), _c('el-tab-pane', {
-    attrs: {
-      "label": "Czech",
-      "name": "cs"
-    }
-  }), _vm._v(" "), _c('el-tab-pane', {
-    attrs: {
-      "label": "Italian",
-      "name": "it"
-    }
-  })], 1), _vm._v(" "), (_vm.per && Object.keys(_vm.selectErrorCode).length == 0) ? _c('el-button', {
+  }, [(_vm.per && Object.keys(_vm.selectErrorCode).length == 0) ? _c('el-button', {
     on: {
       "click": _vm.doInster
     }
@@ -163,5 +112,5 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
 //////////////////
 // WEBPACK FOOTER
 // ./node_modules/vue-loader/lib/template-compiler?{"id":"data-v-2cd6b15e","hasScoped":true}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./src/components/error/shooting.vue
-// module id = 1360
+// module id = 1380
 // module chunks = 76

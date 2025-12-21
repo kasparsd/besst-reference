@@ -571,5 +571,5 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
 //////////////////
 // WEBPACK FOOTER
 // ./node_modules/vue-loader/lib/template-compiler?{"id":"data-v-afe9ba54","hasScoped":false}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./src/views/nl/shipment-order/shipment-order-header.vue
-// module id = 2529
-// module chunks = 57
+// module id = 2560
+// module chunks = 56

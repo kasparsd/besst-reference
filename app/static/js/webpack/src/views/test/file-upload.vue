@@ -18,5 +18,5 @@ module.exports = Component.exports
 //////////////////
 // WEBPACK FOOTER
 // ./src/views/test/file-upload.vue
-// module id = 2115
+// module id = 2147
 // module chunks = 76

@@ -569,5 +569,5 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
 //////////////////
 // WEBPACK FOOTER
 // ./node_modules/vue-loader/lib/template-compiler?{"id":"data-v-21cec262","hasScoped":false}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./src/views/nl/clean-management/clean-record.vue
-// module id = 2680
-// module chunks = 40
+// module id = 2711
+// module chunks = 39

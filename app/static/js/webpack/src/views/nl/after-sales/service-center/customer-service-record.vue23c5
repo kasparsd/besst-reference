@@ -335,5 +335,5 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
 //////////////////
 // WEBPACK FOOTER
 // ./node_modules/vue-loader/lib/template-compiler?{"id":"data-v-f9e6a456","hasScoped":false}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./src/views/nl/after-sales/service-center/customer-service-record.vue
-// module id = 2634
+// module id = 2665
 // module chunks = 19

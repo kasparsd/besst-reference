@@ -53,7 +53,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   })], 1), _vm._v(" "), _c('div', {
     staticClass: "item"
   }, [_vm._m(1), _vm._v(" "), _c('el-input', {
-    staticClass: "input ",
+    staticClass: "input",
     model: {
       value: (_vm.country),
       callback: function($$v) {
@@ -70,7 +70,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }],
     staticClass: "item"
   }, [_vm._m(2), _vm._v(" "), _c('el-input', {
-    staticClass: "input ",
+    staticClass: "input",
     model: {
       value: (_vm.address),
       callback: function($$v) {
@@ -87,7 +87,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }],
     staticClass: "item"
   }, [_vm._m(3), _vm._v(" "), _c('el-input', {
-    staticClass: "input ",
+    staticClass: "input",
     model: {
       value: (_vm.atten),
       callback: function($$v) {
@@ -104,7 +104,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }],
     staticClass: "item"
   }, [_vm._m(4), _vm._v(" "), _c('el-input', {
-    staticClass: "input ",
+    staticClass: "input",
     model: {
       value: (_vm.tel),
       callback: function($$v) {
@@ -115,7 +115,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   })], 1), _vm._v(" "), _c('div', {
     staticClass: "item"
   }, [_vm._m(5), _vm._v(" "), _c('el-input', {
-    staticClass: "input ",
+    staticClass: "input",
     model: {
       value: (_vm.vatNo),
       callback: function($$v) {
@@ -714,5 +714,5 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
 //////////////////
 // WEBPACK FOOTER
 // ./node_modules/vue-loader/lib/template-compiler?{"id":"data-v-b8f6a726","hasScoped":false}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./src/views/service-center/after-sales/after-pi-edit.vue
-// module id = 2103
+// module id = 2135
 // module chunks = 76

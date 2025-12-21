@@ -43,9 +43,9 @@ requireComponent.keys().forEach((fileName) => {
 
 //系统错误捕获
 const errorHandler = (err, vm, info) => {
-  // console.log(err.toString());
-  // console.log(vm.$vnode.elm.className);
-  // console.log(vm.$vnode.elm.baseURI);
+  console.log(err.toString());
+  console.log(vm.$vnode.elm.className);
+  console.log(vm.$vnode.elm.baseURI);
   // console.log(info);
   // console.log(Core.Data.getUser() && Core.Data.getUser().email);
   // console.log(new Date().getTime());
@@ -286,6 +286,15 @@ new Vue({
   }
 })
 
+// 监听页面崩溃
+window.addEventListener('error', (event) => {
+  console.error('Global Error:', event.error);
+});
+
+// 监听未处理的 Promise 拒绝
+window.addEventListener('unhandledrejection', (event) => {
+  console.error('unhandledrejection:', event.reason);
+});
 
 
 // WEBPACK FOOTER //

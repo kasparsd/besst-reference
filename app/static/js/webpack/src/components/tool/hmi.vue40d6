@@ -703,7 +703,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v(_vm._s(_vm.$t('cNam.clear')) + " ")])], 1)]), _vm._v(" "), _c('div', {
     staticClass: "clear-10"
-  }), _vm._v(" "), (_vm.org.type === _vm.Core.Const.ORG_TYPE.COMPONENT) ? _c('div', [(_vm.org.type === _vm.Core.Const.ORG_TYPE.COMPONENT) ? _c('div', {
+  }), _vm._v(" "), (_vm.org.type === _vm.Core.Const.ORG_TYPE.COMPONENT) ? _c('div', [_c('div', {
     staticClass: "item"
   }, [_c('label', {
     staticClass: "label"
@@ -727,7 +727,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "value": item.value
       }
     })
-  }), 1)], 1) : _vm._e(), _vm._v(" "), _c('div', {
+  }), 1)], 1), _vm._v(" "), _c('div', {
     staticClass: "btn-row"
   }, [_c('div', {
     staticClass: "btn-group"
@@ -945,6 +945,33 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "item"
   }, [_c('label', {
     staticClass: "label"
+  }, [_vm._v(_vm._s(_vm.$t('cNam.setTimeZone')))]), _vm._v(" "), _c('el-select', {
+    staticClass: "input",
+    attrs: {
+      "placeholder": _vm.$t('cNam.select')
+    },
+    on: {
+      "change": _vm.handleChangeTimeZone
+    },
+    model: {
+      value: (_vm.utcTime),
+      callback: function($$v) {
+        _vm.utcTime = $$v
+      },
+      expression: "utcTime"
+    }
+  }, _vm._l((_vm.timezone), function(item) {
+    return _c('el-option', {
+      key: item.value,
+      attrs: {
+        "label": item.label,
+        "value": item.value
+      }
+    })
+  }), 1)], 1), _vm._v(" "), _c('div', {
+    staticClass: "item"
+  }, [_c('label', {
+    staticClass: "label"
   }, [_vm._v(_vm._s(_vm.$t('cNam.time')))]), _vm._v(" "), _c('el-time-picker', {
     attrs: {
       "value-format": "HH:mm:ss"
@@ -966,6 +993,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('div', {
     staticClass: "btn-group"
   }, [_c('el-button', {
+    attrs: {
+      "type": "primary"
+    },
+    on: {
+      "click": _vm.resetTime
+    }
+  }, [_vm._v(_vm._s(_vm.$t('cNam.reset')))]), _vm._v(" "), _c('el-button', {
     attrs: {
       "type": "primary"
     },
@@ -1337,5 +1371,5 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
 //////////////////
 // WEBPACK FOOTER
 // ./node_modules/vue-loader/lib/template-compiler?{"id":"data-v-d1223f3e","hasScoped":false}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./src/components/tool/hmi.vue
-// module id = 1283
+// module id = 1290
 // module chunks = 76

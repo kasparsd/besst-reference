@@ -93,5 +93,5 @@ export default new Log()
 //////////////////
 // WEBPACK FOOTER
 // ./core/js/log.js
-// module id = 80
+// module id = 84
 // module chunks = 76

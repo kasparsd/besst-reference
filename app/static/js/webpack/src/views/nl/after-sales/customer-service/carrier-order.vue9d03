@@ -12,5 +12,5 @@ exports.push([module.id, ".customer-service{display:-webkit-box;display:-ms-flex
 //////////////////
 // WEBPACK FOOTER
 // ./node_modules/css-loader?{"minimize":true,"sourceMap":true}!./node_modules/vue-loader/lib/style-compiler?{"vue":true,"id":"data-v-1a6bb6ef","scoped":false,"hasInlineConfig":false}!./node_modules/sass-loader/lib/loader.js?{"sourceMap":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./src/views/nl/after-sales/customer-service/carrier-order.vue
-// module id = 2686
-// module chunks = 46
+// module id = 2717
+// module chunks = 45

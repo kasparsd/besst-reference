@@ -38,24 +38,28 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "cellspacing": "0",
       "cellpadding": "0"
     }
-  }, [_c('thead', [_c('tr', _vm._l((_vm.tableHead), function(item) {
-    return _c('td', [_vm._v("\n            " + _vm._s(item) + "\n          ")])
-  }), 0)]), _vm._v(" "), _c('tbody', _vm._l((_vm.videoList), function(item) {
-    return _c('tr', [_c('td', [_vm._v(_vm._s(item.name))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm._f("videoCategoryType")(item.category)))]), _vm._v(" "), _c('td', [_c('a', {
+  }, [_c('thead', [_c('tr', _vm._l((_vm.tableHead), function(item, index) {
+    return _c('td', {
+      key: index
+    }, [_vm._v("\n            " + _vm._s(item) + "\n          ")])
+  }), 0)]), _vm._v(" "), _c('tbody', _vm._l((_vm.videoList), function(item, index) {
+    return _c('tr', {
+      key: index
+    }, [_c('td', [_vm._v(_vm._s(item.name))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm._f("videoCategoryType")(item.category)))]), _vm._v(" "), _c('td', [_c('a', {
       staticClass: "btn-underline",
       on: {
         "click": function($event) {
           return _vm.preview(item)
         }
       }
-    }, [_vm._v(_vm._s(_vm.$t("preview")))]), _vm._v(" "), (_vm.authList[_vm.Core.Const.AUTH_LIST.productProductTrainingDelete]) ? _c('a', {
+    }, [_vm._v(_vm._s(_vm.$t('preview')))]), _vm._v(" "), (_vm.authList[_vm.Core.Const.AUTH_LIST.productProductTrainingDelete]) ? _c('a', {
       staticClass: "btn-underline",
       on: {
         "click": function($event) {
           return _vm.showDeleteDialog(item)
         }
       }
-    }, [_vm._v(_vm._s(_vm.$t("delete")))]) : _vm._e()])])
+    }, [_vm._v(_vm._s(_vm.$t('delete')))]) : _vm._e()])])
   }), 0)]), _vm._v(" "), _c('div', {
     directives: [{
       name: "show",
@@ -64,7 +68,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       expression: "videoList.length <= 0 && !loading"
     }],
     staticClass: "no-data-content"
-  }, [_vm._v("\n      " + _vm._s(_vm.$t("noResult")) + "\n    ")]), _vm._v(" "), (_vm.loading) ? _c('div', {
+  }, [_vm._v("\n      " + _vm._s(_vm.$t('noResult')) + "\n    ")]), _vm._v(" "), (_vm.loading) ? _c('div', {
     staticClass: "loading"
   }, [_c('img', {
     attrs: {
@@ -84,7 +88,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('div', [_c('label', {
     staticClass: "label"
-  }, [_vm._v(_vm._s(_vm.$t("category")))]), _vm._v(" "), _c('el-select', {
+  }, [_vm._v(_vm._s(_vm.$t('category')))]), _vm._v(" "), _c('el-select', {
     staticClass: "select",
     attrs: {
       "slot": "append"
@@ -142,12 +146,14 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })], 1), _vm._v(" "), _c('td', {
     staticClass: "video-td head"
-  }, [_vm._v("\n            " + _vm._s(_vm.$t("name")) + "\n          ")]), _vm._v(" "), _c('td', {
+  }, [_vm._v("\n            " + _vm._s(_vm.$t('name')) + "\n          ")]), _vm._v(" "), _c('td', {
     staticClass: "video-td head"
-  }, [_vm._v("\n            " + _vm._s(_vm.$t("category")) + "\n          ")]), _vm._v(" "), _c('td', {
+  }, [_vm._v("\n            " + _vm._s(_vm.$t('category')) + "\n          ")]), _vm._v(" "), _c('td', {
     staticClass: "video-td head"
-  }, [_vm._v("\n            " + _vm._s(_vm.$t("operation")) + "\n          ")])])]), _vm._v(" "), _vm._l((_vm.showList), function(item) {
-    return _c('tr', [_c('td', {
+  }, [_vm._v("\n            " + _vm._s(_vm.$t('operation')) + "\n          ")])])]), _vm._v(" "), _vm._l((_vm.showList), function(item, index) {
+    return _c('tr', {
+      key: index
+    }, [_c('td', {
       staticClass: "video-td head"
     }, [_c('el-checkbox', {
       staticClass: "table-checkbox",
@@ -171,7 +177,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           return _vm.preview(item)
         }
       }
-    }, [_vm._v(_vm._s(_vm.$t("preview")))])])])
+    }, [_vm._v(_vm._s(_vm.$t('preview')))])])])
   })], 2), _vm._v(" "), _c('div', {
     staticClass: "dialog-footer",
     attrs: {
@@ -185,14 +191,14 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "click": _vm.addVideo
     }
-  }, [_vm._v(" " + _vm._s(_vm.$t("confirm")) + " ")]), _vm._v(" "), _c('el-button', {
+  }, [_vm._v(" " + _vm._s(_vm.$t('confirm')) + " ")]), _vm._v(" "), _c('el-button', {
     attrs: {
       "type": "primary"
     },
     on: {
       "click": _vm.closeChooseItem
     }
-  }, [_vm._v(_vm._s(_vm.$t("cancel")))])], 1)]), _vm._v(" "), _c('el-dialog', {
+  }, [_vm._v(_vm._s(_vm.$t('cancel')))])], 1)]), _vm._v(" "), _c('el-dialog', {
     attrs: {
       "title": _vm.selectVideo.name,
       "custom-class": "video-dialog",
@@ -223,7 +229,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.videoListDeleteDialogVisible = $event
       }
     }
-  }, [_c('p', [_vm._v(_vm._s(_vm.$t("deleteTip")))]), _vm._v(" "), _c('div', {
+  }, [_c('p', [_vm._v(_vm._s(_vm.$t('deleteTip')))]), _vm._v(" "), _c('div', {
     staticClass: "dialog-footer",
     attrs: {
       "slot": "footer"
@@ -236,7 +242,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "click": _vm.deleteVideo
     }
-  }, [_vm._v(_vm._s(_vm.$t("yes")))]), _vm._v(" "), _c('el-button', {
+  }, [_vm._v(_vm._s(_vm.$t('yes')))]), _vm._v(" "), _c('el-button', {
     attrs: {
       "type": "primary"
     },
@@ -245,12 +251,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.videoListDeleteDialogVisible = false
       }
     }
-  }, [_vm._v(_vm._s(_vm.$t("no")))])], 1)])], 1)
+  }, [_vm._v(_vm._s(_vm.$t('no')))])], 1)])], 1)
 },staticRenderFns: []}
 
 
 //////////////////
 // WEBPACK FOOTER
 // ./node_modules/vue-loader/lib/template-compiler?{"id":"data-v-507bb9a0","hasScoped":false}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./src/views/component/product/item-viedo-list.vue
-// module id = 1957
+// module id = 1976
 // module chunks = 76

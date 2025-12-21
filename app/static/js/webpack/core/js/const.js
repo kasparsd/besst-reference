@@ -31,9 +31,9 @@ function Const() {
       LOG_LEVEL_TRACE: 4,
       LOG_LEVEL_DEBUG: 5,
 
-      VERSION: '1.2.43',
+      VERSION: '1.2.48.3',
 
-      VERSION_DATE: '2022-07-15'
+      VERSION_DATE: '2024-12-31'
     },
 
     NET: {
@@ -90,6 +90,7 @@ function Const() {
       KEY_SP: 'sp',
       KEY_LANG: 'lang',
       KEY_AUTH: 'auth',
+      KEY_ROLE: 'role',
       KEY_COMPONENT_ORDER_LIST_PAGE: 'component.order.list.page',
       KEY_COMPONENT_ORDER_LIST_CONDITION: 'component.order.list.condition',
       KEY_COMPONENT_COMPONENT_LIST_CONDITION: 'component.component.list.condition',
@@ -147,7 +148,8 @@ function Const() {
       OEM: 3,
       COMPONENT: 4,
       SERVICE_CENTER: 5,
-      SPECIAL_DEAlER: 6
+      SPECIAL_DEAlER: 6,
+      ST: 4974
     },
 
     ORG_CATEGORY_TYPE: {
@@ -169,7 +171,9 @@ function Const() {
       CONNECTOR: 8,
       CHARGER: 9,
       TOOL: 10,
-      IOT: 12
+      IOT: 12,
+      BATTERY_COMM: 13,
+      TLC: 893
     },
 
     CATEGORY_ROOT: {
@@ -311,8 +315,7 @@ function Const() {
       { value: '201C', label: '450', max: '1600', min: '1208' },
       { value: '8025', label: '600', max: '2200', min: '1600' },
       { value: 'A028', label: '650', max: '2200', min: '1600' },
-      { value: 'C02B', label: '700', max: '2510', min: '1880' },
-      { value: 'FFFF', label: 'No limit', max: '1', min: '0' }
+      { value: 'C02B', label: '700', max: '2510', min: '1880' }
     ],
 
     MATERIAL_STATUS: {
@@ -1060,5 +1063,5 @@ export default new Const()
 //////////////////
 // WEBPACK FOOTER
 // ./core/js/const.js
-// module id = 91
+// module id = 96
 // module chunks = 76

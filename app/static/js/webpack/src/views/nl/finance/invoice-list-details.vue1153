@@ -105,5 +105,5 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
 //////////////////
 // WEBPACK FOOTER
 // ./node_modules/vue-loader/lib/template-compiler?{"id":"data-v-652068da","hasScoped":false}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./src/views/nl/finance/invoice-list-details.vue
-// module id = 2477
-// module chunks = 33
+// module id = 2508
+// module chunks = 32

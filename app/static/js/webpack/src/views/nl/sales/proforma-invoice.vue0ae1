@@ -12,5 +12,5 @@ exports.push([module.id, ".PI-list{display:-webkit-box;display:-ms-flexbox;displ
 //////////////////
 // WEBPACK FOOTER
 // ./node_modules/css-loader?{"minimize":true,"sourceMap":true}!./node_modules/vue-loader/lib/style-compiler?{"vue":true,"id":"data-v-00e4e5c4","scoped":false,"hasInlineConfig":false}!./node_modules/sass-loader/lib/loader.js?{"sourceMap":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./src/views/nl/sales/proforma-invoice.vue
-// module id = 2596
+// module id = 2627
 // module chunks = 10

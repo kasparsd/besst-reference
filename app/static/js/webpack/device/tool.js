@@ -176,5 +176,5 @@ export default Tool;
 //////////////////
 // WEBPACK FOOTER
 // ./device/tool.js
-// module id = 171
+// module id = 177
 // module chunks = 76

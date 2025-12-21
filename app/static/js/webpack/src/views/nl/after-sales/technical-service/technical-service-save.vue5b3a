@@ -12,5 +12,5 @@ exports.push([module.id, ".technical-service-save{width:100%;height:100%}.techni
 //////////////////
 // WEBPACK FOOTER
 // ./node_modules/css-loader?{"minimize":true,"sourceMap":true}!./node_modules/vue-loader/lib/style-compiler?{"vue":true,"id":"data-v-a4147fe4","scoped":false,"hasInlineConfig":false}!./node_modules/sass-loader/lib/loader.js?{"sourceMap":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./src/views/nl/after-sales/technical-service/technical-service-save.vue
-// module id = 2644
+// module id = 2675
 // module chunks = 25

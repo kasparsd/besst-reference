@@ -176,7 +176,29 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     class: {
       connect: _vm.isConnected
     }
-  }), _vm._v(" "), _c('el-button', {
+  }), _vm._v(" "), (_vm.cur_devices.length > 1) ? _c('el-select', {
+    attrs: {
+      "placeholder": _vm.$t('up.select')
+    },
+    on: {
+      "change": _vm.onDeviceChange
+    },
+    model: {
+      value: (_vm.cur_path),
+      callback: function($$v) {
+        _vm.cur_path = $$v
+      },
+      expression: "cur_path"
+    }
+  }, _vm._l((_vm.cur_devices), function(item, index) {
+    return _c('el-option', {
+      key: index,
+      attrs: {
+        "label": item.name,
+        "value": item.path
+      }
+    })
+  }), 1) : _vm._e(), _vm._v(" "), _c('el-button', {
     attrs: {
       "type": "primary"
     },
@@ -190,7 +212,14 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "click": _vm.reset
     }
-  }, [_vm._v(_vm._s(_vm.$t('reset')))])], 1), _vm._v(" "), _c('div', {
+  }, [_vm._v(_vm._s(_vm.$t('reset')))]), _vm._v(" "), _c('el-button', {
+    attrs: {
+      "type": "primary"
+    },
+    on: {
+      "click": _vm.refresh
+    }
+  }, [_vm._v("刷新")])], 1), _vm._v(" "), _c('div', {
     staticClass: "clear-10"
   }), _vm._v(" "), _c('div', {
     directives: [{
@@ -204,7 +233,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "note"
   }, [_c('div', {
     staticClass: "msg-title"
-  }, [_vm._v(_vm._s(_vm.$t('cNam.updateMsg')))])]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n                  " + _vm._s(_vm.$t('cNam.updateMsg')) + "\n                ")])]), _vm._v(" "), _c('div', {
     staticClass: "note"
   }, [_c('div', {
     staticClass: "msg"
@@ -212,17 +241,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "clear-30"
   })]), _vm._v(" "), _c('div', {
     staticClass: "file"
-  }, [_c('el-progress', {
-    directives: [{
-      name: "show",
-      rawName: "v-show",
-      value: (_vm.boxPercentage > 0),
-      expression: "boxPercentage > 0"
-    }],
-    attrs: {
-      "percentage": _vm.boxPercentage
-    }
-  })], 1)])])]), _vm._v(" "), _c('div', {
+  })])])]), _vm._v(" "), _c('div', {
     staticClass: "content-card-item"
   }, [_c('label', {
     staticClass: "content-header"
@@ -323,10 +342,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "history-td head"
   }, [_vm._v("\n                " + _vm._s(_vm.$t('up.remark')) + "\n              ")]), _vm._v(" "), _c('td', {
     staticClass: "history-td head"
-  }, [_vm._v("\n                " + _vm._s(_vm.$t('up.operation')) + "\n              ")])])]), _vm._v(" "), _vm._l((_vm.HWRecordList), function(item) {
-    return _c('tr', [_c('td', {
+  }, [_vm._v("\n                " + _vm._s(_vm.$t('up.operation')) + "\n              ")])])]), _vm._v(" "), _vm._l((_vm.HWRecordList), function(item, index) {
+    return _c('tr', {
+      key: index
+    }, [_c('td', {
       staticClass: "history-td"
-    }, [_vm._v(_vm._s(_vm._f("dateFormat")(item.create_time)))]), _vm._v(" "), _c('td', {
+    }, [_vm._v("\n              " + _vm._s(_vm._f("dateFormat")(item.create_time)) + "\n            ")]), _vm._v(" "), _c('td', {
       staticClass: "history-td"
     }, [_vm._v(_vm._s(item.version))]), _vm._v(" "), _c('td', {
       staticClass: "history-td"
@@ -370,14 +391,16 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "history-td head"
   }, [_vm._v("\n                " + _vm._s(_vm.$t('up.version')) + "\n              ")]), _vm._v(" "), _c('td', {
     staticClass: "history-td head"
-  }, [_vm._v("文件名称")])])]), _vm._v(" "), _vm._l((_vm.snUpdateRecord), function(item) {
-    return _c('tr', [_c('td', {
+  }, [_vm._v("文件名称")])])]), _vm._v(" "), _vm._l((_vm.snUpdateRecord), function(item, index) {
+    return _c('tr', {
+      key: index
+    }, [_c('td', {
       staticClass: "history-td"
     }, [_vm._v(_vm._s(item.sn))]), _vm._v(" "), _c('td', {
       staticClass: "history-td"
-    }, [_vm._v(_vm._s(_vm._f("dateFormat")(item.create_time)))]), _vm._v(" "), _c('td', {
+    }, [_vm._v("\n              " + _vm._s(_vm._f("dateFormat")(item.create_time)) + "\n            ")]), _vm._v(" "), _c('td', {
       staticClass: "history-td"
-    }, [_vm._v(_vm._s(item.firmware_version))]), _vm._v(" "), _c('td', {
+    }, [_vm._v("\n              " + _vm._s(item.firmware_version) + "\n            ")]), _vm._v(" "), _c('td', {
       staticClass: "history-td"
     }, [_vm._v(_vm._s(item.firmware_name))])])
   })], 2)])], 1)])])
@@ -387,5 +410,5 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
 //////////////////
 // WEBPACK FOOTER
 // ./node_modules/vue-loader/lib/template-compiler?{"id":"data-v-1b9bceb2","hasScoped":false}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./src/views/component/order/produce.vue
-// module id = 1993
+// module id = 2012
 // module chunks = 76

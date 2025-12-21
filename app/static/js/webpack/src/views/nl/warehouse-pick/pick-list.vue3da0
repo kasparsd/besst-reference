@@ -11,5 +11,5 @@ var update = require("!../../../../node_modules/vue-style-loader/lib/addStylesCl
 //////////////////
 // WEBPACK FOOTER
 // ./node_modules/extract-text-webpack-plugin/dist/loader.js?{"omit":1,"remove":true}!./node_modules/vue-style-loader!./node_modules/css-loader?{"minimize":true,"sourceMap":true}!./node_modules/vue-loader/lib/style-compiler?{"vue":true,"id":"data-v-759d921e","scoped":false,"hasInlineConfig":false}!./node_modules/sass-loader/lib/loader.js?{"sourceMap":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./src/views/nl/warehouse-pick/pick-list.vue
-// module id = 2538
-// module chunks = 54
+// module id = 2569
+// module chunks = 53

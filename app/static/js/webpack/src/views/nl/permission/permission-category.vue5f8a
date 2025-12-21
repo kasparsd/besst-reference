@@ -230,5 +230,5 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
 //////////////////
 // WEBPACK FOOTER
 // ./node_modules/vue-loader/lib/template-compiler?{"id":"data-v-543f7e07","hasScoped":false}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./src/views/nl/permission/permission-category.vue
-// module id = 2553
-// module chunks = 68
+// module id = 2584
+// module chunks = 67

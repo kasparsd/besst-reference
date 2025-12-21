@@ -41,7 +41,7 @@ function getNetMac() {
 //
 //
 // try{
-const SerialPort = require('serialport')
+const { SerialPort } = require('serialport')
 // const HID = require('node-hid');
 // }catch(err){
 //     console.log(err);
@@ -86,12 +86,12 @@ function getPortList() {
   let list = []
   // let isFoundBeestPort = false;
   try {
-    SerialPort.list(function (err, ports) {
+    SerialPort.list().then(function (ports) {
       // let index = 0;
       ports.forEach(function (port) {
         if (port.manufacturer == 'Silicon Labs') {
           // console.log("SerialPort",port);
-          list.push(port.comName)
+          list.push(port.path)
           portDevice = true
           connection.com = true
           connection.usb = false
@@ -223,7 +223,7 @@ function connect(name, baudRate) {
 
   let port
   try {
-    port = new SerialPort(name, { baudRate: baudRate })
+    port = new SerialPort({ path: name, baudRate: baudRate })
   } catch (err) {
     console.log(err)
   }
@@ -710,7 +710,7 @@ function startConnection() {
     try {
       usbDevice = usbSDK.client.connect() || usbSDK.client.isConnected()
       usbSDK.common.timeout = {
-        CAN: 100,
+        CAN: 200,
         UART: 360,
         FIRMWARE_UPGRADE: 20000,
         TOOL: 90
@@ -900,7 +900,10 @@ function getUsbBasic(target, base) {
     .serialNumber(0x05, target)
     .then((res) => {
       // console.log(res,"serialNumber");
-      getUsbBasicBus.next({ type: 'data', data: { sn: res.dataParsed.replace(/\s+/g, '') } })
+      getUsbBasicBus.next({
+        type: 'data',
+        data: { sn: res.dataParsed.replace(/\s+/g, '') }
+      })
       // this.sn = res.dataParsed;
       // this.readSn = this.sn;
     })
@@ -910,7 +913,10 @@ function getUsbBasic(target, base) {
         usbSDK.machineInformation.get
           .serialNumber(0x05, target)
           .then((res) => {
-            getUsbBasicBus.next({ type: 'data', data: { sn: res.dataParsed.replace(/\s+/g, '') } })
+            getUsbBasicBus.next({
+              type: 'data',
+              data: { sn: res.dataParsed.replace(/\s+/g, '') }
+            })
           })
           .catch((err) => {
             console.log(err)
@@ -927,7 +933,10 @@ function getUsbBasic(target, base) {
     .softwareVersionNumber(0x05, target)
     .then((res) => {
       // console.log(res,"softwareVersionNumber");
-      getUsbBasicBus.next({ type: 'data', data: { version: res.dataParsed } })
+      getUsbBasicBus.next({
+        type: 'data',
+        data: { version: res.dataParsed }
+      })
 
       // this.version = res.dataParsed;
     })
@@ -937,7 +946,10 @@ function getUsbBasic(target, base) {
         usbSDK.machineInformation.get
           .softwareVersionNumber(0x05, target)
           .then((res) => {
-            getUsbBasicBus.next({ type: 'data', data: { version: res.dataParsed } })
+            getUsbBasicBus.next({
+              type: 'data',
+              data: { version: res.dataParsed }
+            })
           })
           .catch((err) => {
             console.log(err)
@@ -956,7 +968,10 @@ function getUsbBasic(target, base) {
       .hardwareVersionNumber(0x05, target)
       .then((res) => {
         // console.log(res,"hardwareVersionNumber");
-        getUsbBasicBus.next({ type: 'data', data: { hardware_version: res.dataParsed } })
+        getUsbBasicBus.next({
+          type: 'data',
+          data: { hardware_version: res.dataParsed }
+        })
         // this.hardVersion = res.dataParsed;
       })
       .catch((err) => {
@@ -965,7 +980,10 @@ function getUsbBasic(target, base) {
           usbSDK.machineInformation.get
             .hardwareVersionNumber(0x05, target)
             .then((res) => {
-              getUsbBasicBus.next({ type: 'data', data: { hardware_version: res.dataParsed } })
+              getUsbBasicBus.next({
+                type: 'data',
+                data: { hardware_version: res.dataParsed }
+              })
             })
             .catch((err) => {
               console.log(err)
@@ -981,7 +999,10 @@ function getUsbBasic(target, base) {
     usbSDK.machineInformation.get
       .customerNumber(0x05, target)
       .then((res) => {
-        getUsbBasicBus.next({ type: 'data', data: { client_code: res.dataParsed } })
+        getUsbBasicBus.next({
+          type: 'data',
+          data: { client_code: res.dataParsed }
+        })
 
         // this.clientCodeRead = res.dataParsed;
       })
@@ -991,7 +1012,10 @@ function getUsbBasic(target, base) {
           usbSDK.machineInformation.get
             .customerNumber(0x05, target)
             .then((res) => {
-              getUsbBasicBus.next({ type: 'data', data: { client_code: res.dataParsed } })
+              getUsbBasicBus.next({
+                type: 'data',
+                data: { client_code: res.dataParsed }
+              })
             })
             .catch((err) => {
               console.log(err)
@@ -1008,7 +1032,10 @@ function getUsbBasic(target, base) {
       .modelNumber(0x05, target)
       .then((res) => {
         // console.log(res,"modelNumber");
-        getUsbBasicBus.next({ type: 'data', data: { model: res.dataParsed } })
+        getUsbBasicBus.next({
+          type: 'data',
+          data: { model: res.dataParsed }
+        })
 
         // this.model = res.dataParsed;
       })
@@ -1018,7 +1045,10 @@ function getUsbBasic(target, base) {
           usbSDK.machineInformation.get
             .modelNumber(0x05, target)
             .then((res) => {
-              getUsbBasicBus.next({ type: 'data', data: { model: res.dataParsed } })
+              getUsbBasicBus.next({
+                type: 'data',
+                data: { model: res.dataParsed }
+              })
             })
             .catch((err) => {
               console.log(err)
@@ -1064,7 +1094,10 @@ function getUsbBoxBasic() {
       // {message: "3000000c42455353542e554320332e32000000000000000000…0000000000000000000000000000000000000000000000000"}
       // 3000000c42455353542e554320332e320000000000000000000000000000000000000000000000000"
       let result = removeZero(res.message.substr(8, parseInt(res.message.substr(6, 2), 16) * 2))
-      getUsbBoxBasicBus.next({ type: 'data', data: { hardware_version: Util.hexToString(result) } })
+      getUsbBoxBasicBus.next({
+        type: 'data',
+        data: { hardware_version: Util.hexToString(result) }
+      })
       return usbSDK.client.softwareVersion()
     })
     .then((res) => {
@@ -1073,7 +1106,10 @@ function getUsbBoxBasic() {
 
       // 3200000f42455353545231303130332e312e32000000000000…0000000000000000000000000000000000000000000000000"
       let result = removeZero(res.message.substr(8, parseInt(res.message.substr(6, 2), 16) * 2))
-      getUsbBoxBasicBus.next({ type: 'data', data: { version: Util.hexToString(result) } })
+      getUsbBoxBasicBus.next({
+        type: 'data',
+        data: { version: Util.hexToString(result) }
+      })
       return usbSDK.client.serialNumber()
     })
     .then((res) => {
@@ -1082,7 +1118,10 @@ function getUsbBoxBasic() {
 
       // 3100001616546573742048656c6c6f20576f726c640000000000000000000000000000000000000000000000"
       let result = removeZero(res.message.substr(8, parseInt(res.message.substr(6, 2), 16) * 2))
-      getUsbBoxBasicBus.next({ type: 'data', data: { sn: Util.hexToString(result) } })
+      getUsbBoxBasicBus.next({
+        type: 'data',
+        data: { sn: Util.hexToString(result) }
+      })
     })
     .catch((err) => {
       console.log(err)
@@ -1090,17 +1129,26 @@ function getUsbBoxBasic() {
         .hardwareVersion()
         .then((res) => {
           let result = removeZero(res.message.substr(8, parseInt(res.message.substr(6, 2), 16) * 2))
-          getUsbBoxBasicBus.next({ type: 'data', data: { hardware_version: Util.hexToString(result) } })
+          getUsbBoxBasicBus.next({
+            type: 'data',
+            data: { hardware_version: Util.hexToString(result) }
+          })
           return usbSDK.client.softwareVersion()
         })
         .then((res) => {
           let result = removeZero(res.message.substr(8, parseInt(res.message.substr(6, 2), 16) * 2))
-          getUsbBoxBasicBus.next({ type: 'data', data: { version: Util.hexToString(result) } })
+          getUsbBoxBasicBus.next({
+            type: 'data',
+            data: { version: Util.hexToString(result) }
+          })
           return usbSDK.client.serialNumber()
         })
         .then((res) => {
           let result = removeZero(res.message.substr(8, parseInt(res.message.substr(6, 2), 16) * 2))
-          getUsbBoxBasicBus.next({ type: 'data', data: { sn: Util.hexToString(result) } })
+          getUsbBoxBasicBus.next({
+            type: 'data',
+            data: { sn: Util.hexToString(result) }
+          })
         })
         .catch((err) => {
           console.log(err)
@@ -1185,7 +1233,7 @@ function listenData() {
   listenDataBus = new Rx.Subject()
   try {
     usbSDK.client.events.on('public-data', (res) => {
-      // console.log(res);
+      // console.log('public-data', JSON.stringify(res))
       // { can:"NORMAL_ACK",canCode:2,code:"35",data:"",dataLen:0,source:"CTL",sourceCode:2,subCode:"01",target:"BST",targetCode:5 }
       if (res.code === '31') {
         SensorCheck.enable = true
@@ -1200,7 +1248,7 @@ function listenData() {
       if (res.code === '35') {
         console.log(res)
       }
-      if (res.code === '32' && res.subCode === '03' && res.targetCode === 15) {
+      if (res.code === '32' && res.subCode === '03' && res.targetCode === 0x1f) {
         let result_3 = Buffer.from(res.data, 'hex')
         if (result_3.length >= 6) {
           CPD._3203_ct_sl = (result_3[0] + result_3[1] * 256) / 100
@@ -1224,17 +1272,23 @@ function listenData() {
       // console.log("error_usb", new Date().getTime());
     })
 
-    // usbSDK.client.events.on('firmware-update-progress', (res) => {
-    //     listenDataBus.next({ type: 'update_fp', data: res });
-    // });
-    //
-    // usbSDK.client.events.on('firmware-update-completed', (res) => {
+    usbSDK.client.events.on('firmware-upload-progress', (res) => {
+      // listenDataBus.next({ type: "upload_fp", data: res });
+      console.log('Upload:', res.progress)
+    })
+
+    // usbSDK.client.events.on('firmware-upload-completed', (res) => {
     //     // console.log('firmware-update-completed',res);
-    //     listenDataBus.next({ type: 'update_fc', data: res });
+    //     listenDataBus.next({ type: 'upload_fc', data: res });
     // });
-    //
-    // usbSDK.client.events.on('firmware-update-completed-progress', (res) => {
-    //     listenDataBus.next({ type: 'update_fcp', data: res });
+
+    usbSDK.client.events.on('firmware-upgrade-progress', (res) => {
+      // listenDataBus.next({ type: "upgrade_fp", data: res });
+      console.log('Upgrade:', res.progress)
+    })
+
+    // usbSDK.client.events.on("firmware-update-completed-progress", (res) => {
+    //     console.log('firmware-update-completed-progress:',JSON.stringify(res))
     // });
   } catch (err) {
     console.log(err)
@@ -1263,13 +1317,24 @@ function getBatteryOfData() {
         let result_3 = Buffer.from(res.data, 'hex')
         if (result_3.length >= 6) {
           let cycle_Life = result_3[0] + result_3[1] * 256
-          getUsbBatteryBus.next({ type: 'data', data: { cycleLife: cycle_Life } })
+          getUsbBatteryBus.next({
+            type: 'data',
+            data: { cycleLife: cycle_Life }
+          })
 
           let max_ChargeInterval = Math.floor((result_3[2] + result_3[3] * 256) / 24)
-          getUsbBatteryBus.next({ type: 'data', data: { maxChargeInterval: max_ChargeInterval } })
+          getUsbBatteryBus.next({
+            type: 'data',
+            data: { maxChargeInterval: max_ChargeInterval }
+          })
 
           let current_ChargeInterval = Math.floor((result_3[4] + result_3[5] * 256) / 24)
-          getUsbBatteryBus.next({ type: 'data', data: { currentChargeInterval: current_ChargeInterval } })
+          getUsbBatteryBus.next({
+            type: 'data',
+            data: {
+              currentChargeInterval: current_ChargeInterval
+            }
+          })
         }
       })
       .catch((err) => {
@@ -1302,7 +1367,10 @@ function getBatteryOfData() {
           arr[7] = result_5[6] + result_5[7] * 256
           const arr1to7 = arr.slice(0, setLength < 7 ? setLength : 7)
           const cell1_7 = arr1to7.join()
-          getUsbBatteryBus.next({ type: 'data', data: { cell1_7: cell1_7 } })
+          getUsbBatteryBus.next({
+            type: 'data',
+            data: { cell1_7: cell1_7 }
+          })
         }
       })
       .catch((err) => {
@@ -1322,7 +1390,10 @@ function getBatteryOfData() {
           }
           let arr8to14 = arr.slice(7, setLength)
           let cell8_14 = arr8to14.join()
-          getUsbBatteryBus.next({ type: 'data', data: { cell8_14: cell8_14 } })
+          getUsbBatteryBus.next({
+            type: 'data',
+            data: { cell8_14: cell8_14 }
+          })
         }
       })
       .catch((err) => {
@@ -1338,7 +1409,10 @@ function getBatteryOfData() {
           arr[13] = result_7[2] + result_7[3] * 256
           const arr8to14 = arr.slice(7, setLength)
           const cell8_14 = arr8to14.join()
-          getUsbBatteryBus.next({ type: 'data', data: { cell8_14: cell8_14 } })
+          getUsbBatteryBus.next({
+            type: 'data',
+            data: { cell8_14: cell8_14 }
+          })
         }
       })
       .catch((err) => {
@@ -1463,5 +1537,5 @@ export default Port
 //////////////////
 // WEBPACK FOOTER
 // ./device/conn.js
-// module id = 98
+// module id = 87
 // module chunks = 76

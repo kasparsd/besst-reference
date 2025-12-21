@@ -203,7 +203,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_vm._v("Package From"), _c('span', {
     staticClass: "required"
   }, [_vm._v("*")])]), _vm._v(" "), _c('el-input', {
-    staticClass: "input ",
+    staticClass: "input",
     model: {
       value: (_vm.paFrom),
       callback: function($$v) {
@@ -318,5 +318,5 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
 //////////////////
 // WEBPACK FOOTER
 // ./node_modules/vue-loader/lib/template-compiler?{"id":"data-v-06dcb0c6","hasScoped":false}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./src/views/service-center/after-sales/after-package-list.vue
-// module id = 2083
+// module id = 2115
 // module chunks = 76

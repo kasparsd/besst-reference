@@ -430,7 +430,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "note"
   }, [_c('div', {
     staticClass: "msg-title"
-  }, [_vm._v(_vm._s(_vm.$t('cNam.updateMsg')))])]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n                    " + _vm._s(_vm.$t('cNam.updateMsg')) + "\n                  ")])]), _vm._v(" "), _c('div', {
     staticClass: "note"
   }, [_c('div', {
     staticClass: "msg"
@@ -859,31 +859,146 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     })
   }), 1)], 1)]), _vm._v(" "), _c('div', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: (_vm.isFM),
+      expression: "isFM"
+    }]
+  }, [_c('div', {
     staticClass: "hardware-item"
   }, [_c('div', {
     staticClass: "input-holder"
   }, [_c('label', {
     staticClass: "label"
-  }, [_vm._v("SN")]), _vm._v(" "), _c('el-input', {
-    ref: "content",
-    staticClass: "input-sn-textarea",
+  }, [_vm._v("Carton Code")]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.cartonCode),
+      expression: "cartonCode"
+    }],
+    ref: "carton_code",
+    staticClass: "input el-input__inner input-sn-textarea",
+    attrs: {
+      "type": "text"
+    },
+    domProps: {
+      "value": (_vm.cartonCode)
+    },
+    on: {
+      "input": [function($event) {
+        if ($event.target.composing) { return; }
+        _vm.cartonCode = $event.target.value
+      }, _vm.cartonCodeInput]
+    }
+  })])]), _vm._v(" "), _c('div', {
+    staticClass: "hardware-item"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v("数量")]), _vm._v(" "), _c('el-select', {
+    attrs: {
+      "placeholder": "Please select"
+    },
+    model: {
+      value: (_vm.cartonNum),
+      callback: function($$v) {
+        _vm.cartonNum = $$v
+      },
+      expression: "cartonNum"
+    }
+  }, _vm._l((_vm.cartonNumList), function(item) {
+    return _c('el-option', {
+      key: item,
+      attrs: {
+        "label": item,
+        "value": item
+      }
+    })
+  }), 1), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.currentCartonNum),
+      expression: "currentCartonNum"
+    }],
+    staticClass: "input el-input__inner",
+    staticStyle: {
+      "width": "50px"
+    },
+    attrs: {
+      "type": "text"
+    },
+    domProps: {
+      "value": (_vm.currentCartonNum)
+    },
+    on: {
+      "input": [function($event) {
+        if ($event.target.composing) { return; }
+        _vm.currentCartonNum = $event.target.value
+      }, _vm.onChangeCurrentCartonNum]
+    }
+  }), _vm._v("\n              " + _vm._s(("/" + _vm.cartonNum)) + "\n            ")], 1), _vm._v(" "), _c('div', {
+    staticClass: "hardware-item"
+  }, [_c('div', {
+    staticClass: "input-holder"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v("QR Code")]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.qrCode),
+      expression: "qrCode"
+    }],
+    ref: "qr_code",
+    staticClass: "input el-input__inner input-sn-textarea",
+    attrs: {
+      "type": "text"
+    },
+    domProps: {
+      "value": (_vm.qrCode)
+    },
+    on: {
+      "input": [function($event) {
+        if ($event.target.composing) { return; }
+        _vm.qrCode = $event.target.value
+      }, _vm.qrCodeInput]
+    }
+  })])])]), _vm._v(" "), _c('div', {
+    staticClass: "hardware-item"
+  }, [_c('div', {
+    staticClass: "input-holder"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v("SN")]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.motorUploadSN),
+      expression: "motorUploadSN"
+    }],
+    ref: "motor_sn",
+    staticClass: "input el-input__inner input-sn-textarea",
     attrs: {
       "id": "scan",
       "type": "textarea",
       "rows": 1,
       "resize": "none"
     },
-    model: {
-      value: (_vm.motorUploadSN),
-      callback: function($$v) {
-        _vm.motorUploadSN = $$v
-      },
-      expression: "motorUploadSN"
+    domProps: {
+      "value": (_vm.motorUploadSN)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.motorUploadSN = $event.target.value
+      }
     }
   }), _vm._v(" "), _c('el-button', {
     attrs: {
       "type": "primary",
-      "disabled": _vm.isSaving
+      "disabled": _vm.isSaving || _vm.checkInput
     },
     on: {
       "click": function($event) {
@@ -930,7 +1045,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_vm._v("\n            " + _vm._s(_vm.$t('up.operation')) + "\n          ")])])]), _vm._v(" "), _vm._l((_vm.HWRecordList), function(item) {
     return _c('tr', [_c('td', {
       staticClass: "history-td"
-    }, [_vm._v(_vm._s(_vm._f("dateFormat")(item.create_time)))]), _vm._v(" "), _c('td', {
+    }, [_vm._v("\n          " + _vm._s(_vm._f("dateFormat")(item.create_time)) + "\n        ")]), _vm._v(" "), _c('td', {
       staticClass: "history-td"
     }, [_vm._v(_vm._s(item.version))]), _vm._v(" "), _c('td', {
       staticClass: "history-td"
@@ -1018,9 +1133,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticClass: "history-td"
     }, [_vm._v(_vm._s(item.sensor_sn))]), _vm._v(" "), _c('td', {
       staticClass: "history-td"
-    }, [_vm._v(_vm._s(_vm._f("dateFormat")(item.create_time)))]), _vm._v(" "), _c('td', {
+    }, [_vm._v("\n          " + _vm._s(_vm._f("dateFormat")(item.create_time)) + "\n        ")]), _vm._v(" "), _c('td', {
       staticClass: "history-td"
-    }, [_vm._v(_vm._s(_vm._f("dateFormat")(item.update_time)))])])
+    }, [_vm._v("\n          " + _vm._s(_vm._f("dateFormat")(item.update_time)) + "\n        ")])])
   })], 2), _vm._v(" "), _c('div', {
     staticClass: "table-footer"
   }, [_c('el-pagination', {
@@ -1063,5 +1178,5 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
 //////////////////
 // WEBPACK FOOTER
 // ./node_modules/vue-loader/lib/template-compiler?{"id":"data-v-ad4055e0","hasScoped":false}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./src/views/component/order/data-connect.vue
-// module id = 2017
+// module id = 2049
 // module chunks = 76

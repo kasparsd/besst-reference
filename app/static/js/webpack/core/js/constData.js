@@ -141,5 +141,5 @@ export default new ConstData();
 //////////////////
 // WEBPACK FOOTER
 // ./core/js/constData.js
-// module id = 882
+// module id = 888
 // module chunks = 76

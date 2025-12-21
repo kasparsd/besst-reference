@@ -12,5 +12,5 @@ exports.push([module.id, ".service-center{display:-webkit-box;display:-ms-flexbo
 //////////////////
 // WEBPACK FOOTER
 // ./node_modules/css-loader?{"minimize":true,"sourceMap":true}!./node_modules/vue-loader/lib/style-compiler?{"vue":true,"id":"data-v-b51bc440","scoped":false,"hasInlineConfig":false}!./node_modules/sass-loader/lib/loader.js?{"sourceMap":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./src/views/nl/after-sales/service-center/service-center.vue
-// module id = 2624
-// module chunks = 42
+// module id = 2655
+// module chunks = 41

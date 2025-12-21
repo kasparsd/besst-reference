@@ -12,5 +12,5 @@ exports.push([module.id, ".shipment-order-header{width:100%;height:100%}.shipmen
 //////////////////
 // WEBPACK FOOTER
 // ./node_modules/css-loader?{"minimize":true,"sourceMap":true}!./node_modules/vue-loader/lib/style-compiler?{"vue":true,"id":"data-v-afe9ba54","scoped":false,"hasInlineConfig":false}!./node_modules/sass-loader/lib/loader.js?{"sourceMap":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./src/views/nl/shipment-order/shipment-order-header.vue
-// module id = 2527
-// module chunks = 57
+// module id = 2558
+// module chunks = 56

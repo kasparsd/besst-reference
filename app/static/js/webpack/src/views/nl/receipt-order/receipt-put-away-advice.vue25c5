@@ -12,5 +12,5 @@ exports.push([module.id, ".receipt-put-away-advice{width:100%;height:100%}.recei
 //////////////////
 // WEBPACK FOOTER
 // ./node_modules/css-loader?{"minimize":true,"sourceMap":true}!./node_modules/vue-loader/lib/style-compiler?{"vue":true,"id":"data-v-bf9a4ada","scoped":false,"hasInlineConfig":false}!./node_modules/sass-loader/lib/loader.js?{"sourceMap":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./src/views/nl/receipt-order/receipt-put-away-advice.vue
-// module id = 2515
-// module chunks = 63
+// module id = 2546
+// module chunks = 62

@@ -55,5 +55,5 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
 //////////////////
 // WEBPACK FOOTER
 // ./node_modules/vue-loader/lib/template-compiler?{"id":"data-v-c665e59a","hasScoped":false}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./src/views/brand/statiatics/dealer-sale-detail.vue
-// module id = 1805
+// module id = 1824
 // module chunks = 76

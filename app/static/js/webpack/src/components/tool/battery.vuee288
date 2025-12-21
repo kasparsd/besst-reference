@@ -485,7 +485,1525 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('template', {
     slot: "append"
-  }, [_vm._v("day")])], 2)], 1)])]), _vm._v(" "), (_vm.isCan && _vm.org.type === _vm.Core.Const.ORG_TYPE.COMPONENT) ? _c('div', {
+  }, [_vm._v("day")])], 2)], 1)])]), _vm._v(" "), _c('div', {
+    staticClass: "info data"
+  }, [_vm._m(0), _vm._v(" "), _c('div', {
+    staticClass: "part"
+  }, [_c('div', {
+    staticClass: "item"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v("充电器连接")]), _vm._v(" "), _c('el-input', {
+    staticClass: "input",
+    attrs: {
+      "disabled": ""
+    },
+    model: {
+      value: (_vm.chargerConnect),
+      callback: function($$v) {
+        _vm.chargerConnect = $$v
+      },
+      expression: "chargerConnect"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "item"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v("充电器识别")]), _vm._v(" "), _c('el-input', {
+    staticClass: "input",
+    attrs: {
+      "disabled": ""
+    },
+    model: {
+      value: (_vm.chargerRecognition),
+      callback: function($$v) {
+        _vm.chargerRecognition = $$v
+      },
+      expression: "chargerRecognition"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "item"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v("充电二极管状态")]), _vm._v(" "), _c('el-input', {
+    staticClass: "input",
+    attrs: {
+      "disabled": ""
+    },
+    model: {
+      value: (_vm.chargerDiode),
+      callback: function($$v) {
+        _vm.chargerDiode = $$v
+      },
+      expression: "chargerDiode"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "item"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v("充电结束标志位")]), _vm._v(" "), _c('el-input', {
+    staticClass: "input",
+    attrs: {
+      "disabled": ""
+    },
+    model: {
+      value: (_vm.chargeEnd),
+      callback: function($$v) {
+        _vm.chargeEnd = $$v
+      },
+      expression: "chargeEnd"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "item"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v("电池包负载状态")]), _vm._v(" "), _c('el-input', {
+    staticClass: "input",
+    attrs: {
+      "disabled": ""
+    },
+    model: {
+      value: (_vm.batteryLoad),
+      callback: function($$v) {
+        _vm.batteryLoad = $$v
+      },
+      expression: "batteryLoad"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "item"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v("电池深度休眠标志位")]), _vm._v(" "), _c('el-input', {
+    staticClass: "input",
+    attrs: {
+      "disabled": ""
+    },
+    model: {
+      value: (_vm.batteryDeepSleep),
+      callback: function($$v) {
+        _vm.batteryDeepSleep = $$v
+      },
+      expression: "batteryDeepSleep"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "item"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v("老化模式标志位")]), _vm._v(" "), _c('el-input', {
+    staticClass: "input",
+    attrs: {
+      "disabled": ""
+    },
+    model: {
+      value: (_vm.agingMode),
+      callback: function($$v) {
+        _vm.agingMode = $$v
+      },
+      expression: "agingMode"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "item"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v("预放电 MOS 状态")]), _vm._v(" "), _c('el-input', {
+    staticClass: "input",
+    attrs: {
+      "disabled": ""
+    },
+    model: {
+      value: (_vm.preDischargeMOS),
+      callback: function($$v) {
+        _vm.preDischargeMOS = $$v
+      },
+      expression: "preDischargeMOS"
+    }
+  })], 1)]), _vm._v(" "), _c('div', {
+    staticClass: "part right"
+  }, [_c('div', {
+    staticClass: "item"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v("电芯 1#NTC 损坏")]), _vm._v(" "), _c('el-input', {
+    staticClass: "input",
+    attrs: {
+      "disabled": ""
+    },
+    model: {
+      value: (_vm.cell1NTC),
+      callback: function($$v) {
+        _vm.cell1NTC = $$v
+      },
+      expression: "cell1NTC"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "item"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v("电芯 2#NTC 损坏")]), _vm._v(" "), _c('el-input', {
+    staticClass: "input",
+    attrs: {
+      "disabled": ""
+    },
+    model: {
+      value: (_vm.cell2NTC),
+      callback: function($$v) {
+        _vm.cell2NTC = $$v
+      },
+      expression: "cell2NTC"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "item"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v("电芯 3#NTC 损坏")]), _vm._v(" "), _c('el-input', {
+    staticClass: "input",
+    attrs: {
+      "disabled": ""
+    },
+    model: {
+      value: (_vm.cell3NTC),
+      callback: function($$v) {
+        _vm.cell3NTC = $$v
+      },
+      expression: "cell3NTC"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "item"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v("电芯 4#NTC 损坏")]), _vm._v(" "), _c('el-input', {
+    staticClass: "input",
+    attrs: {
+      "disabled": ""
+    },
+    model: {
+      value: (_vm.cell4NTC),
+      callback: function($$v) {
+        _vm.cell4NTC = $$v
+      },
+      expression: "cell4NTC"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "item"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v("电芯 5#NTC 损坏")]), _vm._v(" "), _c('el-input', {
+    staticClass: "input",
+    attrs: {
+      "disabled": ""
+    },
+    model: {
+      value: (_vm.cell5NTC),
+      callback: function($$v) {
+        _vm.cell5NTC = $$v
+      },
+      expression: "cell5NTC"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "item"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v("电芯 6#NTC 损坏")]), _vm._v(" "), _c('el-input', {
+    staticClass: "input",
+    attrs: {
+      "disabled": ""
+    },
+    model: {
+      value: (_vm.cell6NTC),
+      callback: function($$v) {
+        _vm.cell6NTC = $$v
+      },
+      expression: "cell6NTC"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "item"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v("功率电路 NTC 损坏")]), _vm._v(" "), _c('el-input', {
+    staticClass: "input",
+    attrs: {
+      "disabled": ""
+    },
+    model: {
+      value: (_vm.powerCircuitNTC),
+      callback: function($$v) {
+        _vm.powerCircuitNTC = $$v
+      },
+      expression: "powerCircuitNTC"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "item"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v("环境 NTC 损坏")]), _vm._v(" "), _c('el-input', {
+    staticClass: "input",
+    attrs: {
+      "disabled": ""
+    },
+    model: {
+      value: (_vm.environmentNTC),
+      callback: function($$v) {
+        _vm.environmentNTC = $$v
+      },
+      expression: "environmentNTC"
+    }
+  })], 1)])]), _vm._v(" "), _c('div', {
+    staticClass: "info data"
+  }, [_vm._m(1), _vm._v(" "), _c('div', {
+    staticClass: "part"
+  }, [_c('div', {
+    staticClass: "item"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v("充电口电压")]), _vm._v(" "), _c('el-input', {
+    staticClass: "input",
+    attrs: {
+      "disabled": ""
+    },
+    model: {
+      value: (_vm.ChargingPortVoltage),
+      callback: function($$v) {
+        _vm.ChargingPortVoltage = $$v
+      },
+      expression: "ChargingPortVoltage"
+    }
+  }, [_c('template', {
+    slot: "append"
+  }, [_vm._v("V")])], 2)], 1), _vm._v(" "), _c('div', {
+    staticClass: "item"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v("Mos 温度")]), _vm._v(" "), _c('el-input', {
+    staticClass: "input",
+    attrs: {
+      "disabled": ""
+    },
+    model: {
+      value: (_vm.MosTemperature),
+      callback: function($$v) {
+        _vm.MosTemperature = $$v
+      },
+      expression: "MosTemperature"
+    }
+  }, [_c('template', {
+    slot: "append"
+  }, [_vm._v("℃")])], 2)], 1)]), _vm._v(" "), _c('div', {
+    staticClass: "part right"
+  }, [_c('div', {
+    staticClass: "item"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v("放电口电压")]), _vm._v(" "), _c('el-input', {
+    staticClass: "input",
+    attrs: {
+      "disabled": ""
+    },
+    model: {
+      value: (_vm.DischargePortVoltage),
+      callback: function($$v) {
+        _vm.DischargePortVoltage = $$v
+      },
+      expression: "DischargePortVoltage"
+    }
+  }, [_c('template', {
+    slot: "append"
+  }, [_vm._v("V")])], 2)], 1), _vm._v(" "), _c('div', {
+    staticClass: "item"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v("循环次数")]), _vm._v(" "), _c('el-input', {
+    staticClass: "input",
+    attrs: {
+      "disabled": ""
+    },
+    model: {
+      value: (_vm.cycleTimes),
+      callback: function($$v) {
+        _vm.cycleTimes = $$v
+      },
+      expression: "cycleTimes"
+    }
+  })], 1)])]), _vm._v(" "), _c('div', {
+    staticClass: "info data"
+  }, [_c('div', {
+    staticClass: "part"
+  }, [_vm._m(2), _vm._v(" "), _c('div', {
+    staticClass: "item"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v("保护芯片损坏")]), _vm._v(" "), _c('el-input', {
+    staticClass: "input",
+    attrs: {
+      "disabled": ""
+    },
+    model: {
+      value: (_vm.protectionChipDamage),
+      callback: function($$v) {
+        _vm.protectionChipDamage = $$v
+      },
+      expression: "protectionChipDamage"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "item"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v("计量损坏")]), _vm._v(" "), _c('el-input', {
+    staticClass: "input",
+    attrs: {
+      "disabled": ""
+    },
+    model: {
+      value: (_vm.meteringDamage),
+      callback: function($$v) {
+        _vm.meteringDamage = $$v
+      },
+      expression: "meteringDamage"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "item"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v("存储损坏")]), _vm._v(" "), _c('el-input', {
+    staticClass: "input",
+    attrs: {
+      "disabled": ""
+    },
+    model: {
+      value: (_vm.storageDamage),
+      callback: function($$v) {
+        _vm.storageDamage = $$v
+      },
+      expression: "storageDamage"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "item"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v("时钟芯片损坏")]), _vm._v(" "), _c('el-input', {
+    staticClass: "input",
+    attrs: {
+      "disabled": ""
+    },
+    model: {
+      value: (_vm.clockChipDamage),
+      callback: function($$v) {
+        _vm.clockChipDamage = $$v
+      },
+      expression: "clockChipDamage"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "item"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v("充电 Mos 损坏")]), _vm._v(" "), _c('el-input', {
+    staticClass: "input",
+    attrs: {
+      "disabled": ""
+    },
+    model: {
+      value: (_vm.chargeMosDamage),
+      callback: function($$v) {
+        _vm.chargeMosDamage = $$v
+      },
+      expression: "chargeMosDamage"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "item"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v("放电 Mos 损坏")]), _vm._v(" "), _c('el-input', {
+    staticClass: "input",
+    attrs: {
+      "disabled": ""
+    },
+    model: {
+      value: (_vm.dischargeMosDamage),
+      callback: function($$v) {
+        _vm.dischargeMosDamage = $$v
+      },
+      expression: "dischargeMosDamage"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "item"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v("微处理器 ROM 区损坏")]), _vm._v(" "), _c('el-input', {
+    staticClass: "input",
+    attrs: {
+      "disabled": ""
+    },
+    model: {
+      value: (_vm.microprocessorRomDamage),
+      callback: function($$v) {
+        _vm.microprocessorRomDamage = $$v
+      },
+      expression: "microprocessorRomDamage"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "item"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v("微处理器 RAM 区损坏")]), _vm._v(" "), _c('el-input', {
+    staticClass: "input",
+    attrs: {
+      "disabled": ""
+    },
+    model: {
+      value: (_vm.microprocessorRamDamage),
+      callback: function($$v) {
+        _vm.microprocessorRamDamage = $$v
+      },
+      expression: "microprocessorRamDamage"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "item"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v("电芯温度传感器损坏")]), _vm._v(" "), _c('el-input', {
+    staticClass: "input",
+    attrs: {
+      "disabled": ""
+    },
+    model: {
+      value: (_vm.cellTemperatureSensorDamage),
+      callback: function($$v) {
+        _vm.cellTemperatureSensorDamage = $$v
+      },
+      expression: "cellTemperatureSensorDamage"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "item"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v("其他温度传感器损坏")]), _vm._v(" "), _c('el-input', {
+    staticClass: "input",
+    attrs: {
+      "disabled": ""
+    },
+    model: {
+      value: (_vm.otherTemperatureSensorDamage),
+      callback: function($$v) {
+        _vm.otherTemperatureSensorDamage = $$v
+      },
+      expression: "otherTemperatureSensorDamage"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "item"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v("充电保险丝损坏")]), _vm._v(" "), _c('el-input', {
+    staticClass: "input",
+    attrs: {
+      "disabled": ""
+    },
+    model: {
+      value: (_vm.chargeFuseDamage),
+      callback: function($$v) {
+        _vm.chargeFuseDamage = $$v
+      },
+      expression: "chargeFuseDamage"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "item"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v("放电保险丝损坏")]), _vm._v(" "), _c('el-input', {
+    staticClass: "input",
+    attrs: {
+      "disabled": ""
+    },
+    model: {
+      value: (_vm.dischargeFuseDamage),
+      callback: function($$v) {
+        _vm.dischargeFuseDamage = $$v
+      },
+      expression: "dischargeFuseDamage"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "item"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v("电芯不平衡")]), _vm._v(" "), _c('el-input', {
+    staticClass: "input",
+    attrs: {
+      "disabled": ""
+    },
+    model: {
+      value: (_vm.cellImbalance),
+      callback: function($$v) {
+        _vm.cellImbalance = $$v
+      },
+      expression: "cellImbalance"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "item"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v("电芯掉线")]), _vm._v(" "), _c('el-input', {
+    staticClass: "input",
+    attrs: {
+      "disabled": ""
+    },
+    model: {
+      value: (_vm.cellDrop),
+      callback: function($$v) {
+        _vm.cellDrop = $$v
+      },
+      expression: "cellDrop"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "item"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v("配置错误")]), _vm._v(" "), _c('el-input', {
+    staticClass: "input",
+    attrs: {
+      "disabled": ""
+    },
+    model: {
+      value: (_vm.configurationError),
+      callback: function($$v) {
+        _vm.configurationError = $$v
+      },
+      expression: "configurationError"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "item"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v("充电过流")]), _vm._v(" "), _c('el-input', {
+    staticClass: "input",
+    attrs: {
+      "disabled": ""
+    },
+    model: {
+      value: (_vm.chargeOvercurrent),
+      callback: function($$v) {
+        _vm.chargeOvercurrent = $$v
+      },
+      expression: "chargeOvercurrent"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "item"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v("欠压第 1 层保护")]), _vm._v(" "), _c('el-input', {
+    staticClass: "input",
+    attrs: {
+      "disabled": ""
+    },
+    model: {
+      value: (_vm.undervoltageProtection1),
+      callback: function($$v) {
+        _vm.undervoltageProtection1 = $$v
+      },
+      expression: "undervoltageProtection1"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "item"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v("欠压第 2 层保护")]), _vm._v(" "), _c('el-input', {
+    staticClass: "input",
+    attrs: {
+      "disabled": ""
+    },
+    model: {
+      value: (_vm.undervoltageProtection2),
+      callback: function($$v) {
+        _vm.undervoltageProtection2 = $$v
+      },
+      expression: "undervoltageProtection2"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "item"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v("过压第 1 层保护")]), _vm._v(" "), _c('el-input', {
+    staticClass: "input",
+    attrs: {
+      "disabled": ""
+    },
+    model: {
+      value: (_vm.overvoltageProtection1),
+      callback: function($$v) {
+        _vm.overvoltageProtection1 = $$v
+      },
+      expression: "overvoltageProtection1"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "item"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v("过压第 2 层保护")]), _vm._v(" "), _c('el-input', {
+    staticClass: "input",
+    attrs: {
+      "disabled": ""
+    },
+    model: {
+      value: (_vm.overvoltageProtection2),
+      callback: function($$v) {
+        _vm.overvoltageProtection2 = $$v
+      },
+      expression: "overvoltageProtection2"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "item"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v("过流第 1 层保护")]), _vm._v(" "), _c('el-input', {
+    staticClass: "input",
+    attrs: {
+      "disabled": ""
+    },
+    model: {
+      value: (_vm.overcurrentProtection1),
+      callback: function($$v) {
+        _vm.overcurrentProtection1 = $$v
+      },
+      expression: "overcurrentProtection1"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "item"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v("过流第 2 层保护")]), _vm._v(" "), _c('el-input', {
+    staticClass: "input",
+    attrs: {
+      "disabled": ""
+    },
+    model: {
+      value: (_vm.overcurrentProtection2),
+      callback: function($$v) {
+        _vm.overcurrentProtection2 = $$v
+      },
+      expression: "overcurrentProtection2"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "item"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v("过流第 3 层保护")]), _vm._v(" "), _c('el-input', {
+    staticClass: "input",
+    attrs: {
+      "disabled": ""
+    },
+    model: {
+      value: (_vm.overcurrentProtection3),
+      callback: function($$v) {
+        _vm.overcurrentProtection3 = $$v
+      },
+      expression: "overcurrentProtection3"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "item"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v("过流第 4 层保护")]), _vm._v(" "), _c('el-input', {
+    staticClass: "input",
+    attrs: {
+      "disabled": ""
+    },
+    model: {
+      value: (_vm.overcurrentProtection4),
+      callback: function($$v) {
+        _vm.overcurrentProtection4 = $$v
+      },
+      expression: "overcurrentProtection4"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "item"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v("充电过温")]), _vm._v(" "), _c('el-input', {
+    staticClass: "input",
+    attrs: {
+      "disabled": ""
+    },
+    model: {
+      value: (_vm.chargeOvertemperature),
+      callback: function($$v) {
+        _vm.chargeOvertemperature = $$v
+      },
+      expression: "chargeOvertemperature"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "item"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v("放电过温")]), _vm._v(" "), _c('el-input', {
+    staticClass: "input",
+    attrs: {
+      "disabled": ""
+    },
+    model: {
+      value: (_vm.dischargeOvertemperature),
+      callback: function($$v) {
+        _vm.dischargeOvertemperature = $$v
+      },
+      expression: "dischargeOvertemperature"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "item"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v("充电欠温")]), _vm._v(" "), _c('el-input', {
+    staticClass: "input",
+    attrs: {
+      "disabled": ""
+    },
+    model: {
+      value: (_vm.chargeUndertemperature),
+      callback: function($$v) {
+        _vm.chargeUndertemperature = $$v
+      },
+      expression: "chargeUndertemperature"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "item"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v("放电欠温")]), _vm._v(" "), _c('el-input', {
+    staticClass: "input",
+    attrs: {
+      "disabled": ""
+    },
+    model: {
+      value: (_vm.dischargeUndertemperature),
+      callback: function($$v) {
+        _vm.dischargeUndertemperature = $$v
+      },
+      expression: "dischargeUndertemperature"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "item"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v("MOS 过温")]), _vm._v(" "), _c('el-input', {
+    staticClass: "input",
+    attrs: {
+      "disabled": ""
+    },
+    model: {
+      value: (_vm.mosOvertemperature),
+      callback: function($$v) {
+        _vm.mosOvertemperature = $$v
+      },
+      expression: "mosOvertemperature"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "item"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v("环境过温")]), _vm._v(" "), _c('el-input', {
+    staticClass: "input",
+    attrs: {
+      "disabled": ""
+    },
+    model: {
+      value: (_vm.environmentOvertemperature),
+      callback: function($$v) {
+        _vm.environmentOvertemperature = $$v
+      },
+      expression: "environmentOvertemperature"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "item"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v("预放电错误")]), _vm._v(" "), _c('el-input', {
+    staticClass: "input",
+    attrs: {
+      "disabled": ""
+    },
+    model: {
+      value: (_vm.preDischargeError),
+      callback: function($$v) {
+        _vm.preDischargeError = $$v
+      },
+      expression: "preDischargeError"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "item"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v("预充电错误")]), _vm._v(" "), _c('el-input', {
+    staticClass: "input",
+    attrs: {
+      "disabled": ""
+    },
+    model: {
+      value: (_vm.preChargeError),
+      callback: function($$v) {
+        _vm.preChargeError = $$v
+      },
+      expression: "preChargeError"
+    }
+  })], 1)]), _vm._v(" "), _c('div', {
+    staticClass: "part right"
+  }, [_vm._m(3), _vm._v(" "), _c('div', {
+    staticClass: "item"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v("保护芯片损坏")]), _vm._v(" "), _c('el-input', {
+    staticClass: "input",
+    attrs: {
+      "disabled": ""
+    },
+    model: {
+      value: (_vm.warn_protectionChipDamage),
+      callback: function($$v) {
+        _vm.warn_protectionChipDamage = $$v
+      },
+      expression: "warn_protectionChipDamage"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "item"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v("计量损坏")]), _vm._v(" "), _c('el-input', {
+    staticClass: "input",
+    attrs: {
+      "disabled": ""
+    },
+    model: {
+      value: (_vm.warn_meteringDamage),
+      callback: function($$v) {
+        _vm.warn_meteringDamage = $$v
+      },
+      expression: "warn_meteringDamage"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "item"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v("存储损坏")]), _vm._v(" "), _c('el-input', {
+    staticClass: "input",
+    attrs: {
+      "disabled": ""
+    },
+    model: {
+      value: (_vm.warn_storageDamage),
+      callback: function($$v) {
+        _vm.warn_storageDamage = $$v
+      },
+      expression: "warn_storageDamage"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "item"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v("时钟芯片损坏")]), _vm._v(" "), _c('el-input', {
+    staticClass: "input",
+    attrs: {
+      "disabled": ""
+    },
+    model: {
+      value: (_vm.warn_clockChipDamage),
+      callback: function($$v) {
+        _vm.warn_clockChipDamage = $$v
+      },
+      expression: "warn_clockChipDamage"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "item"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v("充电 Mos 损坏")]), _vm._v(" "), _c('el-input', {
+    staticClass: "input",
+    attrs: {
+      "disabled": ""
+    },
+    model: {
+      value: (_vm.warn_chargeMosDamage),
+      callback: function($$v) {
+        _vm.warn_chargeMosDamage = $$v
+      },
+      expression: "warn_chargeMosDamage"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "item"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v("放电 Mos 损坏")]), _vm._v(" "), _c('el-input', {
+    staticClass: "input",
+    attrs: {
+      "disabled": ""
+    },
+    model: {
+      value: (_vm.warn_dischargeMosDamage),
+      callback: function($$v) {
+        _vm.warn_dischargeMosDamage = $$v
+      },
+      expression: "warn_dischargeMosDamage"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "item"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v("微处理器 ROM 区损坏")]), _vm._v(" "), _c('el-input', {
+    staticClass: "input",
+    attrs: {
+      "disabled": ""
+    },
+    model: {
+      value: (_vm.warn_microprocessorRomDamage),
+      callback: function($$v) {
+        _vm.warn_microprocessorRomDamage = $$v
+      },
+      expression: "warn_microprocessorRomDamage"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "item"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v("微处理器 RAM 区损坏")]), _vm._v(" "), _c('el-input', {
+    staticClass: "input",
+    attrs: {
+      "disabled": ""
+    },
+    model: {
+      value: (_vm.warn_microprocessorRamDamage),
+      callback: function($$v) {
+        _vm.warn_microprocessorRamDamage = $$v
+      },
+      expression: "warn_microprocessorRamDamage"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "item"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v("电芯温度传感器损坏")]), _vm._v(" "), _c('el-input', {
+    staticClass: "input",
+    attrs: {
+      "disabled": ""
+    },
+    model: {
+      value: (_vm.warn_cellTemperatureSensorDamage),
+      callback: function($$v) {
+        _vm.warn_cellTemperatureSensorDamage = $$v
+      },
+      expression: "warn_cellTemperatureSensorDamage"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "item"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v("其他温度传感器损坏")]), _vm._v(" "), _c('el-input', {
+    staticClass: "input",
+    attrs: {
+      "disabled": ""
+    },
+    model: {
+      value: (_vm.warn_otherTemperatureSensorDamage),
+      callback: function($$v) {
+        _vm.warn_otherTemperatureSensorDamage = $$v
+      },
+      expression: "warn_otherTemperatureSensorDamage"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "item"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v("充电保险丝损坏")]), _vm._v(" "), _c('el-input', {
+    staticClass: "input",
+    attrs: {
+      "disabled": ""
+    },
+    model: {
+      value: (_vm.warn_chargeFuseDamage),
+      callback: function($$v) {
+        _vm.warn_chargeFuseDamage = $$v
+      },
+      expression: "warn_chargeFuseDamage"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "item"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v("放电保险丝损坏")]), _vm._v(" "), _c('el-input', {
+    staticClass: "input",
+    attrs: {
+      "disabled": ""
+    },
+    model: {
+      value: (_vm.warn_dischargeFuseDamage),
+      callback: function($$v) {
+        _vm.warn_dischargeFuseDamage = $$v
+      },
+      expression: "warn_dischargeFuseDamage"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "item"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v("电芯不平衡")]), _vm._v(" "), _c('el-input', {
+    staticClass: "input",
+    attrs: {
+      "disabled": ""
+    },
+    model: {
+      value: (_vm.warn_cellImbalance),
+      callback: function($$v) {
+        _vm.warn_cellImbalance = $$v
+      },
+      expression: "warn_cellImbalance"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "item"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v("电芯掉线")]), _vm._v(" "), _c('el-input', {
+    staticClass: "input",
+    attrs: {
+      "disabled": ""
+    },
+    model: {
+      value: (_vm.warn_cellDrop),
+      callback: function($$v) {
+        _vm.warn_cellDrop = $$v
+      },
+      expression: "warn_cellDrop"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "item"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v("配置错误")]), _vm._v(" "), _c('el-input', {
+    staticClass: "input",
+    attrs: {
+      "disabled": ""
+    },
+    model: {
+      value: (_vm.warn_configurationError),
+      callback: function($$v) {
+        _vm.warn_configurationError = $$v
+      },
+      expression: "warn_configurationError"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "item"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v("充电过流")]), _vm._v(" "), _c('el-input', {
+    staticClass: "input",
+    attrs: {
+      "disabled": ""
+    },
+    model: {
+      value: (_vm.warn_chargeOvercurrent),
+      callback: function($$v) {
+        _vm.warn_chargeOvercurrent = $$v
+      },
+      expression: "warn_chargeOvercurrent"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "item"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v("欠压第 1 层保护")]), _vm._v(" "), _c('el-input', {
+    staticClass: "input",
+    attrs: {
+      "disabled": ""
+    },
+    model: {
+      value: (_vm.warn_undervoltageProtection1),
+      callback: function($$v) {
+        _vm.warn_undervoltageProtection1 = $$v
+      },
+      expression: "warn_undervoltageProtection1"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "item"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v("欠压第 2 层保护")]), _vm._v(" "), _c('el-input', {
+    staticClass: "input",
+    attrs: {
+      "disabled": ""
+    },
+    model: {
+      value: (_vm.warn_undervoltageProtection2),
+      callback: function($$v) {
+        _vm.warn_undervoltageProtection2 = $$v
+      },
+      expression: "warn_undervoltageProtection2"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "item"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v("过压第 1 层保护")]), _vm._v(" "), _c('el-input', {
+    staticClass: "input",
+    attrs: {
+      "disabled": ""
+    },
+    model: {
+      value: (_vm.warn_overvoltageProtection1),
+      callback: function($$v) {
+        _vm.warn_overvoltageProtection1 = $$v
+      },
+      expression: "warn_overvoltageProtection1"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "item"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v("过压第 2 层保护")]), _vm._v(" "), _c('el-input', {
+    staticClass: "input",
+    attrs: {
+      "disabled": ""
+    },
+    model: {
+      value: (_vm.warn_overvoltageProtection2),
+      callback: function($$v) {
+        _vm.warn_overvoltageProtection2 = $$v
+      },
+      expression: "warn_overvoltageProtection2"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "item"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v("过流第 1 层保护")]), _vm._v(" "), _c('el-input', {
+    staticClass: "input",
+    attrs: {
+      "disabled": ""
+    },
+    model: {
+      value: (_vm.warn_overcurrentProtection1),
+      callback: function($$v) {
+        _vm.warn_overcurrentProtection1 = $$v
+      },
+      expression: "warn_overcurrentProtection1"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "item"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v("过流第 2 层保护")]), _vm._v(" "), _c('el-input', {
+    staticClass: "input",
+    attrs: {
+      "disabled": ""
+    },
+    model: {
+      value: (_vm.warn_overcurrentProtection2),
+      callback: function($$v) {
+        _vm.warn_overcurrentProtection2 = $$v
+      },
+      expression: "warn_overcurrentProtection2"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "item"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v("过流第 3 层保护")]), _vm._v(" "), _c('el-input', {
+    staticClass: "input",
+    attrs: {
+      "disabled": ""
+    },
+    model: {
+      value: (_vm.warn_overcurrentProtection3),
+      callback: function($$v) {
+        _vm.warn_overcurrentProtection3 = $$v
+      },
+      expression: "warn_overcurrentProtection3"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "item"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v("过流第 4 层保护")]), _vm._v(" "), _c('el-input', {
+    staticClass: "input",
+    attrs: {
+      "disabled": ""
+    },
+    model: {
+      value: (_vm.warn_overcurrentProtection4),
+      callback: function($$v) {
+        _vm.warn_overcurrentProtection4 = $$v
+      },
+      expression: "warn_overcurrentProtection4"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "item"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v("充电过温")]), _vm._v(" "), _c('el-input', {
+    staticClass: "input",
+    attrs: {
+      "disabled": ""
+    },
+    model: {
+      value: (_vm.warn_chargeOvertemperature),
+      callback: function($$v) {
+        _vm.warn_chargeOvertemperature = $$v
+      },
+      expression: "warn_chargeOvertemperature"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "item"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v("放电过温")]), _vm._v(" "), _c('el-input', {
+    staticClass: "input",
+    attrs: {
+      "disabled": ""
+    },
+    model: {
+      value: (_vm.warn_dischargeOvertemperature),
+      callback: function($$v) {
+        _vm.warn_dischargeOvertemperature = $$v
+      },
+      expression: "warn_dischargeOvertemperature"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "item"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v("充电欠温")]), _vm._v(" "), _c('el-input', {
+    staticClass: "input",
+    attrs: {
+      "disabled": ""
+    },
+    model: {
+      value: (_vm.warn_chargeUndertemperature),
+      callback: function($$v) {
+        _vm.warn_chargeUndertemperature = $$v
+      },
+      expression: "warn_chargeUndertemperature"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "item"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v("放电欠温")]), _vm._v(" "), _c('el-input', {
+    staticClass: "input",
+    attrs: {
+      "disabled": ""
+    },
+    model: {
+      value: (_vm.warn_dischargeUndertemperature),
+      callback: function($$v) {
+        _vm.warn_dischargeUndertemperature = $$v
+      },
+      expression: "warn_dischargeUndertemperature"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "item"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v("MOS 过温")]), _vm._v(" "), _c('el-input', {
+    staticClass: "input",
+    attrs: {
+      "disabled": ""
+    },
+    model: {
+      value: (_vm.warn_mosOvertemperature),
+      callback: function($$v) {
+        _vm.warn_mosOvertemperature = $$v
+      },
+      expression: "warn_mosOvertemperature"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "item"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v("环境过温")]), _vm._v(" "), _c('el-input', {
+    staticClass: "input",
+    attrs: {
+      "disabled": ""
+    },
+    model: {
+      value: (_vm.warn_environmentOvertemperature),
+      callback: function($$v) {
+        _vm.warn_environmentOvertemperature = $$v
+      },
+      expression: "warn_environmentOvertemperature"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "item"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v("预放电错误")]), _vm._v(" "), _c('el-input', {
+    staticClass: "input",
+    attrs: {
+      "disabled": ""
+    },
+    model: {
+      value: (_vm.warn_preDischargeError),
+      callback: function($$v) {
+        _vm.warn_preDischargeError = $$v
+      },
+      expression: "warn_preDischargeError"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "item"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v("预充电错误")]), _vm._v(" "), _c('el-input', {
+    staticClass: "input",
+    attrs: {
+      "disabled": ""
+    },
+    model: {
+      value: (_vm.warn_preChargeError),
+      callback: function($$v) {
+        _vm.warn_preChargeError = $$v
+      },
+      expression: "warn_preChargeError"
+    }
+  })], 1)])]), _vm._v(" "), _c('div', {
+    staticClass: "info data"
+  }, [_vm._m(4), _vm._v(" "), _c('div', {
+    staticClass: "part"
+  }, [_c('div', {
+    staticClass: "item"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v("历史最大放电电流")]), _vm._v(" "), _c('el-input', {
+    staticClass: "input",
+    attrs: {
+      "disabled": ""
+    },
+    model: {
+      value: (_vm.historyMaxDischargeCurrent),
+      callback: function($$v) {
+        _vm.historyMaxDischargeCurrent = $$v
+      },
+      expression: "historyMaxDischargeCurrent"
+    }
+  }, [_c('template', {
+    slot: "append"
+  }, [_vm._v("A")])], 2)], 1), _vm._v(" "), _c('div', {
+    staticClass: "item"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v("历史最大充电电流")]), _vm._v(" "), _c('el-input', {
+    staticClass: "input",
+    attrs: {
+      "disabled": ""
+    },
+    model: {
+      value: (_vm.historyMaxChargeCurrent),
+      callback: function($$v) {
+        _vm.historyMaxChargeCurrent = $$v
+      },
+      expression: "historyMaxChargeCurrent"
+    }
+  }, [_c('template', {
+    slot: "append"
+  }, [_vm._v("A")])], 2)], 1), _vm._v(" "), _c('div', {
+    staticClass: "item"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v("历史最高单节电芯电压")]), _vm._v(" "), _c('el-input', {
+    staticClass: "input",
+    attrs: {
+      "disabled": ""
+    },
+    model: {
+      value: (_vm.historyMaxSingleCellVoltage),
+      callback: function($$v) {
+        _vm.historyMaxSingleCellVoltage = $$v
+      },
+      expression: "historyMaxSingleCellVoltage"
+    }
+  }, [_c('template', {
+    slot: "append"
+  }, [_vm._v("V")])], 2)], 1), _vm._v(" "), _c('div', {
+    staticClass: "item"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v("历史最低单节电芯电压")]), _vm._v(" "), _c('el-input', {
+    staticClass: "input",
+    attrs: {
+      "disabled": ""
+    },
+    model: {
+      value: (_vm.historyMinSingleCellVoltage),
+      callback: function($$v) {
+        _vm.historyMinSingleCellVoltage = $$v
+      },
+      expression: "historyMinSingleCellVoltage"
+    }
+  }, [_c('template', {
+    slot: "append"
+  }, [_vm._v("V")])], 2)], 1)]), _vm._v(" "), _c('div', {
+    staticClass: "part right"
+  }, [_c('div', {
+    staticClass: "item"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v("历史最高电芯温度")]), _vm._v(" "), _c('el-input', {
+    staticClass: "input",
+    attrs: {
+      "disabled": ""
+    },
+    model: {
+      value: (_vm.historyMaxCellTemperature),
+      callback: function($$v) {
+        _vm.historyMaxCellTemperature = $$v
+      },
+      expression: "historyMaxCellTemperature"
+    }
+  }, [_c('template', {
+    slot: "append"
+  }, [_vm._v("℃")])], 2)], 1), _vm._v(" "), _c('div', {
+    staticClass: "item"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v("历史最低电芯温度")]), _vm._v(" "), _c('el-input', {
+    staticClass: "input",
+    attrs: {
+      "disabled": ""
+    },
+    model: {
+      value: (_vm.historyMinCellTemperature),
+      callback: function($$v) {
+        _vm.historyMinCellTemperature = $$v
+      },
+      expression: "historyMinCellTemperature"
+    }
+  }, [_c('template', {
+    slot: "append"
+  }, [_vm._v("℃")])], 2)], 1), _vm._v(" "), _c('div', {
+    staticClass: "item"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v("历史最高 MOS 温度")]), _vm._v(" "), _c('el-input', {
+    staticClass: "input",
+    attrs: {
+      "disabled": ""
+    },
+    model: {
+      value: (_vm.historyMaxMosTemperature),
+      callback: function($$v) {
+        _vm.historyMaxMosTemperature = $$v
+      },
+      expression: "historyMaxMosTemperature"
+    }
+  }, [_c('template', {
+    slot: "append"
+  }, [_vm._v("℃")])], 2)], 1), _vm._v(" "), _c('div', {
+    staticClass: "item"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v("历史最高环境温度")]), _vm._v(" "), _c('el-input', {
+    staticClass: "input",
+    attrs: {
+      "disabled": ""
+    },
+    model: {
+      value: (_vm.historyMaxEnvironmentTemperature),
+      callback: function($$v) {
+        _vm.historyMaxEnvironmentTemperature = $$v
+      },
+      expression: "historyMaxEnvironmentTemperature"
+    }
+  }, [_c('template', {
+    slot: "append"
+  }, [_vm._v("℃")])], 2)], 1)])]), _vm._v(" "), (_vm.isCan && _vm.org.type === _vm.Core.Const.ORG_TYPE.COMPONENT) ? _c('div', {
     staticClass: "info data"
   }, [_c('div', {
     staticClass: "note-title"
@@ -860,11 +2378,41 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_vm._v(_vm._s(_vm.$t('cNam.txtNote1')))])])]), _vm._v(" "), _c('PrintPreview', {
     ref: "printPreview"
   })], 1)
-},staticRenderFns: []}
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "note-title"
+  }, [_c('label', {
+    staticClass: "title"
+  }, [_vm._v("状态信息")])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "note-title"
+  }, [_c('label', {
+    staticClass: "title"
+  }, [_vm._v("功率信息")])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "note-title"
+  }, [_c('label', {
+    staticClass: "title"
+  }, [_vm._v("错误信息")])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "note-title"
+  }, [_c('label', {
+    staticClass: "title"
+  }, [_vm._v("告警信息")])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "note-title"
+  }, [_c('label', {
+    staticClass: "title"
+  }, [_vm._v("最值信息")])])
+}]}
 
 
 //////////////////
 // WEBPACK FOOTER
 // ./node_modules/vue-loader/lib/template-compiler?{"id":"data-v-4e59392c","hasScoped":false}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./src/components/tool/battery.vue
-// module id = 1252
+// module id = 1259
 // module chunks = 76

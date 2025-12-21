@@ -139,5 +139,5 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
 //////////////////
 // WEBPACK FOOTER
 // ./node_modules/vue-loader/lib/template-compiler?{"id":"data-v-3c889793","hasScoped":false}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./src/views/nl/clean-management/commerial-invoice-details.vue
-// module id = 2675
+// module id = 2706
 // module chunks = 16

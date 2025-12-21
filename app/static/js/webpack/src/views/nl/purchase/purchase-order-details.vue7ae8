@@ -12,5 +12,5 @@ exports.push([module.id, ".purchase-details{width:100%;height:100%}.purchase-det
 //////////////////
 // WEBPACK FOOTER
 // ./node_modules/css-loader?{"minimize":true,"sourceMap":true}!./node_modules/vue-loader/lib/style-compiler?{"vue":true,"id":"data-v-9e1c006c","scoped":false,"hasInlineConfig":false}!./node_modules/sass-loader/lib/loader.js?{"sourceMap":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./src/views/nl/purchase/purchase-order-details.vue
-// module id = 2583
-// module chunks = 66
+// module id = 2614
+// module chunks = 65

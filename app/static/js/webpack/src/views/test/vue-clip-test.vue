@@ -21,5 +21,5 @@ module.exports = Component.exports
 //////////////////
 // WEBPACK FOOTER
 // ./src/views/test/vue-clip-test.vue
-// module id = 2116
+// module id = 2148
 // module chunks = 76

@@ -206,7 +206,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     key: "23",
     attrs: {
       "label": "操作",
-      "width": "160"
+      "width": "200"
     },
     scopedSlots: _vm._u([{
       key: "default",
@@ -244,7 +244,54 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
               return _vm.onDownLoad(scope.row.downloadUrl, scope.row.fileName)
             }
           }
-        }, [_vm._v(" 下载 ")])]
+        }, [_vm._v(" 下载 ")]), _vm._v(" "), _c('el-button', {
+          attrs: {
+            "type": "text",
+            "size": "small"
+          },
+          on: {
+            "click": function($event) {
+              $event.stopPropagation();
+              return _vm.onEnable(scope.row)
+            }
+          }
+        }, [_vm._v("\n                " + _vm._s(scope.row.isEnable == '1' ? '失效' : '生效') + "\n              ")])]
+      }
+    }])
+  }), _vm._v(" "), _c('el-table-column', {
+    attrs: {
+      "prop": "partNo",
+      "label": "模式",
+      "width": "150"
+    },
+    scopedSlots: _vm._u([{
+      key: "default",
+      fn: function(scope) {
+        return [_c('span', [_vm._v(_vm._s(_vm.priorityPipe(scope.row.priority)))])]
+      }
+    }])
+  }), _vm._v(" "), _c('el-table-column', {
+    attrs: {
+      "prop": "platform",
+      "label": "平台",
+      "width": "200"
+    },
+    scopedSlots: _vm._u([{
+      key: "default",
+      fn: function(scope) {
+        return [_c('span', [_vm._v(_vm._s(_vm.platformPipe(scope.row.platform)))])]
+      }
+    }])
+  }), _vm._v(" "), _c('el-table-column', {
+    attrs: {
+      "prop": "firmwareType",
+      "label": "固件类型",
+      "width": "200"
+    },
+    scopedSlots: _vm._u([{
+      key: "default",
+      fn: function(scope) {
+        return [_c('span', [_vm._v(_vm._s(scope.row.firmwareType == 1 ? '单固件' : '多固件' || '-'))])]
       }
     }])
   }), _vm._v(" "), (_vm.formSearch.sn) ? _c('el-table-column', {
@@ -327,15 +374,32 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     scopedSlots: _vm._u([{
       key: "default",
       fn: function(scope) {
-        return [_c('span', [_vm._v(_vm._s(_vm._f("dateFormatOther")(scope.row.createdTime, 'Y-m-d H:i:s') || '-'))])]
+        return [_c('span', [_vm._v(_vm._s(_vm._f("dateFormatOther")(scope.row.createdTime, 'Y-m-d H:i:s')))])]
       }
     }])
   }), _vm._v(" "), _c('el-table-column', {
     attrs: {
-      "prop": "createdUserName",
+      "prop": "uploadUser",
       "label": "上传人",
       "width": "250"
     }
+  }), _vm._v(" "), _c('el-table-column', {
+    attrs: {
+      "prop": "isEnable",
+      "label": "是否生效",
+      "width": "250"
+    },
+    scopedSlots: _vm._u([{
+      key: "default",
+      fn: function(scope) {
+        return [_c('el-tag', {
+          attrs: {
+            "size": "small",
+            "type": scope.row.isEnable == '1' ? 'success' : 'danger'
+          }
+        }, [_vm._v("\n                " + _vm._s(scope.row.isEnable == '1' ? '生效' : '失效') + "\n              ")])]
+      }
+    }])
   })], 1)], 1), _vm._v(" "), _c('div', {
     staticClass: "table-end"
   }, [_c('el-pagination', {
@@ -444,5 +508,5 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
 //////////////////
 // WEBPACK FOOTER
 // ./node_modules/vue-loader/lib/template-compiler?{"id":"data-v-05dbb78c","hasScoped":true}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./src/views/firmware/list.vue
-// module id = 2784
-// module chunks = 30
+// module id = 2815
+// module chunks = 47

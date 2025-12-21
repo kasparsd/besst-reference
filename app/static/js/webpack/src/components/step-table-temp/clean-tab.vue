@@ -21,5 +21,5 @@ module.exports = Component.exports
 //////////////////
 // WEBPACK FOOTER
 // ./src/components/step-table-temp/clean-tab.vue
-// module id = 2402
+// module id = 2433
 // module chunks = 1 2

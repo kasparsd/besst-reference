@@ -12,5 +12,5 @@ exports.push([module.id, ".table-expand[data-v-05dbb78c]{font-size:0}.table-expa
 //////////////////
 // WEBPACK FOOTER
 // ./node_modules/css-loader?{"minimize":true,"sourceMap":true}!./node_modules/vue-loader/lib/style-compiler?{"vue":true,"id":"data-v-05dbb78c","scoped":true,"hasInlineConfig":false}!./node_modules/sass-loader/lib/loader.js?{"sourceMap":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./src/views/firmware/list.vue
-// module id = 2782
-// module chunks = 30
+// module id = 2813
+// module chunks = 47

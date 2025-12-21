@@ -73,5 +73,5 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
 //////////////////
 // WEBPACK FOOTER
 // ./node_modules/vue-loader/lib/template-compiler?{"id":"data-v-63c5f708","hasScoped":false}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./src/views/nl/finance/cashier-details.vue
-// module id = 2485
-// module chunks = 72
+// module id = 2516
+// module chunks = 71

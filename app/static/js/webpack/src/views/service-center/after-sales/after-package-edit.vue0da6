@@ -53,7 +53,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   })], 1), _vm._v(" "), _c('div', {
     staticClass: "item"
   }, [_vm._m(1), _vm._v(" "), _c('el-input', {
-    staticClass: "input ",
+    staticClass: "input",
     model: {
       value: (_vm.paFrom),
       callback: function($$v) {
@@ -114,7 +114,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('label', {
     staticClass: "label"
   }, [_vm._v("Contact")]), _vm._v(" "), _c('el-input', {
-    staticClass: "input ",
+    staticClass: "input",
     model: {
       value: (_vm.paContact),
       callback: function($$v) {
@@ -127,7 +127,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('label', {
     staticClass: "label"
   }, [_vm._v("Tel")]), _vm._v(" "), _c('el-input', {
-    staticClass: "input ",
+    staticClass: "input",
     model: {
       value: (_vm.paFrom),
       callback: function($$v) {
@@ -273,5 +273,5 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
 //////////////////
 // WEBPACK FOOTER
 // ./node_modules/vue-loader/lib/template-compiler?{"id":"data-v-1624d832","hasScoped":false}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./src/views/service-center/after-sales/after-package-edit.vue
-// module id = 2091
+// module id = 2123
 // module chunks = 76

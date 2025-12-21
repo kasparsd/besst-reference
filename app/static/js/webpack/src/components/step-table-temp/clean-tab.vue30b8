@@ -12,5 +12,5 @@ exports.push([module.id, ".deliver-tab .order-info[data-v-2a2a289c]{padding:10px
 //////////////////
 // WEBPACK FOOTER
 // ./node_modules/css-loader?{"minimize":true,"sourceMap":true}!./node_modules/vue-loader/lib/style-compiler?{"vue":true,"id":"data-v-2a2a289c","scoped":true,"hasInlineConfig":false}!./node_modules/sass-loader/lib/loader.js?{"sourceMap":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./src/components/step-table-temp/clean-tab.vue
-// module id = 2404
+// module id = 2435
 // module chunks = 1 2

@@ -12,5 +12,5 @@ exports.push([module.id, ".title-content[data-v-2ac92126]{border-bottom:1px soli
 //////////////////
 // WEBPACK FOOTER
 // ./node_modules/css-loader?{"minimize":true,"sourceMap":true}!./node_modules/vue-loader/lib/style-compiler?{"vue":true,"id":"data-v-2ac92126","scoped":true,"hasInlineConfig":false}!./node_modules/sass-loader/lib/loader.js?{"sourceMap":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./src/views/firmware/components/Title.vue
-// module id = 2747
+// module id = 2778
 // module chunks = 0

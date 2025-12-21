@@ -2,7 +2,7 @@
  * @Author: Bai YanShuo
  * @Date: 2022-06-23 09:13:24
  * @LastEditors: Bai YanShuo
- * @LastEditTime: 2022-10-12 17:39:05
+ * @LastEditTime: 2025-08-27 11:14:51
  * @FilePath: /BESST/besst-client/src/views/firmware/channel/upload.vue
  * @Description: 
 -->
@@ -14,10 +14,25 @@
     <div class="form-content" v-loading.body="loading">
       <div class="order-info">
         <div class="item">
+          <label class="label">平台</label>
+          <el-checkbox-group v-model="formData.platform" @change="changePlatform($event)">
+            <el-checkbox :label="1">iOS</el-checkbox>
+            <el-checkbox :label="2">Android</el-checkbox>
+            <el-checkbox :label="3">BESST</el-checkbox>
+            <el-checkbox :label="4">BESST Pro</el-checkbox>
+          </el-checkbox-group>
+        </div>
+        <div class="item">
+          <label class="label">固件类型</label>
+          <el-radio-group v-model="formData.firmwareType">
+            <el-radio label="1">单固件</el-radio>
+            <el-radio label="2">多固件</el-radio>
+          </el-radio-group>
+        </div>
+        <div class="item">
           <label class="label">上传软件版本号</label>
           <el-input class="input" v-model="formData.version"></el-input>
         </div>
-
         <div class="item">
           <label class="label">标签1</label>
           <el-input class="input" v-model.trim="formData.tagOne" placeholder="控制器：轮径 仪表：总档位"></el-input>
@@ -57,7 +72,7 @@
         </div>
         <div class="item">
           <label class="label">CRC校验码</label>
-          <el-input :disabled="true" class="input" v-model="formData.checkSum"></el-input>
+          <el-input class="input" v-model="formData.checkSum"></el-input>
         </div>
         <div class="item">
           <label class="label">日志 <span class="required">*</span></label>
@@ -80,6 +95,7 @@
 import Core from 'core/core'
 import { mapState } from 'vuex'
 import ChannelService from 'src/services/firmware/channelService.js'
+import Update from 'device/update'
 export default {
   data() {
     return {
@@ -104,10 +120,22 @@ export default {
     this.initUpload()
   },
   methods: {
+    changePlatform(val) {
+      console.log(val)
+    },
     prev() {
       this.$store.dispatch('firmware/prev')
     },
     save() {
+      //  必须选择一个平台
+      if (this.formData.platform.length == 0) {
+        this.$message({
+          message: '请选择一个平台',
+          type: 'warning'
+        })
+        return
+      }
+
       if (this.uploadData.some((res) => res.hardware == '' || res.software == '')) {
         this.$message({
           message: '软硬件版本号缺失',
@@ -130,7 +158,22 @@ export default {
       if (!this.checkFile(_fileList[0])) {
         this.initUpload()
         this.formData.checkSum = ''
+        this.formData.reCheckSum = ''
+        this.formData.reCheckSum2 = ''
         this.$message.error('文件类型错误')
+        return
+      }
+
+      if (!this.formData.checkSum) {
+        this.$message.error('请输入CRC校验码')
+        return
+      }
+
+      if (
+        this.formData.checkSum.toLocaleLowerCase() !== this.formData.reCheckSum &&
+        this.formData.checkSum.toLocaleLowerCase() !== this.formData.reCheckSum2
+      ) {
+        this.$message.error('CRC校验码验证不通过')
         return
       }
 
@@ -194,7 +237,9 @@ export default {
           tagOne: this.formData.tagOne,
           tagTwo: this.formData.tagTwo,
           tagThree: this.formData.tagThree,
-          tagFour: this.formData.tagFour
+          tagFour: this.formData.tagFour,
+          firmwareType: this.formData.firmwareType,
+          platform: this.formData.platform.join(',')
         }
       })
       // console.log(JSON.stringify(_data))
@@ -222,7 +267,8 @@ export default {
       if (!this.uploadCheck) {
         this.initUpload()
         this.formData.checkSum = ''
-
+        this.formData.reCheckSum = ''
+        this.formData.reCheckSum2 = ''
         this.loading = false
         return
       }
@@ -232,8 +278,10 @@ export default {
       reader.readAsArrayBuffer(file.raw)
       reader.onload = (e) => {
         const arr = Buffer.from(e.target.result)
-        this.formData.checkSum = Core.Util.checkCrc(arr)
-        console.log('CheckSum', this.formData.checkSum)
+        this.formData.reCheckSum = Update.checkCrc(arr.slice(32))
+        this.formData.reCheckSum2 = Update.checkCrc(arr)
+        console.log('CheckSum', this.formData.reCheckSum)
+        console.log('CheckSum all', this.formData.reCheckSum2)
       }
       this.loading = false
     },
@@ -261,7 +309,8 @@ export default {
         this.$message.error('文件类型错误')
         this.initUpload()
         this.formData.checkSum = ''
-
+        this.formData.reCheckSum = ''
+        this.formData.reCheckSum2 = ''
         this.loading = false
         return
       }
@@ -279,14 +328,19 @@ export default {
     },
     initForm() {
       return {
+        platform: [],
         version: '',
         checkSum: '',
+        reCheckSum: '',
+        reCheckSum2: '',
         tagOne: '',
         tagTwo: '',
         tagThree: '',
         tagFour: '',
         remark: '',
-        note: ''
+        note: '',
+        // 固件类型 1-单固件、2-多固件
+        firmwareType: '1'
       }
     }
   }
@@ -297,8 +351,10 @@ export default {
 .content-wrap {
   display: flex;
   flex-direction: column;
+
   .title-content {
     padding: 0 40px 15px 40px;
+
     :after {
       content: '';
       width: 100%;
@@ -315,6 +371,14 @@ export default {
     flex-direction: column;
     height: 100%;
     display: flex;
+
+    .el-radio {
+      color: #fff;
+      .el-radio__label {
+        color: #fff;
+      }
+    }
+
     .order-info {
       overflow: auto;
       height: 100%;
@@ -325,26 +389,31 @@ export default {
         width: 50%;
         display: flex;
         margin: 15px auto;
+
         span {
           color: #e26829;
           display: inline-block;
         }
+
         .label {
           display: inline-block;
           width: 130px;
           margin-left: 15px;
         }
+
         .input {
           width: 100%;
           border-radius: 0 0 10px 10px;
         }
       }
+
       .upload-contact {
         margin-left: 10px;
         display: inline-block;
         width: 100%;
       }
     }
+
     .parts-list {
       text-align: right;
       padding: 0 40px;
@@ -361,4 +430,4 @@ export default {
 
 
 // WEBPACK FOOTER //
-// upload.vue?665221cd
+// upload.vue?2b1f807b

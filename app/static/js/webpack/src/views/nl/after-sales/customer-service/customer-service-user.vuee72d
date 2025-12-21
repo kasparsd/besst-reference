@@ -12,5 +12,5 @@ exports.push([module.id, ".customer-service-user{display:-webkit-box;display:-ms
 //////////////////
 // WEBPACK FOOTER
 // ./node_modules/css-loader?{"minimize":true,"sourceMap":true}!./node_modules/vue-loader/lib/style-compiler?{"vue":true,"id":"data-v-434ba1a8","scoped":false,"hasInlineConfig":false}!./node_modules/sass-loader/lib/loader.js?{"sourceMap":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./src/views/nl/after-sales/customer-service/customer-service-user.vue
-// module id = 2648
-// module chunks = 45
+// module id = 2679
+// module chunks = 44

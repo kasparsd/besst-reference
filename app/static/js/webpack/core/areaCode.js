@@ -220,5 +220,5 @@ export default areaCode
 //////////////////
 // WEBPACK FOOTER
 // ./core/areaCode.js
-// module id = 90
+// module id = 94
 // module chunks = 76

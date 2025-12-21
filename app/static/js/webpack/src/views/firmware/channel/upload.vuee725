@@ -18,6 +18,59 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "item"
   }, [_c('label', {
     staticClass: "label"
+  }, [_vm._v("平台")]), _vm._v(" "), _c('el-checkbox-group', {
+    on: {
+      "change": function($event) {
+        return _vm.changePlatform($event)
+      }
+    },
+    model: {
+      value: (_vm.formData.platform),
+      callback: function($$v) {
+        _vm.$set(_vm.formData, "platform", $$v)
+      },
+      expression: "formData.platform"
+    }
+  }, [_c('el-checkbox', {
+    attrs: {
+      "label": 1
+    }
+  }, [_vm._v("iOS")]), _vm._v(" "), _c('el-checkbox', {
+    attrs: {
+      "label": 2
+    }
+  }, [_vm._v("Android")]), _vm._v(" "), _c('el-checkbox', {
+    attrs: {
+      "label": 3
+    }
+  }, [_vm._v("BESST")]), _vm._v(" "), _c('el-checkbox', {
+    attrs: {
+      "label": 4
+    }
+  }, [_vm._v("BESST Pro")])], 1)], 1), _vm._v(" "), _c('div', {
+    staticClass: "item"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v("固件类型")]), _vm._v(" "), _c('el-radio-group', {
+    model: {
+      value: (_vm.formData.firmwareType),
+      callback: function($$v) {
+        _vm.$set(_vm.formData, "firmwareType", $$v)
+      },
+      expression: "formData.firmwareType"
+    }
+  }, [_c('el-radio', {
+    attrs: {
+      "label": "1"
+    }
+  }, [_vm._v("单固件")]), _vm._v(" "), _c('el-radio', {
+    attrs: {
+      "label": "2"
+    }
+  }, [_vm._v("多固件")])], 1)], 1), _vm._v(" "), _c('div', {
+    staticClass: "item"
+  }, [_c('label', {
+    staticClass: "label"
   }, [_vm._v("上传软件版本号")]), _vm._v(" "), _c('el-input', {
     staticClass: "input",
     model: {
@@ -129,9 +182,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "label"
   }, [_vm._v("CRC校验码")]), _vm._v(" "), _c('el-input', {
     staticClass: "input",
-    attrs: {
-      "disabled": true
-    },
     model: {
       value: (_vm.formData.checkSum),
       callback: function($$v) {
@@ -216,5 +266,5 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
 //////////////////
 // WEBPACK FOOTER
 // ./node_modules/vue-loader/lib/template-compiler?{"id":"data-v-4c781c7b","hasScoped":true}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./src/views/firmware/channel/upload.vue
-// module id = 2779
+// module id = 2810
 // module chunks = 0

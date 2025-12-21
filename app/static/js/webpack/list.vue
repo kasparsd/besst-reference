@@ -2,7 +2,7 @@
  * @Author: Bai YanShuo
  * @Date: 2022-07-18 19:29:58
  * @LastEditors: Bai YanShuo
- * @LastEditTime: 2023-04-03 18:37:41
+ * @LastEditTime: 2025-09-19 13:38:07
  * @FilePath: /BESST/besst-client/src/views/firmware/list.vue
  * @Description: 
 -->
@@ -82,11 +82,29 @@
               </template>
             </el-table-column>
             <el-table-column type="index" width="55"> </el-table-column>
-            <el-table-column key="23" label="操作" width="160">
+            <el-table-column key="23" label="操作" width="200">
               <template slot-scope="scope">
                 <el-button type="text" size="small" @click.stop="onEdit(scope.row)"> 编辑 </el-button>
                 <el-button v-if="Core.Data.getUser().id == '24'" type="text" size="small" @click.stop="onDelete(scope.row)"> 删除 </el-button>
                 <el-button type="text" size="small" @click.stop="onDownLoad(scope.row.downloadUrl, scope.row.fileName)"> 下载 </el-button>
+                <el-button type="text" size="small" @click.stop="onEnable(scope.row)">
+                  {{ scope.row.isEnable == '1' ? '失效' : '生效' }}
+                </el-button>
+              </template>
+            </el-table-column>
+            <el-table-column prop="partNo" label="模式" width="150">
+              <template slot-scope="scope">
+                <span>{{ priorityPipe(scope.row.priority) }}</span>
+              </template>
+            </el-table-column>
+            <el-table-column prop="platform" label="平台" width="200">
+              <template slot-scope="scope">
+                <span>{{ platformPipe(scope.row.platform) }}</span>
+              </template>
+            </el-table-column>
+            <el-table-column prop="firmwareType" label="固件类型" width="200">
+              <template slot-scope="scope">
+                <span>{{ scope.row.firmwareType == 1 ? '单固件' : '多固件' || '-' }}</span>
               </template>
             </el-table-column>
             <el-table-column prop="sn" label="SN" width="200" v-if="formSearch.sn">
@@ -112,10 +130,17 @@
             <el-table-column prop="version" label="当前软件版本号" width="250"> </el-table-column>
             <el-table-column prop="createdTime" label="上传时间" width="250">
               <template slot-scope="scope">
-                <span>{{ scope.row.createdTime | dateFormatOther('Y-m-d H:i:s') || '-' }}</span>
+                <span>{{ scope.row.createdTime | dateFormatOther('Y-m-d H:i:s') }}</span>
               </template>
             </el-table-column>
-            <el-table-column prop="createdUserName" label="上传人" width="250"> </el-table-column>
+            <el-table-column prop="uploadUser" label="上传人" width="250"> </el-table-column>
+            <el-table-column prop="isEnable" label="是否生效" width="250">
+              <template slot-scope="scope">
+                <el-tag size="small" :type="scope.row.isEnable == '1' ? 'success' : 'danger'">
+                  {{ scope.row.isEnable == '1' ? '生效' : '失效' }}
+                </el-tag>
+              </template>
+            </el-table-column>
           </el-table>
         </div>
         <div class="table-end">
@@ -175,13 +200,49 @@ export default {
       dialogVisible: false,
       dialogTitle: '',
       expands: [],
-      Core: Core
+      Core: Core,
+      priorityArr: [
+        {
+          id: 1,
+          label: 'SN'
+        },
+        {
+          id: 2,
+          label: '订单'
+        },
+        {
+          id: 3,
+          label: '物料'
+        },
+        {
+          id: 4,
+          label: '软硬件版本'
+        }
+      ]
     }
   },
   mounted() {
     this.getTableList()
   },
   methods: {
+    priorityPipe(id) {
+      const data = this.priorityArr.find((res) => {
+        return res.id === id
+      })
+      return data ? data.label : '-'
+    },
+    platformPipe(platform) {
+      if (platform) {
+        var data = ['iOS', 'Android', 'BESST', 'Besst Pro']
+        var arr = platform.split(',')
+        var str = ''
+        arr.forEach((item) => {
+          str += data[item - 1] + '、'
+        })
+        return str
+      }
+      return '-'
+    },
     clickRowHandle(row, column, event) {
       if (this.expands.includes(row.id)) {
         this.expands = this.expands.filter((val) => val !== row.id)
@@ -202,6 +263,30 @@ export default {
     onDownLoad(url, fileName) {
       if (!url) return
       fs.saveAs(url, fileName)
+    },
+    onEnable(row) {
+      this.loading = true
+      const isEnable = row.isEnable === '1' ? 0 : 1
+      ChannelService.firmwareEnable(row.id, isEnable).then(
+        (res) => {
+          if (res.data.code === -2) {
+            throw res.data.message
+          }
+          this.loading = false
+          this.$message({
+            message: '操作成功',
+            type: 'success'
+          })
+          this.onSearch()
+        },
+        (err) => {
+          this.$message({
+            message: err,
+            type: 'error'
+          })
+          this.loading = false
+        }
+      )
     },
     onEdit(row) {
       this.formData = JSON.parse(JSON.stringify(row))
@@ -407,4 +492,4 @@ export default {
 
 
 // WEBPACK FOOTER //
-// list.vue?04fd0c23
+// list.vue?3a3b9ade

@@ -12,5 +12,5 @@ exports.push([module.id, ".delivery-list-header{width:100%;height:100%}.delivery
 //////////////////
 // WEBPACK FOOTER
 // ./node_modules/css-loader?{"minimize":true,"sourceMap":true}!./node_modules/vue-loader/lib/style-compiler?{"vue":true,"id":"data-v-3c020af1","scoped":false,"hasInlineConfig":false}!./node_modules/sass-loader/lib/loader.js?{"sourceMap":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./src/views/nl/sales/delivery-list-header.vue
-// module id = 2612
-// module chunks = 31
+// module id = 2643
+// module chunks = 30

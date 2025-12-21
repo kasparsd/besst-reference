@@ -21,5 +21,5 @@ module.exports = Component.exports
 //////////////////
 // WEBPACK FOOTER
 // ./src/views/nl/after-sales/customer-service/parcel-information-save.vue
-// module id = 2336
+// module id = 2368
 // module chunks = 27

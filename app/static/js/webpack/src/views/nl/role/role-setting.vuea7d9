@@ -12,5 +12,5 @@ exports.push([module.id, ".permission-setting{display:-webkit-box;display:-ms-fl
 //////////////////
 // WEBPACK FOOTER
 // ./node_modules/css-loader?{"minimize":true,"sourceMap":true}!./node_modules/vue-loader/lib/style-compiler?{"vue":true,"id":"data-v-54213537","scoped":false,"hasInlineConfig":false}!./node_modules/sass-loader/lib/loader.js?{"sourceMap":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./src/views/nl/role/role-setting.vue
-// module id = 2559
-// module chunks = 60
+// module id = 2590
+// module chunks = 59

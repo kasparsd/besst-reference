@@ -12,5 +12,5 @@ exports.push([module.id, ".clean-record{display:-webkit-box;display:-ms-flexbox;
 //////////////////
 // WEBPACK FOOTER
 // ./node_modules/css-loader?{"minimize":true,"sourceMap":true}!./node_modules/vue-loader/lib/style-compiler?{"vue":true,"id":"data-v-21cec262","scoped":false,"hasInlineConfig":false}!./node_modules/sass-loader/lib/loader.js?{"sourceMap":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./src/views/nl/clean-management/clean-record.vue
-// module id = 2677
-// module chunks = 40
+// module id = 2708
+// module chunks = 39

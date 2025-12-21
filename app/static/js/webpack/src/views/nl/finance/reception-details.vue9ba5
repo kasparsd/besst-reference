@@ -73,5 +73,5 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
 //////////////////
 // WEBPACK FOOTER
 // ./node_modules/vue-loader/lib/template-compiler?{"id":"data-v-bc59e9d8","hasScoped":false}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./src/views/nl/finance/reception-details.vue
-// module id = 2493
-// module chunks = 70
+// module id = 2524
+// module chunks = 69

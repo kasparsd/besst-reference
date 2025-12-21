@@ -423,5 +423,5 @@ export default Sensor;
 //////////////////
 // WEBPACK FOOTER
 // ./device/sensor.js
-// module id = 172
+// module id = 140
 // module chunks = 76

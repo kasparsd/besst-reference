@@ -89,7 +89,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }), 0), _vm._v(" "), _c('tbody', _vm._l((_vm.ticketList), function(item) {
     return _c('tr', [_c('td', {
       staticClass: "al-right"
-    }, [_vm._v(_vm._s(item.sn))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm._f("ticketCategoryType")(item.category)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(item.title))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(item.target_sn))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm._f("timeFormat")(item.create_time, "Y-m-d")))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm._f("ticketStatus")(item.status, _vm.Core.Data.getLang())))]), _vm._v(" "), _c('td', {
+    }, [_vm._v(_vm._s(item.sn))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm._f("ticketCategoryType")(item.category)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(item.title))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(item.target_sn))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm._f("timeFormat")(item.create_time, 'Y-m-d')))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm._f("ticketStatus")(item.status, _vm.Core.Data.getLang())))]), _vm._v(" "), _c('td', {
       staticClass: "icon-td"
     }, [_c('div', {
       staticClass: "icons"
@@ -112,7 +112,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       expression: "ticketList == false"
     }],
     staticClass: "no-data-content"
-  }, [_vm._v("\n        " + _vm._s(_vm.$t("noResult")) + "\n      ")])]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n        " + _vm._s(_vm.$t('noResult')) + "\n      ")])]), _vm._v(" "), _c('div', {
     staticClass: "table-footer"
   }, [_c('el-pagination', {
     attrs: {
@@ -132,7 +132,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }), _vm._v(" "), _c('p', {
     staticClass: "total"
-  }, [_vm._v(_vm._s(_vm.$t("total")) + ": " + _vm._s(_vm.total))])], 1)]), _vm._v(" "), _c('el-dialog', {
+  }, [_vm._v(_vm._s(_vm.$t('total')) + ": " + _vm._s(_vm.total))])], 1)]), _vm._v(" "), _c('el-dialog', {
     attrs: {
       "title": _vm.$t('addTicketDialog.dialogTitle'),
       "custom-class": "save-ticket-dialog",
@@ -329,12 +329,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "click": _vm.addTicket
     }
-  }, [_vm._v(_vm._s(_vm.$t("confirm")))])], 1)], 1)], 1)
+  }, [_vm._v(_vm._s(_vm.$t('confirm')))])], 1)], 1)], 1)
 },staticRenderFns: []}
 
 
 //////////////////
 // WEBPACK FOOTER
 // ./node_modules/vue-loader/lib/template-compiler?{"id":"data-v-4eae9edc","hasScoped":false}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./src/components/service-center/my-ticket-list.vue
-// module id = 1343
+// module id = 1372
 // module chunks = 76

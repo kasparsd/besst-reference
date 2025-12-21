@@ -217,5 +217,5 @@ export default (Vue) => {
 //////////////////
 // WEBPACK FOOTER
 // ./core/filters/index.js
-// module id = 2259
+// module id = 2291
 // module chunks = 76

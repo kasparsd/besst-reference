@@ -8,5 +8,5 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
 //////////////////
 // WEBPACK FOOTER
 // ./node_modules/vue-loader/lib/template-compiler?{"id":"data-v-9c6757ae","hasScoped":true}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./src/views/register/register.vue
-// module id = 896
+// module id = 902
 // module chunks = 76

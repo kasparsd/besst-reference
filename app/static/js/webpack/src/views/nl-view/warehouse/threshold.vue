@@ -21,5 +21,5 @@ module.exports = Component.exports
 //////////////////
 // WEBPACK FOOTER
 // ./src/views/nl-view/warehouse/threshold.vue
-// module id = 2348
+// module id = 2380
 // module chunks = 17

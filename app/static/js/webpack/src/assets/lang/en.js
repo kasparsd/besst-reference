@@ -191,6 +191,9 @@ const Sidebar = {
   battery: 'Battery',
   sensor: 'Sensor',
   update: 'Update',
+  motorLock: 'E-Lock',
+  tlc: 'TLC',
+  weighingSensor: 'Weighing Sensor',
   auth: 'Auth',
   product: 'Product',
   component: 'Trace',
@@ -276,6 +279,7 @@ const AttributeName = {
   charger: 'Charger',
   other: 'Other',
   bike: 'Bike',
+  elock: 'E-Lock',
 
   model: 'Model',
   softwareVersion: 'Software Ver.',
@@ -352,7 +356,7 @@ const AttributeName = {
   capacityLeft: 'Remaining capacity',
   temperature: 'Temperature',
   cell1_7: 'Cell 1-7 Voltage',
-  cycleLife: 'Charging cycle number',
+  cycleLife: 'Charging number',
   maxChargeInterval: 'Max. uncharged interval',
   produceDate: 'Produce Date',
   SOH: 'SOH',
@@ -426,6 +430,9 @@ const AttributeName = {
   txtNote3: 'You need read data first before you update. We record every operation together with SN for trace. ',
   updateGetFileSucc: 'File is successfully downloaded.',
   updateStarting: 'Update starting... If no progress bar in 10 seconds, please reset and update again',
+  newVerTip: 'There are multiple firmwares, please click "Get a file from cloud" to select.',
+  moreVerTip: 'New version: {ver}, you can click "Get a file from cloud" to upgrade.',
+
   resetTip: 'BESST tool has been reset. Remember to turn off HMI and turn on again.',
 
   offlineNo: "Dealer or Assembler can't change it to bigger",
@@ -600,7 +607,8 @@ const AttributeName = {
   faultInformation: 'Fault Information',
   NumberOfFaultTypes: 'Number of fault types',
   TotalNumberOfFailures: 'Total number of failures',
-  FaultRecord: 'Fault Record'
+  FaultRecord: 'Fault Record',
+  readButtonBeforeUpdate: 'Please click the read button before updating'
 }
 
 const Hmi = {
@@ -637,12 +645,28 @@ const Controller = {
   brandEmptyTip: "You don't have any partner brand",
   getApplySuccess: 'Get auth successfully',
   controllerTip: 'Main data is empty. Please check whether controller is powered',
+  calibrationTip: 'Please lift the rear wheel to make sure the motor can rotate freely.',
   cNam: AttributeName
 }
 
 const Battery = {
   battery: 'Battery',
   batteryTip: 'Main data is empty. Please check whether battery is powered or switched on',
+  cNam: AttributeName
+}
+
+const MotorLock = {
+  elock: 'E-Lock',
+  cNam: AttributeName
+}
+
+const Tlc = {
+  tlc: 'TLC',
+  cNam: AttributeName
+}
+
+const WeighingSensor = {
+  weighingSensor: 'Weighing Sensor',
   cNam: AttributeName
 }
 
@@ -668,6 +692,7 @@ const Update = {
   componentTypeTip: 'Please select component',
 
   componentReadTip: 'Please read again.',
+  firmwareUpgradeFailed: 'If the update fails, please disconnect the power supply and reconnect the component before updating again.',
   cNam: AttributeName
 }
 
@@ -675,7 +700,10 @@ const ComponentsTool = {
   Hmi: Hmi,
   Controller: Controller,
   Battery: Battery,
-  Update: Update
+  Update: Update,
+  MotorLock: MotorLock,
+  Tlc: Tlc,
+  WeighingSensor: WeighingSensor
 }
 
 //主页
@@ -988,8 +1016,11 @@ const ComponentComponentList = {
     orderNo: 'Order No.',
     modelName: 'Model Name',
     sn: 'SN',
+    hmiMac: 'HMI(MAC)',
     mac: 'MAC',
     imei: 'IMEI',
+    cartonCode: 'Carton Code',
+    qrCode: 'QR Code',
     customerName: 'Customer Name',
     search: 'Search',
     export: 'Export'
@@ -1216,6 +1247,7 @@ const ComponentOrderDetail = {
   headData: {
     modelName: 'Model Name',
     articleNo: 'Article No.',
+    upgradeCount: 'Upgrade Count',
     customerArticleNo: 'Customer Article No.',
     quantity: 'Quantity',
     operation: 'Operation'
@@ -1256,6 +1288,7 @@ const ComponentOrderList = {
     date: 'Date',
     orderNo: 'Order No.',
     customerName: 'Customer Name',
+    upgradeCount: 'Upgrade Count',
     pQ: 'Produced/Quantity',
     status: 'Status',
     operation: 'Operation',

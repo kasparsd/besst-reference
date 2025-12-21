@@ -80,8 +80,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     directives: [{
       name: "show",
       rawName: "v-show",
-      value: (!_vm.isTryAccount),
-      expression: "!isTryAccount"
+      value: (!_vm.isTryAccount && _vm.showEditCompany),
+      expression: "!isTryAccount && showEditCompany"
     }],
     staticClass: "item"
   }, [_c('label', {
@@ -595,5 +595,5 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
 //////////////////
 // WEBPACK FOOTER
 // ./node_modules/vue-loader/lib/template-compiler?{"id":"data-v-1c3fadec","hasScoped":true}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./src/views/index.vue
-// module id = 2249
+// module id = 2281
 // module chunks = 76

@@ -354,5 +354,5 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
 //////////////////
 // WEBPACK FOOTER
 // ./node_modules/vue-loader/lib/template-compiler?{"id":"data-v-434ba1a8","hasScoped":false}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./src/views/nl/after-sales/customer-service/customer-service-user.vue
-// module id = 2651
-// module chunks = 45
+// module id = 2682
+// module chunks = 44

@@ -268,12 +268,12 @@ export default {
           label: 'EU-Central',
           endPoint: 'http://eu-central-1.api.besst.bafang-service.com/client/1',
           fileEndPoint: 'http://eu-central-1.api.besst.bafang-service.com/file/file-upload'
-        },
-        {
-          label: '体验版',
-          endPoint: 'http://dev.acey.cn:9898/client/1',
-          fileEndPoint: 'http://dev.acey.cn:9898/file/file-upload'
-        },
+        }
+        //  {
+        //   label: '体验版',
+        //   endPoint: 'http://dev.acey.cn:9898/client/1',
+        //   fileEndPoint: 'http://dev.acey.cn:9898/file/file-upload'
+        //  }
         // {
         //   label: '本地测试',
         //   endPoint: 'http://192.168.1.218:9898/client/1',
@@ -605,6 +605,7 @@ export default {
         Core.Data.setOffline(false)
 
         let org = res.user.org
+        Core.Data.setRole(res.role)
         Core.Data.setUser(res.user)
         Core.Data.setToken(res.token)
         Core.Data.setEndPoint(this.currentEndPoint)
@@ -769,9 +770,11 @@ export default {
 .el-select-dropdown__item.selected {
   background: #2d3344 !important;
 }
+
 .el-select-dropdown__item:hover {
   background: #e26829 !important;
 }
+
 .login {
   width: 100%;
   height: 100%;
@@ -832,22 +835,27 @@ export default {
 
   .chooseLanguage {
     height: 150px;
+
     .languageList {
       position: absolute;
       top: 68px;
       right: 30px;
       width: auto;
+
       .el-tabs__item {
         color: #fff;
       }
+
       & :hover {
         color: #e26829 !important;
       }
     }
   }
+
   .main-container {
     height: calc(100% - 300px);
     position: relative;
+
     .main-warp {
       overflow: auto;
       position: absolute;
@@ -856,6 +864,7 @@ export default {
       transform: translate(-50%, -50%);
       text-align: center;
       font-size: 0;
+
       .head {
         font-size: 0;
         margin: 0 auto;
@@ -864,9 +873,11 @@ export default {
         height: 210px;
         background: white;
         overflow: hidden;
+
         .icon-login {
           width: 210px;
           height: 210px;
+
           .logo-img {
             position: relative;
             top: 105px;
@@ -876,19 +887,23 @@ export default {
           }
         }
       }
+
       .login-text {
         font-size: 18px;
         margin-top: 20px;
         margin-bottom: 32px;
         line-height: 24px;
       }
+
       .end-porint {
         width: 230px;
         margin: 10px auto;
+
         .el-select {
           width: 100%;
         }
       }
+
       .username,
       .password {
         width: 240px;
@@ -896,34 +911,41 @@ export default {
         display: block;
         left: 50%;
         margin-left: -120px;
+
         & > input {
           text-align: center;
           height: 40px;
         }
       }
+
       .username {
         & > input {
           border-radius: 15px 15px 0 0;
           font-size: 14px;
         }
       }
+
       .password {
         margin-top: 1px;
+
         & > input {
           border-radius: 0 0 15px 15px;
           font-size: 14px;
         }
       }
+
       .check-div {
         overflow: hidden;
         margin-top: 24px;
         font-size: 0;
+
         .remember-text {
           float: left;
           margin-left: 9px;
           font-size: 12px;
           line-height: 14px;
         }
+
         .forget {
           color: #858890;
           margin-left: 30px;
@@ -932,16 +954,19 @@ export default {
           font-size: 12px;
           cursor: pointer;
           line-height: 14px;
+
           &:hover {
             color: #00ffff;
           }
         }
+
         .check-item {
           float: left;
           background: #2b2f3b;
           width: 16px;
           height: 16px;
           border-radius: 50%;
+
           .icon-check {
             width: 8px;
             height: 8px;
@@ -953,28 +978,34 @@ export default {
           }
         }
       }
+
       .login-btn {
         height: 29px;
         width: 240px;
         margin-top: 27px;
+
         & span {
           font-size: 16px;
         }
       }
+
       .sign {
         height: 29px;
         width: 240px;
+
         & span {
           font-size: 16px;
         }
       }
     }
+
     .declare {
       position: absolute;
       left: 90px;
       top: -50px;
       width: 300px;
       text-align: left;
+
       h2 {
         color: #fff;
         border-bottom: 1px solid #fff;
@@ -982,23 +1013,28 @@ export default {
         font-size: 180%;
         font-weight: 400;
       }
+
       p {
         padding-top: 15px;
         line-height: 1.5;
         letter-spacing: 0.8px;
       }
+
       & bodytext {
         font-size: 12px;
       }
+
       .showMore {
         margin-top: 10px;
         padding: 6px 9px;
+
         .el-icon-arrow-right {
           font-size: 12px;
           margin-right: -5px;
         }
       }
     }
+
     /*.language-dialog {*/
     /*top: 50px;*/
     /*right: 0;*/
@@ -1006,12 +1042,14 @@ export default {
     /*left: initial;*/
     /*}*/
   }
+
   .dialogInfo {
     width: 100%;
     background: #2b2f3b;
     padding-right: 0;
     top: 0 !important;
   }
+
   .dialog {
     position: absolute;
     top: 111px;
@@ -1019,15 +1057,18 @@ export default {
     width: 94%;
     height: 620px;
     overflow: hidden;
+
     .flex {
       display: flex;
       flex-wrap: nowrap;
+
       .item {
         width: 33.3%;
         display: flex;
         background: #666;
         flex-direction: column;
         align-content: flex-start;
+
         h2 {
           margin: 0;
           padding: 0;
@@ -1039,27 +1080,33 @@ export default {
           background: #2b2f3b;
         }
       }
+
       .last {
         width: 33.4% !important;
       }
     }
+
     .el-dialog__header {
       height: 23px;
       padding: 0;
       padding-right: 20px;
     }
+
     .el-dialog__headerbtn {
       transform: translateY(18px);
     }
+
     .el-dialog__body {
       // padding:15px 0 20px 15px;
       padding: 0;
       background: #fff;
+
       .overflow {
         padding: 8px;
         padding-bottom: 15px;
         margin-right: 1px;
         background: #fff;
+
         .declareInfo {
           padding: 10px 30px 15px 15px;
 
@@ -1070,16 +1117,20 @@ export default {
           color: #666;
           background: #fff;
           letter-spacing: 0.5px;
+
           h3 {
             margin-bottom: 5px;
             margin-top: 2px;
           }
+
           p {
             font-size: 14px;
+
             span {
               padding-left: 2em;
             }
           }
+
           .special {
             p {
               display: inline-block;
@@ -1087,6 +1138,7 @@ export default {
               font-size: 13px;
               font-weight: 600;
             }
+
             img {
               display: inline-block;
               width: 15%;
@@ -1102,4 +1154,4 @@ export default {
 
 
 // WEBPACK FOOTER //
-// login.vue?45ccf8a8
+// login.vue?013db682

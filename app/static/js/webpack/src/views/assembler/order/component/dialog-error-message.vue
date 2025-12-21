@@ -21,5 +21,5 @@ module.exports = Component.exports
 //////////////////
 // WEBPACK FOOTER
 // ./src/views/assembler/order/component/dialog-error-message.vue
-// module id = 1896
+// module id = 1915
 // module chunks = 76

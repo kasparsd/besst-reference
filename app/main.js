@@ -80,10 +80,28 @@ app.on('ready', function () {
         mainWindow = null;
     });
 
+    // 在主进程创建窗口时添加 webContents 错误监听
+    mainWindow.webContents.on(
+        "did-fail-load",
+        (event, errorCode, errorDescription) => {
+            console.error("加载失败:", errorDescription);
+        }
+    );
+
+    mainWindow.webContents.on("crashed", () => {
+        console.error("渲染进程崩溃");
+    });
+
     autoUpdater.checkForUpdates();
 });
 
 
+process.on("uncaughtException", function (err) {
+    console.log(err);
+});
+process.on("unhandledRejection", function (err) {
+    console.log(err);
+});
 
 
 

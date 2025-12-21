@@ -12,5 +12,5 @@ exports.push([module.id, ".invoice-header{width:100%;height:100%}.invoice-header
 //////////////////
 // WEBPACK FOOTER
 // ./node_modules/css-loader?{"minimize":true,"sourceMap":true}!./node_modules/vue-loader/lib/style-compiler?{"vue":true,"id":"data-v-047813cc","scoped":false,"hasInlineConfig":false}!./node_modules/sass-loader/lib/loader.js?{"sourceMap":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./src/views/nl/finance/invoice-list-header.vue
-// module id = 2471
-// module chunks = 32
+// module id = 2502
+// module chunks = 31

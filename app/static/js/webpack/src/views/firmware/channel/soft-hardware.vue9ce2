@@ -12,5 +12,5 @@ exports.push([module.id, ".content-wrap[data-v-5f3392a1]{display:-webkit-box;dis
 //////////////////
 // WEBPACK FOOTER
 // ./node_modules/css-loader?{"minimize":true,"sourceMap":true}!./node_modules/vue-loader/lib/style-compiler?{"vue":true,"id":"data-v-5f3392a1","scoped":true,"hasInlineConfig":false}!./node_modules/sass-loader/lib/loader.js?{"sourceMap":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./src/views/firmware/channel/soft-hardware.vue
-// module id = 2762
+// module id = 2793
 // module chunks = 0

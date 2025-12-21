@@ -21,5 +21,5 @@ module.exports = Component.exports
 //////////////////
 // WEBPACK FOOTER
 // ./src/components/currency-input.vue
-// module id = 1776
+// module id = 1795
 // module chunks = 76

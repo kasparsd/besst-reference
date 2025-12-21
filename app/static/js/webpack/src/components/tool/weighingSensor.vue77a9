@@ -1,0 +1,164 @@
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "weighing"
+  }, [_c('div', {
+    staticClass: "weighing-content"
+  }, [_c('div', {
+    staticClass: "title"
+  }, [_c('div', {
+    staticStyle: {
+      "display": "flex",
+      "align-items": "center"
+    }
+  }, [_c('img', {
+    staticClass: "icon",
+    attrs: {
+      "src": require("../../assets/images/icon/icon-hmi.png")
+    }
+  }), _vm._v(_vm._s(_vm.$t('weighingSensor')) + "\n      ")])]), _vm._v(" "), _c('div', {
+    staticClass: "info option"
+  }, [_c('div', {
+    staticClass: "note-title"
+  }, [_c('label', {
+    staticClass: "title"
+  }, [_vm._v(_vm._s(_vm.$t('cNam.mainData')))])]), _vm._v(" "), _c('div', {
+    staticClass: "info-left"
+  }, [_c('div', {
+    staticClass: "item"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v("传感器实际值")]), _vm._v(" "), _c('el-input', {
+    staticClass: "input",
+    attrs: {
+      "disabled": ""
+    },
+    model: {
+      value: (_vm.readInfo.actualValue),
+      callback: function($$v) {
+        _vm.$set(_vm.readInfo, "actualValue", $$v)
+      },
+      expression: "readInfo.actualValue"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "item"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v("ID")]), _vm._v(" "), _c('el-input', {
+    staticClass: "input",
+    attrs: {
+      "disabled": ""
+    },
+    model: {
+      value: (_vm.readInfo.idNo),
+      callback: function($$v) {
+        _vm.$set(_vm.readInfo, "idNo", $$v)
+      },
+      expression: "readInfo.idNo"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "item"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v(_vm._s(_vm.$t('cNam.hardwareVersion')))]), _vm._v(" "), _c('el-input', {
+    staticClass: "input",
+    attrs: {
+      "disabled": ""
+    },
+    model: {
+      value: (_vm.readInfo.hardVersion),
+      callback: function($$v) {
+        _vm.$set(_vm.readInfo, "hardVersion", $$v)
+      },
+      expression: "readInfo.hardVersion"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "item"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v(_vm._s(_vm.$t('cNam.softwareVersion')))]), _vm._v(" "), _c('el-input', {
+    staticClass: "input",
+    attrs: {
+      "disabled": ""
+    },
+    model: {
+      value: (_vm.readInfo.softVersion),
+      callback: function($$v) {
+        _vm.$set(_vm.readInfo, "softVersion", $$v)
+      },
+      expression: "readInfo.softVersion"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "item"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v("BOOT号")]), _vm._v(" "), _c('el-input', {
+    staticClass: "input",
+    attrs: {
+      "disabled": ""
+    },
+    model: {
+      value: (_vm.readInfo.bootNo),
+      callback: function($$v) {
+        _vm.$set(_vm.readInfo, "bootNo", $$v)
+      },
+      expression: "readInfo.bootNo"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "item"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v("材料号")]), _vm._v(" "), _c('el-input', {
+    staticClass: "input",
+    attrs: {
+      "disabled": ""
+    },
+    model: {
+      value: (_vm.readInfo.materialNo),
+      callback: function($$v) {
+        _vm.$set(_vm.readInfo, "materialNo", $$v)
+      },
+      expression: "readInfo.materialNo"
+    }
+  })], 1)]), _vm._v(" "), _c('div', {
+    staticClass: "info-right"
+  }, [_c('div', {
+    staticClass: "item"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v("USB HID")]), _vm._v(" "), _c('label', {
+    staticClass: "tip",
+    class: {
+      connect: _vm.isConnected
+    }
+  })]), _vm._v(" "), _c('div', {
+    staticClass: "item"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v("称重")]), _vm._v(" "), _c('el-input', {
+    staticClass: "input",
+    attrs: {
+      "disabled": ""
+    },
+    model: {
+      value: (_vm.actualWeight),
+      callback: function($$v) {
+        _vm.actualWeight = $$v
+      },
+      expression: "actualWeight"
+    }
+  })], 1)])])]), _vm._v(" "), (_vm.loading) ? _c('div', {
+    staticClass: "loading"
+  }, [_c('img', {
+    attrs: {
+      "src": require("../../assets/images/icon/loading-bars.svg"),
+      "alt": "Loading icon"
+    }
+  })]) : _vm._e()])
+},staticRenderFns: []}
+
+
+//////////////////
+// WEBPACK FOOTER
+// ./node_modules/vue-loader/lib/template-compiler?{"id":"data-v-14a2c41a","hasScoped":false}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./src/components/tool/weighingSensor.vue
+// module id = 1344
+// module chunks = 76

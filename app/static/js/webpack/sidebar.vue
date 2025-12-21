@@ -165,6 +165,22 @@
                   <img class="icon" src="../../assets/images/icon/icon-sensor.png" />{{ $t('sensor') }}
                 </a>
               </el-menu-item>
+              <el-menu-item index="/component/tool/tlc" v-show="org.id == 25">
+                <a class="a-link" @click="$router.push('/component/tool/tlc')">
+                  <img class="icon" src="../../assets/images/icon/icon-sensor.png" />{{ $t('tlc') }}
+                </a>
+              </el-menu-item>
+              <el-menu-item index="/component/tool/weighingSensor" v-show="org.id == 25">
+                <a class="a-link" @click="$router.push('/component/tool/weighingSensor')">
+                  <img class="icon" src="../../assets/images/icon/icon-sensor.png" />{{ $t('weighingSensor') }}
+                </a>
+              </el-menu-item>
+              <!-- 电机锁 -->
+              <!-- <el-menu-item index="/component/tool/motorLock">
+                <a class="a-link" @click="$router.push('/component/tool/motorLock')">
+                  <img class="icon" src="../../assets/images/icon/icon-elock.png" />{{ $t('motorLock') }}
+                </a>
+              </el-menu-item> -->
               <el-menu-item index="/brand/tool/update">
                 <a class="a-link" @click="$router.push('/brand/tool/update')">
                   <img src="../../assets/images/icon/icon-update.png" class="icon" />{{ $t('update') }}
@@ -260,6 +276,22 @@
                 <img class="icon" src="../../assets/images/icon/icon-sensor.png" />{{ $t('sensor') }}
               </a>
             </el-menu-item>
+            <el-menu-item index="/component/tool/tlc" v-show="org.id == 25">
+              <a class="a-link" @click="$router.push('/component/tool/tlc')">
+                <img class="icon" src="../../assets/images/icon/icon-sensor.png" />{{ $t('tlc') }}
+              </a>
+            </el-menu-item>
+            <el-menu-item index="/component/tool/weighingSensor" v-show="org.id == 25">
+              <a class="a-link" @click="$router.push('/component/tool/weighingSensor')">
+                <img class="icon" src="../../assets/images/icon/icon-sensor.png" />{{ $t('weighingSensor') }}
+              </a>
+            </el-menu-item>
+            <!-- 电机锁 -->
+            <!-- <el-menu-item index="/component/tool/motorLock">
+              <a class="a-link" @click="$router.push('/component/tool/motorLock')">
+                <img class="icon" src="../../assets/images/icon/icon-elock.png" />{{ $t('motorLock') }}
+              </a>
+            </el-menu-item> -->
             <el-menu-item index="/brand/tool/update">
               <a class="a-link" @click="$router.push('/brand/tool/update')">
                 <img class="icon" src="../../assets/images/icon/icon-update.png" />{{ $t('update') }}
@@ -374,6 +406,22 @@
                 <img class="icon" src="../../assets/images/icon/icon-sensor.png" />{{ $t('sensor') }}
               </a>
             </el-menu-item>
+            <el-menu-item index="/component/tool/tlc" v-show="org.id == 25">
+              <a class="a-link" @click="$router.push('/component/tool/tlc')">
+                <img class="icon" src="../../assets/images/icon/icon-sensor.png" />{{ $t('tlc') }}
+              </a>
+            </el-menu-item>
+            <el-menu-item index="/component/tool/weighingSensor" v-show="org.id == 25">
+              <a class="a-link" @click="$router.push('/component/tool/weighingSensor')">
+                <img class="icon" src="../../assets/images/icon/icon-sensor.png" />{{ $t('weighingSensor') }}
+              </a>
+            </el-menu-item>
+            <!-- 电机锁 -->
+            <!-- <el-menu-item index="/component/tool/motorLock">
+              <a class="a-link" @click="$router.push('/component/tool/motorLock')">
+                <img class="icon" src="../../assets/images/icon/icon-elock.png" />{{ $t('motorLock') }}
+              </a>
+            </el-menu-item> -->
             <el-menu-item index="/dealer/tool/update">
               <a class="a-link" @click="$router.push('/dealer/tool/update')">
                 <img class="icon" src="../../assets/images/icon/icon-update.png" />{{ $t('update') }}
@@ -449,6 +497,22 @@
                   <img class="icon" src="../../assets/images/icon/icon-sensor.png" />{{ $t('sensor') }}
                 </a>
               </el-menu-item>
+              <el-menu-item index="/component/tool/tlc" v-show="org.id == 25">
+                <a class="a-link" @click="$router.push('/component/tool/tlc')">
+                  <img class="icon" src="../../assets/images/icon/icon-sensor.png" />{{ $t('tlc') }}
+                </a>
+              </el-menu-item>
+              <el-menu-item index="/component/tool/weighingSensor" v-show="org.id == 25">
+                <a class="a-link" @click="$router.push('/component/tool/weighingSensor')">
+                  <img class="icon" src="../../assets/images/icon/icon-sensor.png" />{{ $t('weighingSensor') }}
+                </a>
+              </el-menu-item>
+              <!-- 电机锁 -->
+              <!-- <el-menu-item index="/component/tool/motorLock">
+                <a class="a-link" @click="$router.push('/component/tool/motorLock')">
+                  <img class="icon" src="../../assets/images/icon/icon-elock.png" />{{ $t('motorLock') }}
+                </a>
+              </el-menu-item> -->
               <el-menu-item index="/dealer/tool/update">
                 <a class="a-link" @click="$router.push('/dealer/tool/update')">
                   <img src="../../assets/images/icon/icon-update.png" class="icon" />{{ $t('update') }}
@@ -521,6 +585,22 @@
                 <img class="icon" src="../../assets/images/icon/icon-sensor.png" />{{ $t('sensor') }}
               </a>
             </el-menu-item>
+            <el-menu-item index="/component/tool/tlc" v-show="org.id == 25">
+              <a class="a-link" @click="$router.push('/component/tool/tlc')">
+                <img class="icon" src="../../assets/images/icon/icon-sensor.png" />{{ $t('tlc') }}
+              </a>
+            </el-menu-item>
+            <el-menu-item index="/component/tool/weighingSensor" v-show="org.id == 25">
+              <a class="a-link" @click="$router.push('/component/tool/weighingSensor')">
+                <img class="icon" src="../../assets/images/icon/icon-sensor.png" />{{ $t('weighingSensor') }}
+              </a>
+            </el-menu-item>
+            <!-- 电机锁 -->
+            <!-- <el-menu-item index="/component/tool/motorLock">
+              <a class="a-link" @click="$router.push('/component/tool/motorLock')">
+                <img class="icon" src="../../assets/images/icon/icon-elock.png" />{{ $t('motorLock') }}
+              </a>
+            </el-menu-item> -->
             <el-menu-item index="/component/tool/update">
               <a class="a-link" @click="$router.push('/component/tool/update')">
                 <img class="icon" src="../../assets/images/icon/icon-update.png" />{{ $t('update') }}
@@ -689,6 +769,22 @@
                 <img class="icon" src="../../assets/images/icon/icon-sensor.png" />{{ $t('sensor') }}
               </a>
             </el-menu-item>
+            <el-menu-item index="/component/tool/tlc" v-show="org.id == 25">
+              <a class="a-link" @click="$router.push('/component/tool/tlc')">
+                <img class="icon" src="../../assets/images/icon/icon-sensor.png" />{{ $t('tlc') }}
+              </a>
+            </el-menu-item>
+            <el-menu-item index="/component/tool/weighingSensor" v-show="org.id == 25">
+              <a class="a-link" @click="$router.push('/component/tool/weighingSensor')">
+                <img class="icon" src="../../assets/images/icon/icon-sensor.png" />{{ $t('weighingSensor') }}
+              </a>
+            </el-menu-item>
+            <!-- 电机锁 -->
+            <!-- <el-menu-item index="/component/tool/motorLock">
+              <a class="a-link" @click="$router.push('/component/tool/motorLock')">
+                <img class="icon" src="../../assets/images/icon/icon-elock.png" />{{ $t('motorLock') }}
+              </a>
+            </el-menu-item> -->
             <el-menu-item index="/component/tool/update">
               <a class="a-link" @click="$router.push('/component/tool/update')">
                 <img class="icon" src="../../assets/images/icon/icon-update.png" />{{ $t('update') }}
@@ -744,6 +840,22 @@
                 <img class="icon" src="../../assets/images/icon/icon-sensor.png" />{{ $t('sensor') }}
               </a>
             </el-menu-item>
+            <el-menu-item index="/component/tool/tlc" v-show="org.id == 25">
+              <a class="a-link" @click="$router.push('/component/tool/tlc')">
+                <img class="icon" src="../../assets/images/icon/icon-sensor.png" />{{ $t('tlc') }}
+              </a>
+            </el-menu-item>
+            <el-menu-item index="/component/tool/weighingSensor" v-show="org.id == 25">
+              <a class="a-link" @click="$router.push('/component/tool/weighingSensor')">
+                <img class="icon" src="../../assets/images/icon/icon-sensor.png" />{{ $t('weighingSensor') }}
+              </a>
+            </el-menu-item>
+            <!-- 电机锁 -->
+            <!-- <el-menu-item index="/component/tool/motorLock">
+              <a class="a-link" @click="$router.push('/component/tool/motorLock')">
+                <img class="icon" src="../../assets/images/icon/icon-elock.png" />{{ $t('motorLock') }}
+              </a>
+            </el-menu-item> -->
             <el-menu-item index="/component/tool/update">
               <a class="a-link" @click="$router.push('/component/tool/update')">
                 <img class="icon" src="../../assets/images/icon/icon-update.png" />{{ $t('update') }}
@@ -892,6 +1004,22 @@
                 {{ $t('sensor') }}
               </a>
             </el-menu-item>
+            <el-menu-item index="/tlc" v-show="org.id == 25">
+              <a class="a-link" @click="$router.push('/component/tool/tlc')">
+                <img class="icon" src="../../assets/images/icon/icon-sensor.png" />{{ $t('tlc') }}
+              </a>
+            </el-menu-item>
+            <el-menu-item index="/component/tool/weighingSensor" v-show="org.id == 25">
+              <a class="a-link" @click="$router.push('/component/tool/weighingSensor')">
+                <img class="icon" src="../../assets/images/icon/icon-sensor.png" />{{ $t('weighingSensor') }}
+              </a>
+            </el-menu-item>
+            <!-- 电机锁 -->
+            <!-- <el-menu-item index="/motorLock">
+              <a class="a-link" @click="$router.push('/component/tool/motorLock')">
+                <img class="icon" src="../../assets/images/icon/icon-elock.png" />{{ $t('motorLock') }}
+              </a>
+            </el-menu-item> -->
             <el-menu-item index="/update">
               <a class="a-link" @click="$router.push('/dealer/tool/update')">
                 <img class="icon" src="../../assets/images/icon/icon-update.png" />
@@ -1328,6 +1456,22 @@
                 <img class="icon" src="../../assets/images/icon/icon-sensor.png" />{{ $t('sensor') }}
               </a>
             </el-menu-item>
+            <el-menu-item index="/component/tool/tlc" v-show="org.id == 25">
+              <a class="a-link" @click="$router.push('/component/tool/tlc')">
+                <img class="icon" src="../../assets/images/icon/icon-sensor.png" />{{ $t('tlc') }}
+              </a>
+            </el-menu-item>
+            <el-menu-item index="/component/tool/weighingSensor" v-show="org.id == 25">
+              <a class="a-link" @click="$router.push('/component/tool/weighingSensor')">
+                <img class="icon" src="../../assets/images/icon/icon-sensor.png" />{{ $t('weighingSensor') }}
+              </a>
+            </el-menu-item>
+            <!-- 电机锁 -->
+            <!-- <el-menu-item index="/component/tool/motorLock" v-show="org.id != 1549">
+              <a class="a-link" @click="$router.push('/component/tool/motorLock')">
+                <img class="icon" src="../../assets/images/icon/icon-elock.png" />{{ $t('motorLock') }}
+              </a>
+            </el-menu-item> -->
             <el-menu-item index="/dealer/tool/update">
               <a class="a-link" @click="$router.push('/dealer/tool/update')">
                 <img class="icon" src="../../assets/images/icon/icon-update.png" />{{ $t('update') }}
@@ -1335,7 +1479,7 @@
             </el-menu-item>
           </el-submenu>
         </div>
-        <el-submenu v-if="(org.type == 4 && authList[Core.Const.AUTH_LIST.firmwareMenu]) || org.id == 25" index="/firmware">
+        <el-submenu v-if="org.id == 25 && (!!Core.Data.getRole() || authList[Core.Const.AUTH_LIST.firmwareMenu])" index="/firmware">
           <template slot="title"> <img class="icon" src="../../assets/images/icon/menu/tool.png" />{{ $t('firmware') }} </template>
           <el-menu-item index="/firmware/verify">
             <a class="a-link" @click="$router.push('/firmware/verify')">
@@ -1937,4 +2081,4 @@ import FR from "src/assets/lang/fr";
 
 
 // WEBPACK FOOTER //
-// sidebar.vue?0694b4a6
+// sidebar.vue?b15f5690

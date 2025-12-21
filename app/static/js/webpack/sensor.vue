@@ -584,6 +584,12 @@ export default {
         return
       }
       this.sn = this.sn.replace(/\s/g, '')
+      if (this.sn.length > 40) {
+        this.$message({
+          message: this.$t('cNam.snMaxLength'),
+          type: 'warning'
+        })
+      }
       Sensor.port.usbSDK.machineInformation.update
         .serialNumber(0x05, 0x01, Sensor.port.Core.Util.stringToHex(this.sn))
         .then((res) => {
@@ -1214,4 +1220,4 @@ export default {
 
 
 // WEBPACK FOOTER //
-// sensor.vue?0de3a73d
+// sensor.vue?114f18a8

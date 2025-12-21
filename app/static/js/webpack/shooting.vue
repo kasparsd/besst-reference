@@ -15,11 +15,11 @@
           :class="['error-item', { active: index == currentIdx }]"
         >
           <p class="name">{{ item.name }}</p>
-          <button class="btn-underline" @click.stop="onDelete(item)">Delete</button>
+          <!-- <button class="btn-underline" @click.stop="onDelete(item)">Delete</button> -->
         </div>
       </div>
       <div class="content">
-        <el-tabs v-model="language">
+        <!-- <el-tabs v-model="language">
           <el-tab-pane label="English" name="en" />
           <el-tab-pane label="中文" name="zh" />
           <el-tab-pane label="Deutsch" name="de" />
@@ -27,7 +27,7 @@
           <el-tab-pane label="French" name="fr" />
           <el-tab-pane label="Czech" name="cs" />
           <el-tab-pane label="Italian" name="it" />
-        </el-tabs>
+        </el-tabs> -->
         <el-button @click="doInster" v-if="per && Object.keys(selectErrorCode).length == 0">Edit</el-button>
         <el-button @click="doEdit" v-if="per && Object.keys(selectErrorCode).length > 0">Edit</el-button>
 
@@ -142,15 +142,24 @@ export default {
       nl: NL.Dealer.Error.Shooting
     }
   },
-  mounted() {
-    this.getComponentErrorList()
+  async mounted() {
+    this.language = Core.Data.getLang() || 'en'
+    console.log(`this.language:${this.language}`)
+    await this.getComponentErrorList()
+    this.$root.eventHub.$on(Core.Const.DATA.KEY_I18N_UPDATE, () => {
+      this.currentIdx = 0
+      this.language = Core.Data.getLang() || 'en'
+      this.getComponentErrorList()
+    })
   },
   methods: {
     doEdit() {
       this.$refs['edit'].showEdit(true, this.selectErrorCode)
     },
     doCreate() {
-      this.$refs['edit'].showCreate()
+      this.$refs['edit'].showCreate({
+        language: this.language
+      })
     },
     doInster() {
       this.$refs['edit'].showEdit(false, {
@@ -161,19 +170,22 @@ export default {
     },
     changeErrorCode(item, idx) {
       this.currentIdx = idx
-      this.language = 'en'
       this.currentErrorItem = item
     },
-    getComponentErrorList() {
-      ErrorService.findAllGroupByCode().then((res) => {
+    async getComponentErrorList() {
+      await ErrorService.findAllGroupByCode().then((res) => {
         this.errorCodeList = []
         for (let i in res.data) {
           const errList = res.data[i]
-          this.errorCodeList.push({
-            _code: i,
-            name: `Error ${i}`,
-            langList: errList
-          })
+          const error = errList.find((res) => res.language === this.language)
+          if (error) {
+            const name = error.name
+            this.errorCodeList.push({
+              _code: i,
+              name: name || `Error ${i}`,
+              langList: errList
+            })
+          }
         }
         this.currentErrorItem = this.errorCodeList[0]
       })
@@ -227,40 +239,49 @@ export default {
   .content-wrap {
     display: flex;
     padding: 0;
+
     // 左侧列表栏
     .left {
       overflow-y: auto;
       padding: 20px;
+
       .search {
         margin-bottom: 10px;
       }
+
       .error-item {
         display: flex;
         flex-direction: row;
         padding: 10px 20px;
         cursor: pointer;
         margin-bottom: 5px;
+
         .name {
           margin-right: 10px;
         }
       }
+
       .active,
       .error-item:hover {
         background: #e26829;
+
         .btn-underline {
           color: #ffffff;
         }
       }
     }
+
     // 中间内容
     .content {
       padding: 20px;
       flex: 1;
+
       .content-item {
         width: 100%;
         padding: 16px 0;
         border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         font-size: 0;
+
         .title {
           display: inline-block;
           vertical-align: top;
@@ -269,42 +290,52 @@ export default {
           color: rgba(255, 255, 255, 0.6);
           padding: 0 5px;
         }
+
         .desc {
           display: inline-block;
           vertical-align: top;
           width: calc(100% - 140px);
+
           span {
             font-size: 14px;
             color: #ffffff;
+
             &.strong {
               font-weight: bold;
             }
           }
+
           p {
             font-size: 14px;
             color: #ffffff;
           }
         }
       }
+
       .tip {
         display: flex;
         padding: 30px 5px;
+
         .tip-label {
           padding-right: 10px;
           color: #e26829;
         }
+
         .tip-content {
           flex: 1;
           color: #e26829;
         }
       }
+
       .help {
         display: flex;
         padding: 0 5px;
+
         .help-label {
           padding-right: 10px;
           color: #e26829;
         }
+
         .help-content {
           flex: 1;
           color: #e26829;
@@ -318,4 +349,4 @@ export default {
 
 
 // WEBPACK FOOTER //
-// shooting.vue?b55a946e
+// shooting.vue?5cdf2468

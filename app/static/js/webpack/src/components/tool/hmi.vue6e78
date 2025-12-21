@@ -21,5 +21,5 @@ module.exports = Component.exports
 //////////////////
 // WEBPACK FOOTER
 // ./src/components/tool/hmi.vue
-// module id = 1279
+// module id = 1286
 // module chunks = 76
